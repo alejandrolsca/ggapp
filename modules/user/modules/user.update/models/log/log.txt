@@ -1,0 +1,9 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2014-07-28 07:57:59
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2014-07-28 07:58:34
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2014-07-28 07:59:13

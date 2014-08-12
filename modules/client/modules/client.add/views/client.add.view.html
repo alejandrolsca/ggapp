@@ -1,0 +1,33 @@
+<div class="clientAddView">
+    <h3>{{'CLIENT_ADD.TITLE' | i18n}}</h3>
+    {{fmData | json}}
+    <form class="form-horizontal" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+      <gg-input form="ggform" field="cl_corporatename"      required="true" valid="singleSpaces"    ng-model="fmData.cl_corporatename"></gg-input>
+      <gg-input form="ggform" field="cl_tin"                required="true" valid="rfc"             ng-model="fmData.cl_tin"></gg-input>
+      <gg-input form="ggform" field="cl_name"               required="true" valid="singleSpaces"    ng-model="fmData.cl_name"></gg-input>
+      <gg-input form="ggform" field="cl_fatherslastname"    required="true" valid="singleSpaces"    ng-model="fmData.cl_fatherslastname"></gg-input>
+      <gg-input form="ggform" field="cl_motherslastname"    required="true" valid="singleSpaces"    ng-model="fmData.cl_motherslastname"></gg-input>
+      <gg-input form="ggform" field="cl_street"             required="true" valid="singleSpaces"    ng-model="fmData.cl_street"></gg-input>
+      <gg-input form="ggform" field="cl_streetnumber"       required="true" valid="singleSpaces"    ng-model="fmData.cl_streetnumber"></gg-input>
+      <gg-input form="ggform" field="cl_suitenumber"        required="true" valid="singleSpaces"    ng-model="fmData.cl_suitenumber"></gg-input>
+      <gg-input form="ggform" field="cl_neighborhood"       required="true" valid="singleSpaces"    ng-model="fmData.cl_neighborhood"></gg-input>
+      <gg-input form="ggform" field="cl_addressreference"   required="true" valid="singleSpaces"    ng-model="fmData.cl_addressreference"></gg-input>
+      <gg-input form="ggform" field="cl_country"            required="true" valid="singleSpaces"    ng-model="fmData.cl_country"></gg-input>
+      <gg-input form="ggform" field="cl_state"              required="true" valid="singleSpaces"    ng-model="fmData.cl_state"></gg-input>
+      <gg-input form="ggform" field="cl_city"               required="true" valid="singleSpaces"    ng-model="fmData.cl_city"></gg-input>
+      <gg-input form="ggform" field="cl_county"             required="true" valid="singleSpaces"    ng-model="fmData.cl_county"></gg-input>
+      <gg-input form="ggform" field="cl_zipcode"            required="true" valid="zipcode"         ng-model="fmData.cl_zipcode"></gg-input>
+      <gg-input form="ggform" field="cl_email"              required="true" valid="email"           ng-model="fmData.cl_email"></gg-input>
+      <gg-input form="ggform" field="cl_phone"              required="true" valid="singleSpaces"    ng-model="fmData.cl_phone"></gg-input>
+      <gg-input form="ggform" field="cl_mobile"             required="true" valid="singleSpaces"    ng-model="fmData.cl_mobile"></gg-input>
+      <gg-input form="ggform" field="cl_creditlimit"        required="true" valid="decimal2"        ng-model="fmData.cl_creditlimit"></gg-input>
+      <gg-input form="ggform" field="cl_customerdiscount"   required="true" valid="decimal2"        ng-model="fmData.cl_customerdiscount"></gg-input>
+      <gg-select form="ggform" field="cl_status" options="cl_statusoptions" required="true" msg="invalid" ng-model="fmData.cl_status"></gg-select>
+    
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default" ng-disabled="ggform.$invalid">{{'GENERAL.SUBMIT'| i18n}}</button>
+        </div>
+      </div>
+    </form>
+</div>

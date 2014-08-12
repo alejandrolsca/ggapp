@@ -1,0 +1,24 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 04:56:12
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 04:57:05
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 04:58:37
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 04:59:50
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 05:03:34
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 05:03:53
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 05:09:09
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "printsource" does not exist
+ | Date: 2014-06-22 02:47:41

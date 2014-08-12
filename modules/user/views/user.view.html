@@ -1,0 +1,27 @@
+<div class="userView">
+    <h3>{{'USER.TITLE' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+    <div class="gg-grid">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th ng-show="showEdit" class="active"></th>
+                    <th ng-show="showDuplicate" class="active"></th>
+                    <th class="active" ng-repeat="key in fields">{{'USER.FIELDS.'+key | i18n}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in data">
+                    <td ng-show="showEdit"><span class="btn btn-xs btn-success" ng-click="edit(data[$index].us_id)">{{'GENERAL.BUTTONS.EDIT' | i18n}}</span></td>
+                    <td ng-show="showDuplicate"><span class="btn btn-xs btn-success" ng-click="duplicate(data[$index].us_id)">{{'GENERAL.BUTTONS.DUPLICATE' | i18n}}</span></td>
+                    <td ng-repeat="key in fields">{{data[$parent.$index][(key|lowercase)]}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="27">Total Rows: {{data.length}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

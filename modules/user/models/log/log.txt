@@ -1,0 +1,118 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 04:58:55
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  role "admin" does not exist
+ | Date: 2014-06-09 04:58:57
+Query: select 
+                        *
+                    from  public.user, 
+                    jsonb_to_record(us_jsonb, true) as x (
+                        gr_id int,
+                        us_user text,
+                        us_password text,
+                        us_fatherslastname text,
+                        us_motherslastname text,
+                        us_email text,
+                        us_phone text, 
+                        us_mobile text,
+                        us_status text
+                    );
+ | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "asdasd"
+ | Date: 2014-07-27 23:28:33
+Query: select 
+                        *
+                    from  public.user, 
+                    jsonb_to_record(us_jsonb, true) as x (
+                        gr_id int,
+                        us_user text,
+                        us_password text,
+                        us_fatherslastname text,
+                        us_motherslastname text,
+                        us_email text,
+                        us_phone text, 
+                        us_mobile text,
+                        us_status text
+                    );
+ | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "asdasd"
+ | Date: 2014-07-27 23:28:49
+Query: select 
+                        *
+                    from  public.user, 
+                    jsonb_to_record(us_jsonb, true) as x (
+                        gr_id int,
+                        us_user text,
+                        us_password text,
+                        us_fatherslastname text,
+                        us_motherslastname text,
+                        us_email text,
+                        us_phone text, 
+                        us_mobile text,
+                        us_status text
+                    );
+ | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "asdasd"
+ | Date: 2014-07-27 23:28:53
+Query: select 
+                        *
+                    from  public.user, 
+                    jsonb_to_record(us_jsonb, true) as x (
+                        gr_id int,
+                        us_user text,
+                        us_password text,
+                        us_fatherslastname text,
+                        us_motherslastname text,
+                        us_email text,
+                        us_phone text, 
+                        us_mobile text,
+                        us_status text
+                    );
+ | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "asdasd"
+ | Date: 2014-07-27 23:30:10
+Query: select 
+                        *
+                    from  public.user, 
+                    jsonb_to_record(us_jsonb, true) as x (
+                        gr_id int,
+                        us_user text,
+                        us_password text,
+                        us_fatherslastname text,
+                        us_motherslastname text,
+                        us_email text,
+                        us_phone text, 
+                        us_mobile text,
+                        us_status text
+                    );
+ | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "asdasd"
+ | Date: 2014-07-27 23:32:05
+Query: select 
+                        *
+                    from  public.user, 
+                    jsonb_to_record(us_jsonb, true) as x (
+                        gr_id int,
+                        us_user text,
+                        us_password text,
+                        us_fatherslastname text,
+                        us_motherslastname text,
+                        us_email text,
+                        us_phone text, 
+                        us_mobile text,
+                        us_status text
+                    );
+ | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "asdasd"
+ | Date: 2014-07-27 23:32:49
+Query: select 
+                        *
+                    from  public.user, 
+                    jsonb_to_record(us_jsonb, true) as x (
+                        gr_id int,
+                        us_user text,
+                        us_password text,
+                        us_fatherslastname text,
+                        us_motherslastname text,
+                        us_email text,
+                        us_phone text, 
+                        us_mobile text,
+                        us_status text
+                    );
+ | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "asdasd"
+ | Date: 2014-07-27 23:32:52

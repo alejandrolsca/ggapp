@@ -1,0 +1,27 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-10 20:15:13
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-10 20:16:16
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-10 20:17:15
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-10 20:19:09
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-11 05:45:49
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-11 05:45:51
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-11 05:45:54
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-11 05:46:01
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=admin" does not exist
+ | Date: 2014-05-11 05:46:34

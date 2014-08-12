@@ -1,0 +1,143 @@
+/*
+********************************************
+LAYOUT
+********************************************
+*/
+
+body {
+    background:#eee;
+    font-family: 'Open Sans', sans-serif;
+    margin-left:auto;
+	margin-right:auto;
+    padding:0;
+    width:960px;
+}
+#page_wrapper {
+    overflow:hidden;
+    display:block;
+    font-size:.75em;
+    padding:1em 0 1em 0;
+}
+#header_wrapper, #nav_wrapper, #content_wrapper, #aside_wrapper {
+    background:#fff;
+
+    /*box-shadow:.01em .01em 2em #ddd;*/
+    display:block;
+    padding:1em;
+}
+
+#header_wrapper {
+    border-top:1px solid #ddd;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+#nav_wrapper {
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+}
+#content_wrapper {
+    min-height:44em;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+#footer_wrapper {
+    padding:1em;
+}
+/*
+********************************************
+HTML TAGS
+********************************************
+*/
+
+a, a:visited {
+	text-decoration:none;
+	color:#333;
+}
+a:hover {
+	text-decoration:underline;
+}
+table tr td {
+    padding:.4em;
+}
+h1 {
+    font-size:2em;
+    margin-bottom:12px;
+}
+h2 {
+    font-size:1.75em;
+    margin-bottom:12px;
+}
+h3 {
+    font-size:1.5em;
+    margin-bottom:12px;
+}
+h4 {
+    font-size:1em;
+    margin-bottom:12px;
+}
+/*
+********************************************
+CLASSES
+********************************************
+*/
+.text_left {
+    text-align:left;
+}
+.text_right {
+    text-align:right;
+}
+
+.gg-grid {
+    overflow: auto;
+}
+
+.gg-grid thead tr th {
+
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.logo {
+    height: 6em;
+    width: auto
+}
+input.ng-valid {
+    border: 1px solid green;
+}
+input..ng-invalid {
+    border: 1px solid red;
+}
+input..ng-pristine {
+
+}
+input.ng-dirty {
+    border: 1px solid yellow;
+}
+
+/* really specific css rules applied by angular */
+.ng-invalid-required 		{  }
+.ng-invalid-minlength 		{  }
+.ng-valid-max-length 		{  }
+input.ng-invalid {
+  border: 1px solid red;
+}
+input.ng-valid {
+  border: 1px solid green;
+}
+/*
+********************************************
+VIEWS
+********************************************
+*/
+
+.homeView,.loginView, .clientView {
+    display:block;
+}
+.homeView {
+}
+.loginView {
+}
