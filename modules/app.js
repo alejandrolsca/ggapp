@@ -6,6 +6,7 @@ angular.element(document).ready(function(){
         'ui.router',
         'ngAnimate',
         'ui.bootstrap',
+        'gg-fields',
         require('./auth').name,
         require('./client').name,
         require('./user').name,
@@ -45,9 +46,6 @@ angular.element(document).ready(function(){
             });
         });
     });
-    app.directive('ggInput',require('./app/directives/form.input.directive'));
-    
-    app.directive('ggSelect',require('./app/directives/form.select.directive'));
     
     app.filter('i18n',require('./app/filters/i18n.filter'));
     

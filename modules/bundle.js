@@ -7,6 +7,7 @@ angular.element(document).ready(function(){
         'ui.router',
         'ngAnimate',
         'ui.bootstrap',
+        'gg-fields',
         require('./auth').name,
         require('./client').name,
         require('./user').name,
@@ -46,9 +47,6 @@ angular.element(document).ready(function(){
             });
         });
     });
-    app.directive('ggInput',require('./app/directives/form.input.directive'));
-    
-    app.directive('ggSelect',require('./app/directives/form.select.directive'));
     
     app.filter('i18n',require('./app/filters/i18n.filter'));
     
@@ -63,7 +61,7 @@ angular.element(document).ready(function(){
     angular.bootstrap(document, ['app']);
     
 });
-},{"./app/controllers/app.ctrl":2,"./app/directives/form.input.directive":3,"./app/directives/form.select.directive":4,"./app/filters/i18n.filter":5,"./app/services/lang.fac":8,"./app/services/logout.fac":9,"./app/services/user.credentials.fac":10,"./auth":12,"./client":15,"./home":24,"./user":27,"./wo":36}],2:[function(require,module,exports){
+},{"./app/controllers/app.ctrl":2,"./app/filters/i18n.filter":3,"./app/services/lang.fac":6,"./app/services/logout.fac":7,"./app/services/user.credentials.fac":8,"./auth":10,"./client":13,"./home":22,"./user":25,"./wo":34}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope,$rootScope,langFac,logoutFac,i18nFilter,USER_ROLES,$location) {
@@ -110,67 +108,6 @@ module.exports = function ($scope,$rootScope,langFac,logoutFac,i18nFilter,USER_R
 },{}],3:[function(require,module,exports){
 'use strict';
 
-module.exports = function () {
-    var validTypes = {
-                "singleSpaces": /^[^ \t\s]?([-_a-zA-Z0-9ÁáÉéÍíÓóÚú\.](.[^ \t\s])*)*[^ \t\s]?$/,
-                "rfc": /^[A-Za-z]{4}\-\d{6}(?:\-[A-Za-z\d]{3})?$/,
-                "email": /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i,
-                "decimal2": /^(\d+)?(\.\d{2,2})?$/,
-                "integer": /^\d$/,
-                "zipcode": /^\d{1,5}$/,
-                "date": /^\d{4}-\d{2}-\d{2}$/,
-                "user": /^\w{4,16}$/,
-                "password": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/
-            };
-    return {
-        restrict: 'E',
-        scope: {
-            form: '@',
-            field: '@',
-            required: '@',
-            valid: '@',
-            ngModel: '='
-        },
-        template: function(elem, attrs){
-            var html = '<div class="form-group" ng-class="{\'has-error\': ' + attrs.form + '.' + attrs.field + '.$invalid && !' + attrs.form + '.' + attrs.field + '.$pristine}"> \
-                        <label class="col-sm-2 control-label">{{ "CLIENT.FIELDS."+field+".NAME" | uppercase | i18n}}</label> \
-                        <div class="col-sm-4"> \
-                            <input type="text" class="form-control" name="field" ng-model="ngModel" ng-required="required" ng-pattern="'+validTypes[attrs.valid]+'"> \
-                            <p ng-show="' + attrs.form + '.' + attrs.field + '.$invalid && !' + attrs.form + '.' + attrs.field + '.$pristine">{{"CLIENT.FIELDS."+field+".INVALID" | uppercase | i18n}}</p> \
-                        </div> \
-                    </div>'
-            console.log(html);
-            return html;
-        }
-    };
-}
-//ng-class="{\'has-error\': [form].[field].$invalid && ![form].[field].$pristine}
-},{}],4:[function(require,module,exports){
-'use strict';
-
-module.exports = function () {
-    return {
-        restrict: 'E',
-        scope: {
-            options: '=',
-            form: '@'
-        },
-        template: function(elem, attrs) {
-        return '<div class="form-group" ng-class="{\'has-error\': [form].' + attrs.field + '.$invalid && !' + attrs.form + '.' + attrs.field + '.$pristine}"> \
-                    <label class="col-sm-2 control-label">{{ "CLIENT.FIELDS.' + attrs.field + '.NAME" | uppercase | i18n}}</label> \
-                    <div class="col-sm-4"> \
-                        <select class="form-control" name="' + attrs.field + '" ng-model="fmData.' + attrs.field + '" ng-required="' + attrs.required + '"> \
-                            <option ng-repeat="opt in options" value="{{opt.value}}">{{opt.label}}</option> \
-                        </select> \
-                        <p ng-show="' + attrs.form + '.' + attrs.field + '.$invalid && !' + attrs.form + '.' + attrs.field + '.$pristine">' + attrs.msg + '</p> \
-                    </div> \
-                </div>'
-        }
-    }
-};
-},{}],5:[function(require,module,exports){
-'use strict';
-
 module.exports = ['$rootScope', function($rootScope) {
 return function (input,param) {
         var translations = {
@@ -198,7 +135,7 @@ return function (input,param) {
             
     }
 }];
-},{"../languages/en-US":6,"../languages/es-MX":7}],6:[function(require,module,exports){
+},{"../languages/en-US":4,"../languages/es-MX":5}],4:[function(require,module,exports){
 module.exports = {
                 "GENERAL":{
                     "NAV":[
@@ -342,7 +279,7 @@ module.exports = {
                     "PASSWORD" : "Password",
                 }
             }
-},{}],7:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports = {
                 "GENERAL":{ 
                     "NAV":[
@@ -380,6 +317,19 @@ module.exports = {
                         "EDIT":"Editar",
                         "DUPLICATE":"Duplicar",
                     },
+                    "REGEXP":{
+                        "SINGLESPACES": "Sin espacios dobles ni caracteres especiales.",
+                        "RFC": "XXXX-######[-XXX]",
+                        "EMAIL": "Por favor introduzca un email valido.",
+                        "DECIMAL2": "Solo numeros enteros o con 2 decimales.",
+                        "DISCOUNT": "El formato valido para el descuento es 0[.00]",
+                        "INTEGER": "Solo numeros enteros",
+                        "ZIPCODE": "El codigo postal es de 5 numeros.",
+                        "DATE": "AAAA-MM-DD",
+                        "USER": "De 4 a 16 caracteres sin espacios ni caracteres especiales.",
+                        "PASSWORD": "la contraseña debe contener de 8-16 caracteres, por lo menos una letra mayuscula, una letra minuscula y un digito.",
+                        "PHONE": "Los numeros de tel. solo aceptan los caracteres + - ( ) y numeros del 0-9"
+                    },
                     "SUBMIT":"Enviar",
                     "COPYRIGHT":"©2014 Grupo Grafico de México S.A. de C.V. Todos los derechos reservados."
                 },
@@ -390,28 +340,28 @@ module.exports = {
                  "CLIENT":{
                     "TITLE" : "Clientes",
                     "FIELDS":{
-                        "CL_ID":{"NAME":"ID Cliente","INVALID":"Required"},
-                        "CL_CORPORATENAME":{"NAME":"Razón Social","INVALID":"Required"},
-                        "CL_TIN":{"NAME":"RFC","INVALID":"Required"},
-                        "CL_NAME":{"NAME":"Nombre","INVALID":"Required"},
-                        "CL_FATHERSLASTNAME":{"NAME":"Apellido Paterno","INVALID":"Required"},
-                        "CL_MOTHERSLASTNAME":{"NAME":"Apellido Materno","INVALID":"Required"},
-                        "CL_STREET":{"NAME":"Calle","INVALID":"Required"},
-                        "CL_STREETNUMBER":{"NAME":"Numero Exterior","INVALID":"Required"},
-                        "CL_SUITENUMBER":{"NAME":"Numero Interior","INVALID":"Required"},
-                        "CL_NEIGHBORHOOD":{"NAME":"Colonia","INVALID":"Required"},
-                        "CL_ADDRESSREFERENCE":{"NAME":"Referencia","INVALID":"Required"},
-                        "CL_COUNTRY":{"NAME":"País","INVALID":"Required"},
-                        "CL_STATE":{"NAME":"Estado","INVALID":"Required"},
-                        "CL_CITY":{"NAME":"Ciudad","INVALID":"Required"},
-                        "CL_COUNTY":{"NAME":"Municipio","INVALID":"Required"},
-                        "CL_ZIPCODE":{"NAME":"Codigo Postal","INVALID":"Required"},
-                        "CL_EMAIL":{"NAME":"Correo Electrónico","INVALID":"Required"},
-                        "CL_PHONE":{"NAME":"Teléfono","INVALID":"Required"},
-                        "CL_MOBILE":{"NAME":"Móvil","INVALID":"Required"},
-                        "CL_CREDITLIMIT":{"NAME":"Limite de credito","INVALID":"Required"},
-                        "CL_CUSTOMERDISCOUNT":{"NAME":"Descuento","INVALID":"Required"},
-                        "CL_STATUS":{"NAME":"Estatus","INVALID":"Required"},
+                        "CL_ID":"ID Cliente",
+                        "CL_CORPORATENAME":"Razón Social",
+                        "CL_TIN":"RFC",
+                        "CL_NAME":"Nombre",
+                        "CL_FATHERSLASTNAME":"Apellido Paterno",
+                        "CL_MOTHERSLASTNAME":"Apellido Materno",
+                        "CL_STREET":"Calle",
+                        "CL_STREETNUMBER":"Numero Exterior",
+                        "CL_SUITENUMBER":"Numero Interior",
+                        "CL_NEIGHBORHOOD":"Colonia",
+                        "CL_ADDRESSREFERENCE":"Referencia",
+                        "CL_COUNTRY":"País",
+                        "CL_STATE":"Estado",
+                        "CL_CITY":"Ciudad",
+                        "CL_COUNTY":"Municipio",
+                        "CL_ZIPCODE":"Codigo Postal",
+                        "CL_EMAIL":"Correo Electrónico",
+                        "CL_PHONE":"Teléfono",
+                        "CL_MOBILE":"Móvil",
+                        "CL_CREDITLIMIT":"Limite de credito",
+                        "CL_CUSTOMERDISCOUNT":"Descuento",
+                        "CL_STATUS":"Estatus",
                     }
                 },
                 "CLIENT_ADD":{
@@ -487,7 +437,7 @@ module.exports = {
                 }
                 
             }
-},{}],8:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $q) {
@@ -519,7 +469,7 @@ module.exports = function($http, $q) {
     };
     return factory;
 };
-},{}],9:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = function($http, $q){
     var factory = {};
     factory.logout = function() {
@@ -537,7 +487,7 @@ module.exports = function($http, $q){
     };
     return factory;
 };
-},{}],10:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = function($http, $q){
     var factory = {};
     factory.credentials = function() {
@@ -555,7 +505,7 @@ module.exports = function($http, $q){
     };
     return factory;
 };
-},{}],11:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($rootScope, $scope, authFac, $location, AUTH_EVENTS) {
@@ -593,7 +543,7 @@ module.exports = function ($rootScope, $scope, authFac, $location, AUTH_EVENTS) 
     
     $scope.us_passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
 };
-},{}],12:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var ngModule = angular.module('app.auth',[]);
@@ -631,7 +581,7 @@ ngModule.factory('authFac',require('./services/auth.fac'));
 ngModule.controller('authCtrl',require('./controllers/auth.ctrl'));
 
 module.exports = ngModule;
-},{"./controllers/auth.ctrl":11,"./services/auth.fac":13}],13:[function(require,module,exports){
+},{"./controllers/auth.ctrl":9,"./services/auth.fac":11}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http){
@@ -664,7 +614,7 @@ module.exports = function($http){
     };
     return factory;
 };
-},{}],14:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope, clientFac, $window, i18nFilter, $parse) {
@@ -703,7 +653,7 @@ module.exports = function ($scope, clientFac, $window, i18nFilter, $parse) {
         });
      });
 };
-},{}],15:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var ngModule = angular.module('app.client',[
@@ -728,18 +678,13 @@ ngModule.factory('clientFac',require('./services/client.fac'));
 ngModule.controller('clientCtrl',require('./controllers/client.ctrl'));
 
 module.exports = ngModule;
-},{"./controllers/client.ctrl":14,"./modules/client.add":17,"./modules/client.update":20,"./services/client.fac":22}],16:[function(require,module,exports){
+},{"./controllers/client.ctrl":12,"./modules/client.add":15,"./modules/client.update":18,"./services/client.fac":20}],14:[function(require,module,exports){
 'use strict';
 
-module.exports = function ($scope, clientAddFac, $window, $location, i18nFilter) {
+module.exports = function ($scope, clientAddFac, $window, $location, i18nFilter, $interval) {
     
     $scope.fields = Object.keys(i18nFilter("CLIENT.FIELDS"));
-    
-    $scope.cl_statusoptions = [
-        {"label":"Activo","value":"A"},
-        {"label":"Inactivo","value":"I"}
-    ]
-        
+                
     $scope.onSubmit = function() {
     
         clientAddFac.add($scope.fmData).then(function(promise){
@@ -753,11 +698,58 @@ module.exports = function ($scope, clientAddFac, $window, $location, i18nFilter)
         //console.log('form submitted:', $scope.formData);
     };
     
+    $scope.getStates = function() {
+        $scope.cl_stateoptions = [];
+        $scope.cl_cityoptions = [];
+        $scope.cl_countyoptions = [];
+        $interval(function(){
+            clientAddFac.getStates($scope.fmData.cl_country).then(function(promise){
+                if(angular.isArray(promise.data.geonames)) {
+                    $scope.cl_stateoptions = promise.data.geonames;
+                } else {
+                    //$scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+        },0,1);
+    }
+    
+    $scope.getCityCounty = function() {
+        $scope.cl_cityoptions = [];
+        $scope.cl_countyoptions = [];
+        $interval(function(){
+            clientAddFac.getStates($scope.fmData.cl_state).then(function(promise){
+                if(angular.isArray(promise.data.geonames)) {
+                    $scope.cl_cityoptions = promise.data.geonames;
+                    $scope.cl_countyoptions = promise.data.geonames;
+                } else {
+                    //$scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+        },0,1);
+    }
+    
     $scope.$on('$viewContentLoaded', function () {
         // this code is executed after the view is loaded
+        
+        clientAddFac.getCountries().then(function(promise){
+            if(angular.isArray(promise.data.geonames)) {
+                $scope.cl_countryoptions = promise.data.geonames;
+            } else {
+                //$scope.updateFail = true;
+            }
+            console.log(JSON.stringify(promise.data.geonames));
+        });
+
+        $scope.cl_statusoptions = [
+            {"label":"Activo","value":"A"},
+            {"label":"Inactivo","value":"I"}
+        ]
+        
      });
 };
-},{}],17:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var ngModule = angular.module('app.client.add',[]);
@@ -779,10 +771,10 @@ ngModule.factory('clientAddFac',require('./services/client.add.fac'));
 ngModule.controller('clientAddCtrl',require('./controllers/client.add.ctrl'));
 
 module.exports = ngModule;
-},{"./controllers/client.add.ctrl":16,"./services/client.add.fac":18}],18:[function(require,module,exports){
+},{"./controllers/client.add.ctrl":14,"./services/client.add.fac":16}],16:[function(require,module,exports){
 'use strict';
 
-module.exports = function($http, $stateParams){
+module.exports = function($http, $stateParams, $interval){
         var factory = {};
         factory.add = function(cl_jsonb) {
             var promise = $http.post('modules/client/modules/client.add/models/client.add.model.php', {
@@ -795,9 +787,36 @@ module.exports = function($http, $stateParams){
             });
             return promise;
         };
+        factory.getCountries = function() {
+            var promise = $http.get('http://api.geonames.org/countryInfoJSON?username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function (data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getStates = function(cl_country) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+cl_country+'&username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function(data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getCityCounty = function(cl_state) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+cl_state+'&username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function(data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
         return factory;
     };
-},{}],19:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope, clientUpdateFac, $window, $location, i18nFilter) {
@@ -831,7 +850,7 @@ module.exports = function ($scope, clientUpdateFac, $window, $location, i18nFilt
         
      });
 };
-},{}],20:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 var ngModule = angular.module('app.client.update',[]);
@@ -853,7 +872,7 @@ ngModule.factory('clientUpdateFac',require('./services/client.update.fac'));
 ngModule.controller('clientUpdateCtrl',require('./controllers/client.update.ctrl'));
 
 module.exports = ngModule;
-},{"./controllers/client.update.ctrl":19,"./services/client.update.fac":21}],21:[function(require,module,exports){
+},{"./controllers/client.update.ctrl":17,"./services/client.update.fac":19}],19:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $q, $stateParams){
@@ -889,7 +908,7 @@ module.exports = function($http, $q, $stateParams){
         };
         return factory;
     };
-},{}],22:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $q){
@@ -910,7 +929,7 @@ module.exports = function($http, $q){
         };
         return factory;
     };
-},{}],23:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($rootScope, $scope, homeFac, $window) {
@@ -920,7 +939,7 @@ module.exports = function ($rootScope, $scope, homeFac, $window) {
         // this code is executed after the view is loaded
     });
 };
-},{}],24:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var ngModule = angular.module('app.home',[]);
@@ -942,7 +961,7 @@ ngModule.factory('homeFac',require('./services/home.fac'));
 ngModule.controller('homeCtrl',require('./controllers/home.ctrl'));
 
 module.exports = ngModule;
-},{"./controllers/home.ctrl":23,"./services/home.fac":25}],25:[function(require,module,exports){
+},{"./controllers/home.ctrl":21,"./services/home.fac":23}],23:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $q){
@@ -962,7 +981,7 @@ module.exports = function($http, $q){
         };
         return factory;
     };
-},{}],26:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope, userFac, $window, i18nFilter, $parse) {
@@ -1003,7 +1022,7 @@ module.exports = function ($scope, userFac, $window, i18nFilter, $parse) {
         });
      });
 };
-},{}],27:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 var ngModule = angular.module('app.user',[
@@ -1028,7 +1047,7 @@ ngModule.factory('userFac',require('./services/user.fac'));
 ngModule.controller('userCtrl',require('./controllers/user.ctrl'));
 
 module.exports = ngModule;
-},{"./controllers/user.ctrl":26,"./modules/user.add":29,"./modules/user.update":32,"./services/user.fac":34}],28:[function(require,module,exports){
+},{"./controllers/user.ctrl":24,"./modules/user.add":27,"./modules/user.update":30,"./services/user.fac":32}],26:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope, userAddFac, $window, $location, i18nFilter) {
@@ -1050,7 +1069,7 @@ module.exports = function ($scope, userAddFac, $window, $location, i18nFilter) {
         // this code is executed after the view is loaded
      });
 };
-},{}],29:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var ngModule = angular.module('app.user.add',[]);
@@ -1072,7 +1091,7 @@ ngModule.factory('userAddFac',require('./services/user.add.fac'));
 ngModule.controller('userAddCtrl',require('./controllers/user.add.ctrl'));
 
 module.exports = ngModule;
-},{"./controllers/user.add.ctrl":28,"./services/user.add.fac":30}],30:[function(require,module,exports){
+},{"./controllers/user.add.ctrl":26,"./services/user.add.fac":28}],28:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $stateParams){
@@ -1090,7 +1109,7 @@ module.exports = function($http, $stateParams){
         };
         return factory;
     };
-},{}],31:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope, userUpdateFac, $window, $location, i18nFilter) {
@@ -1124,7 +1143,7 @@ module.exports = function ($scope, userUpdateFac, $window, $location, i18nFilter
         
      });
 };
-},{}],32:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 var ngModule = angular.module('app.user.update',[]);
@@ -1146,7 +1165,7 @@ ngModule.factory('userUpdateFac',require('./services/user.update.fac'));
 ngModule.controller('userUpdateCtrl',require('./controllers/user.update.ctrl'));
 
 module.exports = ngModule;
-},{"./controllers/user.update.ctrl":31,"./services/user.update.fac":33}],33:[function(require,module,exports){
+},{"./controllers/user.update.ctrl":29,"./services/user.update.fac":31}],31:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $q, $stateParams){
@@ -1182,7 +1201,7 @@ module.exports = function($http, $q, $stateParams){
         };
         return factory;
     };
-},{}],34:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $q){
@@ -1202,7 +1221,7 @@ module.exports = function($http, $q){
         };
         return factory;
     };
-},{}],35:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope, woFactory,$location, i18nFilter) {
@@ -1244,7 +1263,7 @@ module.exports = function ($scope, woFactory,$location, i18nFilter) {
         });
      });
 };
-},{}],36:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 'use strict';
 
 var clientModule = angular.module('app.wo',[
@@ -1269,7 +1288,7 @@ clientModule.factory('woFactory',require('./services/woFactory'));
 clientModule.controller('woController',require('./controllers/woController'));
 
 module.exports = clientModule;
-},{"./controllers/woController":35,"./modules/woAdd":38,"./modules/woUpdate":41,"./services/woFactory":43}],37:[function(require,module,exports){
+},{"./controllers/woController":33,"./modules/woAdd":36,"./modules/woUpdate":39,"./services/woFactory":41}],35:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope, woAddFactory, $window) {
@@ -1286,7 +1305,7 @@ module.exports = function ($scope, woAddFactory, $window) {
         });
      });
 };
-},{}],38:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
 
 var clientModule = angular.module('app.woAdd',[]);
@@ -1308,7 +1327,7 @@ clientModule.factory('woAddFactory',require('./services/woAddFactory'));
 clientModule.controller('woAddController',require('./controllers/woAddController'));
 
 module.exports = clientModule;
-},{"./controllers/woAddController":37,"./services/woAddFactory":39}],39:[function(require,module,exports){
+},{"./controllers/woAddController":35,"./services/woAddFactory":37}],37:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http){
@@ -1325,7 +1344,7 @@ module.exports = function($http){
         };
         return factory;
     };
-},{}],40:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 'use strict';
 
 module.exports = function ($scope, woUpdateFactory, $window) {
@@ -1342,7 +1361,7 @@ module.exports = function ($scope, woUpdateFactory, $window) {
         });
      });
 };
-},{}],41:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 var clientModule = angular.module('app.woUpdate',[]);
@@ -1364,7 +1383,7 @@ clientModule.factory('woUpdateFactory',require('./services/woUpdateFactory'));
 clientModule.controller('woUpdateController',require('./controllers/woUpdateController'));
 
 module.exports = clientModule;
-},{"./controllers/woUpdateController":40,"./services/woUpdateFactory":42}],42:[function(require,module,exports){
+},{"./controllers/woUpdateController":38,"./services/woUpdateFactory":40}],40:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $stateParams){
@@ -1382,7 +1401,7 @@ module.exports = function($http, $stateParams){
         };
         return factory;
     };
-},{}],43:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 'use strict';
 
 module.exports = function($http, $q){
