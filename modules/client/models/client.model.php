@@ -36,10 +36,10 @@ $result = $pgsql
                         cl_state text,
                         cl_city text,
                         cl_county text,
-                        cl_zipcode int,
+                        cl_zipcode text,
                         cl_email text,
-                        cl_phonenumber text,
-                        cl_mobilenumber text,
+                        cl_phone text,
+                        cl_mobile text,
                         cl_creditlimit decimal,
                         cl_customerdiscount decimal,
                         cl_status text

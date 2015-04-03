@@ -308,3 +308,18 @@ Query: select
                     );
  | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "ADSASD"
  | Date: 2014-08-03 12:02:39
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-03-24 08:42:55
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-03-24 08:43:56
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-03-29 20:26:26
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-03-29 20:31:53
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-03-29 20:40:27

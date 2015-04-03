@@ -1,3 +1,5 @@
-assets
+assets/
+lib/
+node_modules/
+platforms/
 .DS_Store
-bower_components

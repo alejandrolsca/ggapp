@@ -1,0 +1,12 @@
+<div class="woView">
+    <h3>{{'WO.TITLE' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+    <wj-flex-grid control="ggGrid" items-source="data" auto-generate-columns="false" initialized="initGrid(s,e)" style="height:390px;">
+        <wj-flex-grid-column is-read-only="true">
+            <span class="btn btn-xs btn-success" ng-click="edit($item.wo_id)">{{'general.buttons.edit' | i18n}}</span>
+        </wj-flex-grid-column>
+        <wj-flex-grid-column is-read-only="true">
+            <span class="btn btn-xs btn-success" ng-click="duplicate($item.wo_id)">{{'GENERAL.BUTTONS.DUPLICATE' | i18n}}</span>
+        </wj-flex-grid-column>
+    </wj-flex-grid>
+</div>

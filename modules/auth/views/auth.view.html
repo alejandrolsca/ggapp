@@ -1,21 +1,21 @@
 <div class="loginView">
-    <h3>{{'AUTH.TITLE' | i18n}}</h3>
+    <h3>{{'auth.title' | i18n}}</h3>
     <form class="form-horizontal" role="form" name="loginForm" ng-submit="onSubmit(user);">
         <div class="form-group">
-            <label for="us_database" class="col-sm-2 control-label">{{ 'AUTH.ENTERPRISE' | i18n }}</label>
+            <label for="us_database" class="col-sm-2 control-label">{{ 'auth.enterprise' | i18n }}</label>
             <div class="col-sm-4">
                 <select class="form-control" ng-options="db.label for db in login_databases" id="us_database" name="us_database" ng-model="user.us_database" ng-required="true"></select>
             </div>
         </div>
         <div class="form-group">
-            <label for="us_database" class="col-sm-2 control-label">{{ 'AUTH.USER' | i18n }}</label>
+            <label for="us_database" class="col-sm-2 control-label">{{ 'auth.user' | i18n }}</label>
             <div class="col-sm-4">
                 <input class="form-control" type="text" id="us_user" name="us_user" ng-model="user.us_user" ng-required="true"/>
                 <span class="error" ng-show="loginForm.us_user.$error.required"><br/>Requerido!</span>
             </div>
         </div>
         <div class="form-group">
-            <label for="us_password" class="col-sm-2 control-label">{{ 'AUTH.PASSWORD' | i18n }}</label>
+            <label for="us_password" class="col-sm-2 control-label">{{ 'auth.password' | i18n }}</label>
             <div class="col-sm-4">
                 <input class="form-control" type="password" id="us_password" name="us_password" ng-model="user.us_password" ng-required="true" ng-pattern="us_passwordPattern" />
                 <span class="error" ng-show="loginForm.us_password.$error.pattern"><br/>
@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button ng-disabled="loginForm.$invalid" type="submit" class="btn btn-default">{{'GENERAL.SUBMIT'| i18n}}</button>
+                <button ng-disabled="loginForm.$invalid" type="submit" class="btn btn-default">{{'general.submit'| i18n}}</button>
             </div>
          </div>
         <alert ng-if="notAuthorized" type="danger">User is not allowed</alert>

@@ -1,6 +1,7 @@
-'use strict';
-
-module.exports = function($http, $q){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q){
         var factory = {};
         factory.data = function() {
             var deferred = $q.defer();
@@ -18,3 +19,5 @@ module.exports = function($http, $q){
         };
         return factory;
     };
+    
+})(angular);

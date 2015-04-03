@@ -116,3 +116,6 @@ Query: select
                     );
  | Error: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for integer: "asdasd"
  | Date: 2014-07-27 23:32:52
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2014-08-31 06:10:13

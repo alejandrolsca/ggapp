@@ -1,9 +1,9 @@
 <div class="userUpdateView">
-    <h3>{{'USER_UPDATE.TITLE' | i18n}}</h3>
+    <h3>{{'user-update.title' | i18n}}</h3>
     <span ng-if="loading">Cargando...</span>
     <form class="form-horizontal" role="form" name="ggform" ng-submit="onSubmit();">
       <div class="form-group">
-        <label for="gr_id" class="col-sm-2 control-label">{{'USER.FIELDS.GR_ID' | i18n}}</label>
+        <label for="gr_id" class="col-sm-2 control-label">{{'user.labels.gr-id' | i18n}}</label>
           <div class="col-sm-4">
               <select class="form-control" id="gr_id" ng-model="fmData.gr_id">
                   <option value="1">Admin</option>
@@ -13,55 +13,55 @@
           </div>
       </div>
       <div class="form-group">
-          <label for="us_user" class="col-sm-2 control-label">{{'USER.FIELDS.US_USER' | i18n}}</label>
+          <label for="us_user" class="col-sm-2 control-label">{{'user.labels.us-user' | i18n}}</label>
           <div class="col-sm-4">
               <input type="text" class="form-control" id="us_user" placeholder="" ng-model="fmData.us_user" required>
           </div>
       </div>
       <div class="form-group">
-          <label for="us_password" class="col-sm-2 control-label">{{'USER.FIELDS.US_PASSWORD' | i18n}}</label>
+          <label for="us_password" class="col-sm-2 control-label">{{'user.labels.us-password' | i18n}}</label>
           <div class="col-sm-4">
               <input type="text" class="form-control" id="us_password" placeholder="" ng-model="fmData.us_password" required>
           </div>
       </div>
      <div class="form-group">
-          <label for="us_name" class="col-sm-2 control-label">{{'USER.FIELDS.US_NAME' | i18n}}</label>
+          <label for="us_name" class="col-sm-2 control-label">{{'user.labels.us-name' | i18n}}</label>
           <div class="col-sm-4">
               <input type="text" class="form-control" id="us_name" placeholder="" ng-model="fmData.us_name" required>
           </div>
       </div>
         <div class="form-group">
-          <label for="us_fatherslastname" class="col-sm-2 control-label">{{'USER.FIELDS.US_FATHERSLASTNAME' | i18n}}</label>
+          <label for="us_fatherslastname" class="col-sm-2 control-label">{{'user.labels.us-fatherslastname' | i18n}}</label>
           <div class="col-sm-4">
               <input type="text" class="form-control" id="us_fatherslastname" placeholder="" ng-model="fmData.us_fatherslastname" required>
           </div>
       </div>
         <div class="form-group">
-          <label for="us_motherslastname" class="col-sm-2 control-label">{{'USER.FIELDS.US_MOTHERSLASTNAME' | i18n}}</label>
+          <label for="us_motherslastname" class="col-sm-2 control-label">{{'user.labels.us-motherslasname' | i18n}}</label>
           <div class="col-sm-4">
               <input type="text" class="form-control" id="us_motherslastname" placeholder="" ng-model="fmData.us_motherslastname" required>
           </div>
       </div>
         <div class="form-group">
-          <label for="us_email" class="col-sm-2 control-label">{{'USER.FIELDS.US_EMAIL' | i18n}}</label>
+          <label for="us_email" class="col-sm-2 control-label">{{'user.labels.us-email' | i18n}}</label>
           <div class="col-sm-4">
               <input type="email" class="form-control" id="us_email" placeholder="" ng-model="fmData.us_email" required>
           </div>
       </div>
         <div class="form-group">
-          <label for="us_phone" class="col-sm-2 control-label">{{'USER.FIELDS.US_PHONE' | i18n}}</label>
+          <label for="us_phone" class="col-sm-2 control-label">{{'user.labels.us-phone' | i18n}}</label>
           <div class="col-sm-4">
               <input type="tel" class="form-control" id="us_phone" placeholder="" ng-model="fmData.us_phone" required>
           </div>
       </div>
         <div class="form-group">
-          <label for="us_mobile" class="col-sm-2 control-label">{{'USER.FIELDS.US_MOBILE' | i18n}}</label>
+          <label for="us_mobile" class="col-sm-2 control-label">{{'user.labels.us-mobile' | i18n}}</label>
           <div class="col-sm-4">
               <input type="tel" class="form-control" id="us_mobile" placeholder="" ng-model="fmData.us_mobile" required>
           </div>
       </div>
         <div class="form-group">
-          <label for="us_status" class="col-sm-2 control-label">{{'USER.FIELDS.US_STATUS' | i18n}}</label>
+          <label for="us_status" class="col-sm-2 control-label">{{'user.labels.us-status' | i18n}}</label>
           <div class="col-sm-4">
               <select type="text" class="form-control" id="us_status" ng-model="fmData.us_status">
                   <option value="A">A</option>
@@ -71,7 +71,7 @@
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default">{{'GENERAL.SUBMIT'| i18n}}</button>
+          <button type="submit" class="btn btn-default">{{'general.submit'| i18n}}</button>
         </div>
       </div>
     </form>

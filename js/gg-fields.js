@@ -1,4 +1,5 @@
 (function(angular){
+    'use strict';
     
     angular.module('gg-fields',[])
     
@@ -6,14 +7,14 @@
             "singleSpaces": /^([-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.](.[-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.])*)*$/,
             "rfc": /^[A-Za-z]{3,4}\-\d{6}(?:\-[A-Za-z\d]{3})?$/,
             "email": /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i,
-            "decimal2": /^(\d+)?(\.\d{2,2})?$/,
-            "discount": /^(0)?(\.\d{2,2})?$/,
+            "decimal": /^(\d+\.\d{2,5})$/,
+            "discount": /^(0\.\d{2,2})$/,
             "integer": /^\d$/,
             "zipcode": /^\d{5,5}$/,
             "date": /^\d{4}-\d{2}-\d{2}$/,
             "user": /^\w{4,16}$/,
             "password": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
-            "phone": /^([-+\(\)0-9](.[-+\(\)0-9])*)*$/
+            "phone": /^([+])?(\d{2,}-)*(\d{2,}-\d{2,})$/
     })
     
     .directive('ggInput',function(validTypes){
@@ -25,37 +26,37 @@
                     lbl: '@',
                     lblClass: '@',
                     fldClass: '@',
+                    formGroupClass: '@',
+                    fieldWrapperClass: '@',
                     reqMsg: '@',
                     regexpMsg: '@',
+                    ngChange: '&',
+                    name: '@',
                     ngModel: '='
                 },
                 template: function(elem, attrs) {
                     var disabled    = attrs.hasOwnProperty('disabled')  ? 'ng-disabled="true"'  : ''; //disable field
                     var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
                     
-                    return '<div class="form-group">\
+                    return '<div class="form-group {{formGroupClass}}">\
                                 <label class="{{lblClass}} control-label">{{lbl}}</label>\
                                 <div class="{{fldClass}}">\
-                                    <input class="form-control" type="text" ng-model="ngModel" '+disabled+' '+required+'/>\
+                                    <input class="form-control" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" '+disabled+' '+required+'/>\
                                     <p ng-class="errClass" ng-show="required">{{reqMsg}}</p>\
                                     <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
                                 </div>\
                           </div>';
                 },
-                link: function(scope, elem, attrs, ctrl){
-                            
-                    //format text going to user (model to view)
-                    ctrl.$formatters.unshift(function (modelValue){ 
+                link: function(scope, elem, attrs, ctrl){     
+                    
+                    var validator = function (value){
                         
-                        if(angular.isDefined(modelValue) || !ctrl.$pristine) ctrl.$setViewValue(modelValue);
-                                                    
-                    }); // triggers on DOM change
-        
-                    //format text from the user (view to model)
-                    ctrl.$parsers.unshift(function (viewValue){
+                        if(angular.isDefined(value) || !ctrl.$pristine) {
+                            ctrl.$setViewValue(value);
+                        };
                         
-                        var required = (!angular.isDefined(viewValue) && attrs.hasOwnProperty('required'));
-                        var invalid = (angular.isDefined(viewValue) && !validTypes[attrs.regexp].test(viewValue));
+                        var required = (!angular.isDefined(value) && attrs.hasOwnProperty('required'));
+                        var invalid = (angular.isDefined(value) && !validTypes[attrs.regexp].test(value));
                         
                         elem.toggleClass('has-error', (required || invalid));
                         elem.toggleClass('has-success', !(required || invalid));
@@ -65,8 +66,99 @@
                         
                         ctrl.$setValidity('valid', ((required || invalid) ? false : true))
                         
-                        return viewValue;
-                    }); // triggers on code change
+                        return value;
+                    }
+                    //format text going to user (model to view)
+                    ctrl.$formatters.unshift(validator);
+                    //format text from the user (view to model)
+                    ctrl.$parsers.unshift(validator);
+                }
+        };
+    })
+    
+    .directive('ggPhone',function(validTypes){
+        return {
+                restrict: "E",
+                require: '^ngModel',
+                scope: {
+                    errClass: '@',
+                    lbl: '@',
+                    formGroupClass: '@',
+                    fieldWrapperClass: '@',
+                    lblClass: '@',
+                    fldClass: '@',
+                    reqMsg: '@',
+                    regexpMsg: '@',
+                    ngChange: '&',
+                    name: '@',
+                    ngModel: '='
+                },
+                template: function(elem, attrs) {
+                    var disabled    = attrs.hasOwnProperty('disabled')  ? 'ng-disabled="true"'  : ''; //disable field
+                    var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
+                    
+                    return '<div class="form-group {{formGroupClass}}">\
+                                <label class="{{lblClass}} control-label">{{lbl}}</label>\
+                                <div class="{{fldClass}}">\
+                                    <input class="form-control" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" '+disabled+' '+required+'/>\
+                                    <p ng-class="errClass" ng-show="required">{{reqMsg}}</p>\
+                                    <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
+                                    <div ng-show="validPhone">\
+                                        <p>E164: <a href="tel:{{phone1}}">{{phone1}}</a></p>\
+                                        <p>Nacional: <a href="tel:{{phone2}}">{{phone2}}</a></p>\
+                                        <p>Internacional: <a href="tel:{{phone3}}">{{phone3}}</a></p>\
+                                        <p>Original: <a href="tel:{{phone4}}">{{phone4}}</a></p>\
+                                    </div>\
+                                </div>\
+                          </div>';
+                },
+                link: function(scope, elem, attrs, ctrl){
+                    
+                    var validator = function (value){
+                        
+                        if(angular.isDefined(value) || !ctrl.$pristine) {
+                            ctrl.$setViewValue(value);
+                        };
+                        
+                        var required = (!angular.isDefined(value) && attrs.hasOwnProperty('required')),
+                        invalid = (angular.isDefined(value) && !phoneUtils.isValidNumber(value, 'MX')),
+                        validPhone;
+                        
+                        
+                        elem.toggleClass('has-error', (required || invalid));
+                        elem.toggleClass('has-success', !(required || invalid));
+                        
+                        scope.required = required;
+                        scope.invalid = invalid;
+                                        
+                        ctrl.$setValidity('valid', ((required || invalid) ? false : true))
+                        
+                        if (angular.isDefined(value)) {
+                            validPhone = phoneUtils.isValidNumber(value, 'MX');
+                        } else {
+                            validPhone = false;
+                        }
+                        scope.validPhone = validPhone;
+                        if (validPhone) {
+                            scope.validPhone = true;
+                            scope.phone1 = phoneUtils.formatE164(value, 'MX');
+                            scope.phone2 = phoneUtils.formatNational(value, 'MX');
+                            scope.phone3 = phoneUtils.formatInternational(value, 'MX');
+                            scope.phone4 = phoneUtils.formatInOriginalFormat (value, 'MX');
+                        } else {
+                            scope.validPhone = false;
+                            scope.phone1 = undefined;
+                            scope.phone2 = undefined;
+                            scope.phone3 = undefined;
+                            scope.phone4 = undefined;
+                        }
+                        
+                        return value;
+                    }
+                    //format text going to user (model to view)
+                    ctrl.$formatters.unshift(validator);
+                    //format text from the user (view to model)
+                    ctrl.$parsers.unshift(validator);
                 }
         };
     })
@@ -78,11 +170,14 @@
                 scope: {
                         errClass: '@',
                         lbl: '@',
+                        formGroupClass: '@',
+                        fieldWrapperClass: '@',
                         lblClass: '@',
                         fldClass: '@',
                         reqMsg: '@',
                         regexpMsg: '@',
                         options: '=',
+                        name: '@',
                         ngModel: '='
                     },
                     template: function(elem, attrs) {
@@ -90,30 +185,27 @@
                         var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
                         var multiple    = attrs.hasOwnProperty('multiple')  ? 'multiple'            : ''; //requires field
                         
-                        return '<div class="form-group">\
+                        return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}}</label>\
                                     <div class="{{fldClass}}">\
-                                        <select class="form-control" ng-model="ngModel" ng-options="item.value as item.label for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select class="form-control" name="name" ng-model="ngModel" ng-options="item.value as item.label for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
                                     <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
                                     <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
                                     </div>\
                               </div>';
                     },
-                    link: function(scope, elem, attrs, ctrl){
-                        //format text going to user (model to view)
-                        ctrl.$formatters.unshift(function (modelValue){
+                    link: function(scope, elem, attrs, ctrl) {
+                        
+                        var validator = function (value){
+                        
+                            if(angular.isDefined(value) || !ctrl.$pristine) {
+                                ctrl.$setViewValue(value);
+                            };
 
-                            if(angular.isDefined(modelValue) || !ctrl.$pristine) ctrl.$setViewValue(modelValue);
+                            var required = (!angular.isDefined(value) && attrs.hasOwnProperty('required'));
+                            var invalid = (angular.isDefined(value) && !validTypes[attrs.regexp].test(value));
 
-                        }); // triggers on DOM change
-
-                        //format text from the user (view to model)
-                        ctrl.$parsers.unshift(function (viewValue){
-
-                            var required = (!angular.isDefined(viewValue) && attrs.hasOwnProperty('required'));
-                            var invalid = (angular.isDefined(viewValue) && !validTypes[attrs.regexp].test(viewValue));
-                            
                             elem.toggleClass('has-error', (required || invalid));
                             elem.toggleClass('has-success', !(required || invalid));
 
@@ -122,8 +214,12 @@
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
 
-                            return viewValue;
-                        }); // triggers on code change
+                            return value;
+                        }
+                        //format text going to user (model to view)
+                        ctrl.$formatters.unshift(validator);
+                        //format text from the user (view to model)
+                        ctrl.$parsers.unshift(validator);
                     }
             };
         })
@@ -135,12 +231,15 @@
                 scope: {
                         errClass: '@',
                         lbl: '@',
+                        formGroupClass: '@',
+                        fieldWrapperClass: '@',
                         lblClass: '@',
                         fldClass: '@',
                         reqMsg: '@',
                         regexpMsg: '@',
                         options: '=',
                         ngChange: '&',
+                        name: '@',
                         ngModel: '='
                     },
                     template: function(elem, attrs) {
@@ -148,10 +247,10 @@
                         var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
                         var multiple    = attrs.hasOwnProperty('multiple')  ? 'multiple'            : ''; //requires field
                         
-                        return '<div class="form-group">\
+                        return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}}</label>\
                                     <div class="{{fldClass}}">\
-                                        <select class="form-control" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.countryName for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select class="form-control" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.countryName for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
                                     <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
                                     <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
@@ -159,19 +258,16 @@
                               </div>';
                     },
                     link: function(scope, elem, attrs, ctrl){
-                        //format text going to user (model to view)
-                        ctrl.$formatters.unshift(function (modelValue){
+                        
+                        var validator = function (value){
+                        
+                            if(angular.isDefined(value) || !ctrl.$pristine) {
+                                ctrl.$setViewValue(value);
+                            };
 
-                            if(angular.isDefined(modelValue) || !ctrl.$pristine) ctrl.$setViewValue(modelValue);
+                            var required = (!angular.isDefined(value) && attrs.hasOwnProperty('required'));
+                            var invalid = (angular.isDefined(value) && !validTypes[attrs.regexp].test(value));
 
-                        }); // triggers on DOM change
-
-                        //format text from the user (view to model)
-                        ctrl.$parsers.unshift(function (viewValue){
-
-                            var required = (!angular.isDefined(viewValue) && attrs.hasOwnProperty('required'));
-                            var invalid = (angular.isDefined(viewValue) && !validTypes[attrs.regexp].test(viewValue));
-                            
                             elem.toggleClass('has-error', (required || invalid));
                             elem.toggleClass('has-success', !(required || invalid));
 
@@ -179,9 +275,13 @@
                             scope.invalid = invalid;
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
-                            
-                            return viewValue;
-                        }); // triggers on code change
+
+                            return value;
+                        }
+                        //format text going to user (model to view)
+                        ctrl.$formatters.unshift(validator);
+                        //format text from the user (view to model)
+                        ctrl.$parsers.unshift(validator);
                     }
             };
         })
@@ -193,12 +293,15 @@
                 scope: {
                         errClass: '@',
                         lbl: '@',
+                        formGroupClass: '@',
+                        fieldWrapperClass: '@',
                         lblClass: '@',
                         fldClass: '@',
                         reqMsg: '@',
                         regexpMsg: '@',
                         options: '=',
                         ngChange: '&',
+                        name: '@',
                         ngModel: '='
                     },
                     template: function(elem, attrs) {
@@ -206,10 +309,10 @@
                         var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
                         var multiple    = attrs.hasOwnProperty('multiple')  ? 'multiple'            : ''; //requires field
                         
-                        return '<div class="form-group">\
+                        return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}}</label>\
                                     <div class="{{fldClass}}">\
-                                        <select class="form-control" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select class="form-control" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
                                     <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
                                     <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
@@ -217,20 +320,16 @@
                               </div>';
                     },
                     link: function(scope, elem, attrs, ctrl, ggStatesCtrl){
-                                           
-                        //format text going to user (model to view)
-                        ctrl.$formatters.unshift(function (modelValue){
+                         
+                        var validator = function (value){
+                        
+                            if(angular.isDefined(value) || !ctrl.$pristine) {
+                                ctrl.$setViewValue(value);
+                            };
 
-                            if(angular.isDefined(modelValue) || !ctrl.$pristine) ctrl.$setViewValue(modelValue);
+                            var required = (!angular.isDefined(value) && attrs.hasOwnProperty('required'));
+                            var invalid = (angular.isDefined(value) && !validTypes[attrs.regexp].test(value));
 
-                        }); // triggers on DOM change
-
-                        //format text from the user (view to model)
-                        ctrl.$parsers.unshift(function (viewValue){
-
-                            var required = (!angular.isDefined(viewValue) && attrs.hasOwnProperty('required'));
-                            var invalid = (angular.isDefined(viewValue) && !validTypes[attrs.regexp].test(viewValue));
-                            
                             elem.toggleClass('has-error', (required || invalid));
                             elem.toggleClass('has-success', !(required || invalid));
 
@@ -238,10 +337,13 @@
                             scope.invalid = invalid;
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
-                            
-                            
-                            return viewValue;
-                        }); // triggers on code change
+
+                            return value;
+                        }
+                        //format text going to user (model to view)
+                        ctrl.$formatters.unshift(validator);
+                        //format text from the user (view to model)
+                        ctrl.$parsers.unshift(validator);
                     }
             };
         })
@@ -253,12 +355,15 @@
                 scope: {
                         errClass: '@',
                         lbl: '@',
+                        formGroupClass: '@',
+                        fieldWrapperClass: '@',
                         lblClass: '@',
                         fldClass: '@',
                         reqMsg: '@',
                         regexpMsg: '@',
                         options: '=',
                         ngChange: '&',
+                        name: '@',
                         ngModel: '='
                     },
                     template: function(elem, attrs) {
@@ -266,10 +371,10 @@
                         var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
                         var multiple    = attrs.hasOwnProperty('multiple')  ? 'multiple'            : ''; //requires field
                         
-                        return '<div class="form-group">\
+                        return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}}</label>\
                                     <div class="{{fldClass}}">\
-                                        <select class="form-control" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select class="form-control" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
                                     <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
                                     <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
@@ -277,20 +382,16 @@
                               </div>';
                     },
                     link: function(scope, elem, attrs, ctrl, ggStatesCtrl){
-                                           
-                        //format text going to user (model to view)
-                        ctrl.$formatters.unshift(function (modelValue){
+                        
+                        var validator = function (value){
+                        
+                            if(angular.isDefined(value) || !ctrl.$pristine) {
+                                ctrl.$setViewValue(value);
+                            };
 
-                            if(angular.isDefined(modelValue) || !ctrl.$pristine) ctrl.$setViewValue(modelValue);
+                            var required = (!angular.isDefined(value) && attrs.hasOwnProperty('required'));
+                            var invalid = (angular.isDefined(value) && !validTypes[attrs.regexp].test(value));
 
-                        }); // triggers on DOM change
-
-                        //format text from the user (view to model)
-                        ctrl.$parsers.unshift(function (viewValue){
-
-                            var required = (!angular.isDefined(viewValue) && attrs.hasOwnProperty('required'));
-                            var invalid = (angular.isDefined(viewValue) && !validTypes[attrs.regexp].test(viewValue));
-                            
                             elem.toggleClass('has-error', (required || invalid));
                             elem.toggleClass('has-success', !(required || invalid));
 
@@ -298,10 +399,13 @@
                             scope.invalid = invalid;
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
-                            
-                            
-                            return viewValue;
-                        }); // triggers on code change
+
+                            return value;
+                        }
+                        //format text going to user (model to view)
+                        ctrl.$formatters.unshift(validator);
+                        //format text from the user (view to model)
+                        ctrl.$parsers.unshift(validator);
                     }
             };
         })
@@ -315,6 +419,7 @@
                         fldClass: '@',
                         lbl: '@',
                         lblClass: '@',
+                        name: '@',
                         ngModel: '=',
                         options: '=',
                         reqMsg: '@',
@@ -328,7 +433,7 @@
                         return '<div class="form-group">\
                                     <label class="{{lblClass}} control-label">{{lbl}}</label>\
                                     <div class="{{fldClass}}">\
-                                        <textarea class="form-control" ng-model="ngModel" rows="{{rows}}" '+disabled+' '+required+'>\
+                                        <textarea class="form-control" name="name" ng-model="ngModel" rows="{{rows}}" '+disabled+' '+required+'>\
                                         </textarea>\
                                     <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
                                     <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
@@ -336,19 +441,16 @@
                               </div>';
                     },
                     link: function(scope, elem, attrs, ctrl){
-                        //format text going to user (model to view)
-                        ctrl.$formatters.unshift(function (modelValue){
+                        
+                        var validator = function (value){
+                        
+                            if(angular.isDefined(value) || !ctrl.$pristine) {
+                                ctrl.$setViewValue(value);
+                            };
 
-                            if(angular.isDefined(modelValue) || !ctrl.$pristine) ctrl.$setViewValue(modelValue);
+                            var required = (!angular.isDefined(value) && attrs.hasOwnProperty('required'));
+                            var invalid = (angular.isDefined(value) && !validTypes[attrs.regexp].test(value));
 
-                        }); // triggers on DOM change
-
-                        //format text from the user (view to model)
-                        ctrl.$parsers.unshift(function (viewValue){
-
-                            var required = (!angular.isDefined(viewValue) && attrs.hasOwnProperty('required'));
-                            var invalid = (angular.isDefined(viewValue) && !validTypes[attrs.regexp].test(viewValue));
-                            
                             elem.toggleClass('has-error', (required || invalid));
                             elem.toggleClass('has-success', !(required || invalid));
 
@@ -357,8 +459,12 @@
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
 
-                            return viewValue;
-                        }); // triggers on code change
+                            return value;
+                        }
+                        //format text going to user (model to view)
+                        ctrl.$formatters.unshift(validator);
+                        //format text from the user (view to model)
+                        ctrl.$parsers.unshift(validator);
                     }
             };
         })
@@ -371,6 +477,7 @@
                         fldClass: '@',
                         lbl: '@',
                         lblClass: '@',
+                        name: '@',
                         ngModel: '='
                     },
                     template: function(elem, attrs) {
@@ -380,7 +487,7 @@
                                     <div class="{{lblClass}} {{fldClass}}">\
                                         <div class="checkbox" '+disabled+'>\
                                             <label>\
-                                            <input type="checkbox" ng-model="ngModel" '+disabled+'> {{lbl}}\
+                                            <input type="checkbox" name="name" ng-model="ngModel" '+disabled+'> {{lbl}}\
                                             </label>\
                                         </div>\
                                     </div>\
@@ -397,6 +504,7 @@
                         fldClass: '@',
                         lbl: '@',
                         lblClass: '@',
+                        name: '@',
                         ngModel: '=',
                         val: '@'
                     },
@@ -407,7 +515,7 @@
                                     <div class="{{lblClass}} {{fldClass}}">\
                                         <div class="radio" '+disabled+'>\
                                             <label>\
-                                            <input type="radio" ng-model="ngModel" value="{{val}}" '+disabled+'> {{lbl}}\
+                                            <input type="radio" name="name" ng-model="ngModel" value="{{val}}" '+disabled+'> {{lbl}}\
                                             </label>\
                                         </div>\
                                     </div>\
@@ -423,14 +531,17 @@
                 scope: {
                         fldClass: '@',
                         lbl: '@',
+                        formGroupClass: '@',
+                        fieldWrapperClass: '@',
                         lblClass: '@',
-                        ngDisabled: '='
+                        ngDisabled: '=',
+                        btnClass: '@'
                     },
                     template: function(elem, attrs) {
                         
-                        return '<div class="form-group">\
+                        return '<div class="form-group {{formGroupClass}}">\
                                     <div class="{{lblClass}} {{fldClass}}">\
-                                            <button type="submit" class="btn btn-default" ng-disabled="ngDisabled">{{lbl}}</button>\
+                                            <button type="submit" class="btn btn-default {{btnClass}}" ng-disabled="ngDisabled">{{lbl}}</button>\
                                     </div>\
                               </div>';
                     }

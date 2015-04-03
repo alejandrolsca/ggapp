@@ -1,0 +1,211 @@
+<div class="userUpdateView">
+    <h3>{{'CLIENT_UPDATE.TITLE' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+    {{fmData | json}}
+    {{ggform.cl_corporatename.$error.required | json}}
+    <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-corporatename' | i18n}}" 
+                form-group-class="col-sm-6"
+                ng-model="fmData.cl_corporatename"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-tin' | i18n}}" 
+                form-group-class="col-sm-6" 
+                ng-model="fmData.cl_tin"
+                regexp="rfc"
+                regexp-msg="{{'general.regexp.rfc' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-name' | i18n}}"
+                form-group-class="col-sm-4"
+                ng-model="fmData.cl_name"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-fatherslastname' | i18n}}"
+                form-group-class="col-sm-4"
+                ng-model="fmData.cl_fatherslastname"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-motherslastname' | i18n}}"
+                form-group-class="col-sm-4"
+                ng-model="fmData.cl_motherslastname"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-countries err-class="error"
+               lbl="{{'client.labels.cl-country' | i18n}}" 
+               form-group-class="col-sm-3" 
+               options="cl_countryoptions" 
+               ng-model="fmData.cl_country"
+               ng-change="getStates()"
+               regexp="singleSpaces"
+               regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+               req-msg="Required"
+               required>
+      </gg-countries>
+      <gg-states err-class="error"
+               lbl="{{'client.labels.cl-state' | i18n}}" 
+               form-group-class="col-sm-3" 
+               options="cl_stateoptions" 
+               ng-model="fmData.cl_state"
+               ng-change="getCityCounty()"
+               regexp="singleSpaces"
+               regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+               req-msg="Required"
+               required>
+      </gg-states>
+      <gg-city-county err-class="error"
+                lbl="{{'client.labels.cl-city' | i18n}}"
+                form-group-class="col-sm-3"
+                options="cl_cityoptions"
+                ng-model="fmData.cl_city"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-city-county>
+      <gg-city-county err-class="error"
+                lbl="{{'client.labels.cl-county' | i18n}}"
+                form-group-class="col-sm-3"
+                options="cl_countyoptions"
+                ng-model="fmData.cl_county"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-city-county>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-street' | i18n}}"
+                form-group-class="col-sm-4" 
+                ng-model="fmData.cl_street"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-streetnumber' | i18n}}"
+                form-group-class="col-sm-4"
+                ng-model="fmData.cl_streetnumber"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-suitenumber' | i18n}}"
+                form-group-class="col-sm-4"
+                
+                ng-model="fmData.cl_suitenumber"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-neighborhood' | i18n}}"
+                form-group-class="col-sm-4"
+                
+                ng-model="fmData.cl_neighborhood"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+              <gg-input err-class="error"
+                lbl="{{'client.labels.cl-zipcode' | i18n}}"
+                form-group-class="col-sm-4"
+                ng-model="fmData.cl_zipcode"
+                regexp="zipcode"
+                regexp-msg="{{'general.regexp.zipcode' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-addressreference' | i18n}}"
+                form-group-class="col-sm-4"
+                ng-model="fmData.cl_addressreference"
+                regexp="singleSpaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-email' | i18n}}"
+                form-group-class="col-sm-6"
+                ng-model="fmData.cl_email"
+                regexp="email"
+                regexp-msg="{{'general.regexp.email' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-phone err-class="error"
+                lbl="{{'client.labels.cl-phone' | i18n}}"
+                form-group-class="col-sm-6"
+                ng-model="fmData.cl_phone"
+                regexp="phone"
+                regexp-msg="{{'general.regexp.phone' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-phone>
+      <gg-phone err-class="error"
+                lbl="{{'client.labels.cl-mobile' | i18n}}"
+                form-group-class="col-sm-6"
+                ng-model="fmData.cl_mobile"
+                regexp="phone"
+                regexp-msg="{{'general.regexp.phone' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-phone>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-creditlimit' | i18n}}"
+                form-group-class="col-sm-6"
+                ng-model="fmData.cl_creditlimit"
+                regexp="decimal"
+                regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-input err-class="error"
+                lbl="{{'client.labels.cl-customerdiscount' | i18n}}"
+                form-group-class="col-sm-6"
+                ng-model="fmData.cl_customerdiscount"
+                regexp="discount"
+                regexp-msg="{{'general.regexp.discount' | i18n}}"
+                req-msg="Required"
+                required>
+      </gg-input>
+      <gg-select err-class="error"
+               lbl="{{'client.labels.cl-status' | i18n}}" 
+               form-group-class="col-sm-6" 
+               options="cl_statusoptions" 
+               ng-model="fmData.cl_status"
+               regexp="singleSpaces"
+               regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+               req-msg="Required"
+               required>
+      </gg-select>
+      <gg-submit lbl="Submit"
+                form-group-class="col-sm-6" 
+                ng-disabled="ggform.$invalid"
+                btn-class="col-xs-12 col-sm-4  col-md-2">
+      </gg-submit>
+    </form>
+</div>

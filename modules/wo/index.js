@@ -1,24 +1,25 @@
-'use strict';
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.wo',[
+        require('./modules/woAdd').name,
+        require('./modules/woUpdate').name
+    ])
 
-var clientModule = angular.module('app.wo',[
-    require('./modules/woAdd').name,
-    require('./modules/woUpdate').name
-]);
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('wo', {
+            url:'/wo',
+            templateUrl : 'modules/wo/views/wo.view.html',
+            controller : 'woController',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
 
-clientModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('wo', {
-        url:'/wo',
-        templateUrl : 'modules/wo/views/woView.html',
-        controller : 'woController',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
+    .factory('woFactory',require('./services/wo.fac'))
 
-clientModule.factory('woFactory',require('./services/woFactory'));
+    .controller('woController',require('./controllers/wo.ctrl'))
 
-clientModule.controller('woController',require('./controllers/woController'));
-
-module.exports = clientModule;
+})(angular);

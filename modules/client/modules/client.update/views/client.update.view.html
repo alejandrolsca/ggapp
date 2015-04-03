@@ -1,128 +1,211 @@
-<div class="userUpdateView">
-    <h3>{{'USER_UPDATE.TITLE' | i18n}}</h3>
+<div class="col-sm-12">
+    <h3>{{'client-update.title' | i18n}}</h3>
     <span ng-if="loading">Cargando...</span>
-    <form class="form-horizontal" role="form" name="ggform" ng-submit="onSubmit();">
-      <div class="form-group">
-          <label for="cl_corporatename" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_CORPORATENAME' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_corporatename" placeholder="" ng-model="fmData.cl_corporatename" required>
-          </div>
-      </div>
-      <div class="form-group">
-          <label for="cl_tin" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_TIN' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_tin" placeholder="" ng-model="fmData.cl_tin" required>
-          </div>
-      </div>
-     <div class="form-group">
-          <label for="cl_name" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_NAME' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_name" placeholder="" ng-model="fmData.cl_name" required>
-          </div>
-      </div>
-        <div class="form-group">
-          <label for="cl_fatherslastname" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_FATHERSLASTNAME' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_fatherslastname" placeholder="" ng-model="fmData.cl_fatherslastname" required>
-          </div>
-      </div>
-        <div class="form-group">
-          <label for="cl_motherslastname" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_MOTHERSLASTNAME' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_motherslastname" placeholder="" ng-model="fmData.cl_motherslastname" required>
-          </div>
-      </div>
-        <div class="form-group">
-          <label for="cl_street" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_STREET' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_street" placeholder="" ng-model="fmData.cl_street" required>
-          </div>
-      </div>
-        <div class="form-group">
-          <label for="cl_streetnumber" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_STREETNUMBER' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_streetnumber" placeholder="" ng-model="fmData.cl_streetnumber" required>
-          </div>
-      </div>
-        <div class="form-group">
-          <label for="cl_suitenumber" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_SUITENUMBER' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_suitenumber" placeholder="" ng-model="fmData.cl_suitenumber" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_neighborhood" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_NEIGHBORHOOD' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_neighborhood" placeholder="" ng-model="fmData.cl_neighborhood" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_addressreference" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_ADDRESSREFERENCE' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_addressreference" placeholder="" ng-model="fmData.cl_addressreference" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_country" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_COUNTRY' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_country" placeholder="" ng-model="fmData.cl_country" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_state" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_STATE' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_state" placeholder="" ng-model="fmData.cl_state" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_city" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_CITY' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_city" placeholder="" ng-model="fmData.cl_city" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_county" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_COUNTY' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_county" placeholder="" ng-model="fmData.cl_county" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_zipcode" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_ZIPCODE' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_zipcode" placeholder="" ng-model="fmData.cl_zipcode" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_email" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_EMAIL' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="email" class="form-control" id="cl_email" placeholder="" ng-model="fmData.cl_email" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_phone" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_PHONE' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="tel" class="form-control" id="cl_phone" placeholder="" ng-model="fmData.cl_phone" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_mobile" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_MOBILE' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="tel" class="form-control" id="cl_mobile" placeholder="" ng-model="fmData.cl_mobile" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_creditlimit" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_CREDITLIMIT' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_creditlimit" placeholder="" ng-model="fmData.cl_creditlimit" required>
-          </div>
-      </div><div class="form-group">
-          <label for="cl_customerdiscount" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_CUSTOMERDISCOUNT' | i18n}}</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" id="cl_customerdiscount" placeholder="" ng-model="fmData.cl_customerdiscount" required>
-          </div>
-      </div>
-        <div class="form-group">
-          <label for="cl_status" class="col-sm-2 control-label">{{'CLIENT.FIELDS.CL_STATUS' | i18n}}</label>
-          <div class="col-sm-4">
-              <select type="text" class="form-control" id="cl_status" ng-init="fmData.cl_status='A'" ng-model="fmData.cl_status">
-                  <option value="A">Active</option>
-                  <option value="I">Inactive</option>
-              </select>
-          </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default">{{'GENERAL.SUBMIT'| i18n}}</button>
-        </div>
-      </div>
-    </form>
+    {{fmData | json}}
+    {{ggform.cl_corporatename.$error.required | json}}
 </div>
+<form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-corporatename' | i18n}}" 
+            form-group-class="col-sm-6"
+            ng-model="fmData.cl_corporatename"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-tin' | i18n}}" 
+            form-group-class="col-sm-6" 
+            ng-model="fmData.cl_tin"
+            regexp="rfc"
+            regexp-msg="{{'general.regexp.rfc' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-name' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_name"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-fatherslastname' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_fatherslastname"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-motherslastname' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_motherslastname"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-countries err-class="error"
+           lbl="{{'client.labels.cl-country' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="cl_countryoptions" 
+           ng-model="fmData.cl_country"
+           ng-change="getStates()"
+           regexp="singleSpaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-countries>
+  <gg-states err-class="error"
+           lbl="{{'client.labels.cl-state' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="cl_stateoptions" 
+           ng-model="fmData.cl_state"
+           ng-change="getCityCounty()"
+           regexp="singleSpaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-states>
+  <gg-city-county err-class="error"
+            lbl="{{'client.labels.cl-city' | i18n}}"
+            form-group-class="col-sm-3"
+            options="cl_cityoptions"
+            ng-model="fmData.cl_city"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-city-county>
+  <gg-city-county err-class="error"
+            lbl="{{'client.labels.cl-county' | i18n}}"
+            form-group-class="col-sm-3"
+            options="cl_countyoptions"
+            ng-model="fmData.cl_county"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-city-county>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-street' | i18n}}"
+            form-group-class="col-sm-4" 
+            ng-model="fmData.cl_street"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-streetnumber' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_streetnumber"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-suitenumber' | i18n}}"
+            form-group-class="col-sm-4"
+
+            ng-model="fmData.cl_suitenumber"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-neighborhood' | i18n}}"
+            form-group-class="col-sm-4"
+
+            ng-model="fmData.cl_neighborhood"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+          <gg-input err-class="error"
+            lbl="{{'client.labels.cl-zipcode' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_zipcode"
+            regexp="zipcode"
+            regexp-msg="{{'general.regexp.zipcode' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-addressreference' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_addressreference"
+            regexp="singleSpaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-email' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_email"
+            regexp="email"
+            regexp-msg="{{'general.regexp.email' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-phone err-class="error"
+            lbl="{{'client.labels.cl-phone' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_phone"
+            regexp="phone"
+            regexp-msg="{{'general.regexp.phone' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-phone>
+  <gg-phone err-class="error"
+            lbl="{{'client.labels.cl-mobile' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_mobile"
+            regexp="phone"
+            regexp-msg="{{'general.regexp.phone' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-phone>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-creditlimit' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_creditlimit"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-customerdiscount' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_customerdiscount"
+            regexp="discount"
+            regexp-msg="{{'general.regexp.discount' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'client.labels.cl-status' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="cl_statusoptions" 
+           ng-model="fmData.cl_status"
+           regexp="singleSpaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-submit lbl="Submit"
+            form-group-class="col-sm-6" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-4  col-md-2">
+  </gg-submit>
+</form>

@@ -66,7 +66,7 @@ $hoverBorder: #398439;
     position: absolute;
     top: 38px;
     left: 0;
-    z-index: 1;    
+    z-index: 1000;    
     background: $bg;   
     background-image: linear-gradient($border, $bg);
     box-shadow: 0 -1px 0 rgba(255,255,255,.3);  

@@ -1,29 +1,31 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-angular.element(document).ready(function(){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Applications/MAMP/htdocs/ggapp/modules/app.js":[function(require,module,exports){
+(function(angular){
     //ALEJANDRO
     'use strict';
     
-    var app = angular.module('app', [
+    angular.module('app', [
         'ui.router',
         'ngAnimate',
         'ui.bootstrap',
         'gg-fields',
+        'wj',
         require('./auth').name,
         require('./client').name,
         require('./user').name,
         require('./home').name,
-        require('./wo').name
-    ]);
+        require('./wo').name,
+        require('./zone').name
+    ])
     
-    app.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         // when there is an empty route, redirect to /index   
         $urlRouterProvider.when('', '/auth');
         // when root, redirect to /home  
         $urlRouterProvider.when('/', '/auth');
-    }]);
+    }])
     
-    app.run(function ($rootScope, AUTH_EVENTS, credentialsFac, $location) {
+    .run(function ($rootScope, AUTH_EVENTS, credentialsFac, $location) {
         credentialsFac.credentials().then(function(promise){
             if(promise.data.success) {
                 $rootScope.user = promise.data;
@@ -46,96 +48,101 @@ angular.element(document).ready(function(){
                 }
             });
         });
-    });
+    })
     
-    app.filter('i18n',require('./app/filters/i18n.filter'));
+    .filter('i18n',require('./app/filters/i18n.filter'))
     
-    app.factory('langFac',require('./app/services/lang.fac'));
+    .factory('langFac',require('./app/services/lang.fac'))
     
-    app.factory('logoutFac',require('./app/services/logout.fac'));
+    .factory('logoutFac',require('./app/services/logout.fac'))
     
-    app.factory('credentialsFac',require('./app/services/user.credentials.fac'));
+    .factory('credentialsFac',require('./app/services/user.credentials.fac'))
     
-    app.controller('appCtrl',require('./app/controllers/app.ctrl'));
+    .controller('appCtrl',require('./app/controllers/app.ctrl'))
     
-    angular.bootstrap(document, ['app']);
-    
-});
-},{"./app/controllers/app.ctrl":2,"./app/filters/i18n.filter":3,"./app/services/lang.fac":6,"./app/services/logout.fac":7,"./app/services/user.credentials.fac":8,"./auth":10,"./client":13,"./home":22,"./user":25,"./wo":34}],2:[function(require,module,exports){
-'use strict';
+})(angular);
 
-module.exports = function ($scope,$rootScope,langFac,logoutFac,i18nFilter,USER_ROLES,$location) {
+},{"./app/controllers/app.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/app/controllers/app.ctrl.js","./app/filters/i18n.filter":"/Applications/MAMP/htdocs/ggapp/modules/app/filters/i18n.filter.js","./app/services/lang.fac":"/Applications/MAMP/htdocs/ggapp/modules/app/services/lang.fac.js","./app/services/logout.fac":"/Applications/MAMP/htdocs/ggapp/modules/app/services/logout.fac.js","./app/services/user.credentials.fac":"/Applications/MAMP/htdocs/ggapp/modules/app/services/user.credentials.fac.js","./auth":"/Applications/MAMP/htdocs/ggapp/modules/auth/index.js","./client":"/Applications/MAMP/htdocs/ggapp/modules/client/index.js","./home":"/Applications/MAMP/htdocs/ggapp/modules/home/index.js","./user":"/Applications/MAMP/htdocs/ggapp/modules/user/index.js","./wo":"/Applications/MAMP/htdocs/ggapp/modules/wo/index.js","./zone":"/Applications/MAMP/htdocs/ggapp/modules/zone/index.js"}],"/Applications/MAMP/htdocs/ggapp/modules/app/controllers/app.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
     
-    langFac.getLang().then(function(promise){
-        if(promise.data.success) {
-            $rootScope.currentLanguage = promise.data.lang;
-            $scope.navItems = i18nFilter("GENERAL.NAV");
-        }
-        console.log(JSON.stringify(promise.data.lang));
-    });
+    return function ($scope,$rootScope,langFac,logoutFac,i18nFilter,USER_ROLES,$location) {
     
-    for(var item in $scope.navItems) {
-        if ($scope.navItems[item].subMenu) {
-            $scope.lastSubmenu = item;   
-        }
-    }
-    
-    $scope.lang = function (lang) {
-        langFac.setLang(lang).then(function(promise){
+        langFac.getLang().then(function(promise){
             if(promise.data.success) {
                 $rootScope.currentLanguage = promise.data.lang;
                 $scope.navItems = i18nFilter("GENERAL.NAV");
             }
             console.log(JSON.stringify(promise.data.lang));
         });
-    }
-    $scope.logout = function() {
-        logoutFac.logout().then(function(promise){
-            if(promise.data.success) {
-                $rootScope.user = {
-                    user:null,
-                    userRole:USER_ROLES.guest,
-                    userName:null,
-                    userFathersLastName:null,
-                    userMothersLastName:null, 
-                    userDatabase:null
-                }
-                $location.path("/auth");
-            }
-        });
-    }
-};
-},{}],3:[function(require,module,exports){
-'use strict';
 
-module.exports = ['$rootScope', function($rootScope) {
-return function (input,param) {
-        var translations = {
-            "es-MX" : require('../languages/es-MX'),
-            "en-US" : require('../languages/en-US')
-        };
-        var currentLanguage = $rootScope.currentLanguage || 'es-MX',
-        keys = input.split('.'),
-        data = translations[currentLanguage],
-        value = undefined;
-        try {
-            for(var key in keys) {
-              data = data[keys[key]];
+        for(var item in $scope.navItems) {
+            if ($scope.navItems[item].subMenu) {
+                $scope.lastSubmenu = item;   
             }
-            if (!!data) {
-                return (typeof param === "undefined") ? data : data.replace('@@', param);
-            } else {
-                return input;
-            } 
         }
-        catch (e) {
-            console.log(e.description);
-            return input;
+
+        $scope.lang = function (lang) {
+            langFac.setLang(lang).then(function(promise){
+                if(promise.data.success) {
+                    $rootScope.currentLanguage = promise.data.lang;
+                    $scope.navItems = i18nFilter("GENERAL.NAV");
+                }
+                console.log(JSON.stringify(promise.data.lang));
+            });
         }
-            
-    }
-}];
-},{"../languages/en-US":4,"../languages/es-MX":5}],4:[function(require,module,exports){
+        $scope.logout = function() {
+            logoutFac.logout().then(function(promise){
+                if(promise.data.success) {
+                    $rootScope.user = {
+                        user:null,
+                        userRole:USER_ROLES.guest,
+                        userName:null,
+                        userFathersLastName:null,
+                        userMothersLastName:null, 
+                        userDatabase:null
+                    }
+                    $location.path("/auth");
+                }
+            });
+        }
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/app/filters/i18n.filter.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return ['$rootScope', function($rootScope) {
+        
+        return function (input,param) {
+                var translations = {
+                    "es-MX" : require('../languages/es-MX'),
+                    "en-US" : require('../languages/en-US')
+                };
+                var currentLanguage = $rootScope.currentLanguage || 'es-MX',
+                keys = input.split('.'),
+                data = translations[currentLanguage],
+                value = undefined;
+                try {
+                    for(var key in keys) {
+                      data = data[keys[key]];
+                    }
+                    if (!!data) {
+                        return (typeof param === "undefined") ? data : data.replace('@@', param);
+                    } else {
+                        return input;
+                    } 
+                }
+                catch (e) {
+                    console.log(e.description);
+                    return input;
+                }
+
+            }
+        }];
+})(angular);
+},{"../languages/en-US":"/Applications/MAMP/htdocs/ggapp/modules/app/languages/en-US.js","../languages/es-MX":"/Applications/MAMP/htdocs/ggapp/modules/app/languages/es-MX.js"}],"/Applications/MAMP/htdocs/ggapp/modules/app/languages/en-US.js":[function(require,module,exports){
 module.exports = {
                 "GENERAL":{
                     "NAV":[
@@ -152,7 +159,7 @@ module.exports = {
                         },
                         {"name":"Work Orders","url":"#/wo","subMenu": 
                          [
-                             {"name": "Add","url": "#/product/add"}
+                             {"name": "Add","url": "#/wo/add"}
                          ]
                         },
                         {"name":"Users","url":"#/user","subMenu": 
@@ -172,6 +179,7 @@ module.exports = {
                     "BUTTONS":{
                         "EDIT":"Edit",
                         "DUPLICATE":"Duplicate",
+                        "WO":"Work Order",
                     },
                     "SUBMIT":"Submit",
                     "COPYRIGHT":"©2014 Grupo Grafico de México S.A. de C.V. All rights reserved."
@@ -279,33 +287,33 @@ module.exports = {
                     "PASSWORD" : "Password",
                 }
             }
-},{}],5:[function(require,module,exports){
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/app/languages/es-MX.js":[function(require,module,exports){
 module.exports = {
-                "GENERAL":{ 
-                    "NAV":[
-                        {"name":"Inicio","url":"#/home"},
-                        {"name":"Clientes","url":"#/client","subMenu": 
+                "general":{ 
+                    "nav":[
+                        {"name":"inicio","url":"#/home"},
+                        {"name":"clientes","url":"#/client","submenu": 
                          [
-                             {"name": "Agregar","url": "#/client/add"}
+                             {"name": "agregar","url": "#/client/add"}
                          ]
                         },
-                        {"name":"Productos","url":"#/product","subMenu": 
+                        {"name":"productos","url":"#/product","submenu": 
                          [
-                             {"name": "Agregar","url": "#/product/add"}
+                             {"name": "agregar","url": "#/product/add"}
                          ]
                         },
-                        {"name":"Ordenes de trabajo","url":"#/wo","subMenu": 
+                        {"name":"ordenes de trabajo","url":"#/wo","submenu": 
                          [
-                             {"name": "Agregar","url": "#/wo/add"}
+                             {"name": "agregar","url": "#/wo/add"}
                          ]
                         },
-                        {"name":"Usuarios","url":"#/user","subMenu": 
+                        {"name":"usuarios","url":"#/user","submenu": 
                          [
-                             {"name": "Agregar","url": "#/user/add"}
+                             {"name": "agregar","url": "#/user/add"}
                          ]
                         },
-                        {"name":"Login","url":"#/"},
-                        {"name":"Reportes","url":"#/reports","subMenu": 
+                        {"name":"login","url":"#/"},
+                        {"name":"reportes","url":"#/reports","submenu": 
                          [
                              {"name": "sub1","url": "../login"},
                              {"name": "sub2","url": "../login"},
@@ -313,468 +321,676 @@ module.exports = {
                          ]
                         }
                     ],
-                    "BUTTONS":{
-                        "EDIT":"Editar",
-                        "DUPLICATE":"Duplicar",
+                    "buttons":{
+                        "edit":"editar",
+                        "duplicate":"duplicar",
+                        "wo":"orden de trabajo",
                     },
-                    "REGEXP":{
-                        "SINGLESPACES": "Sin espacios dobles ni caracteres especiales.",
-                        "RFC": "XXXX-######[-XXX]",
-                        "EMAIL": "Por favor introduzca un email valido.",
-                        "DECIMAL2": "Solo numeros enteros o con 2 decimales.",
-                        "DISCOUNT": "El formato valido para el descuento es 0[.00]",
-                        "INTEGER": "Solo numeros enteros",
-                        "ZIPCODE": "El codigo postal es de 5 numeros.",
-                        "DATE": "AAAA-MM-DD",
-                        "USER": "De 4 a 16 caracteres sin espacios ni caracteres especiales.",
-                        "PASSWORD": "la contraseña debe contener de 8-16 caracteres, por lo menos una letra mayuscula, una letra minuscula y un digito.",
-                        "PHONE": "Los numeros de tel. solo aceptan los caracteres + - ( ) y numeros del 0-9"
+                    "regexp":{
+                        "singlespaces": "sin espacios dobles ni caracteres especiales.",
+                        "rfc": "xxxx-######[-xxx]",
+                        "email": "por favor introduzca un email valido.",
+                        "decimal": "numero y de 2 a 5 decimales (#.##[###])",
+                        "discount": "cero mas 2 decimales (0.##)",
+                        "integer": "solo numeros enteros",
+                        "zipcode": "el codigo postal es de 5 numeros.",
+                        "date": "aaaa-mm-dd",
+                        "user": "de 4 a 16 caracteres sin espacios ni caracteres especiales.",
+                        "password": "la contraseña debe contener de 8-16 caracteres, por lo menos una letra mayuscula, una letra minuscula y un digito.",
+                        "phone": "solo use el simbolo + al principio y numeros del 0 al 9"
                     },
-                    "SUBMIT":"Enviar",
-                    "COPYRIGHT":"©2014 Grupo Grafico de México S.A. de C.V. Todos los derechos reservados."
+                    "submit":"enviar",
+                    "copyright":"©2014 grupo grafico de méxico s.a. de c.v. todos los derechos reservados."
                 },
-                "HOME":{
-                    "TITLE" : "Inicio",
-                    "WELCOME" : "Bienvenido @@!"
+                "home":{
+                    "title" : "inicio",
+                    "welcome" : "bienvenido @@!"
                 },
-                 "CLIENT":{
-                    "TITLE" : "Clientes",
-                    "FIELDS":{
-                        "CL_ID":"ID Cliente",
-                        "CL_CORPORATENAME":"Razón Social",
-                        "CL_TIN":"RFC",
-                        "CL_NAME":"Nombre",
-                        "CL_FATHERSLASTNAME":"Apellido Paterno",
-                        "CL_MOTHERSLASTNAME":"Apellido Materno",
-                        "CL_STREET":"Calle",
-                        "CL_STREETNUMBER":"Numero Exterior",
-                        "CL_SUITENUMBER":"Numero Interior",
-                        "CL_NEIGHBORHOOD":"Colonia",
-                        "CL_ADDRESSREFERENCE":"Referencia",
-                        "CL_COUNTRY":"País",
-                        "CL_STATE":"Estado",
-                        "CL_CITY":"Ciudad",
-                        "CL_COUNTY":"Municipio",
-                        "CL_ZIPCODE":"Codigo Postal",
-                        "CL_EMAIL":"Correo Electrónico",
-                        "CL_PHONE":"Teléfono",
-                        "CL_MOBILE":"Móvil",
-                        "CL_CREDITLIMIT":"Limite de credito",
-                        "CL_CUSTOMERDISCOUNT":"Descuento",
-                        "CL_STATUS":"Estatus",
+                 "client":{
+                    "title" : "clientes",
+                    "labels":{
+                        "cl-id":"id cliente",
+                        "cl-corporatename":"razón social",
+                        "cl-tin":"rfc",
+                        "cl-name":"nombre",
+                        "cl-fatherslastname":"apellido paterno",
+                        "cl-motherslastname":"apellido materno",
+                        "cl-street":"calle",
+                        "cl-streetnumber":"numero exterior",
+                        "cl-suitenumber":"numero interior",
+                        "cl-neighborhood":"colonia",
+                        "cl-addressreference":"referencia",
+                        "cl-country":"país",
+                        "cl-state":"estado",
+                        "cl-city":"ciudad",
+                        "cl-county":"municipio",
+                        "cl-zipcode":"codigo postal",
+                        "cl-email":"correo electrónico",
+                        "cl-phone":"teléfono",
+                        "cl-mobile":"móvil",
+                        "cl-creditlimit":"limite de crédito",
+                        "cl-customerdiscount":"descuento",
+                        "cl-status":"estatus",
+                    },
+                     "columns":[
+                        "cl_id",
+                        "cl_corporatename",
+                        "cl_tin",
+                        "cl_name",
+                        "cl_fatherslastname",
+                        "cl_motherslastname",
+                        "cl_street",
+                        "cl_streetnumber",
+                        "cl_suitenumber",
+                        "cl_neighborhood",
+                        "cl_addressreference",
+                        "cl_country",
+                        "cl_state",
+                        "cl_city",
+                        "cl_county",
+                        "cl_zipcode",
+                        "cl_email",
+                        "cl_phone",
+                        "cl_mobile",
+                        "cl_creditlimit",
+                        "cl_customerdiscount",
+                        "cl_status",
+                     ]
+                },
+                "client-add":{
+                    "title" : "agregar cliente",
+                },
+                "client-update":{
+                    "title" : "actualizar cliente",
+                },
+                "user":{
+                    "title" : "usuarios",
+                    "labels":{
+                        "us-id": "id usuario",
+                        "gr-id": "id grupo",
+                        "us-user": "usuario",
+                        "us-password": "contraseña",
+                        "us-name": "nombre",
+                        "us-fatherslastname": "apellido paterno",
+                        "us-motherslastname": "apellido materno",
+                        "us-email": "correo electrónico",
+                        "us-phone": "teléfono",
+                        "us-mobile": "móvil",
+                        "us-status": "estatus",
+                        "us-date": "fecha"
+                    },
+                    "columns":[
+                        "us_id",
+                        "gr_id",
+                        "us_user",
+                        "us_password",
+                        "us_name",
+                        "us_fatherslastname",
+                        "us_motherslastname",
+                        "us_email",
+                        "us_phone",
+                        "us_mobile",
+                        "us_status",
+                        "us_date"
+                    ]
+                },
+                "user-add":{
+                    "title" : "agregar usuario",
+                },
+                "user-update":{
+                    "title" : "actualizar usuario",
+                },
+                "user-profile":{
+                    "title" : "perfil del usuario",
+                },
+                "wo":{
+                    "title" : "ordenes de trabajo",
+                    "labels":{
+                        "wo-id" : "no. orden",
+                        "wo-date" : "fecha",
+                        "cl-id" : "id cliente",
+                        "zo-id" : "id zona",
+                        "wo-orderedby" : "ordenado por",
+                        "wo-attention" : "atención",
+                        "wo-rfq" : "no. cotizacion",
+                        "wo-process" : "proceso",
+                        "wo-release" : "release",
+                        "wo-po" : "orden de compra",
+                        "wo-line" : "linea",
+                        "wo-linetotal" : "total lineas",
+                        "pr-id" : "id producto",
+                        "wo-status" : "estatus",
+                        "wo-commitmentdate" : "fecha compromiso",
+                        "wo-previousid" : "id anterior",
+                        "wo-previousdate" : "fecha anterior",
+                        "sh-id" : "id embarque",
+                        "sh-date" : "fecha embarque",
+                        "wo-trackingno" : "no. guia",
+                        "wo-shippingdate" : "fecha envio",
+                        "wo-deliverydate" : "fecha entrega",
+                        "wo-invoiceno" : "no. factura",
+                        "wo-invoicedate" : "fecha factura",
+                        "wo-notes" : "notas"
                     }
                 },
-                "CLIENT_ADD":{
-                    "TITLE" : "Agregar Cliente",
+                "wo-add":{
+                    "title" : "agregar orden de trabajo",
                 },
-                "CLIENT_UPDATE":{
-                    "TITLE" : "Actualizar Cliente",
+                "wo-update":{
+                    "title" : "actualizar orden de trabajo",
                 },
-                "USER":{
-                    "TITLE" : "Usuarios",
-                    "FIELDS":{
-                        "US_ID": "ID Usuario",
-                        "GR_ID": "ID Grupo",
-                        "US_USER": "Usuario",
-                        "US_PASSWORD": "Contraseña",
-                        "US_NAME": "Nombre",
-                        "US_FATHERSLASTNAME": "Apellido Paterno",
-                        "US_MOTHERSLASTNAME": "Apellido Materno",
-                        "US_EMAIL": "Correo Electrónico",
-                        "US_PHONE": "Teléfono",
-                        "US_MOBILE": "Móvil",
-                        "US_STATUS": "Estatus",
-                        "US_DATE": "Fecha"
-                    }
+                "auth":{
+                    "title" : "iniciar sesión",
+                    "enterprise" : "empresa",
+                    "user" : "usuario",
+                    "password" : "contraseña",
                 },
-                "USER_ADD":{
-                    "TITLE" : "Agregar Usuario",
+                "zone":{
+                    "title" : "direcciones de envio",
+                    "labels":{
+                        "zo-id" : "id zona",
+                        "cl-id" : "id cliente",
+                        "zo-zone" : "zona",
+                        "zo-corporatename" : "razón social",
+                        "zo-tin" : "rfc",
+                        "zo-immex" : "immex",
+                        "zo-name" : "nombre",
+                        "zo-fatherslastname" : "apellido paterno",
+                        "zo-motherslastname" : "apellido materno",
+                        "zo-street":"calle",
+                        "zo-streetnumber":"numero exterior",
+                        "zo-suitenumber":"numero interior",
+                        "zo-neighborhood":"colonia",
+                        "zo-addressreference":"referencia",
+                        "zo-country":"país",
+                        "zo-state":"estado",
+                        "zo-city":"ciudad",
+                        "zo-county":"municipio",
+                        "zo-zipcode":"codigo postal",
+                        "zo-email":"correo electrónico",
+                        "zo-phone":"teléfono",
+                        "zo-mobile":"móvil",
+                        "zo-status":"estatus",
+
+                    },
+                    "columns":[
+                        "zo_id",
+                        "cl_id",
+                        "zo_zone",
+                        "zo_corporatename",
+                        "zo_tin",
+                        "zo_immex",
+                        "zo_name",
+                        "zo_fatherslastname",
+                        "zo_motherslastname",
+                        "zo_street",
+                        "zo_streetnumber",
+                        "zo_suitenumber",
+                        "zo_neighborhood",
+                        "zo_addressreference",
+                        "zo_country",
+                        "zo_state",
+                        "zo_city",
+                        "zo_county",
+                        "zo_zipcode",
+                        "zo_email",
+                        "zo_phone",
+                        "zo_mobile",
+                        "zo_status",
+                    ]
                 },
-                "USER_UPDATE":{
-                    "TITLE" : "Actualizar Usuario",
-                },
-                "WO":{
-                    "TITLE" : "Ordenes de Trabajo",
-                    "FIELDS":{
-                        "WO_ID" : "No. Orden",
-                        "WO_DATE" : "Fecha",
-                        "CL_ID" : "ID Cliente",
-                        "ZO_ID" : "ID Zona",
-                        "WO_ORDEREDBY" : "Ordenado Por",
-                        "WO_ATTENTION" : "Atención",
-                        "WO_RFQ" : "No. Cotizacion",
-                        "WO_PROCESS" : "Proceso",
-                        "WO_RELEASE" : "Release",
-                        "WO_PO" : "Orden de Compra",
-                        "WO_LINE" : "Linea",
-                        "WO_LINETOTAL" : "Total Lineas",
-                        "PRSE_ID" : "ID Producto",
-                        "WO_STATUS" : "Estatus",
-                        "WO_COMMITMENTDATE" : "Fecha Compromiso",
-                        "WO_PREVIOUSID" : "ID Anterior",
-                        "WO_PREVIOUSDATE" : "Fecha Anterior",
-                        "SH_ID" : "ID Embarque",
-                        "SH_DATE" : "Fecha Embarque",
-                        "WO_TRACKINGNO" : "No. Guia",
-                        "WO_SHIPPINGDATE" : "Fecha Envio",
-                        "WO_DELIVERYDATE" : "Fecha Entrega",
-                        "WO_INVOICENO" : "No. Factura",
-                        "WO_INVOICEDATE" : "Fecha Factura",
-                        "WO_NOTES" : "Notas"
-                    }
-                },
-                "WO_ADD":{
-                    "TITLE" : "Agregar Orden de Trabajo",
-                },
-                "WO_UPDATE":{
-                    "TITLE" : "Actualizar Orden de Trabajo",
-                },
-                "AUTH":{
-                    "TITLE" : "Iniciar sesión",
-                    "ENTERPRISE" : "Empresa",
-                    "USER" : "Usuario",
-                    "PASSWORD" : "Contraseña",
+                "zone-add":{
+                    "title" : "agregar dirección de envio",
                 }
                 
             }
-},{}],6:[function(require,module,exports){
-'use strict';
-
-module.exports = function($http, $q) {
-    var factory = {};
-    factory.setLang = function(newLang) {
-        var deferred = $q.defer();
-        deferred.resolve(
-            $http.post('modules/app/models/lang.set.model.php', {
-                lang: newLang
-            }).success(function(data, status, headers, config){
-                return data;
-            }).error(function (data, status, headers, config) {
-                return {"status": false};
-            })
-        );
-        return deferred.promise;
-    };
-    factory.getLang = function() {
-        var deferred = $q.defer();
-        deferred.resolve(
-            $http.get('modules/app/models/lang.get.model.php')
-            .success(function(data, status, headers, config){
-                return data;
-            }).error(function (data, status, headers, config) {
-                return {"status": false};
-            })
-        );
-        return deferred.promise;
-    };
-    return factory;
-};
-},{}],7:[function(require,module,exports){
-module.exports = function($http, $q){
-    var factory = {};
-    factory.logout = function() {
-        var deferred = $q.defer();
-        deferred.resolve(
-            $http.post('modules/app/models/logout.model.php', {
-                    /* POST variables here */
-            }).success(function(data, status, headers, config){
-                return data;
-            }).error(function (data, status, headers, config) {
-                return {"status": false};
-            })
-        );
-        return deferred.promise;
-    };
-    return factory;
-};
-},{}],8:[function(require,module,exports){
-module.exports = function($http, $q){
-    var factory = {};
-    factory.credentials = function() {
-        var deferred = $q.defer();
-        deferred.resolve(
-            $http.post('modules/app/models/user.credentials.model.php', {
-                    /* POST variables here */
-            }).success(function(data, status, headers, config){
-                return data;
-            }).error(function (data, status, headers, config) {
-                return {"status": false};
-            })
-        );
-        return deferred.promise;
-    };
-    return factory;
-};
-},{}],9:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($rootScope, $scope, authFac, $location, AUTH_EVENTS) {
-    $scope.login_databases = [
-        {"label":"Grupo Grafico","value":"ggapp"},
-        {"label":"Print Source","value":"printsource"}
-    ];
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/app/services/lang.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
     
-    $scope.user = {
-        us_database: $scope.login_databases[0] // Grupo Grafico
+    return function($http, $q) {
+        var factory = {};
+        factory.setLang = function(newLang) {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('modules/app/models/lang.set.model.php', {
+                    lang: newLang
+                }).success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
+        factory.getLang = function() {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.get('modules/app/models/lang.get.model.php')
+                .success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
+        return factory;
     };
     
-    $scope.onSubmit = function(user) {
-        authFac.login({
-            us_database: user.us_database.value,
-            us_user: user.us_user,
-            us_password: user.us_password
-        }).then(function(promise){
-            if(promise.data.success) {
-                $rootScope.user = promise.data;
-                $location.path("/home");
-            }
-            console.log(JSON.stringify($rootScope.user));
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/app/services/logout.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q){
+        var factory = {};
+        factory.logout = function() {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('modules/app/models/logout.model.php', {
+                        /* POST variables here */
+                }).success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
+        return factory;
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/app/services/user.credentials.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q){
+        var factory = {};
+        factory.credentials = function() {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('modules/app/models/user.credentials.model.php', {
+                        /* POST variables here */
+                }).success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
+        return factory;
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/auth/controllers/auth.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($rootScope, $scope, authFac, $location, AUTH_EVENTS) {
+        $scope.login_databases = [
+            {"label":"Grupo Grafico","value":"ggapp"},
+            {"label":"Print Source","value":"printsource"}
+        ];
+
+        $scope.user = {
+            us_database: $scope.login_databases[0] // Grupo Grafico
+        };
+
+        $scope.onSubmit = function(user) {
+            authFac.login({
+                us_database: user.us_database.value,
+                us_user: user.us_user,
+                us_password: user.us_password
+            }).then(function(promise){
+                if(promise.data.success) {
+                    $rootScope.user = promise.data;
+                    $location.path("/home");
+                }
+                console.log(JSON.stringify($rootScope.user));
+            });
+        }
+        $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
+            $scope.notAuthenticated = true;
         });
-    }
-    $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
-        $scope.notAuthenticated = true;
-    });
-    $scope.$on(AUTH_EVENTS.notAuthorized, function () {
-        $scope.notAuthorized = true;
-    });
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-     });
-    
-    $scope.us_passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
-};
-},{}],10:[function(require,module,exports){
-'use strict';
-
-var ngModule = angular.module('app.auth',[]);
-
-ngModule.constant('AUTH_EVENTS', {
-    loginSuccess: 'auth-login-success',
-    loginFailed: 'auth-login-failed',
-    logoutSuccess: 'auth-logout-success',
-    sessionTimeout: 'auth-session-timeout',
-    notAuthenticated: 'auth-not-authenticated',
-    notAuthorized: 'auth-not-authorized'
-});
-
-ngModule.constant('USER_ROLES', {
-    admin: 1, 
-    editor: 2, 
-    guest: 3,
-    all: 4,
-});
-
-ngModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('auth', {
-        url:'/auth',
-        templateUrl : 'modules/auth/views/auth.view.html',
-        controller : 'authCtrl',
-        data: {
-            authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]
-        }    
-    });
-}]);
-
-ngModule.factory('authFac',require('./services/auth.fac'));
-
-ngModule.controller('authCtrl',require('./controllers/auth.ctrl'));
-
-module.exports = ngModule;
-},{"./controllers/auth.ctrl":9,"./services/auth.fac":11}],11:[function(require,module,exports){
-'use strict';
-
-module.exports = function($http){
-    var factory = {};
-    factory.login = function(user) {
-        var promise = $http.post('modules/auth/models/auth.login.model.php', {
-            /* POST variables here */
-            us_database: user.us_database,
-            us_user: user.us_user,
-            us_password: user.us_password
-        }).success(function(data, status, headers, config){
-            return data;
-        }).error(function (data, status, headers, config) {
-            return {"status": false};
+        $scope.$on(AUTH_EVENTS.notAuthorized, function () {
+            $scope.notAuthorized = true;
         });
-        return promise;
-    }
-    factory.logout = function(user) {
-        var promise = $http.post('modules/auth/models/authLogoutModel.php', {
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+         });
+
+        $scope.us_passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/auth/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.auth',[])
+
+    .constant('AUTH_EVENTS', {
+        loginSuccess: 'auth-login-success',
+        loginFailed: 'auth-login-failed',
+        logoutSuccess: 'auth-logout-success',
+        sessionTimeout: 'auth-session-timeout',
+        notAuthenticated: 'auth-not-authenticated',
+        notAuthorized: 'auth-not-authorized'
+    })
+
+    .constant('USER_ROLES', {
+        admin: 1, 
+        editor: 2, 
+        guest: 3,
+        all: 4,
+    })
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('auth', {
+            url:'/auth',
+            templateUrl : 'modules/auth/views/auth.view.html',
+            controller : 'authCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]
+            }    
+        });
+    }])
+
+    .factory('authFac',require('./services/auth.fac'))
+
+    .controller('authCtrl',require('./controllers/auth.ctrl'))
+    
+})(angular);
+},{"./controllers/auth.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/auth/controllers/auth.ctrl.js","./services/auth.fac":"/Applications/MAMP/htdocs/ggapp/modules/auth/services/auth.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/auth/services/auth.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http){
+        var factory = {};
+        factory.login = function(user) {
+            var promise = $http.post('modules/auth/models/auth.login.model.php', {
                 /* POST variables here */
                 us_database: user.us_database,
                 us_user: user.us_user,
                 us_password: user.us_password
-        }).success(function(data, status, headers, config){
-            return data;
-        }).error(function (data, status, headers, config) {
-            return {"status": false};
-        });
-        return promise;
-    };
-    return factory;
-};
-},{}],12:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($scope, clientFac, $window, i18nFilter, $parse) {
-    
-    $scope.fields = Object.keys(i18nFilter("CLIENT.FIELDS"));
-    
-    $scope.showEdit = true;
-    $scope.showDuplicate = false;
-    
-    $scope.edit = function (id) {
-        if (angular.isNumber(id)) {
-                //Embed the id to the link
-                var link = "#/client/update/" + id;
-                //Open the link
-                window.location = link;
+            }).success(function(data, status, headers, config){
+                return data;
+            }).error(function (data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
         }
-    }
-    
-    $scope.duplicate = function (id) {
-        if (angular.isNumber(id)) {
-                var link = "#/client/duplicate/" + id;
-                //Open the link
-                window.location = link;
-        }
-    }
-    
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-        $scope.loading = true;
-        clientFac.data().then(function(promise){
-            $scope.loading = false;
-            if(angular.isArray(promise.data)) {
-                $scope.data = promise.data;
-            }
-            console.log(angular.fromJson(promise.data));
-        });
-     });
-};
-},{}],13:[function(require,module,exports){
-'use strict';
-
-var ngModule = angular.module('app.client',[
-    require('./modules/client.add').name,
-    require('./modules/client.update').name
-]);
-
-ngModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('client', {
-        url:'/client',
-        templateUrl : 'modules/client/views/client.view.html',
-        controller : 'clientCtrl',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
-
-ngModule.factory('clientFac',require('./services/client.fac'));
-
-ngModule.controller('clientCtrl',require('./controllers/client.ctrl'));
-
-module.exports = ngModule;
-},{"./controllers/client.ctrl":12,"./modules/client.add":15,"./modules/client.update":18,"./services/client.fac":20}],14:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($scope, clientAddFac, $window, $location, i18nFilter, $interval) {
-    
-    $scope.fields = Object.keys(i18nFilter("CLIENT.FIELDS"));
-                
-    $scope.onSubmit = function() {
-    
-        clientAddFac.add($scope.fmData).then(function(promise){
-            if(promise.data == "1") {
-                $location.path('/client');
-            } else {
-                $scope.updateFail = true;
-            }
-            //console.log(JSON.stringify(promise.data));
-        });
-        //console.log('form submitted:', $scope.formData);
+        factory.logout = function(user) {
+            var promise = $http.post('modules/auth/models/authLogoutModel.php', {
+                    /* POST variables here */
+                    us_database: user.us_database,
+                    us_user: user.us_user,
+                    us_password: user.us_password
+            }).success(function(data, status, headers, config){
+                return data;
+            }).error(function (data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        return factory;
     };
     
-    $scope.getStates = function() {
-        $scope.cl_stateoptions = [];
-        $scope.cl_cityoptions = [];
-        $scope.cl_countyoptions = [];
-        $interval(function(){
-            clientAddFac.getStates($scope.fmData.cl_country).then(function(promise){
-                if(angular.isArray(promise.data.geonames)) {
-                    $scope.cl_stateoptions = promise.data.geonames;
-                } else {
-                    //$scope.updateFail = true;
-                }
-                //console.log(JSON.stringify(promise.data));
-            });
-        },0,1);
-    }
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/client/controllers/client.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
     
-    $scope.getCityCounty = function() {
-        $scope.cl_cityoptions = [];
-        $scope.cl_countyoptions = [];
-        $interval(function(){
-            clientAddFac.getStates($scope.fmData.cl_state).then(function(promise){
-                if(angular.isArray(promise.data.geonames)) {
-                    $scope.cl_cityoptions = promise.data.geonames;
-                    $scope.cl_countyoptions = promise.data.geonames;
-                } else {
-                    //$scope.updateFail = true;
-                }
-                //console.log(JSON.stringify(promise.data));
-            });
-        },0,1);
-    }
+    return function ($scope, clientFac, $window, i18nFilter, $parse) {
     
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
+        $scope.labels = Object.keys(i18nFilter("client.labels"));
+        $scope.columns = i18nFilter("client.columns");
         
-        clientAddFac.getCountries().then(function(promise){
-            if(angular.isArray(promise.data.geonames)) {
-                $scope.cl_countryoptions = promise.data.geonames;
-            } else {
-                //$scope.updateFail = true;
+        // formatItem event handler
+        var cl_id;
+        $scope.formatItem = function(s, e, cell) {
+            
+            if (e.panel.cellType == wijmo.grid.CellType.RowHeader) {
+                e.cell.textContent = e.row+1;
             }
-            console.log(JSON.stringify(promise.data.geonames));
+            
+            s.rows.defaultSize = 30;
+            
+            // add Bootstrap html
+            if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (e.col == 0)) {
+                cl_id = e.panel.getCellData(e.row,1,false);
+                e.cell.style.overflow = 'visible';
+                e.cell.innerHTML = '<div class="btn-group btn-group-justified" role="group" aria-label="...">\
+                                        <div class="btn-group" role="group">\
+                                            <a href="#/client/update/'+cl_id+'" class="btn btn-default btn-xs" ng-click="edit($item.cl_id)">Editar</a>\
+                                        </div>\
+                                        <div class="btn-group">\
+                                          <button type="button" class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">\
+                                            Agregar <span class="caret"></span>\
+                                          </button>\
+                                          <ul class="dropdown-menu" role="menu">\
+                                            <li><a href="#/wo/add/'+cl_id+'"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Orden</a></li>\
+                                            <li><a href="#/product/add/'+cl_id+'"><span class="glyphicon glyphicon-barcode" aria-hidden="true"></span> Producto</a></li>\
+                                            <li><a href="#/quote/add/'+cl_id+'"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Cotizacion</a></li>\
+                                            <li><a href="#/zone/add/'+cl_id+'"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Zona</a></li>\
+                                            <li><a href="#/email/add/'+cl_id+'"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Correo</a></li>\
+                                          </ul>\
+                                        </div>\
+                                        <div class="btn-group">\
+                                          <button type="button" class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">\
+                                            Mostrar <span class="caret"></span>\
+                                          </button>\
+                                          <ul class="dropdown-menu" role="menu">\
+                                            <li><a href="#/wo/'+cl_id+'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Ordenes</a></li>\
+                                            <li><a href="#/product/'+cl_id+'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Productos</a></li>\
+                                            <li><a href="#/quote/'+cl_id+'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Cotizaciones</a></li>\
+                                            <li><a href="#/zone/'+cl_id+'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Zonas</a></li>\
+                                            <li><a href="#/email/'+cl_id+'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Correos</a></li>\
+                                          </ul>\
+                                        </div>\
+                                    </div>';
+            }
+        }
+        
+        // bind columns when grid is initialized
+        $scope.initGrid = function(s, e) {
+            for (var i = 0; i < $scope.labels.length; i++) {
+                var col = new wijmo.grid.Column();
+                col.binding = $scope.columns[i];
+                console.log($scope.columns[i])
+                col.header = i18nFilter("client.labels." + $scope.labels[i]);
+                col.wordWrap = false;
+                col.width = 150;
+                s.columns.push(col);
+            }
+        };
+        // create the tooltip object
+        $scope.$watch('ggGrid', function () {
+            if ($scope.ggGrid) {
+                    
+                // store reference to grid
+                var flex = $scope.ggGrid;
+
+                // create tooltip
+                var tip = new wijmo.Tooltip(),
+                    rng = null;
+
+                // monitor the mouse over the grid
+                flex.hostElement.addEventListener('mousemove', function (evt) {
+                    var ht = flex.hitTest(evt);
+                    if (!ht.cellRange.equals(rng)) {
+
+                        // new cell selected, show tooltip
+                        if (ht.cellType == wijmo.grid.CellType.Cell) {
+                            rng = ht.cellRange;
+                            var col = flex.columns[rng.col].header;
+                            var cellElement = document.elementFromPoint(evt.clientX, evt.clientY),
+                                cellBounds = wijmo.Rect.fromBoundingRect(cellElement.getBoundingClientRect()),
+                                data = wijmo.escapeHtml(flex.getCellData(rng.row, rng.col, true)),
+                                tipContent = col + ': "<b>' + data + '</b>"';
+                            if (cellElement.className.indexOf('wj-cell') > -1) {
+                                tip.show(flex.hostElement, tipContent, cellBounds);
+                            } else {
+                                tip.hide(); // cell must be behind scroll bar...
+                            }
+                        }
+                    }
+                });
+                flex.hostElement.addEventListener('mouseout', function () {
+                    tip.hide();
+                    rng = null;
+                });
+            }
         });
 
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            $scope.loading = true;
+            clientFac.data().then(function(promise){
+                $scope.loading = false;
+                if(angular.isArray(promise.data)) {
+                    $scope.data = new wijmo.collections.CollectionView(promise.data);
+                }
+                console.log(angular.fromJson(promise.data));
+            });
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/client/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.client',[
+        require('./modules/client.add').name,
+        require('./modules/client.update').name
+    ])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('client', {
+            url:'/client',
+            templateUrl : 'modules/client/views/client.view.html',
+            controller : 'clientCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
+
+    .factory('clientFac',require('./services/client.fac'))
+
+    .controller('clientCtrl',require('./controllers/client.ctrl'))
+    
+})(angular);
+
+},{"./controllers/client.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/client/controllers/client.ctrl.js","./modules/client.add":"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.add/index.js","./modules/client.update":"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.update/index.js","./services/client.fac":"/Applications/MAMP/htdocs/ggapp/modules/client/services/client.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.add/controllers/client.add.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, clientAddFac, $window, $location, i18nFilter, $interval) {
+        $scope.fmData = {"cl_phone":""};
+
+        $scope.fields = Object.keys(i18nFilter("client.fields"));
+
+        $scope.onSubmit = function() {
+
+            clientAddFac.add($scope.fmData).then(function(promise){
+                if(promise.data == "1") {
+                    $location.path('/client');
+                } else {
+                    $scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+            //console.log('form submitted:', $scope.formData);
+        };
+
+        $scope.getStates = function() {
+            $scope.cl_stateoptions = [];
+            $scope.cl_cityoptions = [];
+            $scope.cl_countyoptions = [];
+            $interval(function(){
+                clientAddFac.getStates($scope.fmData.cl_country).then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.cl_stateoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data));
+                });
+            },0,1);
+        }
+
+        $scope.getCityCounty = function() {
+            $scope.cl_cityoptions = [];
+            $scope.cl_countyoptions = [];
+            $interval(function(){
+                clientAddFac.getStates($scope.fmData.cl_state).then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.cl_cityoptions = promise.data.geonames;
+                        $scope.cl_countyoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data));
+                });
+            },0,1);
+        };
+        
         $scope.cl_statusoptions = [
             {"label":"Activo","value":"A"},
             {"label":"Inactivo","value":"I"}
-        ]
-        
-     });
-};
-},{}],15:[function(require,module,exports){
-'use strict';
+        ];
 
-var ngModule = angular.module('app.client.add',[]);
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            
+            clientAddFac.getCountries().then(function(promise){
+                if(angular.isArray(promise.data.geonames)) {
+                    $scope.cl_countryoptions = promise.data.geonames;
+                } else {
+                    //$scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data.geonames));
+            });
 
-ngModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('clientAdd', {
-        url:'/client/add',
-        templateUrl : 'modules/client/modules/client.add/views/client.add.view.html',
-        controller : 'clientAddCtrl',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.add/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.client.add',[])
 
-ngModule.factory('clientAddFac',require('./services/client.add.fac'));
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('clientAdd', {
+            url:'/client/add',
+            templateUrl : 'modules/client/modules/client.add/views/client.add.view.html',
+            controller : 'clientAddCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
 
-ngModule.controller('clientAddCtrl',require('./controllers/client.add.ctrl'));
+    .factory('clientAddFac',require('./services/client.add.fac'))
 
-module.exports = ngModule;
-},{"./controllers/client.add.ctrl":14,"./services/client.add.fac":16}],16:[function(require,module,exports){
-'use strict';
+    .controller('clientAddCtrl',require('./controllers/client.add.ctrl'))
 
-module.exports = function($http, $stateParams, $interval){
+})(angular);
+},{"./controllers/client.add.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.add/controllers/client.add.ctrl.js","./services/client.add.fac":"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.add/services/client.add.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.add/services/client.add.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $stateParams, $interval){
         var factory = {};
         factory.add = function(cl_jsonb) {
             var promise = $http.post('modules/client/modules/client.add/models/client.add.model.php', {
@@ -816,66 +1032,135 @@ module.exports = function($http, $stateParams, $interval){
         };
         return factory;
     };
-},{}],17:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($scope, clientUpdateFac, $window, $location, i18nFilter) {
-        
-    $scope.onSubmit = function() {
     
-        clientUpdateFac.update($scope.fmData).then(function(promise){
-            if(promise.data == "1") {
-                $location.path('/client');
-            } else {
-                $scope.updateFail = true;
-            }
-            //console.log(JSON.stringify(promise.data));
-        });
-        //console.log('form submitted:', $scope.formData);
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.update/controllers/client.update.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, clientUpdateFac, $window, $location, i18nFilter, $interval) {
+        
+        $scope.onSubmit = function() {
+
+            clientUpdateFac.update($scope.fmData).then(function(promise){
+                if(promise.data == "1") {
+                    $location.path('/client');
+                } else {
+                    $scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+            //console.log('form submitted:', $scope.formData);
+        };
+        
+        $scope.getStates = function() {
+            $scope.cl_stateoptions = [];
+            $scope.cl_cityoptions = [];
+            $scope.cl_countyoptions = [];
+            $interval(function(){
+                clientUpdateFac.getStates($scope.fmData.cl_country).then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.cl_stateoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data));
+                });
+            },0,1);
+        }
+
+        $scope.getCityCounty = function() {
+            $scope.cl_cityoptions = [];
+            $scope.cl_countyoptions = [];
+            $interval(function(){
+                clientUpdateFac.getStates($scope.fmData.cl_state).then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.cl_cityoptions = promise.data.geonames;
+                        $scope.cl_countyoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data));
+                });
+            },0,1);
+        }
+        
+        $scope.cl_statusoptions = [
+            {"label":"Activo","value":"A"},
+            {"label":"Inactivo","value":"I"}
+        ];
+
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            $scope.loading = true;
+            clientUpdateFac.data().then(function(promise){
+                $scope.loading = false;
+                if(angular.isObject(angular.fromJson(promise.data))) {
+                        $scope.fmData = angular.fromJson(promise.data);
+                }
+                console.log(promise.data);
+            }).then(function(){
+                clientUpdateFac.getCountries().then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.cl_countryoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data.geonames));
+                }).then(function(){
+                    clientUpdateFac.getStates($scope.fmData.cl_country).then(function(promise){
+                        if(angular.isArray(promise.data.geonames)) {
+                            $scope.cl_stateoptions = promise.data.geonames;
+                        } else {
+                            //$scope.updateFail = true;
+                        }
+                        //console.log(JSON.stringify(promise.data.geonames));
+                    })
+                }).then(function(){
+                    clientUpdateFac.getCityCounty($scope.fmData.cl_state).then(function(promise){
+                        if(angular.isArray(promise.data.geonames)) {
+                            $scope.cl_cityoptions = promise.data.geonames;
+                            $scope.cl_countyoptions = promise.data.geonames;
+                        } else {
+                            //$scope.updateFail = true;
+                        }
+                        //console.log(JSON.stringify(promise.data.geonames));
+                    })
+                });
+            });
+
+         });
     };
     
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-        
-        $scope.loading = true;
-        clientUpdateFac.data().then(function(promise){
-            $scope.loading = false;
-            if(angular.isObject(angular.fromJson(promise.data))) {
-                    $scope.fmData = angular.fromJson(promise.data);
-            }
-            console.log(promise.data);
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.update/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.client.update',[])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('clientUpdate', {
+            url:'/client/update/:cl_id',
+            templateUrl : 'modules/client/modules/client.update/views/client.update.view.html',
+            controller : 'clientUpdateCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
         });
-        
-        
-        
-     });
-};
-},{}],18:[function(require,module,exports){
-'use strict';
+    }])
 
-var ngModule = angular.module('app.client.update',[]);
+    .factory('clientUpdateFac',require('./services/client.update.fac'))
 
-ngModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('clientUpdate', {
-        url:'/client/update/:cl_id',
-        templateUrl : 'modules/client/modules/client.update/views/client.update.view.html',
-        controller : 'clientUpdateCtrl',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
+    .controller('clientUpdateCtrl',require('./controllers/client.update.ctrl'))
 
-ngModule.factory('clientUpdateFac',require('./services/client.update.fac'));
-
-ngModule.controller('clientUpdateCtrl',require('./controllers/client.update.ctrl'));
-
-module.exports = ngModule;
-},{"./controllers/client.update.ctrl":17,"./services/client.update.fac":19}],19:[function(require,module,exports){
-'use strict';
-
-module.exports = function($http, $q, $stateParams){
+})(angular);
+},{"./controllers/client.update.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.update/controllers/client.update.ctrl.js","./services/client.update.fac":"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.update/services/client.update.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/client/modules/client.update/services/client.update.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q, $stateParams){
         var factory = {};
         factory.data = function() {
             var deferred = $q.defer();
@@ -906,12 +1191,42 @@ module.exports = function($http, $q, $stateParams){
             );
             return deferred.promise;
         };
+        factory.getCountries = function() {
+            var promise = $http.get('http://api.geonames.org/countryInfoJSON?username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function (data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getStates = function(cl_country) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+cl_country+'&username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function(data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getCityCounty = function(cl_state) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+cl_state+'&username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function(data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
         return factory;
     };
-},{}],20:[function(require,module,exports){
-'use strict';
-
-module.exports = function($http, $q){
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/client/services/client.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q){
         var factory = {};
         factory.data = function() {
             var deferred = $q.defer();
@@ -929,42 +1244,49 @@ module.exports = function($http, $q){
         };
         return factory;
     };
-},{}],21:[function(require,module,exports){
-'use strict';
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/home/controllers/home.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($rootScope, $scope, homeFac, $window) {
+        console.log($rootScope.user);
+        $scope.user = $rootScope.user;
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+        });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/home/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.home',[])
 
-module.exports = function ($rootScope, $scope, homeFac, $window) {
-    console.log($rootScope.user);
-    $scope.user = $rootScope.user;
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-    });
-};
-},{}],22:[function(require,module,exports){
-'use strict';
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('home', {
+            url:'/home',
+            templateUrl : 'modules/home/views/home.view.html',
+            controller : 'homeCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+            }    
+        });
+    }])
 
-var ngModule = angular.module('app.home',[]);
+    .factory('homeFac',require('./services/home.fac'))
 
-ngModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('home', {
-        url:'/home',
-        templateUrl : 'modules/home/views/home.view.html',
-        controller : 'homeCtrl',
-        data: {
-            authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
-        }    
-    });
-}]);
+    .controller('homeCtrl',require('./controllers/home.ctrl'))
 
-ngModule.factory('homeFac',require('./services/home.fac'));
-
-ngModule.controller('homeCtrl',require('./controllers/home.ctrl'));
-
-module.exports = ngModule;
-},{"./controllers/home.ctrl":21,"./services/home.fac":23}],23:[function(require,module,exports){
-'use strict';
-
-module.exports = function($http, $q){
+})(angular);
+},{"./controllers/home.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/home/controllers/home.ctrl.js","./services/home.fac":"/Applications/MAMP/htdocs/ggapp/modules/home/services/home.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/home/services/home.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q){
         var factory = {};
         factory.getLogin = function(user) {
             var deferred = $q.defer();
@@ -981,120 +1303,141 @@ module.exports = function($http, $q){
         };
         return factory;
     };
-},{}],24:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($scope, userFac, $window, i18nFilter, $parse) {
     
-    $scope.fields = Object.keys(i18nFilter("USER.FIELDS"));
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/user/controllers/user.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
     
-    console.log(JSON.stringify($scope.fields));
-    
-    $scope.showEdit = true;
-    $scope.showDuplicate = false;
-    
-    $scope.edit = function (id) {
-        if (angular.isNumber(id)) {
-                //Embed the id to the link
-                var link = "#/user/update/" + id;
-                //Open the link
-                window.location = link;
-        }
-    }
-    
-    $scope.duplicate = function (id) {
-        if (angular.isNumber(id)) {
-                var link = "#/user/duplicate/" + id;
-                //Open the link
-                window.location = link;
-        }
-    }
-    
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-        $scope.loading = true;
-        userFac.data().then(function(promise){
-            $scope.loading = false;
-            if(angular.isArray(promise.data)) {
-                $scope.data = promise.data;
-            }
-            console.log(angular.fromJson(promise.data));
-        });
-     });
-};
-},{}],25:[function(require,module,exports){
-'use strict';
-
-var ngModule = angular.module('app.user',[
-    require('./modules/user.add').name,
-    require('./modules/user.update').name
-]);
-
-ngModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('user', {
-        url:'/user',
-        templateUrl : 'modules/user/views/user.view.html',
-        controller : 'userCtrl',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
-
-ngModule.factory('userFac',require('./services/user.fac'));
-
-ngModule.controller('userCtrl',require('./controllers/user.ctrl'));
-
-module.exports = ngModule;
-},{"./controllers/user.ctrl":24,"./modules/user.add":27,"./modules/user.update":30,"./services/user.fac":32}],26:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($scope, userAddFac, $window, $location, i18nFilter) {
+    return function ($scope, userFac, $window, i18nFilter, $parse) {
         
-    $scope.onSubmit = function() {
-    
-        userAddFac.add($scope.fmData).then(function(promise){
-            if(promise.data == "1") {
-                $location.path('/user');
-            } else {
-                $scope.updateFail = true;
+        $scope.labels = Object.keys(i18nFilter("user.labels"));
+        $scope.columns = i18nFilter("user.columns");
+
+        console.log(JSON.stringify($scope.fields));
+
+        $scope.edit = function (id) {
+            if (angular.isNumber(id)) {
+                    //Embed the id to the link
+                    var link = "#/user/update/" + id;
+                    //Open the link
+                    window.location = link;
             }
-            //console.log(JSON.stringify(promise.data));
-        });
-        //console.log('form submitted:', $scope.formData);
+        }
+
+        $scope.duplicate = function (id) {
+            if (angular.isNumber(id)) {
+                    var link = "#/user/duplicate/" + id;
+                    //Open the link
+                    window.location = link;
+            }
+        }
+        
+        // bind columns when grid is initialized
+        $scope.initGrid = function(s, e) {
+            for (var i = 0; i < $scope.labels.length; i++) {
+                var col = new wijmo.grid.Column();
+                col.binding = $scope.columns[i];
+                col.header = i18nFilter("user.labels." + $scope.labels[i]);
+                s.columns.push(col);
+            }
+        };
+
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            $scope.loading = true;
+            userFac.data().then(function(promise){
+                $scope.loading = false;
+                if(angular.isArray(promise.data)) {
+                    $scope.data = new wijmo.collections.CollectionView(promise.data);
+                }
+                console.log(angular.fromJson(promise.data));
+            });
+         });
     };
     
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-     });
-};
-},{}],27:[function(require,module,exports){
-'use strict';
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/user/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.user',[
+        require('./modules/user.add').name,
+        require('./modules/user.update').name,
+        require('./modules/user.profile').name
+    ])
 
-var ngModule = angular.module('app.user.add',[]);
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('user', {
+            url:'/user',
+            templateUrl : 'modules/user/views/user.view.html',
+            controller : 'userCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
 
-ngModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('userAdd', {
-        url:'/user/add',
-        templateUrl : 'modules/user/modules/user.add/views/user.add.view.html',
-        controller : 'userAddCtrl',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
+    .factory('userFac',require('./services/user.fac'))
 
-ngModule.factory('userAddFac',require('./services/user.add.fac'));
+    .controller('userCtrl',require('./controllers/user.ctrl'))
 
-ngModule.controller('userAddCtrl',require('./controllers/user.add.ctrl'));
+})(angular);
+},{"./controllers/user.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/user/controllers/user.ctrl.js","./modules/user.add":"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.add/index.js","./modules/user.profile":"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.profile/index.js","./modules/user.update":"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.update/index.js","./services/user.fac":"/Applications/MAMP/htdocs/ggapp/modules/user/services/user.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.add/controllers/user.add.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, userAddFac, $window, $location, i18nFilter) {
+        
+        $scope.onSubmit = function() {
 
-module.exports = ngModule;
-},{"./controllers/user.add.ctrl":26,"./services/user.add.fac":28}],28:[function(require,module,exports){
-'use strict';
+            userAddFac.add($scope.fmData).then(function(promise){
+                if(promise.data == "1") {
+                    $location.path('/user');
+                } else {
+                    $scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+            //console.log('form submitted:', $scope.formData);
+        };
 
-module.exports = function($http, $stateParams){
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.add/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.user.add',[])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('userAdd', {
+            url:'/user/add',
+            templateUrl : 'modules/user/modules/user.add/views/user.add.view.html',
+            controller : 'userAddCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
+
+    .factory('userAddFac',require('./services/user.add.fac'))
+
+    .controller('userAddCtrl',require('./controllers/user.add.ctrl'))
+    
+})(angular);
+
+},{"./controllers/user.add.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.add/controllers/user.add.ctrl.js","./services/user.add.fac":"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.add/services/user.add.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.add/services/user.add.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $stateParams){
         var factory = {};
         factory.add = function(us_jsonb) {
             var promise = $http.post('modules/user/modules/user.add/models/user.add.model.php', {
@@ -1109,66 +1452,107 @@ module.exports = function($http, $stateParams){
         };
         return factory;
     };
-},{}],29:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($scope, userUpdateFac, $window, $location, i18nFilter) {
-        
-    $scope.onSubmit = function() {
     
-        userUpdateFac.update($scope.fmData).then(function(promise){
-            if(promise.data == "1") {
-                $location.path('/user');
-            } else {
-                $scope.updateFail = true;
-            }
-            //console.log(JSON.stringify(promise.data));
-        });
-        //console.log('form submitted:', $scope.formData);
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.profile/controllers/user.profile.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, $window, $location, i18nFilter, $rootScope) {
+        $scope.user = $rootScope.user;
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+         });
     };
     
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-        
-        $scope.loading = true;
-        userUpdateFac.data().then(function(promise){
-            $scope.loading = false;
-            if(angular.isObject(angular.fromJson(promise.data))) {
-                    $scope.fmData = angular.fromJson(promise.data);
-            }
-            console.log(promise.data);
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.profile/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.user.profile',[])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('userProfile', {
+            url:'/user/profile',
+            templateUrl : 'modules/user/modules/user.profile/views/user.profile.view.html',
+            controller : 'userProfileCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
         });
+    }])
+
+    .controller('userProfileCtrl',require('./controllers/user.profile.ctrl'))
+    
+})(angular);
+
+},{"./controllers/user.profile.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.profile/controllers/user.profile.ctrl.js"}],"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.update/controllers/user.update.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, userUpdateFac, $window, $location, i18nFilter) {
         
-        
-        
-     });
-};
-},{}],30:[function(require,module,exports){
-'use strict';
+        $scope.onSubmit = function() {
 
-var ngModule = angular.module('app.user.update',[]);
+            userUpdateFac.update($scope.fmData).then(function(promise){
+                if(promise.data == "1") {
+                    $location.path('/user');
+                } else {
+                    $scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+            //console.log('form submitted:', $scope.formData);
+        };
 
-ngModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('userUpdate', {
-        url:'/user/update/:us_id',
-        templateUrl : 'modules/user/modules/user.update/views/user.update.view.html',
-        controller : 'userUpdateCtrl',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
 
-ngModule.factory('userUpdateFac',require('./services/user.update.fac'));
+            $scope.loading = true;
+            userUpdateFac.data().then(function(promise){
+                $scope.loading = false;
+                if(angular.isObject(angular.fromJson(promise.data))) {
+                        $scope.fmData = angular.fromJson(promise.data);
+                }
+                console.log(promise.data);
+            });
 
-ngModule.controller('userUpdateCtrl',require('./controllers/user.update.ctrl'));
 
-module.exports = ngModule;
-},{"./controllers/user.update.ctrl":29,"./services/user.update.fac":31}],31:[function(require,module,exports){
-'use strict';
 
-module.exports = function($http, $q, $stateParams){
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.update/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.user.update',[])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('userUpdate', {
+            url:'/user/update/:us_id',
+            templateUrl : 'modules/user/modules/user.update/views/user.update.view.html',
+            controller : 'userUpdateCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
+
+    .factory('userUpdateFac',require('./services/user.update.fac'))
+
+    .controller('userUpdateCtrl',require('./controllers/user.update.ctrl'))
+
+})(angular);
+},{"./controllers/user.update.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.update/controllers/user.update.ctrl.js","./services/user.update.fac":"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.update/services/user.update.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/user/modules/user.update/services/user.update.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q, $stateParams){
         var factory = {};
         factory.data = function() {
             var deferred = $q.defer();
@@ -1201,10 +1585,13 @@ module.exports = function($http, $q, $stateParams){
         };
         return factory;
     };
-},{}],32:[function(require,module,exports){
-'use strict';
-
-module.exports = function($http, $q){
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/user/services/user.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q){
         var factory = {};
         factory.data = function() {
             var deferred = $q.defer();
@@ -1221,119 +1608,193 @@ module.exports = function($http, $q){
         };
         return factory;
     };
-},{}],33:[function(require,module,exports){
-'use strict';
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/wo/controllers/wo.ctrl.js":[function(require,module,exports){
+module.exports = (function (angular) {
+    'use strict';
+    
+    return function ($scope, woFactory,$location, i18nFilter) {
+    
+        $scope.fields = Object.keys(i18nFilter("WO.FIELDS"));
 
-module.exports = function ($scope, woFactory,$location, i18nFilter) {
-    
-    $scope.fields = Object.keys(i18nFilter("WO.FIELDS"));
-    
-    console.log(JSON.stringify($scope.fields));
-    
-    $scope.showEdit = true;
-    $scope.showDuplicate = true;
-    
-    $scope.edit = function (id) {
-        if (angular.isNumber(id)) {
-                //Embed the id to the link
-                var link = "#/wo/update/" + id;
-                //Open the link
-                window.location = link;
-        }
-    }
-    
-    $scope.duplicate = function (id) {
-        if (angular.isNumber(id)) {
+        $scope.edit = function (id) {
+            if (angular.isNumber(id)) {
+                    var link = "#/wo/update/" + id;
+                    window.location = link;
+            }
+        };
+
+        $scope.duplicate = function (id) {
+            if (angular.isNumber(id)) {
                 var link = "#/wo/duplicate/" + id;
-                //Open the link
                 window.location = link;
-        }
-    }
-    
-    $scope.$on('$viewContentLoaded', function() {
-        // this code is executed after the view is loaded
-
-        $scope.loading = true;
-        woFactory.getData().then(function(promise){
-            $scope.loading = false;
-            if(angular.isArray(promise.data)) {
-                $scope.data = promise.data;
             }
-            //console.log(JSON.stringify(promise.data));
-        });
-     });
-};
-},{}],34:[function(require,module,exports){
-'use strict';
-
-var clientModule = angular.module('app.wo',[
-    require('./modules/woAdd').name,
-    require('./modules/woUpdate').name
-]);
-
-clientModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('wo', {
-        url:'/wo',
-        templateUrl : 'modules/wo/views/woView.html',
-        controller : 'woController',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
-
-clientModule.factory('woFactory',require('./services/woFactory'));
-
-clientModule.controller('woController',require('./controllers/woController'));
-
-module.exports = clientModule;
-},{"./controllers/woController":33,"./modules/woAdd":36,"./modules/woUpdate":39,"./services/woFactory":41}],35:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($scope, woAddFactory, $window) {
-    
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-        $scope.loading = true;
-        woAddFactory.addData().then(function(promise){
-            $scope.loading = false;
-            if(angular.isArray(promise.data)) {
-               
+        };
+        
+        // bind columns when grid is initialized
+        $scope.initGrid = function(s, e) {
+            for (var i = 0; i < $scope.labels.length; i++) {
+                var col = new wijmo.grid.Column();
+                col.binding = $scope.fields[i].toLowerCase();
+                col.header = i18nFilter("WO.labels." + $scope.fields[i]);
+                s.columns.push(col);
             }
-            console.log(JSON.stringify(promise.data));
+        };
+        
+        // create the tooltip object
+        $scope.$watch('ggGrid', function () {
+            if ($scope.ggGrid) {
+
+                // store reference to grid
+                var flex = $scope.ggGrid;
+
+                // create tooltip
+                var tip = new wijmo.Tooltip(),
+                    rng = null;
+
+                // monitor the mouse over the grid
+                flex.hostElement.addEventListener('mousemove', function (evt) {
+                    var ht = flex.hitTest(evt);
+                    if (!ht.cellRange.equals(rng)) {
+
+                        // new cell selected, show tooltip
+                        if (ht.cellType == wijmo.grid.CellType.Cell) {
+                            rng = ht.cellRange;
+                            var col = flex.columns[rng.col].header;
+                            var cellElement = document.elementFromPoint(evt.clientX, evt.clientY),
+                                cellBounds = wijmo.Rect.fromBoundingRect(cellElement.getBoundingClientRect()),
+                                data = wijmo.escapeHtml(flex.getCellData(rng.row, rng.col, true)),
+                                tipContent = col + ': "<b>' + data + '</b>"';
+                            if (cellElement.className.indexOf('wj-cell') > -1) {
+                                tip.show(flex.hostElement, tipContent, cellBounds);
+                            } else {
+                                tip.hide(); // cell must be behind scroll bar...
+                            }
+                        }
+                    }
+                });
+                flex.hostElement.addEventListener('mouseout', function () {
+                    tip.hide();
+                    rng = null;
+                });
+            }
         });
-     });
-};
-},{}],36:[function(require,module,exports){
-'use strict';
 
-var clientModule = angular.module('app.woAdd',[]);
+        $scope.$on('$viewContentLoaded', function() {
+            // this code is executed after the view is loaded
 
-clientModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('woAdd', {
-        url:'/wo/add',
-        templateUrl : 'modules/wo/modules/woAdd/views/woAddView.html',
-        controller : 'woAddController',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
+            $scope.loading = true;
+            
+            woFactory.getData().then(function(promise){
+                
+                $scope.loading = false;
+                
+                if(angular.isArray(promise.data)) {
+                                            
+                    // expose data as a CollectionView to get events
+                    $scope.data = new wijmo.collections.CollectionView(promise.data);   
+                    
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/wo/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.wo',[
+        require('./modules/woAdd').name,
+        require('./modules/woUpdate').name
+    ])
 
-clientModule.factory('woAddFactory',require('./services/woAddFactory'));
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('wo', {
+            url:'/wo',
+            templateUrl : 'modules/wo/views/wo.view.html',
+            controller : 'woController',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
 
-clientModule.controller('woAddController',require('./controllers/woAddController'));
+    .factory('woFactory',require('./services/wo.fac'))
 
-module.exports = clientModule;
-},{"./controllers/woAddController":35,"./services/woAddFactory":37}],37:[function(require,module,exports){
-'use strict';
+    .controller('woController',require('./controllers/wo.ctrl'))
 
-module.exports = function($http){
+})(angular);
+},{"./controllers/wo.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/wo/controllers/wo.ctrl.js","./modules/woAdd":"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woAdd/index.js","./modules/woUpdate":"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woUpdate/index.js","./services/wo.fac":"/Applications/MAMP/htdocs/ggapp/modules/wo/services/wo.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woAdd/controllers/wo.add.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, woAddFactory, $window, $stateParams) {
+        $scope.fmData = {};
+        
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            $scope.loading = true;
+            woAddFactory.getClient().then(function(promise){
+                $scope.loading = false;
+                if(angular.isObject(promise.data)) {
+                    $scope.client = promise.data;
+                    $scope.fmData.cl_corporatename = $scope.client.cl_corporatename;
+                }
+                console.log(JSON.stringify(promise.data));
+            });
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woAdd/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.woAdd',[])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('woAdd', {
+            url:'/wo/add/:cl_id',
+            templateUrl : 'modules/wo/modules/woAdd/views/wo.add.view.html',
+            controller : 'woAddController',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
+
+    .factory('woAddFactory',require('./services/wo.add.fac'))
+
+    .controller('woAddController',require('./controllers/wo.add.ctrl'))
+
+})(angular);
+},{"./controllers/wo.add.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woAdd/controllers/wo.add.ctrl.js","./services/wo.add.fac":"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woAdd/services/wo.add.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woAdd/services/wo.add.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q , $stateParams){
         var factory = {};
+        factory.getClient = function() {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('modules/wo/modules/woAdd/models/wo.getClient.model.php', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id
+                }).success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
         factory.addData = function() {
-            var promise = $http.post('modules/wo/modules/woAdd/models/woAddModel.php', {
+            var promise = $http.post('modules/wo/modules/woAdd/models/wo.add.model.php', {
                     /* POST variables here */
             }).success(function(data, status, headers, config){
                 return data;
@@ -1344,52 +1805,59 @@ module.exports = function($http){
         };
         return factory;
     };
-},{}],38:[function(require,module,exports){
-'use strict';
-
-module.exports = function ($scope, woUpdateFactory, $window) {
     
-    $scope.$on('$viewContentLoaded', function () {
-        // this code is executed after the view is loaded
-        $scope.loading = true;
-        woUpdateFactory.updateData().then(function(promise){
-            $scope.loading = false;
-            if(angular.isArray(promise.data)) {
-                
-            }
-            console.log(JSON.stringify(promise.data));
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woUpdate/controllers/wo.update.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, woUpdateFactory, $window) {
+    
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            $scope.loading = true;
+            woUpdateFactory.updateData().then(function(promise){
+                $scope.loading = false;
+                if(angular.isArray(promise.data)) {
+
+                }
+                console.log(JSON.stringify(promise.data));
+            });
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woUpdate/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.woUpdate',[])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('woUpdate', {
+            url:'/wo/update/:wo_id',
+            templateUrl : 'modules/wo/modules/woUpdate/views/wo.update.view.html',
+            controller : 'woUpdateController',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
         });
-     });
-};
-},{}],39:[function(require,module,exports){
-'use strict';
+    }])
 
-var clientModule = angular.module('app.woUpdate',[]);
+    .factory('woUpdateFactory',require('./services/wo.update.fac'))
 
-clientModule.config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-function($stateProvider, $urlRouterProvider, USER_ROLES) {
-    $stateProvider.state('woUpdate', {
-        url:'/wo/update/:wo_id',
-        templateUrl : 'modules/wo/modules/woUpdate/views/woUpdateView.html',
-        controller : 'woUpdateController',
-        data: {
-            authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
-        }    
-    });
-}]);
+    .controller('woUpdateController',require('./controllers/wo.update.ctrl'))
 
-clientModule.factory('woUpdateFactory',require('./services/woUpdateFactory'));
-
-clientModule.controller('woUpdateController',require('./controllers/woUpdateController'));
-
-module.exports = clientModule;
-},{"./controllers/woUpdateController":38,"./services/woUpdateFactory":40}],40:[function(require,module,exports){
-'use strict';
-
-module.exports = function($http, $stateParams){
+})(angular);
+},{"./controllers/wo.update.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woUpdate/controllers/wo.update.ctrl.js","./services/wo.update.fac":"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woUpdate/services/wo.update.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/wo/modules/woUpdate/services/wo.update.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $stateParams){
         var factory = {};
         factory.updateData = function() {
-            var promise = $http.post('modules/wo/modules/woUpdate/models/woUpdateModel.php', {
+            var promise = $http.post('modules/wo/modules/woUpdate/models/wo.update.model.php', {
                     /* POST variables here */
                     wo_id: $stateParams.wo_id
             }).success(function(data, status, headers, config){
@@ -1401,15 +1869,18 @@ module.exports = function($http, $stateParams){
         };
         return factory;
     };
-},{}],41:[function(require,module,exports){
-'use strict';
-
-module.exports = function($http, $q){
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/wo/services/wo.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q){
         var factory = {};
         factory.getData = function() {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/wo/models/woModel.php', {
+                $http.post('modules/wo/models/wo.model.php', {
                         /* POST variables here */
                 }).success(function(data, status, headers, config){
                     return data;
@@ -1421,4 +1892,510 @@ module.exports = function($http, $q){
         };
         return factory;
     };
-},{}]},{},[1])
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/zone/controllers/zone.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, zoneFac, $window, i18nFilter, $parse) {
+    
+        $scope.labels = Object.keys(i18nFilter("zone.labels"));
+        $scope.columns = i18nFilter("zone.columns");
+        
+        // formatItem event handler
+        var zo_id;
+        $scope.formatItem = function(s, e, cell) {
+            
+            if (e.panel.cellType == wijmo.grid.CellType.RowHeader) {
+                e.cell.textContent = e.row+1;
+            }
+            
+            s.rows.defaultSize = 30;
+            
+            // add Bootstrap html
+            if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (e.col == 0)) {
+                zo_id = e.panel.getCellData(e.row,1,false);
+                e.cell.style.overflow = 'visible';
+                e.cell.innerHTML = '<div class="btn-group btn-group-justified" role="group" aria-label="...">\
+                                        <div class="btn-group" role="group">\
+                                            <a href="#/zone/update/'+zo_id+'" class="btn btn-default btn-xs" ng-click="edit($item.cl_id)">Editar</a>\
+                                        </div>\
+                                    </div>';
+            }
+        }
+        
+        // bind columns when grid is initialized
+        $scope.initGrid = function(s, e) {
+            for (var i = 0; i < $scope.labels.length; i++) {
+                var col = new wijmo.grid.Column();
+                col.binding = $scope.columns[i];
+                col.header = i18nFilter("zone.labels." + $scope.labels[i]);
+                col.wordWrap = false;
+                col.width = 150;
+                s.columns.push(col);
+            }
+        };
+        // create the tooltip object
+        $scope.$watch('ggGrid', function () {
+            if ($scope.ggGrid) {
+                    
+                // store reference to grid
+                var flex = $scope.ggGrid;
+
+                // create tooltip
+                var tip = new wijmo.Tooltip(),
+                    rng = null;
+
+                // monitor the mouse over the grid
+                flex.hostElement.addEventListener('mousemove', function (evt) {
+                    var ht = flex.hitTest(evt);
+                    if (!ht.cellRange.equals(rng)) {
+
+                        // new cell selected, show tooltip
+                        if (ht.cellType == wijmo.grid.CellType.Cell) {
+                            rng = ht.cellRange;
+                            var col = flex.columns[rng.col].header;
+                            var cellElement = document.elementFromPoint(evt.clientX, evt.clientY),
+                                cellBounds = wijmo.Rect.fromBoundingRect(cellElement.getBoundingClientRect()),
+                                data = wijmo.escapeHtml(flex.getCellData(rng.row, rng.col, true)),
+                                tipContent = col + ': "<b>' + data + '</b>"';
+                            if (cellElement.className.indexOf('wj-cell') > -1) {
+                                tip.show(flex.hostElement, tipContent, cellBounds);
+                            } else {
+                                tip.hide(); // cell must be behind scroll bar...
+                            }
+                        }
+                    }
+                });
+                flex.hostElement.addEventListener('mouseout', function () {
+                    tip.hide();
+                    rng = null;
+                });
+            }
+        });
+
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            $scope.loading = true;
+            zoneFac.data().then(function(promise){
+                $scope.loading = false;
+                if(angular.isArray(promise.data)) {
+                    $scope.data = new wijmo.collections.CollectionView(promise.data);
+                }
+                console.log(angular.fromJson(promise.data));
+            });
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/zone/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.zone',[
+        require('./modules/zone.add').name,
+        require('./modules/zone.update').name
+    ])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('zone', {
+            url:'/zone/:cl_id',
+            templateUrl : 'modules/zone/views/zone.view.html',
+            controller : 'zoneCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
+
+    .factory('zoneFac',require('./services/zone.fac'))
+
+    .controller('zoneCtrl',require('./controllers/zone.ctrl'))
+    
+})(angular);
+
+},{"./controllers/zone.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/zone/controllers/zone.ctrl.js","./modules/zone.add":"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.add/index.js","./modules/zone.update":"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.update/index.js","./services/zone.fac":"/Applications/MAMP/htdocs/ggapp/modules/zone/services/zone.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.add/controllers/zone.add.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, zoneAddFac, $window, $location, i18nFilter, $interval, $stateParams) {
+        $scope.fmData = {};
+        $scope.fmData.cl_id = $stateParams.cl_id;
+
+        $scope.fields = Object.keys(i18nFilter("zone.FIELDS"));
+
+        $scope.onSubmit = function() {
+
+            zoneAddFac.add($scope.fmData).then(function(promise){
+                if(promise.data == "1") {
+                    $location.path('/zone');
+                } else {
+                    $scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+            //console.log('form submitted:', $scope.formData);
+        };
+
+        $scope.getStates = function() {
+            $scope.zo_stateoptions = [];
+            $scope.zo_cityoptions = [];
+            $scope.zo_countyoptions = [];
+            $interval(function(){
+                zoneAddFac.getStates($scope.fmData.zo_country).then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.zo_stateoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data));
+                });
+            },0,1);
+        }
+
+        $scope.getCityCounty = function() {
+            $scope.zo_cityoptions = [];
+            $scope.zo_countyoptions = [];
+            $interval(function(){
+                zoneAddFac.getStates($scope.fmData.zo_state).then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.zo_cityoptions = promise.data.geonames;
+                        $scope.zo_countyoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data));
+                });
+            },0,1);
+        };
+        
+        $scope.zo_statusoptions = [
+            {"label":"Activo","value":"A"},
+            {"label":"Inactivo","value":"I"}
+        ];
+
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            
+            zoneAddFac.getClient().then(function(promise){
+                $scope.loading = false;
+                if(angular.isObject(promise.data)) {
+                    $scope.client = promise.data;
+                }
+                console.log(JSON.stringify(promise.data));
+            });
+            
+            zoneAddFac.getCountries().then(function(promise){
+                if(angular.isArray(promise.data.geonames)) {
+                    $scope.zo_countryoptions = promise.data.geonames;
+                } else {
+                    //$scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data.geonames));
+            });
+
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.add/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.zone.add',[])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('zoneAdd', {
+            url:'/zone/add/:cl_id',
+            templateUrl : 'modules/zone/modules/zone.add/views/zone.add.view.html',
+            controller : 'zoneAddCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
+
+    .factory('zoneAddFac',require('./services/zone.add.fac'))
+
+    .controller('zoneAddCtrl',require('./controllers/zone.add.ctrl'))
+
+})(angular);
+},{"./controllers/zone.add.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.add/controllers/zone.add.ctrl.js","./services/zone.add.fac":"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.add/services/zone.add.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.add/services/zone.add.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q, $stateParams, $interval){
+        var factory = {};
+        factory.getClient = function() {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('modules/zone/modules/zone.add/models/zone.getClient.model.php', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id
+                }).success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
+        factory.add = function(zo_jsonb) {
+            var promise = $http.post('modules/zone/modules/zone.add/models/zone.add.model.php', {
+                    /* POST variables here */
+                    zo_jsonb: zo_jsonb
+            }).success(function(data, status, headers, config){
+                return data;
+            }).error(function (data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getCountries = function() {
+            var promise = $http.get('http://api.geonames.org/countryInfoJSON?username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function (data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getStates = function(zo_country) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+zo_country+'&username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function(data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getCityCounty = function(zo_state) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+zo_state+'&username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function(data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        return factory;
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.update/controllers/zone.update.ctrl.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function ($scope, zoneUpdateFac, $window, $location, i18nFilter, $interval) {
+        
+        $scope.onSubmit = function() {
+
+            zoneUpdateFac.update($scope.fmData).then(function(promise){
+                if(promise.data == "1") {
+                    $location.path('/zone');
+                } else {
+                    $scope.updateFail = true;
+                }
+                //console.log(JSON.stringify(promise.data));
+            });
+            //console.log('form submitted:', $scope.formData);
+        };
+        
+        $scope.getStates = function() {
+            $scope.cl_stateoptions = [];
+            $scope.cl_cityoptions = [];
+            $scope.cl_countyoptions = [];
+            $interval(function(){
+                zoneUpdateFac.getStates($scope.fmData.cl_country).then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.cl_stateoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data));
+                });
+            },0,1);
+        }
+
+        $scope.getCityCounty = function() {
+            $scope.cl_cityoptions = [];
+            $scope.cl_countyoptions = [];
+            $interval(function(){
+                zoneUpdateFac.getStates($scope.fmData.cl_state).then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.cl_cityoptions = promise.data.geonames;
+                        $scope.cl_countyoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data));
+                });
+            },0,1);
+        }
+        
+        $scope.cl_statusoptions = [
+            {"label":"Activo","value":"A"},
+            {"label":"Inactivo","value":"I"}
+        ];
+
+        $scope.$on('$viewContentLoaded', function () {
+            // this code is executed after the view is loaded
+            $scope.loading = true;
+            zoneUpdateFac.data().then(function(promise){
+                $scope.loading = false;
+                if(angular.isObject(angular.fromJson(promise.data))) {
+                        $scope.fmData = angular.fromJson(promise.data);
+                }
+                console.log(promise.data);
+            }).then(function(){
+                zoneUpdateFac.getCountries().then(function(promise){
+                    if(angular.isArray(promise.data.geonames)) {
+                        $scope.cl_countryoptions = promise.data.geonames;
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                    //console.log(JSON.stringify(promise.data.geonames));
+                }).then(function(){
+                    zoneUpdateFac.getStates($scope.fmData.cl_country).then(function(promise){
+                        if(angular.isArray(promise.data.geonames)) {
+                            $scope.cl_stateoptions = promise.data.geonames;
+                        } else {
+                            //$scope.updateFail = true;
+                        }
+                        //console.log(JSON.stringify(promise.data.geonames));
+                    })
+                }).then(function(){
+                    zoneUpdateFac.getCityCounty($scope.fmData.cl_state).then(function(promise){
+                        if(angular.isArray(promise.data.geonames)) {
+                            $scope.cl_cityoptions = promise.data.geonames;
+                            $scope.cl_countyoptions = promise.data.geonames;
+                        } else {
+                            //$scope.updateFail = true;
+                        }
+                        //console.log(JSON.stringify(promise.data.geonames));
+                    })
+                });
+            });
+
+         });
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.update/index.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.zone.update',[])
+
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
+    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+        $stateProvider.state('zoneUpdate', {
+            url:'/zone/update/:cl_id',
+            templateUrl : 'modules/zone/modules/zone.update/views/zone.update.view.html',
+            controller : 'zoneUpdateCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+            }    
+        });
+    }])
+
+    .factory('zoneUpdateFac',require('./services/zone.update.fac'))
+
+    .controller('zoneUpdateCtrl',require('./controllers/zone.update.ctrl'))
+
+})(angular);
+},{"./controllers/zone.update.ctrl":"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.update/controllers/zone.update.ctrl.js","./services/zone.update.fac":"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.update/services/zone.update.fac.js"}],"/Applications/MAMP/htdocs/ggapp/modules/zone/modules/zone.update/services/zone.update.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q, $stateParams){
+        var factory = {};
+        factory.data = function() {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('modules/client/modules/client.update/models/client.model.php', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id
+                }).success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
+        factory.update = function(cl_jsonb) {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('modules/client/modules/client.update/models/client.update.model.php', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id,
+                    cl_jsonb: cl_jsonb
+                }).success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
+        factory.getCountries = function() {
+            var promise = $http.get('http://api.geonames.org/countryInfoJSON?username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function (data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getStates = function(cl_country) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+cl_country+'&username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function(data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        factory.getCityCounty = function(cl_state) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+cl_state+'&username=alejandrolsca')
+            .success(function(data, status, headers, config){
+                return data;
+            }).error(function(data, status, headers, config) {
+                return {"status": false};
+            });
+            return promise;
+        };
+        return factory;
+    };
+    
+})(angular);
+},{}],"/Applications/MAMP/htdocs/ggapp/modules/zone/services/zone.fac.js":[function(require,module,exports){
+module.exports = (function(angular){
+    'use strict';
+    
+    return function($http, $q, $stateParams){
+        var factory = {};
+        factory.data = function() {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('modules/zone/models/zone.model.php', {
+                        /* POST variables here */
+                        procces_id: new Date().getMilliseconds(),
+                        cl_id: $stateParams.cl_id
+                }).success(function(data, status, headers, config){
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return {"status": false};
+                })
+            );
+            return deferred.promise;
+        };
+        return factory;
+    };
+    
+})(angular);
+},{}]},{},["/Applications/MAMP/htdocs/ggapp/modules/app.js"]);

@@ -34,3 +34,6 @@ Connection Error #: 7
 Connection Error #: 7
  | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
  | Date: 2014-06-11 15:12:47
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-01-15 03:52:46

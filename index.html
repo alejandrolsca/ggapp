@@ -2,59 +2,139 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>GGAAPP</title>      
 <!--CSS-->
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    
 <!--Bootstrap-->
-<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="css/global.css" rel="stylesheet" type="text/css" />
-<link href="css/menu.css" rel="stylesheet" type="text/css" />
+<link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
     
 <!--Angular Animations-->
 <link href="css/animate.css" rel="stylesheet" type="text/css" />   
     
 <!--Animations-->
 <link href="css/animations.css" rel="stylesheet" type="text/css" /> 
+
+<!-- Wijmo references (required) -->
+<link href="lib/wijmo/Dist/styles/wijmo.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="lib/wijmo/Dist/controls/wijmo.min.js"></script>
+<script type="text/javascript" src="lib/wijmo/Dist/controls/wijmo.grid.min.js"></script>
+<script type="text/javascript" src="lib/wijmo/Dist/controls/wijmo.grid.filter.min.js"></script>
+    
+<!--Global CSS Styles-->
+<link href="css/global.css" rel="stylesheet" type="text/css" />
+<link href="css/menu.css" rel="stylesheet" type="text/css" />
+<link href="css/navbar.css" rel="stylesheet" type="text/css" />
     
 <!--Load JavaScript Libraries -->
     
-<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
-<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script type="text/javascript" src="lib/angular/angular.js"></script>
+<script type="text/javascript" src="lib/wijmo/Dist/interop/angular/wijmo.angular.min.js"></script>
+<script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="lib/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/dropdown.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/collapse.js"></script>
+<script type="text/javascript" src="js/libphonenumber.js"></script>
 <script type="text/javascript" src="js/gg-fields.js"></script>
+<script type="text/javascript" src="js/nav-menu.js"></script>
 
-<!--Load JavaScript Localization Libraries -->    
+
+<!--Load JavaScript App -->    
 <script type="text/javascript" src="modules/bundle.js"></script>
 
 </head>
 
-<body>
-    <div id="page_wrapper" ng-controller="appCtrl">
-        <header id="header_wrapper">
-            <div id="header_inner">
-               <img src="img/gg-logo.png" class="logo"><a ng-click="logout()">logout</a> | <a ng-click="lang('es-MX')">es-MX</a> | <a ng-click="lang('en-US')">en-US</a>
+<body ng-app="app">
+    
+    <nav class="navbar-default nav-wrapper navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="img/brand-logo.png" class="brand-logo"/></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#/home">DASHBOARD <span class="sr-only">(current)</span></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">CLIENTES <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#/client/add">Nuevo</a></li>
+                <li><a href="#/client">Lista</a></li>
+              </ul>                            
+            </li>
+            <li>
+              <a href="#/product">PRODUCTOS</a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">REPORTES <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">REPORTE 1</a></li>
+                <li><a href="#">REPORTE 2</a></li>
+                <li><a href="#">REPORTE 3</a></li>
+                <li><a href="#">REPORTE 5</a></li>
+                <li><a href="#">REPORTE 6</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MATERIAL Y EQUIPO <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">MAQUINAS</a></li>
+                <li><a href="#">PAPEL</a></li>
+                <li><a href="#">TINTAS</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-left visible-md visible-lg" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Buscar">
             </div>
-        </header>
-        <nav id="nav_wrapper">
-            <ul id="menu">
-                <li ng-repeat="item in navItems"><a href="{{item.url}}">{{ item.name }}</a>
-                    <ul>
-                        <li ng-repeat="subItem in item.subMenu" repeat-done="repeatdone($parent.$index, $index)">
-                            <a href="{{subItem.url}}">{{ subItem.name }}</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <section id="content_wrapper">
-            <div id="content_inner" class="ngview" ui-view>
+            <button type="submit" class="btn btn-default">Enviar</button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#/user">Usuarios</a></li>
+                <li><a href="#/user/profile">Ver perfil</a></li>
+                  <li class="divider"></li>
+                <li><a href="#">Ayuda</a></li>
+                <li><a href="#">Reportar un problema</a></li>
+                <li class="divider"></li>
+                <li><a href="#" ng-click="logout()">Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+    <div class="container-fluid page-wrapper" ng-controller="appCtrl">
+        <!--<header class="row header-wrapper">
+            <div class="col-sm-12">
+               <a ng-click="lang('es-MX')">es-MX</a> | <a ng-click="lang('en-US')">en-US</a>
+            </div>
+        </header>-->
+        
+        <section class="row content-wrapper">
+            <div class="ngview" ui-view>
                 
             </div>
         </section>
-        <footer id="footer_wrapper">
-            <div id="footer_inner">
-                <span>{{ 'GENERAL.COPYRIGHT' | i18n }}</span>
+        <footer class="row footer-wrapper">
+            <div>
+                <span>{{ 'general.copyright' | i18n }}</span>
             </div>
         </footer>
     </div>

@@ -60,7 +60,7 @@
   position: absolute;
   top: 38px;
   left: 0;
-  z-index: 1;
+  z-index: 1000;
   background: #5cb85c;
   background-image: linear-gradient(#4cae4c, #5cb85c);
   box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.3);

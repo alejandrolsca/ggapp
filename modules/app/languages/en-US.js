@@ -14,7 +14,7 @@ module.exports = {
                         },
                         {"name":"Work Orders","url":"#/wo","subMenu": 
                          [
-                             {"name": "Add","url": "#/product/add"}
+                             {"name": "Add","url": "#/wo/add"}
                          ]
                         },
                         {"name":"Users","url":"#/user","subMenu": 
@@ -34,6 +34,7 @@ module.exports = {
                     "BUTTONS":{
                         "EDIT":"Edit",
                         "DUPLICATE":"Duplicate",
+                        "WO":"Work Order",
                     },
                     "SUBMIT":"Submit",
                     "COPYRIGHT":"©2014 Grupo Grafico de México S.A. de C.V. All rights reserved."
