@@ -49,14 +49,14 @@
         });
     })
     
-    .filter('i18n',require('./app/filters/i18n.filter'))
+    .filter('i18n',require('./app/lang.filter.i18n'))
     
-    .factory('langFac',require('./app/services/lang.fac'))
+    .factory('langFac',require('./app/lang.fac'))
     
-    .factory('logoutFac',require('./app/services/logout.fac'))
+    .factory('logoutFac',require('./app/logout.fac'))
     
-    .factory('credentialsFac',require('./app/services/user.credentials.fac'))
+    .factory('credentialsFac',require('./app/user.credentials.fac'))
     
-    .controller('appCtrl',require('./app/controllers/app.ctrl'))
+    .controller('appCtrl',require('./app/app.ctrl'))
     
 })(angular);

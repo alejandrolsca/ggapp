@@ -11,7 +11,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('user', {
             url:'/user',
-            templateUrl : 'modules/user/views/user.view.html',
+            templateUrl : 'modules/user/user.view.html',
             controller : 'userCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
@@ -19,8 +19,8 @@ module.exports = (function(angular){
         });
     }])
 
-    .factory('userFac',require('./services/user.fac'))
+    .factory('userFac',require('./user.fac'))
 
-    .controller('userCtrl',require('./controllers/user.ctrl'))
+    .controller('userCtrl',require('./user.ctrl'))
 
 })(angular);

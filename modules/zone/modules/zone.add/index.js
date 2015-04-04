@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('zoneAdd', {
             url:'/zone/add/:cl_id',
-            templateUrl : 'modules/zone/modules/zone.add/views/zone.add.view.html',
+            templateUrl : 'modules/zone/modules/zone.add/zone.add.view.html',
             controller : 'zoneAddCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
@@ -15,8 +15,8 @@ module.exports = (function(angular){
         });
     }])
 
-    .factory('zoneAddFac',require('./services/zone.add.fac'))
+    .factory('zoneAddFac',require('./zone.add.fac'))
 
-    .controller('zoneAddCtrl',require('./controllers/zone.add.ctrl'))
+    .controller('zoneAddCtrl',require('./zone.add.ctrl'))
 
 })(angular);

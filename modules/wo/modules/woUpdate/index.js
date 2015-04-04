@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('woUpdate', {
             url:'/wo/update/:wo_id',
-            templateUrl : 'modules/wo/modules/woUpdate/views/wo.update.view.html',
+            templateUrl : 'modules/wo/modules/woUpdate/wo.update.view.html',
             controller : 'woUpdateController',
             data: {
                 authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
@@ -15,8 +15,8 @@ module.exports = (function(angular){
         });
     }])
 
-    .factory('woUpdateFactory',require('./services/wo.update.fac'))
+    .factory('woUpdateFactory',require('./wo.update.fac'))
 
-    .controller('woUpdateController',require('./controllers/wo.update.ctrl'))
+    .controller('woUpdateController',require('./wo.update.ctrl'))
 
 })(angular);

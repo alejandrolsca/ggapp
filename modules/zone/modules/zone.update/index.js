@@ -6,8 +6,8 @@ module.exports = (function(angular){
     .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('zoneUpdate', {
-            url:'/zone/update/:cl_id',
-            templateUrl : 'modules/zone/modules/zone.update/views/zone.update.view.html',
+            url:'/zone/update/:cl_id/:zo_id',
+            templateUrl : 'modules/zone/modules/zone.update/zone.update.view.html',
             controller : 'zoneUpdateCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
@@ -15,8 +15,8 @@ module.exports = (function(angular){
         });
     }])
 
-    .factory('zoneUpdateFac',require('./services/zone.update.fac'))
+    .factory('zoneUpdateFac',require('./zone.update.fac'))
 
-    .controller('zoneUpdateCtrl',require('./controllers/zone.update.ctrl'))
+    .controller('zoneUpdateCtrl',require('./zone.update.ctrl'))
 
 })(angular);

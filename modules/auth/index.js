@@ -23,7 +23,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('auth', {
             url:'/auth',
-            templateUrl : 'modules/auth/views/auth.view.html',
+            templateUrl : 'modules/auth/auth.view.html',
             controller : 'authCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]
@@ -31,8 +31,8 @@ module.exports = (function(angular){
         });
     }])
 
-    .factory('authFac',require('./services/auth.fac'))
+    .factory('authFac',require('./auth.fac'))
 
-    .controller('authCtrl',require('./controllers/auth.ctrl'))
+    .controller('authCtrl',require('./auth.ctrl'))
     
 })(angular);

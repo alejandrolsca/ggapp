@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('home', {
             url:'/home',
-            templateUrl : 'modules/home/views/home.view.html',
+            templateUrl : 'modules/home/home.view.html',
             controller : 'homeCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
@@ -15,8 +15,8 @@ module.exports = (function(angular){
         });
     }])
 
-    .factory('homeFac',require('./services/home.fac'))
+    .factory('homeFac',require('./home.fac'))
 
-    .controller('homeCtrl',require('./controllers/home.ctrl'))
+    .controller('homeCtrl',require('./home.ctrl'))
 
 })(angular);

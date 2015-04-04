@@ -1,0 +1,6 @@
+{               
+     "excluded-directories" : ["lib"],  
+     "excluded-files" : [],  
+     "max-file-count": 100,   
+     "max-file-size": 524288  
+}

@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('userProfile', {
             url:'/user/profile',
-            templateUrl : 'modules/user/modules/user.profile/views/user.profile.view.html',
+            templateUrl : 'modules/user/modules/user.profile/user.profile.view.html',
             controller : 'userProfileCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
@@ -15,6 +15,6 @@ module.exports = (function(angular){
         });
     }])
 
-    .controller('userProfileCtrl',require('./controllers/user.profile.ctrl'))
+    .controller('userProfileCtrl',require('./user.profile.ctrl'))
     
 })(angular);

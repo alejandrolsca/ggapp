@@ -10,7 +10,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('client', {
             url:'/client',
-            templateUrl : 'modules/client/views/client.view.html',
+            templateUrl : 'modules/client/client.view.html',
             controller : 'clientCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
@@ -18,8 +18,8 @@ module.exports = (function(angular){
         });
     }])
 
-    .factory('clientFac',require('./services/client.fac'))
+    .factory('clientFac',require('./client.fac'))
 
-    .controller('clientCtrl',require('./controllers/client.ctrl'))
+    .controller('clientCtrl',require('./client.ctrl'))
     
 })(angular);
