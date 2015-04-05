@@ -171,3 +171,6 @@ span.glyphicon-user {font-size: 15px;}
 button[class*="col-"] {
   margin-bottom: 15px;
 }
+
+.red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+.red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }

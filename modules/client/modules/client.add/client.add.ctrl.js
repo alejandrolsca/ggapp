@@ -2,9 +2,7 @@ module.exports = (function(angular){
     'use strict';
     
     return function ($scope, clientAddFac, $window, $location, i18nFilter, $interval) {
-        $scope.fmData = {"cl_phone":""};
-
-        $scope.fields = Object.keys(i18nFilter("client.fields"));
+        $scope.fmData = {};
 
         $scope.onSubmit = function() {
 

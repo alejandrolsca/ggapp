@@ -38,7 +38,7 @@ module.exports = {
                     },
                     "regexp":{
                         "singlespaces": "sin espacios dobles ni caracteres especiales.",
-                        "rfc": "xxxx-######[-xxx]",
+                        "rfc": "XXXX-######[-XXX]",
                         "email": "por favor introduzca un email valido.",
                         "decimal": "numero y de 2 a 5 decimales (#.##[###])",
                         "discount": "cero mas 2 decimales (0.##)",

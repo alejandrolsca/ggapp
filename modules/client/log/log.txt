@@ -1,0 +1,3 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-04-05 03:22:47

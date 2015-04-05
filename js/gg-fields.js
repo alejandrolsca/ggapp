@@ -37,13 +37,10 @@
                 template: function(elem, attrs) {
                     var disabled    = attrs.hasOwnProperty('disabled')  ? 'ng-disabled="true"'  : ''; //disable field
                     var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
-                    
                     return '<div class="form-group {{formGroupClass}}">\
-                                <label class="{{lblClass}} control-label">{{lbl}}</label>\
+                                <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                 <div class="{{fldClass}}">\
-                                    <input class="form-control" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" '+disabled+' '+required+'/>\
-                                    <p ng-class="errClass" ng-show="required">{{reqMsg}}</p>\
-                                    <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
+                                    <input id="'+attrs.ngModel+'" class="form-control red-tooltip" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" '+disabled+' '+required+'/>\
                                 </div>\
                           </div>';
                 },
@@ -66,6 +63,21 @@
                         
                         ctrl.$setValidity('valid', ((required || invalid) ? false : true))
                         
+                        //if valid value
+                        if(invalid){
+                            //validate if tooltip is shown
+                            if (!($('[id="'+attrs.ngModel+'"]').data('bs.tooltip') && $('[id="'+attrs.ngModel+'"]').data('bs.tooltip').$tip.is(':visible'))){  
+                                $('[id="'+attrs.ngModel+'"]').tooltip({
+                                    placement: "bottom",
+                                    title:attrs.regexpMsg,
+                                    trigger:'manual'
+                                });
+                                $('[id="'+attrs.ngModel+'"]').tooltip('show');
+                            }
+                        } else {
+                            $('[id="'+attrs.ngModel+'"]').tooltip('destroy')
+                        }
+                         
                         return value;
                     }
                     //format text going to user (model to view)
@@ -98,17 +110,12 @@
                     var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
                     
                     return '<div class="form-group {{formGroupClass}}">\
-                                <label class="{{lblClass}} control-label">{{lbl}}</label>\
+                                <label class="{{lblClass}} control-label">{{lbl}} \
+                                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span>\
+                                    <span id="'+attrs.ngModel+'.phones" class="glyphicon glyphicon-phone-alt" aria-hidden="true" ng-show="validPhone"></span>\
+                                </label>\
                                 <div class="{{fldClass}}">\
-                                    <input class="form-control" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" '+disabled+' '+required+'/>\
-                                    <p ng-class="errClass" ng-show="required">{{reqMsg}}</p>\
-                                    <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
-                                    <div ng-show="validPhone">\
-                                        <p>E164: <a href="tel:{{phone1}}">{{phone1}}</a></p>\
-                                        <p>Nacional: <a href="tel:{{phone2}}">{{phone2}}</a></p>\
-                                        <p>Internacional: <a href="tel:{{phone3}}">{{phone3}}</a></p>\
-                                        <p>Original: <a href="tel:{{phone4}}">{{phone4}}</a></p>\
-                                    </div>\
+                                    <input id="'+attrs.ngModel+'" class="form-control red-tooltip" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" '+disabled+' '+required+'/>\
                                 </div>\
                           </div>';
                 },
@@ -130,6 +137,21 @@
                         
                         scope.required = required;
                         scope.invalid = invalid;
+                        
+                        //if valid value
+                        if(invalid){
+                            //validate if tooltip is shown
+                            if (!($('[id="'+attrs.ngModel+'"]').data('bs.tooltip') && $('[id="'+attrs.ngModel+'"]').data('bs.tooltip').$tip.is(':visible'))){  
+                                $('[id="'+attrs.ngModel+'"]').tooltip({
+                                    placement: "bottom",
+                                    title:attrs.regexpMsg,
+                                    trigger:'manual'
+                                });
+                                $('[id="'+attrs.ngModel+'"]').tooltip('show');
+                            }
+                        } else {
+                            $('[id="'+attrs.ngModel+'"]').tooltip('destroy')
+                        }
                                         
                         ctrl.$setValidity('valid', ((required || invalid) ? false : true))
                         
@@ -151,6 +173,23 @@
                             scope.phone2 = undefined;
                             scope.phone3 = undefined;
                             scope.phone4 = undefined;
+                        }
+                        
+                        if(validPhone){
+                            $('[id="'+attrs.ngModel+'.phones"]').popover({
+                                placement: "top",
+                                trigger: "click",
+                                title: "Como marcar",
+                                html: true,
+                                content:'<p>E164: <a href="tel:'+scope.phone1+'">'+scope.phone1+'</a></p>\
+                                         <p>Nacional: <a href="tel:'+scope.phone2+'">'+scope.phone2+'</a></p>\
+                                         <p>Internacional: <a href="tel:'+scope.phone3+'">'+scope.phone3+'</a></p>\
+                                         <p>Original: <a href="tel:'+scope.phone4+'">'+scope.phone4+'</a></p>'
+                                         
+                            });
+                            $('[id="'+attrs.ngModel+'.phones"]').popover('show');
+                        } else {
+                            $('[id="'+attrs.ngModel+'.phones"]').popover('destroy')
                         }
                         
                         return value;
@@ -186,12 +225,10 @@
                         var multiple    = attrs.hasOwnProperty('multiple')  ? 'multiple'            : ''; //requires field
                         
                         return '<div class="form-group {{formGroupClass}}">\
-                                    <label class="{{lblClass}} control-label">{{lbl}}</label>\
+                                    <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select class="form-control" name="name" ng-model="ngModel" ng-options="item.value as item.label for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-options="item.value as item.label for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
-                                    <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
-                                    <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
                                     </div>\
                               </div>';
                     },
@@ -213,6 +250,21 @@
                             scope.invalid = invalid;
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
+                            
+                            //if valid value
+                            if(invalid){
+                                //validate if tooltip is shown
+                                if (!($('[id="'+attrs.ngModel+'"]').data('bs.tooltip') && $('[id="'+attrs.ngModel+'"]').data('bs.tooltip').$tip.is(':visible'))){  
+                                    $('[id="'+attrs.ngModel+'"]').tooltip({
+                                        placement: "bottom",
+                                        title:attrs.regexpMsg,
+                                        trigger:'manual'
+                                    });
+                                    $('[id="'+attrs.ngModel+'"]').tooltip('show');
+                                }
+                            } else {
+                                $('[id="'+attrs.ngModel+'"]').tooltip('destroy')
+                            }
 
                             return value;
                         }
@@ -248,12 +300,10 @@
                         var multiple    = attrs.hasOwnProperty('multiple')  ? 'multiple'            : ''; //requires field
                         
                         return '<div class="form-group {{formGroupClass}}">\
-                                    <label class="{{lblClass}} control-label">{{lbl}}</label>\
+                                    <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select class="form-control" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.countryName for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.countryName for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
-                                    <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
-                                    <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
                                     </div>\
                               </div>';
                     },
@@ -274,7 +324,21 @@
                             scope.required = required;
                             scope.invalid = invalid;
 
-                            ctrl.$setValidity('valid', ((required || invalid) ? false : true))
+                            //if valid value
+                            if(invalid){
+                                //validate if tooltip is shown
+                                if (!($('[id="'+attrs.ngModel+'"]').data('bs.tooltip') && $('[id="'+attrs.ngModel+'"]').data('bs.tooltip').$tip.is(':visible'))){  
+                                    $('[id="'+attrs.ngModel+'"]').tooltip({
+                                        placement: "bottom",
+                                        title:attrs.regexpMsg,
+                                        trigger:'manual'
+                                    });
+                                    $('[id="'+attrs.ngModel+'"]').tooltip('show');
+                                }
+                            } else {
+                                $('[id="'+attrs.ngModel+'"]').tooltip('destroy')
+                            }
+
 
                             return value;
                         }
@@ -310,12 +374,10 @@
                         var multiple    = attrs.hasOwnProperty('multiple')  ? 'multiple'            : ''; //requires field
                         
                         return '<div class="form-group {{formGroupClass}}">\
-                                    <label class="{{lblClass}} control-label">{{lbl}}</label>\
+                                    <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select class="form-control" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
-                                    <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
-                                    <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
                                     </div>\
                               </div>';
                     },
@@ -337,6 +399,21 @@
                             scope.invalid = invalid;
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
+                            
+                            //if valid value
+                            if(invalid){
+                                //validate if tooltip is shown
+                                if (!($('[id="'+attrs.ngModel+'"]').data('bs.tooltip') && $('[id="'+attrs.ngModel+'"]').data('bs.tooltip').$tip.is(':visible'))){  
+                                    $('[id="'+attrs.ngModel+'"]').tooltip({
+                                        placement: "bottom",
+                                        title:attrs.regexpMsg,
+                                        trigger:'manual'
+                                    });
+                                    $('[id="'+attrs.ngModel+'"]').tooltip('show');
+                                }
+                            } else {
+                                $('[id="'+attrs.ngModel+'"]').tooltip('destroy')
+                            }
 
                             return value;
                         }
@@ -372,12 +449,10 @@
                         var multiple    = attrs.hasOwnProperty('multiple')  ? 'multiple'            : ''; //requires field
                         
                         return '<div class="form-group {{formGroupClass}}">\
-                                    <label class="{{lblClass}} control-label">{{lbl}}</label>\
+                                    <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select class="form-control" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
-                                    <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
-                                    <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
                                     </div>\
                               </div>';
                     },
@@ -399,6 +474,21 @@
                             scope.invalid = invalid;
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
+                            
+                            //if valid value
+                            if(invalid){
+                                //validate if tooltip is shown
+                                if (!($('[id="'+attrs.ngModel+'"]').data('bs.tooltip') && $('[id="'+attrs.ngModel+'"]').data('bs.tooltip').$tip.is(':visible'))){  
+                                    $('[id="'+attrs.ngModel+'"]').tooltip({
+                                        placement: "bottom",
+                                        title:attrs.regexpMsg,
+                                        trigger:'manual'
+                                    });
+                                    $('[id="'+attrs.ngModel+'"]').tooltip('show');
+                                }
+                            } else {
+                                $('[id="'+attrs.ngModel+'"]').tooltip('destroy')
+                            }
 
                             return value;
                         }
@@ -431,12 +521,10 @@
                         var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
                         
                         return '<div class="form-group">\
-                                    <label class="{{lblClass}} control-label">{{lbl}}</label>\
+                                    <label class="{{lblClass}} control-label">{{lbl}}  <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <textarea class="form-control" name="name" ng-model="ngModel" rows="{{rows}}" '+disabled+' '+required+'>\
+                                        <textarea id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" rows="{{rows}}" '+disabled+' '+required+'>\
                                         </textarea>\
-                                    <p ng-class="errClass" ng-show="required">{{reqMsg}}</p> \
-                                    <p ng-class="errClass" ng-show="invalid">{{regexpMsg}}</p>\
                                     </div>\
                               </div>';
                     },
@@ -458,6 +546,21 @@
                             scope.invalid = invalid;
 
                             ctrl.$setValidity('valid', ((required || invalid) ? false : true))
+                            
+                            //if valid value
+                            if(invalid){
+                                //validate if tooltip is shown
+                                if (!($('[id="'+attrs.ngModel+'"]').data('bs.tooltip') && $('[id="'+attrs.ngModel+'"]').data('bs.tooltip').$tip.is(':visible'))){  
+                                    $('[id="'+attrs.ngModel+'"]').tooltip({
+                                        placement: "bottom",
+                                        title:attrs.regexpMsg,
+                                        trigger:'manual'
+                                    });
+                                    $('[id="'+attrs.ngModel+'"]').tooltip('show');
+                                }
+                            } else {
+                                $('[id="'+attrs.ngModel+'"]').tooltip('destroy')
+                            }
 
                             return value;
                         }

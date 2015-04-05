@@ -363,7 +363,7 @@ module.exports = {
                     },
                     "regexp":{
                         "singlespaces": "sin espacios dobles ni caracteres especiales.",
-                        "rfc": "xxxx-######[-xxx]",
+                        "rfc": "XXXX-######[-XXX]",
                         "email": "por favor introduzca un email valido.",
                         "decimal": "numero y de 2 a 5 decimales (#.##[###])",
                         "discount": "cero mas 2 decimales (0.##)",
@@ -907,9 +907,7 @@ module.exports = (function(angular){
     'use strict';
     
     return function ($scope, clientAddFac, $window, $location, i18nFilter, $interval) {
-        $scope.fmData = {"cl_phone":""};
-
-        $scope.fields = Object.keys(i18nFilter("client.fields"));
+        $scope.fmData = {};
 
         $scope.onSubmit = function() {
 
@@ -1941,8 +1939,6 @@ module.exports = (function(angular){
     return function ($scope, zoneAddFac, $window, $location, i18nFilter, $interval, $stateParams) {
         $scope.fmData = {};
         $scope.fmData.cl_id = $stateParams.cl_id;
-
-        $scope.fields = Object.keys(i18nFilter("zone.FIELDS"));
 
         $scope.onSubmit = function() {
 

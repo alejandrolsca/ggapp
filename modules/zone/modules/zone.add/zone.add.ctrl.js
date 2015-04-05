@@ -5,8 +5,6 @@ module.exports = (function(angular){
         $scope.fmData = {};
         $scope.fmData.cl_id = $stateParams.cl_id;
 
-        $scope.fields = Object.keys(i18nFilter("zone.FIELDS"));
-
         $scope.onSubmit = function() {
 
             zoneAddFac.add($scope.fmData).then(function(promise){
