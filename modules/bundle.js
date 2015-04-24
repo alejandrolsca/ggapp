@@ -2978,8 +2978,8 @@ module.exports = (function(angular){
         // create front ink fields
         $scope.$watch('fmData.pr_inkfront', function(newValue, oldValue) {
             if($scope.fmData.pr_inkfront != undefined) {
-                $scope.frontInks = new Array($scope.fmData.pr_inkfront);
-                for (var i=0; i<$scope.frontInks.length; i++) {
+                $scope.frontInks = new Array(newValue);
+                for (var i=0; i<oldValue; i++) {
                     $scope.fmData['pr_inkfront'+(i+1)] = undefined;
                 }
             }
@@ -2988,8 +2988,8 @@ module.exports = (function(angular){
         // create back ink fields
         $scope.$watch('fmData.pr_inkback', function(newValue, oldValue) {
             if($scope.fmData.pr_inkback != undefined) {
-                $scope.backInks = new Array($scope.fmData.pr_inkback);
-                for (var i=0; i<$scope.backInks.length; i++) {
+                $scope.backInks = new Array(newValue);
+                for (var i=0; i<oldValue; i++) {
                     $scope.fmData['pr_inkback'+(i+1)] = undefined;
                 }
             }
