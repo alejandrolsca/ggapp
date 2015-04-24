@@ -1,0 +1,53 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-04-05 03:22:47
+Query: select 
+                        *
+                    from  public.machine, 
+                    jsonb_to_record(ma_jsonb, true) as x (
+                        ma_corporatename text,
+                        ma_tin text,
+                        ma_name text,
+                        ma_fatherslastname text,
+                        ma_motherslastname text,
+                        ma_street text,
+                        ma_streetnumber text,
+                        ma_suitenumber text,
+                        ma_neighborhood text,
+                        ma_addressreference text,
+                        ma_country text,
+                        ma_state text,
+                        ma_city text,
+                        ma_county text,
+                        ma_zipcode text,
+                        ma_email text,
+                        ma_phone text,
+                        ma_mobile text,
+                        ma_creditlimit decimal,
+                        ma_customerdiscount decimal,
+                        ma_status text
+                    );
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.machine" does not exist
+LINE 3:                     from  public.machine, 
+                                  ^
+ | Date: 2015-04-05 20:59:08
+Query: select 
+                        *
+                    from  public.machine, 
+                    jsonb_to_record(ma_jsonb, true) as x (
+                        ma_name text,
+                        ma_maxsizewidth text,
+                        ma_maxsizeheight text,
+                        ma_minsizewidth text,
+                        ma_minsizeheight text,
+                        ma_sizemeasure text,
+                        ma_totalinks text,
+                        ma_fullcolor text,
+                        ma_printbg text,
+                        ma_process text,
+                        ma_status text,
+                    );
+ | Error: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near ")"
+LINE 16:                     );
+                             ^
+ | Date: 2015-04-06 21:50:03

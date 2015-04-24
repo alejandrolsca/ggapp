@@ -48,10 +48,7 @@ module.exports = (function(angular){
             },0,1);
         }
         
-        $scope.cl_statusoptions = [
-            {"label":"Activo","value":"A"},
-            {"label":"Inactivo","value":"I"}
-        ];
+        $scope.cl_statusoptions = i18nFilter("client.fields.cl_statusoptions");
 
         $scope.$on('$viewContentLoaded', function () {
             // this code is executed after the view is loaded

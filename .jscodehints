@@ -1,5 +1,5 @@
 {               
-     "excluded-directories" : ["lib"],  
+     "excluded-directories" : ["lib,assets"],  
      "excluded-files" : [],  
      "max-file-count": 100,   
      "max-file-size": 524288  

@@ -1,0 +1,115 @@
+<div class="col-sm-12">
+    <h3>{{'machine-add.title' | i18n}}</h3>
+    
+</div>
+<form class="col-sm-7" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+  <gg-input err-class="error"
+            lbl="{{'machine.labels.ma-name' | i18n}}" 
+            form-group-class="col-sm-12"
+            ng-model="fmData.ma_name"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'machine.labels.ma-maxsizewidth' | i18n}}" 
+            form-group-class="col-sm-6" 
+            ng-model="fmData.ma_maxsizewidth"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'machine.labels.ma-maxsizeheight' | i18n}}" 
+            form-group-class="col-sm-6" 
+            ng-model="fmData.ma_maxsizeheight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'machine.labels.ma-minsizewidth' | i18n}}" 
+            form-group-class="col-sm-6" 
+            ng-model="fmData.ma_minsizewidth"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'machine.labels.ma-minsizeheight' | i18n}}" 
+            form-group-class="col-sm-6" 
+            ng-model="fmData.ma_minsizeheight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'machine.labels.ma-sizemeasure' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="ma_sizemeasureoptions" 
+           ng-model="fmData.ma_sizemeasure"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-input err-class="error"
+            lbl="{{'machine.labels.ma-totalinks' | i18n}}" 
+            form-group-class="col-sm-6" 
+            ng-model="fmData.ma_totalinks"
+            regexp="machinetotalinks"
+            regexp-msg="{{'general.regexp.machinetotalinks' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'machine.labels.ma-fullcolor' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="ma_fullcoloroptions" 
+           ng-model="fmData.ma_fullcolor"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'machine.labels.ma-printbg' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="ma_printbgoptions" 
+           ng-model="fmData.ma_printbg"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'machine.labels.ma-process' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="ma_processoptions" 
+           ng-model="fmData.ma_process"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'machine.labels.ma-status' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="ma_statusoptions" 
+           ng-model="fmData.ma_status"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-submit lbl="Submit"
+            form-group-class="col-sm-12" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-4  col-md-2">
+  </gg-submit>
+</form>

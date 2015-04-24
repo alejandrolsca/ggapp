@@ -50,10 +50,7 @@ module.exports = (function(angular){
             },0,1);
         };
         
-        $scope.zo_statusoptions = [
-            {"label":"Activo","value":"A"},
-            {"label":"Inactivo","value":"I"}
-        ];
+        $scope.zo_statusoptions = i18nFilter("zone.fields.zo_statusoptions");
 
         $scope.$on('$viewContentLoaded', function () {
             // this code is executed after the view is loaded

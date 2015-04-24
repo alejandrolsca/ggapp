@@ -1,0 +1,256 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:13:38
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:16:42
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:16:44
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:17:09
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:18:37
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:18:42
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:19:19
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:42:51
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:43:44
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:45:03
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:45:47
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:47:01
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:47:04
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:47:05
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:47:05
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:47:05
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:47:06
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:47:34
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:47:53
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:52:49
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 20:54:13
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:01:48
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:02:17
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:02:49
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:03:10
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:04:48
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:07:18
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:07:37
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:39:22
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:46:42
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 21:52:54
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" and accepting
+	TCP/IP connections on port 5432?
+ | Date: 2015-04-19 22:28:12

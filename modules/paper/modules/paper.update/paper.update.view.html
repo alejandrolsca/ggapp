@@ -1,0 +1,97 @@
+<div class="col-sm-12">
+    <h3>{{'paper-update.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+    
+</div>
+<form class="col-sm-7" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+  <gg-select err-class="error"
+           lbl="{{'paper.labels.su-id' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="su_idoptions" 
+           ng-model="fmData.su_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-input err-class="error"
+            lbl="{{'paper.labels.pa-code' | i18n}}" 
+            form-group-class="col-sm-4" 
+            ng-model="fmData.pa_code"
+            regexp="papercode"
+            regexp-msg="{{'general.regexp.papercode' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'paper.labels.pa-type' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pa_typeoptions" 
+           ng-model="fmData.pa_type"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-textarea err-class="error"
+            lbl="{{'paper.labels.pa-description' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pa_description"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            height="106"
+            req-msg="Required"
+            required>
+  </gg-textarea>
+  <gg-input err-class="error"
+            lbl="{{'paper.labels.pa-width' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pa_width"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'paper.labels.pa-height' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pa_height"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'paper.labels.pa-weight' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pa_weight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'paper.labels.pa-price' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pa_price"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'paper.labels.pa-status' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pa_statusoptions" 
+           ng-model="fmData.pa_status"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-submit lbl="Submit"
+            form-group-class="col-sm-12" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-4  col-md-2">
+  </gg-submit>
+</form>

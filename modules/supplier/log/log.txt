@@ -1,0 +1,33 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-04-05 03:22:47
+Query: select 
+                        *
+                    from  public.supplier, 
+                    jsonb_to_record(su_jsonb, true) as x (
+                        su_corporatename text,
+                        su_tin text,
+                        su_name text,
+                        su_fatherslastname text,
+                        su_motherslastname text,
+                        su_street text,
+                        su_streetnumber text,
+                        su_suitenumber text,
+                        su_neighborhood text,
+                        su_addressreference text,
+                        su_country text,
+                        su_state text,
+                        su_city text,
+                        su_county text,
+                        su_zipcode text,
+                        su_email text,
+                        su_phone text,
+                        su_mobile text,
+                        su_creditlimit decimal,
+                        su_customerdiscount decimal,
+                        su_status text
+                    );
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.supplier" does not exist
+LINE 3:                     from  public.supplier, 
+                                  ^
+ | Date: 2015-04-05 20:59:08

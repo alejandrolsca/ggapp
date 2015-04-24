@@ -1,0 +1,7 @@
+Query: insert into public.paper
+                    (pa_jsonb)
+                    values ('{"pa_corporatename":"test","pa_tin":"sabg-899889","pa_name":"test","pa_fatherslastname":"test","pa_motherslastname":"test","pa_country":3723988,"pa_state":3731053,"pa_city":3717563,"pa_county":3717587,"pa_street":"test","pa_streetnumber":"tes","pa_suitenumber":"test","pa_neighborhood":"tes","pa_zipcode":"55556","pa_addressreference":"test","pa_email":"test@test.com","pa_phone":"3366998898","pa_mobile":"5544885566","pa_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.paper" does not exist
+LINE 1: insert into public.paper
+                    ^
+ | Date: 2015-04-05 21:06:31

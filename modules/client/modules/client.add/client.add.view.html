@@ -1,13 +1,13 @@
 <div class="col-sm-12">
     <h3>{{'client-add.title' | i18n}}</h3>
-    {{fmData | json}}
+    
 </div>
 <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-corporatename' | i18n}}" 
             form-group-class="col-sm-6"
             ng-model="fmData.cl_corporatename"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -25,7 +25,7 @@
             lbl="{{'client.labels.cl-name' | i18n}}"
             form-group-class="col-sm-4"
             ng-model="fmData.cl_name"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -34,7 +34,7 @@
             lbl="{{'client.labels.cl-fatherslastname' | i18n}}"
             form-group-class="col-sm-4"
             ng-model="fmData.cl_fatherslastname"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -43,7 +43,7 @@
             lbl="{{'client.labels.cl-motherslastname' | i18n}}"
             form-group-class="col-sm-4"
             ng-model="fmData.cl_motherslastname"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -54,7 +54,7 @@
            options="cl_countryoptions" 
            ng-model="fmData.cl_country"
            ng-change="getStates()"
-           regexp="singleSpaces"
+           regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            required>
@@ -65,7 +65,7 @@
            options="cl_stateoptions" 
            ng-model="fmData.cl_state"
            ng-change="getCityCounty()"
-           regexp="singleSpaces"
+           regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            required>
@@ -75,7 +75,7 @@
             form-group-class="col-sm-3"
             options="cl_cityoptions"
             ng-model="fmData.cl_city"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -85,7 +85,7 @@
             form-group-class="col-sm-3"
             options="cl_countyoptions"
             ng-model="fmData.cl_county"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -94,7 +94,7 @@
             lbl="{{'client.labels.cl-street' | i18n}}"
             form-group-class="col-sm-4" 
             ng-model="fmData.cl_street"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -103,7 +103,7 @@
             lbl="{{'client.labels.cl-streetnumber' | i18n}}"
             form-group-class="col-sm-4"
             ng-model="fmData.cl_streetnumber"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -113,7 +113,7 @@
             form-group-class="col-sm-4"
 
             ng-model="fmData.cl_suitenumber"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -123,7 +123,7 @@
             form-group-class="col-sm-4"
 
             ng-model="fmData.cl_neighborhood"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -141,7 +141,7 @@
             lbl="{{'client.labels.cl-addressreference' | i18n}}"
             form-group-class="col-sm-4"
             ng-model="fmData.cl_addressreference"
-            regexp="singleSpaces"
+            regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             required>
@@ -196,7 +196,7 @@
            form-group-class="col-sm-4" 
            options="cl_statusoptions" 
            ng-model="fmData.cl_status"
-           regexp="singleSpaces"
+           regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            required>

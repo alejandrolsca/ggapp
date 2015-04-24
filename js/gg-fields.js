@@ -4,7 +4,11 @@
     angular.module('gg-fields',[])
     
     .constant('validTypes',{
-            "singleSpaces": /^([-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.](.[-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.])*)*$/,
+            "singlespaces": /^([-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.](.[-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.])*)*$/,
+            "prcode": /^[-_\.,#:a-zA-Z0-9]{1,}$/,
+            "papercode": /^[a-zA-Z0-9]{1,}$/,
+            "inkcode": /^[a-zA-Z0-9]{1,}$/,
+            "machinetotalinks": /^[1-8]{1}$/,
             "rfc": /^[A-Za-z]{3,4}\-\d{6}(?:\-[A-Za-z\d]{3})?$/,
             "email": /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i,
             "decimal": /^(\d+\.\d{2,5})$/,
@@ -27,7 +31,6 @@
                     lblClass: '@',
                     fldClass: '@',
                     formGroupClass: '@',
-                    fieldWrapperClass: '@',
                     reqMsg: '@',
                     regexpMsg: '@',
                     ngChange: '&',
@@ -96,7 +99,6 @@
                     errClass: '@',
                     lbl: '@',
                     formGroupClass: '@',
-                    fieldWrapperClass: '@',
                     lblClass: '@',
                     fldClass: '@',
                     reqMsg: '@',
@@ -210,12 +212,12 @@
                         errClass: '@',
                         lbl: '@',
                         formGroupClass: '@',
-                        fieldWrapperClass: '@',
                         lblClass: '@',
                         fldClass: '@',
                         reqMsg: '@',
                         regexpMsg: '@',
                         options: '=',
+                        ngChange: '&',
                         name: '@',
                         ngModel: '='
                     },
@@ -227,7 +229,7 @@
                         return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-options="item.value as item.label for item in options" '+multiple+' '+disabled+' '+required+'>\
+                                        <select id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label for item in options" '+multiple+' '+disabled+' '+required+'>\
                                         </select>\
                                     </div>\
                               </div>';
@@ -284,7 +286,6 @@
                         errClass: '@',
                         lbl: '@',
                         formGroupClass: '@',
-                        fieldWrapperClass: '@',
                         lblClass: '@',
                         fldClass: '@',
                         reqMsg: '@',
@@ -358,7 +359,6 @@
                         errClass: '@',
                         lbl: '@',
                         formGroupClass: '@',
-                        fieldWrapperClass: '@',
                         lblClass: '@',
                         fldClass: '@',
                         reqMsg: '@',
@@ -433,7 +433,6 @@
                         errClass: '@',
                         lbl: '@',
                         formGroupClass: '@',
-                        fieldWrapperClass: '@',
                         lblClass: '@',
                         fldClass: '@',
                         reqMsg: '@',
@@ -508,22 +507,23 @@
                         errClass: '@',
                         fldClass: '@',
                         lbl: '@',
+                        formGroupClass: '@',
                         lblClass: '@',
                         name: '@',
                         ngModel: '=',
                         options: '=',
                         reqMsg: '@',
                         regexpMsg: '@',
-                        rows: '@'
+                        height: '@'
                     },
                     template: function(elem, attrs) {
                         var disabled    = attrs.hasOwnProperty('disabled')  ? 'ng-disabled="true"'  : ''; //disable field
                         var required    = attrs.hasOwnProperty('required')  ? 'ng-required="true"'  : ''; //requires field
                         
-                        return '<div class="form-group">\
+                        return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}}  <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <textarea id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" rows="{{rows}}" '+disabled+' '+required+'>\
+                                        <textarea id="'+attrs.ngModel+'" class="form-control red-tooltip" name="name" ng-model="ngModel" style="height:{{height}}px;" '+disabled+' '+required+'>\
                                         </textarea>\
                                     </div>\
                               </div>';
@@ -644,7 +644,7 @@
                         
                         return '<div class="form-group {{formGroupClass}}">\
                                     <div class="{{lblClass}} {{fldClass}}">\
-                                            <button type="submit" class="btn btn-default {{btnClass}}" ng-disabled="ngDisabled">{{lbl}}</button>\
+                                            <button type="submit" class="btn btn-success {{btnClass}}" ng-disabled="ngDisabled">{{lbl}}</button>\
                                     </div>\
                               </div>';
                     }

@@ -1,0 +1,211 @@
+<div class="col-sm-12">
+    <h3>{{'productOffsetGeneral-update.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+    
+    {{ggform.pr_corporatename.$error.required | json}}
+</div>
+<form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-product' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_product"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-corporatename' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_corporatename"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-tin' | i18n}}" 
+            form-group-class="col-sm-3" 
+            ng-model="fmData.pr_tin"
+            regexp="rfc"
+            regexp-msg="{{'general.regexp.rfc' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-immex' | i18n}}" 
+            form-group-class="col-sm-3" 
+            ng-model="fmData.pr_immex"
+            regexp="rfc"
+            regexp-msg="{{'general.regexp.rfc' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-name' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_name"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-fatherslastname' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_fatherslastname"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-motherslastname' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_motherslastname"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-countries err-class="error"
+           lbl="{{'productOffsetGeneral.labels.pr-country' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="pr_countryoptions" 
+           ng-model="fmData.pr_country"
+           ng-change="getStates()"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-countries>
+  <gg-states err-class="error"
+           lbl="{{'productOffsetGeneral.labels.pr-state' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="pr_stateoptions" 
+           ng-model="fmData.pr_state"
+           ng-change="getCityCounty()"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-states>
+  <gg-city-county err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-city' | i18n}}"
+            form-group-class="col-sm-3"
+            options="pr_cityoptions"
+            ng-model="fmData.pr_city"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-city-county>
+  <gg-city-county err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-county' | i18n}}"
+            form-group-class="col-sm-3"
+            options="pr_countyoptions"
+            ng-model="fmData.pr_county"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-city-county>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-street' | i18n}}"
+            form-group-class="col-sm-4" 
+            ng-model="fmData.pr_street"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-streetnumber' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_streetnumber"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-suitenumber' | i18n}}"
+            form-group-class="col-sm-4"
+
+            ng-model="fmData.pr_suitenumber"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-neighborhood' | i18n}}"
+            form-group-class="col-sm-4"
+
+            ng-model="fmData.pr_neighborhood"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+          <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-zipcode' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_zipcode"
+            regexp="zipcode"
+            regexp-msg="{{'general.regexp.zipcode' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-addressreference' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_addressreference"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-email' | i18n}}"
+            form-group-class="col-sm-6"
+            ng-model="fmData.pr_email"
+            regexp="email"
+            regexp-msg="{{'general.regexp.email' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-input>
+  <gg-phone err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-phone' | i18n}}"
+            form-group-class="col-sm-6"
+            ng-model="fmData.pr_phone"
+            regexp="phone"
+            regexp-msg="{{'general.regexp.phone' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-phone>
+  <gg-phone err-class="error"
+            lbl="{{'productOffsetGeneral.labels.pr-mobile' | i18n}}"
+            form-group-class="col-sm-6"
+            ng-model="fmData.pr_mobile"
+            regexp="phone"
+            regexp-msg="{{'general.regexp.phone' | i18n}}"
+            req-msg="Required"
+            required>
+  </gg-phone>
+  <gg-select err-class="error"
+           lbl="{{'productOffsetGeneral.labels.pr-status' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="pr_statusoptions" 
+           ng-model="fmData.pr_status"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           required>
+  </gg-select>
+  <gg-submit lbl="Submit"
+            form-group-class="col-sm-6" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-4  col-md-2">
+  </gg-submit>
+</form>

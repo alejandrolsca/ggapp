@@ -1,8 +1,8 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function ($scope, clientFac, $window, i18nFilter, $parse) {
-    
+    return function ($scope, clientFac, $window, $location, i18nFilter, $parse) {
+        $scope.fmData = {};
         $scope.labels = Object.keys(i18nFilter("client.labels"));
         $scope.columns = i18nFilter("client.columns");
         
@@ -30,7 +30,7 @@ module.exports = (function(angular){
                                           </button>\
                                           <ul class="dropdown-menu" role="menu">\
                                             <li><a href="#/wo/add/'+cl_id+'"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Orden</a></li>\
-                                            <li><a href="#/product/add/'+cl_id+'"><span class="glyphicon glyphicon-barcode" aria-hidden="true"></span> Producto</a></li>\
+                                            <li><a href="#/client" data-toggle="modal" data-target="#myModal" data-cl_id="'+cl_id+'"><span class="glyphicon glyphicon-barcode" aria-hidden="true"></span> Producto</a></li>\
                                             <li><a href="#/quote/add/'+cl_id+'"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Cotizacion</a></li>\
                                             <li><a href="#/zone/add/'+cl_id+'"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Zona</a></li>\
                                             <li><a href="#/email/add/'+cl_id+'"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Correo</a></li>\
@@ -101,6 +101,31 @@ module.exports = (function(angular){
                     rng = null;
                 });
             }
+        });
+        
+        $('#myModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget); // Button that triggered the modal
+          $scope.current_id = button.data('cl_id'); // Extract info from data-* attributes
+            $scope.fmData.pr_process = undefined;
+            $scope.fmData.pr_type = undefined;
+            $scope.$apply();
+        })
+        
+        $scope.redirect = function(url) {
+            console.log(url);
+            $('#myModal').modal('hide');
+            $location.path(url);
+        }
+        
+        $scope.pr_processoptions = i18nFilter("client-custom.fields.pr_processoptions");
+        
+        $scope.$watch('fmData.pr_process', function(newValue, oldValue) {
+            $scope.fmData.pr_type = undefined;
+            angular.forEach($scope.pr_processoptions,function(obj,key){
+                if(newValue==obj.value) {
+                    $scope.pr_typeoptions = obj.types;
+                }
+            });
         });
 
         $scope.$on('$viewContentLoaded', function () {

@@ -12,12 +12,19 @@
         require('./client').name,
         require('./user').name,
         require('./home').name,
+        require('./product').name,
+        require('./supplier').name,
+        require('./machine').name,
+        require('./paper').name,
+        require('./ink').name,
         require('./wo').name,
         require('./zone').name
     ])
     
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES','$httpProvider',
+    function($stateProvider, $urlRouterProvider, USER_ROLES,$httpProvider) {
+        // Batching multiple $http responses into one $digest
+        $httpProvider.useApplyAsync(true);
         // when there is an empty route, redirect to /index   
         $urlRouterProvider.when('', '/auth');
         // when root, redirect to /home  
