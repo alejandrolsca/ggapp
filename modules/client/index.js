@@ -6,14 +6,14 @@ module.exports = (function(angular){
         require('./modules/client.update').name
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('client', {
             url:'/client',
             templateUrl : 'modules/client/client.view.html',
             controller : 'clientCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

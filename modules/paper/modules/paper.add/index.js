@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.paper.add',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('paperAdd', {
             url:'/paper/add',
             templateUrl : 'modules/paper/modules/paper.add/paper.add.view.html',
             controller : 'paperAddCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

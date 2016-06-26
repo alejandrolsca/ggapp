@@ -2,18 +2,19 @@ module.exports = (function(angular){
     'use strict';
     
     return angular.module('app.wo',[
-        require('./modules/woAdd').name,
-        require('./modules/woUpdate').name
+        require('./modules/wo.add').name,
+        require('./modules/wo.update').name,
+        require('./modules/wo.duplicate').name
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('wo', {
-            url:'/wo',
+            url:'/wo/:cl_id',
             templateUrl : 'modules/wo/wo.view.html',
             controller : 'woController',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

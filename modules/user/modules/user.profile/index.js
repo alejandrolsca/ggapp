@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.user.profile',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('userProfile', {
             url:'/user/profile',
             templateUrl : 'modules/user/modules/user.profile/user.profile.view.html',
             controller : 'userProfileCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

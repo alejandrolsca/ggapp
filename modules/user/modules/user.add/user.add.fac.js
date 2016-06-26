@@ -1,7 +1,8 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function($http, $stateParams){
+    return ['$http', '$stateParams',
+    function($http, $stateParams){
         var factory = {};
         factory.add = function(us_jsonb) {
             var promise = $http.post('modules/user/modules/user.add/user.add.model.php', {
@@ -15,6 +16,6 @@ module.exports = (function(angular){
             return promise;
         };
         return factory;
-    };
+    }];
     
 })(angular);

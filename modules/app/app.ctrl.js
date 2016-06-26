@@ -1,46 +1,40 @@
-module.exports = (function(angular){
+module.exports = (function (angular) {
     'use strict';
-    
-    return function ($scope,$rootScope,langFac,logoutFac,i18nFilter,USER_ROLES,$location) {
-    
-        langFac.getLang().then(function(promise){
-            if(promise.data.success) {
-                $rootScope.currentLanguage = promise.data.lang;
-                $scope.navItems = i18nFilter("GENERAL.NAV");
-            }
-            console.log(JSON.stringify(promise.data.lang));
-        });
 
-        for(var item in $scope.navItems) {
-            if ($scope.navItems[item].subMenu) {
-                $scope.lastSubmenu = item;   
-            }
-        }
+    angular
 
-        $scope.lang = function (lang) {
-            langFac.setLang(lang).then(function(promise){
-                if(promise.data.success) {
+    return ['$scope', '$rootScope', 'langFac', 'i18nFilter', '$location', 'auth', 'store',
+        function ($scope, $rootScope, langFac, i18nFilter, $location, auth, store) {
+
+            $scope.logout = function () {
+                auth.signout();
+                store.remove('profile');
+                store.remove('token');
+                $location.path("/login");
+            }
+
+            langFac.getLang().then(function (promise) {
+                if (promise.data.success) {
                     $rootScope.currentLanguage = promise.data.lang;
                     $scope.navItems = i18nFilter("GENERAL.NAV");
                 }
                 console.log(JSON.stringify(promise.data.lang));
             });
-        }
-        $scope.logout = function() {
-            logoutFac.logout().then(function(promise){
-                if(promise.data.success) {
-                    $rootScope.user = {
-                        user:null,
-                        userRole:USER_ROLES.guest,
-                        userName:null,
-                        userFathersLastName:null,
-                        userMothersLastName:null, 
-                        userDatabase:null
-                    }
-                    $location.path("/auth");
+
+            for (var item in $scope.navItems) {
+                if ($scope.navItems[item].subMenu) {
+                    $scope.lastSubmenu = item;
                 }
-            });
-        }
-    };
-    
+            }
+            $scope.lang = function (lang) {
+                langFac.setLang(lang).then(function (promise) {
+                    if (promise.data.success) {
+                        $rootScope.currentLanguage = promise.data.lang;
+                        $scope.navItems = i18nFilter("GENERAL.NAV");
+                    }
+                    console.log(JSON.stringify(promise.data.lang));
+                });
+            }
+        }]
+
 })(angular);

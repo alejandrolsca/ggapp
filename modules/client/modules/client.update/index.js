@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.client.update',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('clientUpdate', {
             url:'/client/update/:cl_id',
             templateUrl : 'modules/client/modules/client.update/client.update.view.html',
             controller : 'clientUpdateCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

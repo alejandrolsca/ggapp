@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.ink.add',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('inkAdd', {
             url:'/ink/add',
             templateUrl : 'modules/ink/modules/ink.add/ink.add.view.html',
             controller : 'inkAddCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

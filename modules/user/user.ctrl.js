@@ -1,7 +1,8 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function ($scope, userFac, $window, i18nFilter, $parse) {
+    return ['$scope', 'userFac', 'i18nFilter',
+    function ($scope, userFac, i18nFilter) {
         
         $scope.labels = Object.keys(i18nFilter("user.labels"));
         $scope.columns = i18nFilter("user.columns");
@@ -46,6 +47,6 @@ module.exports = (function(angular){
                 console.log(angular.fromJson(promise.data));
             });
          });
-    };
+    }];
     
 })(angular);

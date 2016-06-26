@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.machine.add',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('machineAdd', {
             url:'/machine/add',
             templateUrl : 'modules/machine/modules/machine.add/machine.add.view.html',
             controller : 'machineAddCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

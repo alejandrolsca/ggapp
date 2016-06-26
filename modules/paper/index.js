@@ -6,14 +6,14 @@ module.exports = (function(angular){
         require('./modules/paper.update').name
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('paper', {
             url:'/paper',
             templateUrl : 'modules/paper/paper.view.html',
             controller : 'paperCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

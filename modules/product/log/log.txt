@@ -254,3 +254,6 @@ Query: select
 LINE 3:                     from  public.product, 
                                   ^
  | Date: 2015-04-11 00:01:10
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2016-02-20 19:41:43

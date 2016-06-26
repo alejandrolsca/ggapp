@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.user.update',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('userUpdate', {
             url:'/user/update/:us_id',
             templateUrl : 'modules/user/modules/user.update/user.update.view.html',
             controller : 'userUpdateCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

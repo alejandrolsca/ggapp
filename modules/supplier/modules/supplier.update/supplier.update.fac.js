@@ -1,7 +1,7 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function($http, $q, $stateParams){
+    return ['$http', '$q', '$stateParams', function($http, $q, $stateParams){
         var factory = {};
         factory.data = function() {
             var deferred = $q.defer();
@@ -60,6 +60,6 @@ module.exports = (function(angular){
             return promise;
         };
         return factory;
-    };
+    }];
     
 })(angular);

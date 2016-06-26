@@ -6,14 +6,14 @@ module.exports = (function(angular){
         require('./modules/supplier.update').name
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('supplier', {
             url:'/supplier',
             templateUrl : 'modules/supplier/supplier.view.html',
             controller : 'supplierCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

@@ -1,7 +1,8 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function ($scope, paperFac, $window, i18nFilter, $parse) {
+    return ['$scope', 'paperFac', 'i18nFilter',
+    function ($scope, paperFac, i18nFilter) {
     
         $scope.labels = Object.keys(i18nFilter("paper.labels"));
         $scope.columns = i18nFilter("paper.columns");
@@ -90,6 +91,6 @@ module.exports = (function(angular){
                 console.log(angular.fromJson(promise.data));
             });
          });
-    };
+    }];
     
 })(angular);

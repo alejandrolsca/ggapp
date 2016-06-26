@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.productOffsetGeneral.add',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('productOffsetGeneralAdd', {
             url:'/product/add/offset/general/:cl_id',
             templateUrl : 'modules/product/modules/productOffsetGeneral.add/productOffsetGeneral.add.view.html',
             controller : 'productOffsetGeneralAddCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

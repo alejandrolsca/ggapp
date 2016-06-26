@@ -1,65 +1,65 @@
-module.exports = (function(angular){
+module.exports = (function (angular) {
     'use strict';
-    
-    return function($http, $q, $stateParams){
+
+    return ['$http', '$q', '$stateParams', function ($http, $q, $stateParams) {
         var factory = {};
-        factory.data = function() {
+        factory.data = function () {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('modules/client/modules/client.update/client.update.mdl.getClient.php', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id
-                }).success(function(data, status, headers, config){
+                }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    return {"status": false};
+                    return { "status": false };
                 })
-            );
+                );
             return deferred.promise;
         };
-        factory.update = function(cl_jsonb) {
+        factory.update = function (cl_jsonb) {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('modules/client/modules/client.update/client.update.mdl.update.php', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id,
                     cl_jsonb: cl_jsonb
-                }).success(function(data, status, headers, config){
+                }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    return {"status": false};
+                    return { "status": false };
                 })
-            );
+                );
             return deferred.promise;
         };
-        factory.getCountries = function() {
+        factory.getCountries = function () {
             var promise = $http.get('http://api.geonames.org/countryInfoJSON?username=alejandrolsca')
-            .success(function(data, status, headers, config){
-                return data;
-            }).error(function (data, status, headers, config) {
-                return {"status": false};
-            });
+                .success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return { "status": false };
+                });
             return promise;
         };
-        factory.getStates = function(cl_country) {
-            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+cl_country+'&username=alejandrolsca')
-            .success(function(data, status, headers, config){
-                return data;
-            }).error(function(data, status, headers, config) {
-                return {"status": false};
-            });
+        factory.getStates = function (cl_country) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId=' + cl_country + '&username=alejandrolsca')
+                .success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return { "status": false };
+                });
             return promise;
         };
-        factory.getCityCounty = function(cl_state) {
-            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+cl_state+'&username=alejandrolsca')
-            .success(function(data, status, headers, config){
-                return data;
-            }).error(function(data, status, headers, config) {
-                return {"status": false};
-            });
+        factory.getCityCounty = function (cl_state) {
+            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId=' + cl_state + '&username=alejandrolsca')
+                .success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return { "status": false };
+                });
             return promise;
         };
         return factory;
-    };
-    
+    }];
+
 })(angular);

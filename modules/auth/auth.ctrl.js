@@ -1,7 +1,8 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function ($rootScope, $scope, authFac, $location, AUTH_EVENTS) {
+    return ['$rootScope', '$scope', 'authFac', '$location', 
+    function ($rootScope, $scope, authFac, $location) {
         $scope.login_databases = [
             {"label":"Grupo Grafico","value":"ggapp"},
             {"label":"Print Source","value":"printsource"}
@@ -35,6 +36,6 @@ module.exports = (function(angular){
          });
 
         $scope.us_passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
-    };
+    }];
     
 })(angular);

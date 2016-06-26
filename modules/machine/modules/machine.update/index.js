@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.machine.update',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('machineUpdate', {
             url:'/machine/update/:ma_id',
             templateUrl : 'modules/machine/modules/machine.update/machine.update.view.html',
             controller : 'machineUpdateCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

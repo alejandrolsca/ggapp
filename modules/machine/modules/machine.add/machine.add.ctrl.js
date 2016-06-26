@@ -1,7 +1,8 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function ($scope, machineAddFac, $window, $location, i18nFilter, $interval) {
+    return ['$scope', 'machineAddFac', '$location', 'i18nFilter',
+    function ($scope, machineAddFac, $location, i18nFilter) {
         $scope.fmData = {};
 
         $scope.onSubmit = function() {
@@ -29,6 +30,6 @@ module.exports = (function(angular){
            
 
          });
-    };
+    }];
     
 })(angular);

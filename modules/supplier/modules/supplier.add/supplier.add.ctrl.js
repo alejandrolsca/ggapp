@@ -1,7 +1,8 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function ($scope, supplierAddFac, $window, $location, i18nFilter, $interval) {
+    return ['$scope', 'supplierAddFac', '$location', 'i18nFilter', '$interval',
+    function ($scope, supplierAddFac, $location, i18nFilter, $interval) {
         $scope.fmData = {};
 
         $scope.onSubmit = function() {
@@ -64,6 +65,6 @@ module.exports = (function(angular){
             });
 
          });
-    };
+    }];
     
 })(angular);

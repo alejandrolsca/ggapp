@@ -1,12 +1,13 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function ($scope, productOffsetGeneralUpdateFac, $window, $location, i18nFilter, $interval, $stateParams) {
+    return ['$scope', 'productOffsetGeneralUpdateFac', '$location', 'i18nFilter', '$stateParams', '$interval',
+    function ($scope, productOffsetGeneralUpdateFac, $location, i18nFilter, $stateParams, $interval) {
         
         $scope.onSubmit = function() {
 
             productOffsetGeneralUpdateFac.update($scope.fmData).then(function(promise){
-                if(promise.data == "1") {
+                if(promise.data.rowCount == 1) {
                     $location.path('/product/'+$stateParams.cl_id);
                 } else {
                     $scope.updateFail = true;
@@ -55,6 +56,7 @@ module.exports = (function(angular){
             $scope.loading = true;
             productOffsetGeneralUpdateFac.data().then(function(promise){
                 $scope.loading = false;
+                console.log(promise.data);
                 if(angular.isObject(angular.fromJson(promise.data))) {
                         $scope.fmData = angular.fromJson(promise.data);
                 }
@@ -90,6 +92,6 @@ module.exports = (function(angular){
             });
 
          });
-    };
+    }];
     
 })(angular);

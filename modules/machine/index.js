@@ -6,14 +6,14 @@ module.exports = (function(angular){
         require('./modules/machine.update').name
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('machine', {
             url:'/machine',
             templateUrl : 'modules/machine/machine.view.html',
             controller : 'machineCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

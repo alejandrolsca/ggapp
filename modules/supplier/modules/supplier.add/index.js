@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.supplier.add',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('supplierAdd', {
             url:'/supplier/add',
             templateUrl : 'modules/supplier/modules/supplier.add/supplier.add.view.html',
             controller : 'supplierAddCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

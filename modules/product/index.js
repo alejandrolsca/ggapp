@@ -3,17 +3,19 @@ module.exports = (function(angular){
     
     return angular.module('app.product',[
         require('./modules/productOffsetGeneral.add').name,
-        require('./modules/productOffsetGeneral.update').name
+        require('./modules/productOffsetGeneral.update').name,
+        require('./modules/productOffsetPaginated.add').name,
+        //require('./modules/productOffsetPaginated.update').name
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('product', {
             url:'/product/:cl_id',
             templateUrl : 'modules/product/product.view.html',
             controller : 'productCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

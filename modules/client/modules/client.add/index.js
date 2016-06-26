@@ -3,14 +3,14 @@ module.exports = (function(angular){
     
     return angular.module('app.client.add',[])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('clientAdd', {
             url:'/client/add',
             templateUrl : 'modules/client/modules/client.add/client.add.view.html',
             controller : 'clientAddCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])

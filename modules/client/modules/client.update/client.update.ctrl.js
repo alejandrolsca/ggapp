@@ -1,7 +1,8 @@
 module.exports = (function(angular){
     'use strict';
     
-    return function ($scope, clientUpdateFac, $window, $location, i18nFilter, $interval) {
+    return ['$scope', 'clientUpdateFac', '$location', 'i18nFilter', '$interval',
+    function ($scope, clientUpdateFac, $location, i18nFilter, $interval) {
         
         $scope.onSubmit = function() {
 
@@ -90,6 +91,6 @@ module.exports = (function(angular){
             });
 
          });
-    };
+    }];
     
 })(angular);

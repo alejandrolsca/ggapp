@@ -6,14 +6,14 @@ module.exports = (function(angular){
         require('./modules/zone.update').name
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider','USER_ROLES',
-    function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('zone', {
             url:'/zone/:cl_id',
             templateUrl : 'modules/zone/zone.view.html',
             controller : 'zoneCtrl',
             data: {
-                authorizedRoles: [USER_ROLES.admin,USER_ROLES.editor]
+                requiresLogin: true
             }    
         });
     }])
