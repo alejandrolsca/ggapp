@@ -1,11 +1,2 @@
-/assets/*
-/inc/*
-/modules/*
-/node_modules/*
-/scss/*
-/sql/*
-/typings/*
-/www/*
-(\.)*\.*
-*\.json
-*\.log
+/**/*
+

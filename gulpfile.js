@@ -64,6 +64,18 @@ gulp.task('html', function () {
         .pipe(gulp.dest('www/modules'));
 });
 
+gulp.task('new', function () {
+    if (!!gutil.env.module && (typeof (gutil.env.module) !== 'boolean')) {
+        return gulp.src([
+            'tpl/module/**/*',
+        ], { base: 'tpl' })
+            .pipe(gulp.dest('modules/'+gutil.env.module));
+    } else {
+        gutil.log("Please provide a module name with --modname 'module.name'")
+    }
+
+});
+
 var watcher = gulp.watch('modules/**/*.html', ['html']);
 watcher.on('change', function (event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
