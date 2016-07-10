@@ -34,7 +34,6 @@ module.exports = (function (angular) {
                 for (var i = 0; i < $scope.labels.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i];
-                    console.log($scope.columns[i])
                     col.header = i18nFilter("machine.labels." + $scope.labels[i]);
                     col.wordWrap = false;
                     col.width = 150;
@@ -88,7 +87,6 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
                     }
-                    console.log(angular.fromJson(promise.data));
                 });
             });
         }];

@@ -3,7 +3,6 @@ module.exports = (function(angular) {
 
     return ['$http', '$q', '$stateParams', function($http, $q, $stateParams) {
         var factory = {};
-        console.log($stateParams.cl_id);
         factory.getZone = function() {
             var deferred = $q.defer();
             deferred.resolve(

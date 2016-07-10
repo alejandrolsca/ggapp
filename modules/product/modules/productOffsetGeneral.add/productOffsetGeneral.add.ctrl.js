@@ -12,15 +12,12 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 productOffsetGeneralAddFac.add($scope.fmData).then(function (promise) {
-                    console.log(promise.data);
                     if (promise.data.rowCount == 1) {
                         $location.path('/product/'+$stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;
                     }
-                    //console.log(JSON.stringify(promise.data));
                 });
-                //console.log('form submitted:', $scope.formData);
             };
 
             $scope.pr_finalsizemeasureoptions = i18nFilter("productOffsetGeneral-add.fields.pr_finalsizemeasureoptions");
@@ -72,33 +69,28 @@ module.exports = (function (angular) {
                     if (angular.isObject(promise.data)) {
                         $scope.client = promise.data;
                     }
-                    console.log(JSON.stringify(promise.data));
                 });
 
                 productOffsetGeneralAddFac.getInks().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pr_inkoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            console.log(value.in_code);
                             this.push({ "label": value.in_code, "value": value.in_id });
                         }, $scope.pr_inkoptions);
                     } else {
                         //$scope.updateFail = true;
                     }
-                    console.log(JSON.stringify($scope.pr_inkbackoptions));
                 });
 
                 productOffsetGeneralAddFac.getPapers().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pa_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            console.log(value.in_code);
                             this.push({ "label": value.pa_code, "value": value.pa_id });
                         }, $scope.pa_idoptions);
                     } else {
                         //$scope.updateFail = true;
                     }
-                    console.log(JSON.stringify($scope.pr_inkbackoptions));
                 });
 
             });

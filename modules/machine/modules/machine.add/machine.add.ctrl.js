@@ -13,9 +13,7 @@ module.exports = (function(angular){
                 } else {
                     $scope.updateFail = true;
                 }
-                //console.log(JSON.stringify(promise.data));
             });
-            //console.log('form submitted:', $scope.formData);
         };
 
         $scope.ma_sizemeasureoptions = i18nFilter("machine.fields.ma_sizemeasureoptions");

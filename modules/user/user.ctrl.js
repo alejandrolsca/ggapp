@@ -7,8 +7,6 @@ module.exports = (function(angular){
         $scope.labels = Object.keys(i18nFilter("user.labels"));
         $scope.columns = i18nFilter("user.columns");
 
-        console.log(JSON.stringify($scope.fields));
-
         $scope.edit = function (id) {
             if (angular.isNumber(id)) {
                     //Embed the id to the link
@@ -44,7 +42,6 @@ module.exports = (function(angular){
                 if(angular.isArray(promise.data)) {
                     $scope.data = new wijmo.collections.CollectionView(promise.data);
                 }
-                console.log(angular.fromJson(promise.data));
             });
          });
     }];

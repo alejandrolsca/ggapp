@@ -18,9 +18,7 @@ module.exports = (function(angular){
                 } else {
                     $scope.updateFail = true;
                 }
-                //console.log(JSON.stringify(promise.data));
             });
-            //console.log('form submitted:', $scope.formData);
         };
         
         $scope.pr_finalsizemeasureoptions = i18nFilter("productOffsetPaginated-add.fields.pr_finalsizemeasureoptions");
@@ -101,7 +99,6 @@ module.exports = (function(angular){
                 if(angular.isObject(promise.data)) {
                     $scope.client = promise.data;
                 }
-                //console.log(JSON.stringify(promise.data));
             });
             
             productOffsetPaginatedAddFac.getInks().then(function(promise){
@@ -113,7 +110,6 @@ module.exports = (function(angular){
                 } else {
                     //$scope.updateFail = true;
                 }
-                //console.log(JSON.stringify($scope.pr_inkbackoptions));
             });
             
             productOffsetPaginatedAddFac.getPapers().then(function(promise){
@@ -125,7 +121,6 @@ module.exports = (function(angular){
                 } else {
                     //$scope.updateFail = true;
                 }
-                //console.log(JSON.stringify(promise.data));
             });
     
          });

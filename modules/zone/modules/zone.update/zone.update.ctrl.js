@@ -12,9 +12,7 @@ module.exports = (function (angular) {
                     } else {
                         $scope.updateFail = true;
                     }
-                    //console.log(JSON.stringify(promise.data));
                 });
-                //console.log('form submitted:', $scope.formData);
             };
 
             $scope.getStates = function () {
@@ -28,7 +26,6 @@ module.exports = (function (angular) {
                         } else {
                             //$scope.updateFail = true;
                         }
-                        //console.log(JSON.stringify(promise.data));
                     });
                 }, 0, 1);
             }
@@ -44,7 +41,6 @@ module.exports = (function (angular) {
                         } else {
                             //$scope.updateFail = true;
                         }
-                        //console.log(JSON.stringify(promise.data));
                     });
                 }, 0, 1);
             }
@@ -59,7 +55,6 @@ module.exports = (function (angular) {
                     if (angular.isObject(angular.fromJson(promise.data))) {
                         $scope.fmData = angular.fromJson(promise.data);
                     }
-                    console.log(promise.data);
                 }).then(function () {
                     zoneUpdateFac.getCountries().then(function (promise) {
                         if (angular.isArray(promise.data.geonames)) {
@@ -67,7 +62,6 @@ module.exports = (function (angular) {
                         } else {
                             //$scope.updateFail = true;
                         }
-                        //console.log(JSON.stringify(promise.data.geonames));
                     }).then(function () {
                         zoneUpdateFac.getStates($scope.fmData.zo_country).then(function (promise) {
                             if (angular.isArray(promise.data.geonames)) {
@@ -75,7 +69,6 @@ module.exports = (function (angular) {
                             } else {
                                 //$scope.updateFail = true;
                             }
-                            //console.log(JSON.stringify(promise.data.geonames));
                         })
                     }).then(function () {
                         zoneUpdateFac.getCityCounty($scope.fmData.zo_state).then(function (promise) {
@@ -85,7 +78,6 @@ module.exports = (function (angular) {
                             } else {
                                 //$scope.updateFail = true;
                             }
-                            //console.log(JSON.stringify(promise.data.geonames));
                         })
                     });
                 });

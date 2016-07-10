@@ -119,7 +119,6 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
                     }
-                    console.log(angular.fromJson(promise.data));
                 });
             });
         }];

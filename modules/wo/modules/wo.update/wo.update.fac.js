@@ -3,7 +3,6 @@ module.exports = (function(angular) {
 
     return ['$http', '$q', '$stateParams', function($http, $q, $stateParams) {
         var factory = {};
-        console.log($stateParams.cl_id);
         factory.getData = function() {
             var deferred = $q.defer();
             deferred.resolve(
@@ -12,7 +11,6 @@ module.exports = (function(angular) {
                     cl_id: $stateParams.cl_id,
                     wo_id: $stateParams.wo_id
                 }).success(function(data, status, headers, config) {
-                    console.log(data);
                     return data;
                 }).error(function(data, status, headers, config) {
                     return { "status": false };

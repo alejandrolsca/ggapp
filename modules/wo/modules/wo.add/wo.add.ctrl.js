@@ -16,15 +16,12 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 woAddFactory.add($scope.fmData).then(function (promise) {
-                    console.log(promise.data);
                     if (promise.data.rowCount == 1) {
                         $location.path('/wo/'+$stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;
                     }
-                    //console.log(JSON.stringify(promise.data));
                 });
-                //console.log('form submitted:', $scope.formData);
             };
 
             $scope.$on('$viewContentLoaded', function () {
@@ -38,7 +35,6 @@ module.exports = (function (angular) {
                             this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": rows[key]['zo_id'] });
                         }, $scope.zo_idoptions);
                     }
-                    console.log($scope.zo_idoptions);
                 });
                 woAddFactory.getMachine().then(function (promise) {
                     $scope.ma_idoptions = [];
@@ -48,7 +44,6 @@ module.exports = (function (angular) {
                             this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
                         }, $scope.ma_idoptions);
                     }
-                    console.log($scope.ma_idoptions);
                 });
                 woAddFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
@@ -74,7 +69,6 @@ module.exports = (function (angular) {
                             }
                         }
                     );
-                    console.log($scope.pr_idoptions);
                 });
                 $scope.loading = false;
             });

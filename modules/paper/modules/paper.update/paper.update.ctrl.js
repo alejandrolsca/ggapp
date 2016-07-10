@@ -12,9 +12,7 @@ module.exports = (function (angular) {
                     } else {
                         $scope.updateFail = true;
                     }
-                    //console.log(JSON.stringify(promise.data));
                 });
-                //console.log('form submitted:', $scope.formData);
             };
 
             $scope.pa_statusoptions = i18nFilter("paper.fields.pa_statusoptions");
@@ -29,7 +27,6 @@ module.exports = (function (angular) {
                     if (angular.isObject(angular.fromJson(promise.data))) {
                         $scope.fmData = angular.fromJson(promise.data);
                     }
-                    console.log(promise.data);
                 }).then(function () {
                     paperUpdateFac.getSuppliers().then(function (promise) {
                         if (angular.isArray(promise.data)) {
@@ -40,8 +37,6 @@ module.exports = (function (angular) {
                         } else {
                             //$scope.updateFail = true;
                         }
-                        console.log(JSON.stringify($scope.su_idoptions));
-                        console.log(JSON.stringify(promise.data));
                     });
                 });
 

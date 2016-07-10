@@ -14,9 +14,7 @@ module.exports = (function (angular) {
                     } else {
                         $scope.updateFail = true;
                     }
-                    //console.log(JSON.stringify(promise.data));
                 });
-                //console.log('form submitted:', $scope.formData);
             };
 
             $scope.getStates = function () {
@@ -30,7 +28,6 @@ module.exports = (function (angular) {
                         } else {
                             //$scope.updateFail = true;
                         }
-                        //console.log(JSON.stringify(promise.data));
                     });
                 }, 0, 1);
             }
@@ -46,7 +43,6 @@ module.exports = (function (angular) {
                         } else {
                             //$scope.updateFail = true;
                         }
-                        //console.log(JSON.stringify(promise.data));
                     });
                 }, 0, 1);
             };
@@ -61,7 +57,6 @@ module.exports = (function (angular) {
                     if (angular.isObject(promise.data)) {
                         $scope.client = promise.data;
                     }
-                    console.log(JSON.stringify(promise.data));
                 });
 
                 zoneAddFac.getCountries().then(function (promise) {
@@ -70,7 +65,6 @@ module.exports = (function (angular) {
                     } else {
                         //$scope.updateFail = true;
                     }
-                    //console.log(JSON.stringify(promise.data.geonames));
                 });
 
             });

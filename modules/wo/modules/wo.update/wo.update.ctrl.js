@@ -11,15 +11,12 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 woUpdateFactory.add($scope.fmData).then(function (promise) {
-                    console.log(promise.data);
                     if (promise.data.rowCount == 1) {
                         $location.path('/wo/'+$stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;
                     }
-                    //console.log(JSON.stringify(promise.data));
                 });
-                //console.log('form submitted:', $scope.formData);
             };
 
             $scope.$on('$viewContentLoaded', function () {
@@ -32,7 +29,6 @@ module.exports = (function (angular) {
                             $scope.wo_id = promise.data[0].wo_id;
                             $scope.wo_date = promise.data[0].wo_date;
                     }
-                    console.log(JSON.stringify(promise.data));
                 });
                 woUpdateFactory.getZone().then(function (promise) {
                     $scope.zo_idoptions = [];
@@ -42,7 +38,6 @@ module.exports = (function (angular) {
                             this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": rows[key]['zo_id'] });
                         }, $scope.zo_idoptions);
                     }
-                    console.log($scope.zo_idoptions);
                 });
                 woUpdateFactory.getMachine().then(function (promise) {
                     $scope.ma_idoptions = [];
@@ -52,7 +47,6 @@ module.exports = (function (angular) {
                             this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
                         }, $scope.ma_idoptions);
                     }
-                    console.log($scope.ma_idoptions);
                 });
                 woUpdateFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
@@ -74,12 +68,10 @@ module.exports = (function (angular) {
                             } else {
                                 $scope.prinfo = true;
                                 $scope.product = product[0];
-                                console.log(product[0]);
                                 $scope.folio = (product[0]['pr_jsonb']['pr_folio']==='yes') ? true : false;
                             }
                         }
                     );
-                    console.log($scope.pr_idoptions);
                 });
                 $scope.loading = false;
             });

@@ -13,9 +13,7 @@ module.exports = (function (angular) {
                     } else {
                         $scope.updateFail = true;
                     }
-                    //console.log(JSON.stringify(promise.data));
                 });
-                //console.log('form submitted:', $scope.formData);
             };
 
             $scope.pa_statusoptions = i18nFilter("paper.fields.pa_statusoptions");
@@ -34,8 +32,6 @@ module.exports = (function (angular) {
                     } else {
                         //$scope.updateFail = true;
                     }
-                    console.log(JSON.stringify($scope.su_idoptions));
-                    console.log(JSON.stringify(promise.data));
                 });
 
             });

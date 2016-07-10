@@ -18,7 +18,6 @@ module.exports = (function (angular) {
                     $rootScope.currentLanguage = promise.data.lang;
                     $scope.navItems = i18nFilter("GENERAL.NAV");
                 }
-                console.log(JSON.stringify(promise.data.lang));
             });
 
             for (var item in $scope.navItems) {
@@ -32,7 +31,6 @@ module.exports = (function (angular) {
                         $rootScope.currentLanguage = promise.data.lang;
                         $scope.navItems = i18nFilter("GENERAL.NAV");
                     }
-                    console.log(JSON.stringify(promise.data.lang));
                 });
             }
         }]

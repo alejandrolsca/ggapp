@@ -12,7 +12,6 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {
 
                     }
-                    console.log(JSON.stringify(promise.data));
                 });
             });
         }];

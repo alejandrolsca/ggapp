@@ -110,7 +110,6 @@ module.exports = (function (angular) {
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
 
                     }
-                    console.log(promise.data);
                 });
             });
         }];

@@ -22,7 +22,6 @@ module.exports = (function(angular){
                     $rootScope.user = promise.data;
                     $location.path("/home");
                 }
-                console.log(JSON.stringify($rootScope.user));
             });
         }
         $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
