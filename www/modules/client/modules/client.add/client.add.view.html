@@ -5,7 +5,7 @@
 <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
   <gg-select err-class="error"
            lbl="{{'client.labels.cl-type' | i18n}}" 
-           form-group-class="col-sm-4" 
+           form-group-class="col-sm-3" 
            options="cl_typeoptions" 
            ng-model="fmData.cl_type"
            regexp="singlespaces"
@@ -13,6 +13,15 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+   <gg-input err-class="error"
+            lbl="{{'client.labels.cl-tin' | i18n}}" 
+            form-group-class="col-sm-3" 
+            ng-model="fmData.cl_tin"
+            regexp="rfc"
+            regexp-msg="{{'general.regexp.rfc' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
   <span ng-if="(fmData.cl_type=='legal')">
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-corporatename' | i18n}}" 
@@ -26,16 +35,7 @@
             >
   </gg-input>
   </span>
-
-  <gg-input err-class="error"
-            lbl="{{'client.labels.cl-tin' | i18n}}" 
-            form-group-class="col-sm-4" 
-            ng-model="fmData.cl_tin"
-            regexp="rfc"
-            regexp-msg="{{'general.regexp.rfc' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
+  <label class="col-sm-12 fieldset"></label>
   <span ng-if="(fmData.cl_type=='natural')">
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-name' | i18n}}"

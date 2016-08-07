@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var watchify = require('watchify');
 var browserify = require('browserify');
-var uglifyify = require('uglifyify');
 var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
 var rename = require('gulp-rename');

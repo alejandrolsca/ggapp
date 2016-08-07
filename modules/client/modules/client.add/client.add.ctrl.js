@@ -4,12 +4,12 @@ module.exports = (function (angular) {
     return ['$scope', 'clientAddFac', '$location', 'i18nFilter', '$interval',
         function ($scope, clientAddFac, $location, i18nFilter, $interval) {
             $scope.fmData = {};
-            //$scope.fmData = { "cl_type": "natural", "cl_tin": "SABG-830109", "cl_name": "Alejandro", "cl_fatherslastname": "Sanchez", "cl_motherslastname": "", "cl_country": 3041565, "cl_state": 3041203, "cl_city": 8260083, "cl_county": 8260083, "cl_street": "ortiz mena", "cl_streetnumber": "4022", "cl_suitenumber": "202", "cl_neighborhood": "fovissste", "cl_zipcode": "31206", "cl_addressreference": "transito", "cl_email": "aaaaa@ssss.com", "cl_phone": "3366559988", "cl_mobile": "5544225544", "cl_creditlimit": "1000.00", "cl_customerdiscount": "0.10", "cl_status": "A" }
+            $scope.fmData = { "cl_type": "natural", "cl_tin": "SABG-830106-ACA", "cl_name": "Gaspar Alejandro", "cl_fatherslastname": "Sanchez", "cl_motherslastname": "Betancourt", "cl_country": 3996063, "cl_state": 4014336, "cl_city": 8581816, "cl_county": 8581816, "cl_street": "AV GUADALUPE", "cl_streetnumber": "6877", "cl_suitenumber": "81", "cl_neighborhood": "PLAZA GUADALUPE", "cl_zipcode": "45036", "cl_addressreference": "FRIDA KHALO Y AV GUADALUPE", "cl_email": "alejandrolsca@gmail.com", "cl_phone": "3337979135", "cl_mobile": "+5213310112576", "cl_creditlimit": "10000.00", "cl_customerdiscount": "0.10", "cl_status": "A" }
 
             $scope.onSubmit = function () {
 
                 clientAddFac.add($scope.fmData).then(function (promise) {
-                    if (promise.data.rowCount == 1) {
+                    if (promise.data.rowCount === 1) {
                         $location.path('/client');
                     } else {
                         $scope.updateFail = true;

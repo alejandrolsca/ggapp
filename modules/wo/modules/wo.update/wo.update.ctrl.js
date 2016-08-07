@@ -1,17 +1,17 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter',
-        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter) {
-
+    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter','$location',
+        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location) {
+            
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
             $scope.wo_emailoptions = i18nFilter("wo-add.fields.wo_emailoptions");
             
             $scope.onSubmit = function () {
 
-                woUpdateFactory.add($scope.fmData).then(function (promise) {
-                    if (promise.data.rowCount == 1) {
+                woUpdateFactory.update($scope.fmData).then(function (promise) {
+                    if (promise.data.rowCount === 1) {
                         $location.path('/wo/'+$stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;

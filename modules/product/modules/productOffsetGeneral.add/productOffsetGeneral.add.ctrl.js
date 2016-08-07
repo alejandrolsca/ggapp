@@ -12,7 +12,7 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 productOffsetGeneralAddFac.add($scope.fmData).then(function (promise) {
-                    if (promise.data.rowCount == 1) {
+                    if (promise.data.rowCount === 1) {
                         $location.path('/product/'+$stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;

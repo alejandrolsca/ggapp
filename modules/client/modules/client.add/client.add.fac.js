@@ -4,13 +4,13 @@ module.exports = (function (angular) {
     return ['$http', '$stateParams', function ($http, $stateParams) {
         var factory = {};
         factory.add = function (cl_jsonb) {
-            var promise = $http.post('modules/client/modules/client.add/client.add.mdl.add.php', {
+            var promise = $http.post('/client/add', {
                 /* POST variables here */
                 cl_jsonb: cl_jsonb
             }).success(function (data, status, headers, config) {
                 return data;
             }).error(function (data, status, headers, config) {
-                return { "status": false };
+                var stackError = JSON.stringify({                     status: data.status,                     error: data.error,                     errorType: data.type,                     config: config                 },null,4);                 $alerts.error('Wooops! an error has ocurred.',stackError);                 return { "status": false };
             });
             return promise;
         };
@@ -19,7 +19,7 @@ module.exports = (function (angular) {
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    return { "status": false };
+                    var stackError = JSON.stringify({                     status: data.status,                     error: data.error,                     errorType: data.type,                     config: config                 },null,4);                 $alerts.error('Wooops! an error has ocurred.',stackError);                 return { "status": false };
                 });
             return promise;
         };
@@ -28,7 +28,7 @@ module.exports = (function (angular) {
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    return { "status": false };
+                    var stackError = JSON.stringify({                     status: data.status,                     error: data.error,                     errorType: data.type,                     config: config                 },null,4);                 $alerts.error('Wooops! an error has ocurred.',stackError);                 return { "status": false };
                 });
             return promise;
         };
@@ -37,7 +37,7 @@ module.exports = (function (angular) {
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    return { "status": false };
+                    var stackError = JSON.stringify({                     status: data.status,                     error: data.error,                     errorType: data.type,                     config: config                 },null,4);                 $alerts.error('Wooops! an error has ocurred.',stackError);                 return { "status": false };
                 });
             return promise;
         };

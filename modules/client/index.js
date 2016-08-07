@@ -1,6 +1,7 @@
 module.exports = (function(angular){
     'use strict';
-    
+    //comment
+
     return angular.module('app.client',[
         require('./modules/client.add').name,
         require('./modules/client.update').name

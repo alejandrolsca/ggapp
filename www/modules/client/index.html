@@ -1,0 +1,64 @@
+<div class="col-sm-12">
+    <h3>{{'client.title' | i18n}}</h3>
+    <div ui-sref="clientAdd" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> {{'general.labels.add' | i18n}}</div><br/><br/>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{'client-custom.labels.pr-title' | i18n}}</h4>
+      </div>
+      <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+      <div class="modal-body">
+          <div class="row">
+            <gg-select err-class="error"
+                   lbl="{{'client-custom.labels.pr-process' | i18n}}" 
+                   form-group-class="col-sm-12" 
+                   options="pr_processoptions" 
+                   ng-model="fmData.pr_process"
+                   regexp="singlespaces"
+                   regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                   req-msg="Required"
+                   is-required="true">
+            </gg-select>
+              <gg-select err-class="error"
+                   lbl="{{'client-custom.labels.pr-type' | i18n}}" 
+                   form-group-class="col-sm-12" 
+                   options="pr_typeoptions" 
+                   ng-model="fmData.pr_type"
+                   regexp="singlespaces"
+                   regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                   req-msg="Required"
+                   is-required="true">
+            </gg-select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
+        <button ng-click="redirect('/product/add/'+fmData.pr_process+'/'+fmData.pr_type+'/'+current_id)" class="btn btn-success" ng-disabled="ggform.$invalid">{{'general.labels.submit' | i18n}}</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+    <wj-flex-grid 
+      control="ggGrid" 
+      items-source="data" 
+      auto-generate-columns="false" 
+      initialized="initGrid(s,e)" 
+      format-item="formatItem(s,e,cell)" 
+      allow-sorting="true" 
+      show-sort="true" 
+      style="height:390px;">
+        <wj-flex-grid-column
+        header="Acciones" 
+        is-read-only="true" 
+        width="200">
+
+        </wj-flex-grid-column>
+    </wj-flex-grid>
+</div>

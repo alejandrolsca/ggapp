@@ -7,6 +7,7 @@
         'ngAnimate',
         'ui.bootstrap',
         'gg-fields',
+        'gg-alerts',
         'wj',
         'ja.qr',
         'auth0',
