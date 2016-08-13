@@ -13,9 +13,16 @@ module.exports = (function (angular) {
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    var stackError = JSON.stringify({                     status: data.status,                     error: data.error,                     errorType: data.type,                     config: config                 },null,4);                 $alerts.error('Wooops! an error has ocurred.',stackError);                 return { "status": false };
+                    var stackError = JSON.stringify({
+                        status: data.status,
+                        error: data.error,
+                        errorType: data.type,
+                        config: config
+                    }, null, 4);
+                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                    return { "status": false };
                 })
-                );
+            );
             return deferred.promise;
         };
         return factory;

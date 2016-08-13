@@ -483,6 +483,7 @@
         "/Applications/MAMP/htdocs/ggapp/assets/zip/Wijmo-Enterprise.20143-4/C1Wijmo_5.20143.32/Samples/JS/PureJS/FlexGridIntro/FlexGridIntro/scripts/editing.js",
         "/Applications/MAMP/htdocs/ggapp/assets/zip/Wijmo-Enterprise.20143-4/C1Wijmo_5.20143.32/Samples/JS/PureJS/FlexGridIntro/FlexGridIntro/scripts/filtering.js",
         "/Applications/MAMP/htdocs/ggapp/assets/zip/Wijmo-Enterprise.20143-4/C1Wijmo_5.20143.32/Samples/JS/PureJS/FlexGridIntro/FlexGridIntro/scripts/gettingStarted.js",
-        "/Applications/MAMP/htdocs/ggapp/assets/zip/Wijmo-Enterprise.20143-4/C1Wijmo_5.20143.32/Samples/JS/PureJS/FlexGridIntro/FlexGridIntro/scripts/grouping.js"
+        "/Applications/MAMP/htdocs/ggapp/assets/zip/Wijmo-Enterprise.20143-4/C1Wijmo_5.20143.32/Samples/JS/PureJS/FlexGridIntro/FlexGridIntro/scripts/grouping.js",
+        "/Applications/MAMP/htdocs/ggapp/assets/zip/Wijmo-Enterprise.20143-4/C1Wijmo_5.20143.32/Samples/JS/PureJS/FlexGridIntro/FlexGridIntro/scripts/vendor/wijmo.grid.min.js"
     ]
 }
