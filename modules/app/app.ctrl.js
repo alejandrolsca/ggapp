@@ -3,8 +3,8 @@ module.exports = (function (angular) {
 
     angular
 
-    return ['$scope', '$rootScope', 'langFac', 'i18nFilter', '$location', 'auth', 'store',
-        function ($scope, $rootScope, langFac, i18nFilter, $location, auth, store) {
+    return ['$scope', '$rootScope', 'i18nFilter', '$location', 'auth', 'store',
+        function ($scope, $rootScope, i18nFilter, $location, auth, store) {
 
             $scope.logout = function () {
                 auth.signout();
@@ -12,7 +12,7 @@ module.exports = (function (angular) {
                 store.remove('token');
                 $location.path("/login");
             }
-
+            /*
             langFac.getLang().then(function (promise) {
                 if (promise.data.success) {
                     $rootScope.currentLanguage = promise.data.lang;
@@ -33,6 +33,7 @@ module.exports = (function (angular) {
                     }
                 });
             }
+            */
         }]
 
 })(angular);

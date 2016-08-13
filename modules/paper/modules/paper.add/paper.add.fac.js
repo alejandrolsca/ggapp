@@ -1,7 +1,7 @@
 module.exports = (function(angular){
     'use strict';
     
-    return ['$http', '$stateParams', function($http, $stateParams){
+    return ['$http', '$q', '$alerts', '$stateParams', function($http, $q, $alerts, $stateParams){
         var factory = {};
         factory.add = function(pa_jsonb) {
             var promise = $http.post('modules/paper/modules/paper.add/paper.add.mdl.add.php', {

@@ -71,7 +71,7 @@
 
         .filter('i18n', require('./modules/app/lang.filter.i18n'))
 
-        .factory('langFac', require('./modules/app/lang.fac'))
+        //.factory('langFac', require('./modules/app/lang.fac'))
 
         .controller('appCtrl', require('./modules/app/app.ctrl'))
 
