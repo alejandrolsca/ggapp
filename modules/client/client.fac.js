@@ -1,7 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$http', '$q', '$alerts', function ($http, $q, $alerts) {
+    return ['$http', '$q', '$alerts','store', function ($http, $q, $alerts,store) {
+        console.log(store.get('profile'));
         var factory = {};
         factory.data = function () {
             var deferred = $q.defer();

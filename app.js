@@ -26,8 +26,8 @@
         require('./modules/zone').name
     ])
 
-        .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'authProvider', 'jwtInterceptorProvider',
-            function ($stateProvider, $urlRouterProvider, $httpProvider, authProvider, jwtInterceptorProvider) {
+        .config(['$provide', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'authProvider', 'jwtInterceptorProvider',
+            function ($provide, $stateProvider, $urlRouterProvider, $httpProvider, authProvider, jwtInterceptorProvider) {
                 authProvider.init({
                     domain: 'grupografico.auth0.com',
                     clientID: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y',
@@ -39,7 +39,10 @@
                     return store.get('token');
                 }];
 
+                //$provide.factory('profileInterceptor',require('./modules/app/app.profile.fac'))
+
                 $httpProvider.interceptors.push('jwtInterceptor');
+                $httpProvider.interceptors.push(require('./modules/app/app.profile.interceptor'));
                 // Batching multiple $http responses into one $digest
                 $httpProvider.useApplyAsync(true);
                 // when there is an empty route, redirect to /index   

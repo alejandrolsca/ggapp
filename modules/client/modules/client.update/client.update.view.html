@@ -21,6 +21,7 @@
             regexp="rfc"
             regexp-msg="{{'general.regexp.rfc' | i18n}}"
             req-msg="Required"
+            is-disabled="true"
             is-required="true">
   </gg-input>
   <span ng-if="(fmData.cl_type=='legal')">
@@ -32,6 +33,7 @@
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-disabled="!(fmData.cl_type=='legal')"
+            is-disabled="true"
             is-required="true"
             >
   </gg-input>
@@ -45,7 +47,6 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-disabled="!(fmData.cl_type=='natural')"
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
@@ -55,7 +56,6 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-disabled="!(fmData.cl_type=='natural')"
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
@@ -65,7 +65,6 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-disabled="!(fmData.cl_type=='natural')"
             ng-required="false">
   </gg-input>
   </span>
