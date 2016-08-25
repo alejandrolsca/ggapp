@@ -1,5 +1,5 @@
 (function (angular) {
-    //ALEJANDRO SANCHEZ BETANCOURT
+
     'use strict';
 
     angular.module('app', [
