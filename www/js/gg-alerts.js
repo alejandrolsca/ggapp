@@ -3,8 +3,8 @@
 
     angular.module('gg-alerts', ['ui.bootstrap'], function ($provide) {
         'use strict';
-        $provide.factory('$alerts', ['$rootScope', '$modal',
-            function ($rootScope, $modal) {
+        $provide.factory('$alerts', ['$rootScope', '$uibModal',
+            function ($rootScope, $uibModal) {
 
                 var factory = {
                     alert: function (mode, title, text) {
@@ -15,7 +15,7 @@
                             text: text || 'text'
                         };
 
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: `<div class="modal-body" style="padding:0px"> 
                                         <div class="alert alert-{{data.mode}}" style="margin-bottom:0px">
                                             <button type="button" class="close" data-ng-click="close()" >
@@ -61,12 +61,12 @@
                 return factory;
 
             }]);
-    }).controller('ModalAlertController', function ($scope, $modalInstance, data) {
+    }).controller('ModalAlertController', ['$scope', '$uibModalInstance', 'data', function ($scope, $uibModalInstance, data) {
         $scope.data = data;
 
         $scope.close = function () {
-            $modalInstance.close($scope.data);
+            $uibModalInstance.close($scope.data);
         };
-    })
+    }])
 
 })(angular)

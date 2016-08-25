@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woAddFactory', '$stateParams', 'i18nFilter', '$filter',
-        function ($scope, woAddFactory, $stateParams, i18nFilter, $filter) {
+    return ['$scope', 'woAddFactory', '$stateParams', 'i18nFilter', '$filter', '$location',
+        function ($scope, woAddFactory, $stateParams, i18nFilter, $filter, $location) {
             $scope.fmData = {};
             //$scope.fmData = {"zo_id": "2", "wo_orderedby": "Alejandro", "wo_attention": "Marco", "ma_id": 1, "wo_release": "rel001", "wo_po": "ABC001", "wo_line": "1", "wo_linetotal": "4", "pr_id": "15", "wo_qty": "100", "wo_packageqty": "10", "wo_excedentqty": "10", "wo_foliosperformat": 1, "wo_foliosseries": "A", "wo_foliosfrom": "1", "wo_foliosto": "100", "wo_commitmentdate": "2016-07-01", "wo_notes": "Esta es una orden de prueba", "wo_price": "99.99", "wo_currency": "DLLS", "wo_email": "yes" };
             $scope.fmData.wo_type = "N"; //N-new,R-rep,C-change
@@ -16,7 +16,7 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 woAddFactory.add($scope.fmData).then(function (promise) {
-                    if (promise.data.rowCount == 1) {
+                    if (promise.data.rowCount === 1) {
                         $location.path('/wo/'+$stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;

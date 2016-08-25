@@ -5,7 +5,7 @@ module.exports = {
                         "cl-type":"Tipo de Cliente",
                         "cl-corporatename":"razón social",
                         "cl-tin":"rfc",
-                        "cl-name":"nombre",
+                        "cl-name":"nombre(s)",
                         "cl-fatherslastname":"apellido paterno",
                         "cl-motherslastname":"apellido materno",
                         "cl-street":"calle",

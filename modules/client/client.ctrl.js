@@ -78,11 +78,11 @@ module.exports = (function (angular) {
                     // monitor the mouse over the grid
                     flex.hostElement.addEventListener('mousemove', function (evt) {
                         var ht = flex.hitTest(evt);
-                        if (!ht.cellRange.equals(rng)) {
+                        if (!ht.range.equals(rng)) {
 
                             // new cell selected, show tooltip
                             if (ht.cellType == wijmo.grid.CellType.Cell) {
-                                rng = ht.cellRange;
+                                rng = ht.range;
                                 var col = flex.columns[rng.col].header;
                                 var cellElement = document.elementFromPoint(evt.clientX, evt.clientY),
                                     cellBounds = wijmo.Rect.fromBoundingRect(cellElement.getBoundingClientRect()),

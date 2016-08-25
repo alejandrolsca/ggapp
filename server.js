@@ -84,10 +84,10 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    console.error('error running query', err);
+                    res.status(err.code).send({status:err.code, error: err, type:'Database error'});
                 }
-                console.log(JSON.stringify(result));
-                res.sendStatus(JSON.stringify(result));
+                res.send(JSON.stringify(result));
             });
         });
     });
@@ -102,16 +102,16 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    console.error('error running query', err);
+                    res.status(err.code).send({status:err.code, error: err, type:'Database error'});
                 }
-                console.log(JSON.stringify(result));
-                res.sendStatus(JSON.stringify(result));
+                res.send(JSON.stringify(result));
             });
         });
     });
 
     app.post('/client/', function (req, res, next) {
-        console.log(JSON.stringify(req.headers.authorization))
+        console.log(JSON.stringify(req.headers.profile))
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
@@ -123,7 +123,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(JSON.stringify(result.rows));
+                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });
