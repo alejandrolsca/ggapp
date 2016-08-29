@@ -1,34 +1,34 @@
 {
   "name": "ggapp",
-  "version": "1.0.0",
-  "homepage": "https://github.com/alejandrolsca/ggapp",
-  "authors": [
-    "Alejandro Sanchez Betancourt <alejandrolsca@gmail.com>"
-  ],
   "description": "Grupo Grafico APP",
-  "main": "index.html",
-  "moduleType": [
-    "globals"
+  "main": "app.js",
+  "authors": [
+    "Alejandro Sanchez Betancourt"
   ],
+  "license": "ISC",
   "keywords": [
-    "AngularJS",
-    "PostgreSQL",
-    "PHP",
-    "Grupo",
-    "Grafico",
-    "Backend"
+    "ggapp"
   ],
-  "license": "MIT",
+  "homepage": "https://github.com/alejandrolsca/ggapp",
   "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "www/lib",
     "test",
     "tests"
   ],
-  "dependencies": {},
-  "resolutions": {
-    "angular": "^1.5.8"
+  "dependencies": {
+    "angular-lock": "^1.0.1",
+    "angular-bootstrap": "^2.1.2",
+    "angular-jwt": "^0.1.3",
+    "angular-animate": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "angular": "^1.5.8",
+    "angular-qr": "~0.2.0",
+    "jquery": ">= 1.9.0",
+    "bootstrap": "~3.1.1",
+    "auth0-lock": "^10.2.1"
   }
 }

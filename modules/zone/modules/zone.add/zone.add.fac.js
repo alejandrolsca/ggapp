@@ -1,7 +1,7 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$http', '$q', '$alerts', '$stateParams', function ($http, $q, $alerts, $stateParams) {
+    return ['$http', '$q',  '$stateParams', function ($http, $q, $stateParams) {
         var factory = {};
         factory.getClient = function () {
             var deferred = $q.defer();
@@ -12,13 +12,7 @@ module.exports = (function (angular) {
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                    
                     return { "status": false };
                 })
             );
@@ -31,13 +25,6 @@ module.exports = (function (angular) {
             }).success(function (data, status, headers, config) {
                 return data;
             }).error(function (data, status, headers, config) {
-                var stackError = JSON.stringify({
-                    status: data.status,
-                    error: data.error,
-                    errorType: data.type,
-                    config: config
-                }, null, 4);
-                $alerts.error('Wooops! an error has ocurred.', stackError);
                 return { "status": false };
             });
             return promise;
@@ -47,13 +34,7 @@ module.exports = (function (angular) {
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                    
                     return { "status": false };
                 });
             return promise;
@@ -63,13 +44,7 @@ module.exports = (function (angular) {
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                    
                     return { "status": false };
                 });
             return promise;
@@ -79,13 +54,7 @@ module.exports = (function (angular) {
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                    
                     return { "status": false };
                 });
             return promise;

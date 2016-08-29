@@ -3,11 +3,11 @@ module.exports = (function (angular) {
 
     return ['$http', '$q',  function ($http, $q) {
         var factory = {};
-        factory.getLogin = function (user) {
+        factory.jwtCheck = function (newLang) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/home/homeModel.php', {
-                    /* POST variables here */
+                $http.post('/api/jwt', {
+                    process: new Date().getMilliseconds()
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

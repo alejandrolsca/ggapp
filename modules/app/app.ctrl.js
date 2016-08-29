@@ -3,15 +3,10 @@ module.exports = (function (angular) {
 
     angular
 
-    return ['$scope', '$rootScope', 'i18nFilter', '$location', 'auth', 'store',
-        function ($scope, $rootScope, i18nFilter, $location, auth, store) {
+    return ['$scope', '$rootScope', 'i18nFilter', '$location', 'authService', 
+        function ($scope, $rootScope, i18nFilter, $location, authService) {
 
-            $scope.logout = function () {
-                auth.signout();
-                store.remove('profile');
-                store.remove('token');
-                $location.path("/login");
-            }
+            //$scope.authService = authService;
             /*
             langFac.getLang().then(function (promise) {
                 if (promise.data.success) {

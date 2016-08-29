@@ -1,25 +1,17 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$http', '$q', '$alerts','store', function ($http, $q, $alerts,store) {
-        console.log(store.get('profile'));
+    return ['$http', '$q',  function ($http, $q) {
         var factory = {};
         factory.data = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('http://localhost:3000/client/', {
+                $http.post('/api/client/', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds()
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
                     return { "status": false };
                 })
             );
@@ -27,5 +19,4 @@ module.exports = (function (angular) {
         };
         return factory;
     }];
-
 })(angular);

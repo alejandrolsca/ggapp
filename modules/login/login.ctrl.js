@@ -1,9 +1,10 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', '$http', 'auth', 'store', '$location', 'jwtHelper',
-        function ($scope, $http, auth, store, $location, jwtHelper) {
-
+    return ['$scope', '$http', 'authService', '$location',
+        function ($scope, $http, authService, $location) {
+            authService.login();
+            /*
             var token = store.get('token');
             if (token) {
                 if (!jwtHelper.isTokenExpired(token)) {
@@ -50,7 +51,7 @@ module.exports = (function (angular) {
                     console.log(error)
                     // Error callback
                 });
-            }
+            }*/
 
         }]
 

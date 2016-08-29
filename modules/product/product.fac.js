@@ -1,12 +1,12 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$http', '$q', '$alerts', '$stateParams', function ($http, $q, $alerts, $stateParams) {
+    return ['$http', '$q',  '$stateParams', function ($http, $q, $stateParams) {
         var factory = {};
         factory.data = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('http://localhost:3000/product/cl_id', {
+                $http.post('/api/product/cl_id', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds(),
                     cl_id: $stateParams.cl_id,

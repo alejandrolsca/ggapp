@@ -1,24 +1,18 @@
 module.exports = (function(angular) {
     'use strict';
 
-    return ['$http', '$q', '$alerts', '$stateParams', function($http, $q, $alerts, $stateParams) {
+    return ['$http', '$q',  '$stateParams', function($http, $q, $stateParams) {
         var factory = {};
         factory.getZone = function() {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/zone/cl_id', {
+                $http.post('/api/zone/cl_id', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {
-                    var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                    
                     return { "status": false };
                 })
             );
@@ -27,19 +21,13 @@ module.exports = (function(angular) {
         factory.getMachine = function() {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/machine', {
+                $http.post('/api/machine', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {
-                    var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                    
                     return { "status": false };
                 })
             );
@@ -48,39 +36,27 @@ module.exports = (function(angular) {
         factory.getProduct = function() {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/product/cl_id', {
+                $http.post('/api/product/cl_id', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id,
                     pr_status: 'A'
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {
-                    var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                    
                     return { "status": false };
                 })
             );
             return deferred.promise;
         };
         factory.add = function(wo_jsonb) {
-            var promise = $http.post('/wo/add', {
+            var promise = $http.post('/api/wo/add', {
                 /* POST variables here */
                 wo_jsonb: wo_jsonb
             }).success(function(data, status, headers, config) {
                 return data;
             }).error(function(data, status, headers, config) {
-                var stackError = JSON.stringify({
-                        status: data.status,
-                        error: data.error,
-                        errorType: data.type,
-                        config: config
-                    }, null, 4);
-                    $alerts.error('Wooops! an error has ocurred.', stackError);
+                
                     return { "status": false };
             });
             return promise;
