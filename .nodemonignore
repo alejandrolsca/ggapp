@@ -1,11 +1,12 @@
 /assets/
-/inc/
-/modules/
+/bower_components/
+/client/
+/js/
 /node_modules/
-/scss/
 /sql/
 /tpl/
 /typings/
 /www/
+/.git/
 /*.json
 /*.log

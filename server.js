@@ -40,7 +40,8 @@ if (cluster.isMaster) {
     //SETUP APP
     var app = express();
     app.use(cors());
-    app.use("/www", express.static(path.join(__dirname, 'www')));
+    app.use("/www", express.static(path.join(__dirname, 'client/app')));
+
 
     //SETUP JWT
     var jwtCheck = jwt({
