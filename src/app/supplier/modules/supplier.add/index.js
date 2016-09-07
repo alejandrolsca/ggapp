@@ -1,0 +1,22 @@
+module.exports = (function(angular){
+    'use strict';
+    
+    return angular.module('app.supplier.add',[])
+
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
+        $stateProvider.state('supplierAdd', {
+            url:'/supplier/add',
+            templateUrl : 'app/supplier/modules/supplier.add/supplier.add.view.html',
+            controller : 'supplierAddCtrl',
+            data: {
+                requiresLogin: true
+            }    
+        });
+    }])
+
+    .factory('supplierAddFac',require('./supplier.add.fac'))
+
+    .controller('supplierAddCtrl',require('./supplier.add.ctrl'))
+
+})(angular);

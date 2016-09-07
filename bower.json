@@ -30,7 +30,8 @@
     "jquery": ">= 1.9.0",
     "bootstrap": "~3.1.1",
     "auth0-lock": "^10.2.1",
-    "animate.css": "^3.5.2"
+    "animate.css": "^3.5.2",
+    "google-libphonenumber": "^1.1.0"
   },
   "resolutions": {
     "angular": "^1.5.8"

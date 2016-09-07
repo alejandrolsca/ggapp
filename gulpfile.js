@@ -10,6 +10,17 @@ var buffer = require('vinyl-buffer');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 
+
+var config = {
+    src: './src',
+    app: './src/app',
+    dist: './dist',
+    scss: './src/scss',
+    srcContent: './src/content',
+    distContent: './dist/content',
+
+};
+
 function handleErrors(error) {
     var args = Array.prototype.slice.call(arguments);
     notify.onError({
@@ -32,15 +43,17 @@ function buildScript(file, watch) {
 
     function rebundle() {
         var stream = bundler.bundle();
-        return stream
+        stream
             .on('error', handleErrors)
             .pipe(source(file)) // gives streaming vinyl file object
             .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-            .pipe(rename({ dirname: '', basename:'app', extname: '.js' }))
-            .pipe(gulp.dest('./client/app/content/js'))
+            .pipe(rename({ dirname: '', basename: 'app', extname: '.js' }))
+            .pipe(gulp.dest(config.srcContent + '/js'))
             .pipe(uglify()) // now gulp-uglify works 
             .pipe(rename({ basename: 'app', extname: '.min.js' }))
-            .pipe(gulp.dest('./client/app/content/js'));
+            .pipe(gulp.dest(config.distContent + '/js'));
+
+        gutil.log('Bundle done!');
     }
 
     // listen for an update and run rebundle
@@ -53,29 +66,19 @@ function buildScript(file, watch) {
     return rebundle();
 }
 
-// run once
-gulp.task('sass', function () {
-  return gulp.src('./client/scss/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./client/app/content/css'))
-});
- 
-gulp.task('sass:watch', function () {
-  gulp.watch('./client/scss/**/*.scss', ['sass']);
-});
 /*
 gulp.task('bundle.css', function () {
     gulp.src([
         './bower_components/wijmo/Dist/styles/wijmo.css', 
         './bower_components/bootstrap/dist/css/bootstrap.min.css',
         './bower_components/animate.css/animate.min.css',
-        './client/scss/css/global.min.css',
-        './client/scss/css/menu.min.css',
-        './client/scss/css/navbar.min.css',
-        './client/scss/css/animations.min.css'
+        './src/scss/css/global.min.css',
+        './src/scss/css/menu.min.css',
+        './src/scss/css/navbar.min.css',
+        './src/scss/css/animations.min.css'
     ])
         .pipe(concat('bundle.css'))
-        .pipe(gulp.dest('./client/public/css'));
+        .pipe(gulp.dest('./src/public/css'));
 });
 
 gulp.task('bundle.js', function () {
@@ -100,25 +103,18 @@ gulp.task('bundle.js', function () {
         './bower_components/auth0-lock/build/lock.js',
         './bower_components/angular-lock/dist/angular-lock.js',
         './bower_components/angular-jwt/dist/angular-jwt.js',
-        './client/content/js/gg-alerts.js',
-        './client/content/js/gg-fields.js',
-        './client/content/js/libphonenumber.js',
-        './client/content/js/nav-menu.js' 
+        './src/content/js/gg-alerts.js',
+        './src/content/js/gg-fields.js',
+        './src/content/js/libphonenumber.js',
+        './src/content/js/nav-menu.js' 
     ])
         .pipe(concat('bundle.js'))
-        .pipe(gulp.dest('./client/public/js'));
+        .pipe(gulp.dest('./src/public/js'));
 });
 */
 
-gulp.task('scripts', function () {
-    return buildScript('./client/app/app.js', false);
-});
-
-gulp.task('html', function () {
-    return gulp.src([
-        './client/app/**/*.html',
-    ], { base: './client/app' })
-        .pipe(gulp.dest('./client/public'));
+gulp.task('bundle', function () {
+    return buildScript(config.app + '/app.js', true);
 });
 
 gulp.task('new', function () {
@@ -133,12 +129,64 @@ gulp.task('new', function () {
 
 });
 
-var watcher = gulp.watch('./client/app/**/*.html', ['html']);
-watcher.on('change', function (event) {
+gulp.task('html', function () {
+    return gulp.src([
+        config.app + '/**/*.html',
+        config.src + '/index.html'
+    ], { base: config.src })
+        .pipe(gulp.dest(config.dist));
+});
+
+var html = gulp.watch([
+    config.app + '/**/*.html',
+    config.src + '/index.html'
+], ['html']);
+
+html.on('change', function (event) {
+    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+});
+
+gulp.task('sass', function () {
+    return gulp.src(config.scss + '/**/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(config.srcContent + '/css'))
+        .pipe(gulp.dest(config.distContent + '/css'))
+});
+
+var css = gulp.watch(config.scss + '/**/*.scss', ['sass']);
+css.on('change', function (event) {
+    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+});
+
+gulp.task('js', function () {
+    return gulp.src([
+        config.srcContent + '/js/**/*.js',
+    ], { base: config.srcContent + '/js' })
+        //.pipe(uglify())
+        //.pipe(rename({ extname: '.min.js' }))
+        .pipe(gulp.dest(config.distContent + '/js'));
+});
+
+var js = gulp.watch(config.srcContent + '/js/**/*.js', ['js']);
+js.on('change', function (event) {
+    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+});
+
+gulp.task('img', function () {
+    return gulp.src([
+        config.srcContent + '/img/**/*.png',
+    ], { base: config.srcContent + '/img' })
+        //.pipe(uglify())
+        //.pipe(rename({ extname: '.min.js' }))
+        .pipe(gulp.dest(config.distContent + '/img'));
+});
+
+var img = gulp.watch(config.srcContent + '/img/**/*.png', ['img']);
+img.on('change', function (event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 });
 
 // run 'scripts' task first, then watch for future changes
-gulp.task('default', ['html', 'scripts', 'sass', 'sass:watch'], function () {
-    return buildScript('./client/app/app.js', true);
+gulp.task('default', ['bundle', 'html', 'sass', 'js', 'img'], function () {
+    //return buildScript('./src/app/app.js', true);
 });
