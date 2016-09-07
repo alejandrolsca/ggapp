@@ -1,5 +1,5 @@
 assets/
-node_modules/
 bower_components/
+node_modules/
 platforms/
 .DS_Store
