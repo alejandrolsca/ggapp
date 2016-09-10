@@ -23,6 +23,7 @@ module.exports = {
       './bower_components/angular-ui-router/release/angular-ui-router.js',
       './bower_components/angular-animate/angular-animate.js',
       './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      './bower_components/qrcode/lib/qrcode.js',
       './bower_components/angular-qr/src/angular-qr.js',
       './bower_components/wijmo/Dist/controls/wijmo.js',
       './bower_components/wijmo/Dist/controls/wijmo.grid.js',
@@ -35,7 +36,6 @@ module.exports = {
       './bower_components/bootstrap/js/popover.js',
       './bower_components/bootstrap/js/modal.js',
       './bower_components/bootstrap/js/tab.js',
-      './bower_components/qrcode/lib/qrcode.js',
       './bower_components/auth0-lock/build/lock.js',
       './bower_components/angular-lock/dist/angular-lock.js',
       './bower_components/angular-jwt/dist/angular-jwt.js'
