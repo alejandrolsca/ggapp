@@ -1,6 +1,6 @@
 (function (angular) {
 
-    'use strict';
+    'use strict';//S
 
     angular.module('app', [
         'ui.router',

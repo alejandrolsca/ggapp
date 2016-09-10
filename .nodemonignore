@@ -1,5 +1,7 @@
+/assets/
 /bower_components/
 /dist/
+/gulp/
 /node_modules/
 /sql/
 /src/
@@ -8,3 +10,4 @@
 /.git/
 /*.json
 /*.log
+/gulpfile.js

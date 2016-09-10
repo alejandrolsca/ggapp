@@ -73,7 +73,7 @@ if (cluster.isMaster) {
         var jwt = {
             valid: true
         };
-        res.sendStatus(")]}',\n".concat(JSON.stringify(jwt)));
+        res.send(")]}',\n".concat(JSON.stringify(jwt)));
     });
 
     /* CLIENT */
@@ -89,7 +89,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });
@@ -107,7 +107,7 @@ if (cluster.isMaster) {
                     console.error('error running query', err);
                     res.status(err.code).send({ status: err.code, error: err, type: 'Database error' });
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result)));
+                res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
     });
@@ -125,7 +125,7 @@ if (cluster.isMaster) {
                     console.error('error running query', err);
                     res.status(err.code).send({ status: err.code, error: err, type: 'Database error' });
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result)));
+                res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
     });
@@ -142,7 +142,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });
@@ -160,7 +160,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });
@@ -178,7 +178,7 @@ if (cluster.isMaster) {
                     return console.error('error running query', err);
                 }
                 console.log(JSON.stringify(result));
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result)));
+                res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
     });
@@ -196,7 +196,7 @@ if (cluster.isMaster) {
                     return console.error('error running query', err);
                 }
                 console.log(JSON.stringify(result));
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result)));
+                res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
     });
@@ -213,7 +213,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         })
     });
@@ -230,7 +230,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         })
     });
@@ -247,7 +247,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         })
     });
@@ -264,7 +264,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         })
     });
@@ -282,7 +282,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });
@@ -298,7 +298,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });
@@ -316,7 +316,7 @@ if (cluster.isMaster) {
                     console.error('error running query', err);
                     res.status(err.code).send({ status: err.code, error: err, type: 'Database error' });
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result)));
+                res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
     });
@@ -334,7 +334,7 @@ if (cluster.isMaster) {
                     console.error('error running query', err);
                     res.status(err.code).send({ status: err.code, error: err, type: 'Database error' });
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result)));
+                res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
     });
@@ -352,7 +352,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });
@@ -370,7 +370,7 @@ if (cluster.isMaster) {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                res.sendStatus(")]}',\n".concat(JSON.stringify(result.rows)));
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });
