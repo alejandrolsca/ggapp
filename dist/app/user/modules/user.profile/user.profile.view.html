@@ -2,10 +2,12 @@
     <h3>{{'user-profile.title' | i18n}}</h3>
 </div>
 <div class="col-sm-12">
-    Usuario: {{ user.user}}<br/>
-    Access: {{ user.userRole}}<br/>
-    Nombre: {{ user.userName}}<br/>
-    Apellido Paterno: {{ user.userFatherslastname}}<br/>
-    Apellido Materno: {{ user.userMotherslastname}}<br/>
-    Base de Datos: {{ user.userDatabase}}<br/>
+    <span><img src="{{authService.userProfile.picture}}" width="128"><br></span>
+    <h5>
+        <span>Username: {{authService.userProfile.username}}<br></span>
+        <span>E-mail: {{authService.userProfile.email}}<br></span>
+        <span>E-mail verified: {{authService.userProfile.email_verified}}<br></span>
+        <span>Created: {{authService.userProfile.created_at}}<br></span>
+        <span>Roles: {{authService.userProfile.app_metadata.roles}}<br></span>
+    </h5>
 </div>

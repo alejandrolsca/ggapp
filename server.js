@@ -50,7 +50,7 @@ if (cluster.isMaster) {
         secret: new Buffer('QZiEXho9vOLukcj0TaZAep0aisI1CQGARCj_Egk79ZN2xnvvcY5u37wuQqsT1ov_', 'base64'),
         audience: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y'
     });
-    
+
     app.use('/api/', jwtCheck);
 
     //SETUP BODY PARSER
@@ -87,7 +87,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -104,8 +104,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    console.error('error running query', err);
-                    res.status(err.code).send({ status: err.code, error: err, type: 'Database error' });
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             });
@@ -122,8 +121,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    console.error('error running query', err);
-                    res.status(err.code).send({ status: err.code, error: err, type: 'Database error' });
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             });
@@ -140,7 +138,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -158,7 +156,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -175,7 +173,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 console.log(JSON.stringify(result));
                 res.send(")]}',\n".concat(JSON.stringify(result)));
@@ -193,7 +191,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 console.log(JSON.stringify(result));
                 res.send(")]}',\n".concat(JSON.stringify(result)));
@@ -211,7 +209,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -228,7 +226,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -245,7 +243,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -262,7 +260,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -280,7 +278,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -296,7 +294,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -313,8 +311,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    console.error('error running query', err);
-                    res.status(err.code).send({ status: err.code, error: err, type: 'Database error' });
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             });
@@ -331,8 +328,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    console.error('error running query', err);
-                    res.status(err.code).send({ status: err.code, error: err, type: 'Database error' });
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             });
@@ -350,7 +346,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -368,7 +364,7 @@ if (cluster.isMaster) {
                 done();
 
                 if (err) {
-                    return console.error('error running query', err);
+                    return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
@@ -376,7 +372,7 @@ if (cluster.isMaster) {
     });
 
     var server = app.listen(3000, function () {
-        var host = server.address().address;
+        var host = 'localhost';
         var port = server.address().port;
         console.log('Server running on worker %d listening at http://%s:%s', cluster.worker.id, host, port);
     });

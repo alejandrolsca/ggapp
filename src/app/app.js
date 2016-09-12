@@ -1,6 +1,6 @@
 (function (angular) {
 
-    'use strict';//S
+    'use strict';// lo que sea
 
     angular.module('app', [
         'ui.router',
@@ -28,7 +28,7 @@
 
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {
 
-            var userProfile = JSON.parse(localStorage.getItem('profile')) || {};
+            var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
 
             function login() {
                 lock.show();
