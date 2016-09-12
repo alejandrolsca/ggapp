@@ -1,7 +1,7 @@
 select 
     *
 from  public.client, 
-jsonb_to_record(cl_jsonb, true) as x (
+jsonb_to_record(cl_jsonb) as x (
     cl_corporatename text,
     cl_tin text,
     cl_name text,

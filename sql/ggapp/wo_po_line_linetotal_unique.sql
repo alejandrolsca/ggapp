@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX wo_po_line_linetotal_unique ON wo ((wo_jsonb->>'wo_po'), (wo_jsonb->>'wo_line'),(wo_jsonb->>'wo_linetotal'));

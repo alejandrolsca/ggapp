@@ -1,0 +1,5 @@
+insert into wo
+(wo_jsonb)
+values 
+('{"cl_id":1,"zo_id":1,"wo_orderedby":"Alejandro","wo_attention":"Marco","rfq_id":null,"wo_process":1,"wo_release":null,"wo_po":null,"wo_line":null,"wo_linetotal":null,"prse_id":1,"wo_status":"N","wo_commitmentdate":"2014-05-16 18:00:00","wo_previousid":null,"wo_previousdate":null,"sh_id":null,"sh_date":null,"wo_trackingno":null,"wo_shippingdate":null,"wo_deliverydate":null,"wo_invoiceno":null,"wo_invoicedate":null,"wo_notes":null}'),
+('{"cl_id":2,"zo_id":1,"wo_orderedby":"Hiram","wo_attention":"Marco","rfq_id":null,"wo_process":1,"wo_release":null,"wo_po":null,"wo_line":null,"wo_linetotal":null,"prse_id":2,"wo_status":"N","wo_commitmentdate":"2014-05-16 18:00:00","wo_previousid":null,"wo_previousdate":null,"sh_id":null,"sh_date":null,"wo_trackingno":null,"wo_shippingdate":null,"wo_deliverydate":null,"wo_invoiceno":null,"wo_invoicedate":null,"wo_notes":null}')

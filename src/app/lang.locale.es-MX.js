@@ -125,4 +125,8 @@ module.exports = {
                 "zone": require('./zone/lang.es-MX'),
                 "zone-add": require('./zone/modules/zone.add/lang.es-MX'),
                 "zone-update": require('./zone/modules/zone.update/lang.es-MX'),
+                /****************************************
+                STATUS 
+                ****************************************/
+                "status": require('./status/lang.es-MX'),
             }

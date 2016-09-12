@@ -29,4 +29,4 @@ jsonb_to_record(wo_jsonb) as x (
         wo_email text, 
         wo_status text
 )
-where wo_jsonb->>'cl_id' = $1;
+where wo_jsonb->>'wo_status' = $1;

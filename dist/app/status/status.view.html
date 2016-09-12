@@ -1,0 +1,34 @@
+<div class="statusView">
+    <div class="col-sm-12">
+    <h3>{{'status.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<div class="col-sm-12">
+    <gg-select err-class="error"
+           lbl="{{'status.labels.wo-status' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="wo_statusoptions" 
+           ng-model="fmData.wo_status"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+
+    <wj-flex-grid 
+      control="ggGrid" 
+      items-source="data" 
+      auto-generate-columns="false" 
+      initialized="initGrid(s,e)" 
+      format-item="formatItem(s,e,cell)" 
+      allow-sorting="true" 
+      show-sort="true" 
+      style="height:390px;">
+        <wj-flex-grid-column
+        header="Acciones" 
+        is-read-only="true" 
+        width="200">
+
+        </wj-flex-grid-column>
+    </wj-flex-grid>
+</div>

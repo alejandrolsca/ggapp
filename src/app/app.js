@@ -23,7 +23,8 @@
         require('./paper').name,
         require('./ink').name,
         require('./wo').name,
-        require('./zone').name
+        require('./zone').name,
+        require('./status').name
     ])
 
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {
@@ -105,7 +106,10 @@
                     }],
                     tokenGetter: function () {
                         return localStorage.getItem('id_token');
-                    }
+                    },
+                    whiteListedDomains: [
+                        'http://api.geonames.org/'
+                    ]
                 });
 
                 $httpProvider.interceptors.push('jwtInterceptor');

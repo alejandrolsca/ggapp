@@ -1,7 +1,7 @@
 select 
     *
 from  wo, 
-jsonb_to_record(wo_jsonb, true) as x (
+jsonb_to_record(wo_jsonb) as x (
         cl_id int,
         zo_id int,
         wo_orderedby text,
