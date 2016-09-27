@@ -42,8 +42,6 @@ if (cluster.isMaster) {
     app.use(cors());
     app.use("/dev", express.static(path.join(__dirname, 'src')));
     app.use("/www", express.static(path.join(__dirname, 'dist')));
-    app.use("/bower_components", express.static(path.join(__dirname, 'bower_components')));
-
 
     //SETUP JWT
     var jwtCheck = jwt({
@@ -372,12 +370,30 @@ if (cluster.isMaster) {
     });
 
     /* STATUS */
-    app.post('/api/status', function (req, res, next) {
+    app.post('/api/workflow', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('status/status'), [req.body.wo_status], function (err, result) {
+            client.query(file('workflow/workflow'), [req.body.wo_status], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
+    /* STATUS */
+    app.post('/api/workflow/update', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('workflow/workflow:update'), [req.body.wo_status,req.body.wo_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 

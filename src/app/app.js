@@ -24,7 +24,7 @@
         require('./ink').name,
         require('./wo').name,
         require('./zone').name,
-        require('./status').name
+        require('./workflow').name
     ])
 
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {

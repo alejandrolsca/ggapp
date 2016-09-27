@@ -128,5 +128,5 @@ module.exports = {
                 /****************************************
                 STATUS 
                 ****************************************/
-                "status": require('./status/lang.es-MX'),
+                "workflow": require('./workflow/lang.es-MX'),
             }

@@ -1,0 +1,82 @@
+<div class="col-sm-12">
+    <h3>{{'workflow.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<div class="col-sm-12">
+    
+<div class="well well-sm col-sm-12">
+    <form class="row col-sm-12" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+    <gg-select err-class="error"
+            lbl="{{'workflow.labels.wo-status' | i18n}}" 
+            form-group-class="col-sm-3" 
+            options="wo_statusoptions" 
+            ng-model="fmData.wo_status"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="false">
+    </gg-select>
+    <gg-select err-class="error"
+            lbl="{{'workflow.labels.wo-nextstatus' | i18n}}" 
+            form-group-class="col-sm-3" 
+            options="actions" 
+            ng-model="fmData.wo_nextstatus"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+    </gg-select>
+    <gg-submit lbl="Submit"
+            data-toggle="modal" data-target="#myModal"
+            form-group-class="col-xs-12 col-sm-4  col-md-2" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-12  col-md-12">
+  </gg-submit>
+</form>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">UPDATE ORDERS</h4>
+      </div>
+      <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+      <div class="modal-body">
+          Se van a actualizar las siguientes ordenes de trabajo {{ wo_id }} al status {{ fmData.wo_nextstatus }}, desea continuar?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.labels.submit' | i18n}}</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+    <wj-flex-grid 
+    control="ggGrid" 
+    items-source="data" 
+    items-source-changed="itemsSourceChanged(s,e)"
+    item-formatter="itemFormatter"
+    auto-generate-columns="false" 
+    initialized="initGrid(s,e)"
+    allow-sorting="true" 
+    show-sort="true" 
+    style="height:390px;">
+        <wj-flex-grid-filter></wj-flex-grid-filter>
+        <wj-flex-grid-column
+        header="Active" 
+        binding="active"
+        data-type="Boolean">
+        </wj-flex-grid-column>
+    </wj-flex-grid>
+</div>
+<div class="col-sm-12">
+    <div class="well well-sm">
+    <wj-collection-view-pager cv="data">
+    </wj-collection-view-pager>
+    </div>
+</div>
