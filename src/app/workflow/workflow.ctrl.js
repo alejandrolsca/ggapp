@@ -1,8 +1,10 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'workflowFactory', '$location', 'i18nFilter', '$stateParams', '$filter',
-        function ($scope, workflowFactory, $location, i18nFilter, $stateParams, $filter) {
+    return ['$scope', 'workflowFactory', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
+        function ($scope, workflowFactory, $location, i18nFilter, $stateParams, $filter, authService) {
+
+            var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
 
             $scope.fmData = {
                 "wo_status": 0
@@ -12,15 +14,25 @@ module.exports = (function (angular) {
             $scope.columns = i18nFilter("workflow.columns");
 
             // formatter to add checkboxes to boolean columns
-            $scope.onSubmit = function () {
+            $scope.onUpdate = function () {
                 var flex = $scope.ggGrid;
                 var arr = []
                 for (var i = 0; i < flex.rows.length; i++) {
                     if (flex.getCellData(i, flex.columns.getColumn('active').index) === true) arr.push(flex.getCellData(i, flex.columns.getColumn('wo_id').index));
                 }
                 $scope.wo_id = arr;
-                console.log(arr)
+                $scope.selected = (arr.length > 0) ? true : false;
+                var next_status = undefined;
+                angular.forEach($scope.wo_statusoptions, function (value, key) {
+                    if (value.value === $scope.fmData.wo_nextstatus) next_status = value.label;
+                });
+                $scope.next_status = next_status;
             };
+
+            $scope.onSubmit = function () {
+
+            }
+
             $scope.itemFormatter = function (panel, r, c, cell) {
 
                 // highlight rows that have 'active' set
@@ -122,7 +134,30 @@ module.exports = (function (angular) {
                 }
             });
 
-            $scope.wo_statusoptions = i18nFilter("workflow.fields.wo_statusoptions");
+            $scope.wo_statusoptions = [];
+            var wo_statusoptions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions")))
+            var duplicated = [];
+            angular.forEach(wo_statusoptions, function (value, key) {
+                if (value.us_group === userProfile.app_metadata.us_group) {
+                    this.push.apply(this, value.wo_prevstatus);
+                }
+            }, duplicated)
+
+            duplicated.reduce(function (accum, current) {
+                if (accum.indexOf(current) < 0) {
+                    accum.push(current);
+                }
+                return accum;
+            }, []);
+
+            angular.forEach(wo_statusoptions, function (value, key) {
+                if (duplicated.includes(value.value)) {
+                    value.notAnOption = false;
+                } else {
+                    value.notAnOption = true;
+                }
+                this.push(value)
+            }, $scope.wo_statusoptions)
 
             $scope.$on('$viewContentLoaded', function () {
 
@@ -130,8 +165,18 @@ module.exports = (function (angular) {
                 $scope.loading = true;
                 $scope.$watch('fmData.wo_status', function (newValue, oldValue) {
                     $scope.actions = [];
-                    angular.forEach($scope.wo_statusoptions, function (value, key) {
+                    var actions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions")));
+                    angular.forEach(actions, function (value, key) {
                         if (value.wo_prevstatus.includes(newValue)) {
+                            if (value.us_group === userProfile.app_metadata.us_group || userProfile.app_metadata.us_group === "admin") {
+                                if([13,14].includes(newValue) && [13,14].includes(value.value)) {
+                                    value.notAnOption = true;
+                                } else {
+                                    value.notAnOption = false;
+                                }  
+                            } else {
+                                value.notAnOption = true;
+                            }
                             this.push(value);
                         }
                     }, $scope.actions)
@@ -143,7 +188,7 @@ module.exports = (function (angular) {
                             $scope.data.pageSize = 5;
                         }
                     });
-                })
+                });
             });
         }];
 

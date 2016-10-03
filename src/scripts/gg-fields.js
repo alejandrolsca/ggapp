@@ -234,7 +234,7 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
+                                        <select id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label disable when item.notAnOption for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
                                         </select>\
                                     </div>\
                               </div>';

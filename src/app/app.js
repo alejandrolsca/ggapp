@@ -73,6 +73,7 @@
 
         .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'lockProvider', 'jwtOptionsProvider', 'jwtInterceptorProvider',
             function ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, lockProvider, jwtOptionsProvider, jwtInterceptorProvider) {
+
                 lockProvider.init({
                     clientID: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y',
                     domain: 'grupografico.auth0.com',

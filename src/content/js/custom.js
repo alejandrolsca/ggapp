@@ -1,3 +1,25 @@
+(function (Array) {
+    'use strict';
+
+    var unique = function (mutate) {
+        var unique = this.reduce(function (accum, current) {
+            if (accum.indexOf(current) < 0) {
+                accum.push(current);
+            }
+            return accum;
+        }, []);
+        if (mutate) {
+            this.length = 0;
+            for (var i = 0; i < unique.length; ++i) {
+                this.push(unique[i]);
+            }
+            return this;
+        }
+        return unique;
+    };
+
+})(Array);
+
 (function (angular) {
     'use strict';
 
@@ -306,7 +328,7 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
+                                        <select id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label disable when item.notAnOption for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
                                         </select>\
                                     </div>\
                               </div>';

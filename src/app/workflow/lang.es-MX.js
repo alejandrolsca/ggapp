@@ -69,21 +69,21 @@ module.exports = {
     ],
     "fields": {
         wo_statusoptions: [
-            { "label": "Activo", "value": 0, "desc": "Orden Activa", "us_group": "ventas", "wo_prevstatus": [] },
-            { "label": "En espera de material", "value": 1, "desc": "No hay material en el almacén", "us_group": "almacen", "wo_prevstatus": [0, 7, 12] },
-            { "label": "Material disponible", "value": 2, "desc": "Hay material en el almacén pero aun no se ha iniciado el trabajo", "us_group": "almacen", "wo_prevstatus": [0, 7, 12] },
-            { "label": "En producción", "value": 3, "desc": "En producción", "us_group": "produccion", "wo_prevstatus": [2, 7, 12] },
-            { "label": "Detenido", "value": 4, "desc": "La orden se detuvo en producción", "us_group": "produccion", "wo_prevstatus": [3] },
-            { "label": "Terminado", "value": 5, "desc": "Terminado en producción", "us_group": "produccion", "wo_prevstatus": [3, 4] },
-            { "label": "Departamento de calidad", "value": 6, "desc": "Inspeccion de calidad en proceso", "us_group": "calidad", "wo_prevstatus": [5] },
-            { "label": "Rechazado por Calidad", "value": 7, "desc": "Rechazado por calidad", "us_group": "calidad", "wo_prevstatus": [6] },
+            { "label": "Activo", "value": 0, "desc": "Orden Activa", "us_group": "sales", "wo_prevstatus": [] },
+            { "label": "En espera de material", "value": 1, "desc": "No hay material en el almacén", "us_group": "warehouse", "wo_prevstatus": [0, 7, 12] },
+            { "label": "Material disponible", "value": 2, "desc": "Hay material en el almacén pero aun no se ha iniciado el trabajo", "us_group": "warehouse", "wo_prevstatus": [0, 1, 7, 12] },
+            { "label": "En producción", "value": 3, "desc": "En producción", "us_group": "production", "wo_prevstatus": [2, 7, 12] },
+            { "label": "Detenido", "value": 4, "desc": "La orden se detuvo en producción", "us_group": "production", "wo_prevstatus": [3] },
+            { "label": "Terminado", "value": 5, "desc": "Terminado en producción", "us_group": "production", "wo_prevstatus": [3, 4] },
+            { "label": "Departamento de calidad", "value": 6, "desc": "Inspeccion de calidad en proceso", "us_group": "quality_assurance", "wo_prevstatus": [5] },
+            { "label": "Rechazado por Calidad", "value": 7, "desc": "Rechazado por calidad", "us_group": "quality_assurance", "wo_prevstatus": [6] },
             { "label": "Empaque", "value": 8, "desc": "En proceso de empaque", "us_group": "empaque", "wo_prevstatus": [6] },
             { "label": "Listo para embarque", "value": 9, "desc": "Listo para embarque", "us_group": "empaque", "wo_prevstatus": [8] },
-            { "label": "Facturado", "value": 10, "desc": "Facturado", "us_group": "almacen", "wo_prevstatus": [9] },
-            { "label": "No se pudo entregar", "value": 11, "desc": "El producto no se pudo entregar", "us_group": "almacen", "wo_prevstatus": [10] },
-            { "label": "Rechazado por el cliente", "value": 12, "desc": "El productofue rechazado por el cliente", "us_group": "almacen", "wo_prevstatus": [10] },
-            { "label": "Entregado", "value": 13, "desc": "El producto se entrego al cliente con éxito", "us_group": "almacen", "wo_prevstatus": [10, 11] },
-            { "label": "Cancelar", "value": 14, "desc": "La orden de trabajo fue cancelada", "us_group": "admin", "wo_prevstatus": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] }
+            { "label": "Facturado", "value": 10, "desc": "Facturado", "us_group": "warehouse", "wo_prevstatus": [9] },
+            { "label": "No se pudo entregar", "value": 11, "desc": "El producto no se pudo entregar", "us_group": "warehouse", "wo_prevstatus": [10] },
+            { "label": "Rechazado por el cliente", "value": 12, "desc": "El productofue rechazado por el cliente", "us_group": "warehouse", "wo_prevstatus": [10] },
+            { "label": "Entregado", "value": 13, "desc": "El producto se entrego al cliente con éxito", "us_group": "warehouse", "wo_prevstatus": [10, 11] },
+            { "label": "Cancelado", "value": 14, "desc": "La orden de trabajo fue cancelada", "us_group": "admin", "wo_prevstatus": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] }
         ]
     }
 }
