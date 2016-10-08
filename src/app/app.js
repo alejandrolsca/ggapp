@@ -131,6 +131,7 @@
             function ($rootScope, authService, authManager, $location, jwtHelper, $state, appFac) {
 
                 $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, options) {
+                    $rootScope.currentState = toState;
                     if (!!toState.data.requiresLogin) {
                         var token = localStorage.getItem('id_token');
                         if (token) {

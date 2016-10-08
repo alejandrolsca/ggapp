@@ -6,9 +6,7 @@ module.exports = (function (angular) {
 
             var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
 
-            $scope.fmData = {
-                "wo_status": 0
-            };
+
 
             $scope.labels = Object.keys(i18nFilter("workflow.labels"));
             $scope.columns = i18nFilter("workflow.columns");
@@ -18,7 +16,7 @@ module.exports = (function (angular) {
                 var flex = $scope.ggGrid;
                 var arr = []
                 for (var i = 0; i < flex.rows.length; i++) {
-                    if (flex.getCellData(i, flex.columns.getColumn('active').index) === true) arr.push(flex.getCellData(i, flex.columns.getColumn('wo_id').index));
+                    if (flex.getCellData(i, flex.columns.getColumn('active').index) === true) arr.push(+flex.getCellData(i, flex.columns.getColumn('wo_id').index));
                 }
                 $scope.wo_id = arr;
                 $scope.selected = (arr.length > 0) ? true : false;
@@ -30,7 +28,17 @@ module.exports = (function (angular) {
             };
 
             $scope.onSubmit = function () {
-
+                console.log($scope.wo_id.join(','))
+                workflowFactory.update($scope.fmData.wo_nextstatus, $scope.wo_id.join(',')).then(function (promise) {
+                    console.log(promise.data)
+                    if (promise.data.rowCount >= 1) {
+                        $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
+                    } else {
+                        $scope.updateFail = true;
+                    }
+                });
+                $('#myModal').modal('hide');
+                console.log('submited')
             }
 
             $scope.itemFormatter = function (panel, r, c, cell) {
@@ -169,11 +177,11 @@ module.exports = (function (angular) {
                     angular.forEach(actions, function (value, key) {
                         if (value.wo_prevstatus.includes(newValue)) {
                             if (value.us_group === userProfile.app_metadata.us_group || userProfile.app_metadata.us_group === "admin") {
-                                if([13,14].includes(newValue) && [13,14].includes(value.value)) {
+                                if ([14, 15].includes(newValue) && [14, 15].includes(value.value)) {
                                     value.notAnOption = true;
                                 } else {
                                     value.notAnOption = false;
-                                }  
+                                }
                             } else {
                                 value.notAnOption = true;
                             }

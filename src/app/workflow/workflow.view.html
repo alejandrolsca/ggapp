@@ -10,16 +10,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">UPDATE ORDERS</h4>
       </div>
-      <form role="form" name="ggform" ng-submit="onSubmit();" ng-switch="selected" novalidate>
+      <span ng-switch="selected">
       <div class="modal-body">
           <span ng-switch-when="true">Se van a actualizar las siguientes ordenes de trabajo <b>{{ wo_id }}</b> al status <b>"{{ next_status }}"</b>, desea continuar?</span>
           <span ng-switch-when="false">Debe seleccionar por lo menos una orden de trabajo.</span>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-switch-when="true">{{'general.labels.submit' | i18n}}</button>
+        <button class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
+        <button class="btn btn-primary" ng-click="onSubmit()" ng-switch-when="true">{{'general.labels.submit' | i18n}}</button>
       </div>
-    </form>
+    </span>
     </div>
   </div>
 </div>

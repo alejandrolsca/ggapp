@@ -40,32 +40,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><img src="content/img/brand-logo.png" class="brand-logo"/></a>
+          <a class="navbar-brand" href="javascript:void(0);"><img src="content/img/brand-logo.png" class="brand-logo"/></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#/home">DASHBOARD <span class="sr-only">(current)</span></a></li>
-            <li class="active"><a ui-sref="workflow">WORKFLOW<span class="sr-only">(current)</span></a></li>
-            <li><a href="#/client">CLIENTES <span class="sr-only">(current)</span></a></li>
+            <li ng-class="{active: currentState.name==='home'}"><a ui-sref="home">DASHBOARD <span class="sr-only">(current)</span></a></li>
+            <li ng-class="{active: currentState.name==='workflow'}"><a ui-sref="workflow">WORKFLOW<span class="sr-only">(current)</span></a></li>
+            <li ng-class="{active: currentState.name==='client'}"><a ui-sref="client">CLIENTES <span class="sr-only">(current)</span></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">REPORTES <span class="caret"></span></a>
+              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">REPORTES <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">REPORTE 1</a></li>
-                <li><a href="#">REPORTE 2</a></li>
-                <li><a href="#">REPORTE 3</a></li>
-                <li><a href="#">REPORTE 5</a></li>
-                <li><a href="#">REPORTE 6</a></li>
+                <li><a href="javascript:void(0);">REPORTE 1</a></li>
+                <li><a href="javascript:void(0);">REPORTE 2</a></li>
+                <li><a href="javascript:void(0);">REPORTE 3</a></li>
+                <li><a href="javascript:void(0);">REPORTE 5</a></li>
+                <li><a href="javascript:void(0);">REPORTE 6</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MATERIAL Y EQUIPO <span class="caret"></span></a>
+              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MATERIAL Y EQUIPO <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#/supplier">PROVEEDORES</a></li>
-                <li><a href="#/machine">MAQUINAS</a></li>
-                <li><a href="#/paper">PAPEL</a></li>
-                <li><a href="#/ink">TINTAS</a></li>
+                <li><a ui-sref="supplier">PROVEEDORES</a></li>
+                <li><a ui-sref="machine">MAQUINAS</a></li>
+                <li><a ui-sref="paper">PAPEL</a></li>
+                <li><a ui-sref="ink">TINTAS</a></li>
               </ul>
             </li>
           </ul>
@@ -76,18 +76,18 @@
             <button type="submit" class="btn btn-default">Enviar</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Link</a></li>
+            <li><a href="javascript:void(0);">Link</a></li>
             <li class="dropdown">
-              <a href="javascript:void();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
+              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#/user">Usuarios</a></li>
-                <li><a href="#/user/profile">Ver perfil</a></li>
+                <li><a ui-sref="user">Usuarios</a></li>
+                <li><a ui-sref="userProfile">Ver perfil</a></li>
                   <li class="divider"></li>
-                <li><a href="#">Ayuda</a></li>
-                <li><a href="#">Reportar un problema</a></li>
+                <li><a href="javascript:void(0);">Ayuda</a></li>
+                <li><a href="javascript:void(0);">Reportar un problema</a></li>
                 <li class="divider"></li>
-                <li ng-if="!isAuthenticated"><a href="javascript:void();" ng-click="authService.login()">Iniciar sesión</a></li>
-                <li ng-if="isAuthenticated"><a href="#/login" ng-click="authService.logout()">Cerrar sesión</a></li>
+                <li ng-if="!isAuthenticated"><a href="javascript:void(0);" ng-click="authService.login()">Iniciar sesión</a></li>
+                <li ng-if="isAuthenticated"><a ui-sref="login" ng-click="authService.logout()">Cerrar sesión</a></li>
               </ul>
             </li>
           </ul>
