@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.data = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/supplier/supplier.mdl.getsuppliers.php', {
+                $http.post('/api/supplier/', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds()
                 }).success(function (data, status, headers, config) {

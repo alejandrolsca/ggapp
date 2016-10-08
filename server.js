@@ -143,6 +143,76 @@ if (cluster.isMaster) {
         });
     });
 
+    /*SUPPLIER*/
+
+    app.post('/api/supplier/su_id', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('supplier/supplier:su_id'), [req.body.su_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
+    app.post('/api/supplier/add', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('supplier/supplier:add'), [req.body.su_jsonb], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
+    app.post('/api/supplier/update', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('supplier/supplier:update'), [req.body.su_jsonb, req.body.su_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
+    app.post('/api/supplier/', jwtCheck, function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('supplier/supplier'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
     /* PRODUCT */
     app.post('/api/product/cl_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {

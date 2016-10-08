@@ -6,7 +6,7 @@ module.exports = (function(angular){
         factory.data = function() {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/supplier/modules/supplier.update/supplier.update.mdl.getsupplier.php', {
+                $http.post('/api/supplier/su_id', {
                     /* POST variables here */
                     su_id: $stateParams.su_id
                 }).success(function(data, status, headers, config){
@@ -20,7 +20,7 @@ module.exports = (function(angular){
         factory.update = function(su_jsonb) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/supplier/modules/supplier.update/supplier.update.mdl.update.php', {
+                $http.post('/api/supplier/update', {
                     /* POST variables here */
                     su_id: $stateParams.su_id,
                     su_jsonb: su_jsonb
@@ -32,31 +32,34 @@ module.exports = (function(angular){
             );
             return deferred.promise;
         };
-        factory.getCountries = function() {
-            var promise = $http.get('http://api.geonames.org/countryInfoJSON?username=alejandrolsca')
-            .success(function(data, status, headers, config){
-                return data;
-            }).error(function (data, status, headers, config) {
-                return {"status": false};
-            });
+        factory.getCountries = function () {
+            var promise = $http.jsonp('http://api.geonames.org/countryInfoJSON?username=alejandrolsca&callback=JSON_CALLBACK')
+                .success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    
+                    return { "status": false };
+                });
             return promise;
         };
-        factory.getStates = function(su_country) {
-            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+su_country+'&username=alejandrolsca')
-            .success(function(data, status, headers, config){
-                return data;
-            }).error(function(data, status, headers, config) {
-                return {"status": false};
-            });
+        factory.getStates = function (su_country) {
+            var promise = $http.jsonp('http://api.geonames.org/childrenJSON?geonameId=' + su_country + '&username=alejandrolsca&callback=JSON_CALLBACK')
+                .success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    
+                    return { "status": false };
+                });
             return promise;
         };
-        factory.getCityCounty = function(su_state) {
-            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId='+su_state+'&username=alejandrolsca')
-            .success(function(data, status, headers, config){
-                return data;
-            }).error(function(data, status, headers, config) {
-                return {"status": false};
-            });
+        factory.getCityCounty = function (su_state) {
+            var promise = $http.jsonp('http://api.geonames.org/childrenJSON?geonameId=' + su_state + '&username=alejandrolsca&callback=JSON_CALLBACK')
+                .success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    
+                    return { "status": false };
+                });
             return promise;
         };
         return factory;
