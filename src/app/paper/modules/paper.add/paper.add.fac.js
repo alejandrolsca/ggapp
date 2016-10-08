@@ -4,7 +4,7 @@ module.exports = (function(angular){
     return ['$http', '$q',  '$stateParams', function($http, $q, $stateParams){
         var factory = {};
         factory.add = function(pa_jsonb) {
-            var promise = $http.post('modules/paper/modules/paper.add/paper.add.mdl.add.php', {
+            var promise = $http.post('/api/paper/add', {
                     /* POST variables here */
                     pa_jsonb: pa_jsonb
             }).success(function(data, status, headers, config){
@@ -14,12 +14,15 @@ module.exports = (function(angular){
             });
             return promise;
         };
-        factory.getSuppliers = function() {
-            var promise = $http.get('modules/paper/modules/paper.add/paper.add.mdl.getSuppliers.php')
-            .success(function(data, status, headers, config){
+        factory.getSuppliers = function () {
+            var promise = $http.post('/api/supplier/', {
+                /* POST variables here */
+                procces_id: new Date().getMilliseconds()
+            }).success(function (data, status, headers, config) {
                 return data;
             }).error(function (data, status, headers, config) {
-                return {"status": false};
+
+                return { "status": false };
             });
             return promise;
         };

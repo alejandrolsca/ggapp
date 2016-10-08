@@ -8,8 +8,8 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 paperAddFac.add($scope.fmData).then(function (promise) {
-                    if (promise.data == "1") {
-                        $location.path('/paper');
+                    if (promise.data.rowCount === 1) {
+                        $location.path('/ink');
                     } else {
                         $scope.updateFail = true;
                     }
@@ -22,12 +22,13 @@ module.exports = (function (angular) {
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
-            
+
                 paperAddFac.getSuppliers().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.su_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            this.push({ "label": value.su_corporatename, "value": value.su_id });
+                            console.log({ "label": value.su_corporatename, "value": +value.su_id });
+                            this.push({ "label": value.su_corporatename, "value": +value.su_id });
                         }, $scope.su_idoptions);
                     } else {
                         //$scope.updateFail = true;

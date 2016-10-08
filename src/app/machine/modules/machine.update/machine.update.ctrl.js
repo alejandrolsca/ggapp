@@ -7,7 +7,7 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 machineUpdateFac.update($scope.fmData).then(function (promise) {
-                    if (promise.data == "1") {
+                    if (promise.data.rowCount === 1) {
                         $location.path('/machine');
                     } else {
                         $scope.updateFail = true;
@@ -26,8 +26,8 @@ module.exports = (function (angular) {
                 $scope.loading = true;
                 machineUpdateFac.data().then(function (promise) {
                     $scope.loading = false;
-                    if (angular.isObject(angular.fromJson(promise.data))) {
-                        $scope.fmData = angular.fromJson(promise.data);
+                    if (angular.isArray(promise.data) && promise.data.length === 1) {
+                        $scope.fmData = promise.data[0].ma_jsonb;
                     }
                 });
             });

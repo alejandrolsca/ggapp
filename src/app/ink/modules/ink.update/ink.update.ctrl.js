@@ -7,7 +7,7 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 inkUpdateFac.update($scope.fmData).then(function (promise) {
-                    if (promise.data == "1") {
+                    if (promise.data.rowCount === 1) {
                         $location.path('/ink');
                     } else {
                         $scope.updateFail = true;
@@ -23,15 +23,16 @@ module.exports = (function (angular) {
                 $scope.loading = true;
                 inkUpdateFac.data().then(function (promise) {
                     $scope.loading = false;
-                    if (angular.isObject(angular.fromJson(promise.data))) {
-                        $scope.fmData = angular.fromJson(promise.data);
+                    if (angular.isArray(promise.data) && promise.data.length === 1) {
+                        $scope.fmData = promise.data[0].in_jsonb;
+                        console.log(promise.data[0].in_jsonb);
                     }
                 }).then(function () {
                     inkUpdateFac.getSuppliers().then(function (promise) {
                         if (angular.isArray(promise.data)) {
                             $scope.su_idoptions = [];
                             angular.forEach(promise.data, function (value, key) {
-                                this.push({ "label": value.su_corporatename, "value": value.su_id });
+                                this.push({ "label": value.su_corporatename, "value": +value.su_id });
                             }, $scope.su_idoptions);
                         } else {
                             //$scope.updateFail = true;

@@ -5,7 +5,7 @@ module.exports = (function (angular) {
         function ($http, $q, $stateParams) {
             var factory = {};
             factory.add = function (ma_jsonb) {
-                var promise = $http.post('modules/machine/modules/machine.add/machine.add.mdl.add.php', {
+                var promise = $http.post('/api/machine/add', {
                     /* POST variables here */
                     ma_jsonb: ma_jsonb
                 }).success(function (data, status, headers, config) {

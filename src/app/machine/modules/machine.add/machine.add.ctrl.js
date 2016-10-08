@@ -8,11 +8,11 @@ module.exports = (function(angular){
         $scope.onSubmit = function() {
 
             machineAddFac.add($scope.fmData).then(function(promise){
-                if(promise.data == "1") {
-                    $location.path('/machine');
-                } else {
-                    $scope.updateFail = true;
-                }
+                if (promise.data.rowCount === 1) {
+                        $location.path('/machine');
+                    } else {
+                        $scope.updateFail = true;
+                    }
             });
         };
 

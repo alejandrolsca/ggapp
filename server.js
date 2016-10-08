@@ -213,6 +213,146 @@ if (cluster.isMaster) {
         });
     });
 
+    /*PAPER*/
+
+    app.post('/api/paper/pa_id', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('paper/paper:pa_id'), [req.body.pa_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
+    app.post('/api/paper/add', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('paper/paper:add'), [req.body.pa_jsonb], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
+    app.post('/api/paper/update', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('paper/paper:update'), [req.body.pa_jsonb, req.body.pa_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
+    app.post('/api/paper/', jwtCheck, function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('paper/paper'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
+    /* INK */
+
+    app.post('/api/ink/in_id', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('ink/ink:in_id'), [req.body.in_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
+    app.post('/api/ink/add', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('ink/ink:add'), [req.body.in_jsonb], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
+    app.post('/api/ink/update', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('ink/ink:update'), [req.body.in_jsonb, req.body.in_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
+    app.post('/api/ink/', jwtCheck, function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('ink/ink'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
     /* PRODUCT */
     app.post('/api/product/cl_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
@@ -422,6 +562,58 @@ if (cluster.isMaster) {
     });
 
     /* MACHINE */
+
+     app.post('/api/machine/ma_id', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('machine/machine:ma_id'), [req.body.ma_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
+    app.post('/api/machine/add', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('machine/machine:add'), [req.body.ma_jsonb], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
+    app.post('/api/machine/update', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('machine/machine:update'), [req.body.ma_jsonb, req.body.ma_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
     app.post('/api/machine', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
@@ -457,7 +649,7 @@ if (cluster.isMaster) {
         });
     });
 
-    /* STATUS */
+    /* WORKFLOW */
     app.post('/api/workflow/update', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {

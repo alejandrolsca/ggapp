@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.data = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/ink/ink.mdl.getinks.php', {
+                $http.post('/api/ink/', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds()
                 }).success(function (data, status, headers, config) {

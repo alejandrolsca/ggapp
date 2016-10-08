@@ -8,7 +8,7 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 inkAddFac.add($scope.fmData).then(function (promise) {
-                    if (promise.data == "1") {
+                    if (promise.data.rowCount === 1) {
                         $location.path('/ink');
                     } else {
                         $scope.updateFail = true;
