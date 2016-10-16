@@ -3,6 +3,27 @@
     
 </div>
 <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+  <gg-select err-class="error"
+           lbl="{{'supplier.labels.su-type' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="su_typeoptions" 
+           ng-model="fmData.su_type"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="false"
+           is-required="true">
+  </gg-select>
+  <gg-input err-class="error"
+            lbl="{{'supplier.labels.su-tin' | i18n}}" 
+            form-group-class="col-sm-3" 
+            ng-model="fmData.su_tin"
+            regexp="rfc"
+            regexp-msg="{{'general.regexp.rfc' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <span ng-if="(fmData.su_type=='legal')">
   <gg-input err-class="error"
             lbl="{{'supplier.labels.su-corporatename' | i18n}}" 
             form-group-class="col-sm-6"
@@ -12,15 +33,8 @@
             req-msg="Required"
             is-required="true">
   </gg-input>
-  <gg-input err-class="error"
-            lbl="{{'supplier.labels.su-tin' | i18n}}" 
-            form-group-class="col-sm-6" 
-            ng-model="fmData.su_tin"
-            regexp="rfc"
-            regexp-msg="{{'general.regexp.rfc' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
+  </span>
+  <label class="col-sm-12 fieldset"></label>
   <gg-input err-class="error"
             lbl="{{'supplier.labels.su-name' | i18n}}"
             form-group-class="col-sm-4"

@@ -9,8 +9,8 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 zoneAddFac.add($scope.fmData).then(function (promise) {
-                    if (promise.data == "1") {
-                        $location.path('/zone');
+                    if (promise.data.rowCount === 1) {
+                        $location.path('/zone/' + $stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;
                     }
@@ -48,14 +48,15 @@ module.exports = (function (angular) {
             };
 
             $scope.zo_statusoptions = i18nFilter("zone.fields.zo_statusoptions");
+            $scope.zo_typeoptions = i18nFilter("zone.fields.zo_typeoptions");
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
             
                 zoneAddFac.getClient().then(function (promise) {
                     $scope.loading = false;
-                    if (angular.isObject(promise.data)) {
-                        $scope.client = promise.data;
+                    if (angular.isArray(promise.data) && promise.data.length === 1) {
+                        $scope.client = promise.data[0].cl_jsonb;
                     }
                 });
 

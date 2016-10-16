@@ -47,6 +47,7 @@ module.exports = (function (angular) {
             };
 
             $scope.su_statusoptions = i18nFilter("supplier.fields.su_statusoptions");
+            $scope.su_typeoptions = i18nFilter("supplier.fields.su_typeoptions");
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded

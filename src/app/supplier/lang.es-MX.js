@@ -2,6 +2,7 @@ module.exports = {
                     "title" : "Proveedores",
                     "labels":{
                         "su-id":"id proveedor",
+                        "su-type":"Tipo",
                         "su-corporatename":"razón social",
                         "su-tin":"rfc",
                         "su-name":"nombre",
@@ -25,6 +26,7 @@ module.exports = {
                     },
                      "columns":[
                         "su_id",
+                        "su_type",
                         "su_corporatename",
                         "su_tin",
                         "su_name",
@@ -51,5 +53,9 @@ module.exports = {
                             {"label":"Activo","value":"A"},
                             {"label":"Inactivo","value":"I"}
                         ],
+                        su_typeoptions : [
+                            {"label":"Fisica","value":"natural"},
+                            {"label":"Moral","value":"legal"}
+                        ]
                      }
                 }

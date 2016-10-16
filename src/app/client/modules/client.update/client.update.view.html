@@ -39,7 +39,6 @@
   </gg-input>
   </span>
   <label class="col-sm-12 fieldset"></label>
-  <span ng-if="(fmData.cl_type=='natural')">
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-name' | i18n}}"
             form-group-class="col-sm-4"
@@ -67,7 +66,6 @@
             req-msg="Required"
             ng-required="false">
   </gg-input>
-  </span>
   <gg-countries err-class="error"
            lbl="{{'client.labels.cl-country' | i18n}}" 
            form-group-class="col-sm-3" 

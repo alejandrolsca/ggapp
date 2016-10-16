@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.data = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/zone/zone.mdl.getZones.php', {
+                $http.post('/api/zone/cl_id', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds(),
                     cl_id: $stateParams.cl_id

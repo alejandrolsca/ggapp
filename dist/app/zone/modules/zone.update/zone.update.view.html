@@ -5,30 +5,45 @@
     {{ggform.zo_corporatename.$error.required | json}}
 </div>
 <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
-  <gg-input err-class="error"
-            lbl="{{'zone.labels.zo-zone' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.zo_zone"
-            regexp="singlespaces"
-            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-  <gg-input err-class="error"
-            lbl="{{'zone.labels.zo-corporatename' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.zo_corporatename"
-            regexp="singlespaces"
-            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'zone.labels.zo-type' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="zo_typeoptions" 
+           ng-model="fmData.zo_type"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
   <gg-input err-class="error"
             lbl="{{'zone.labels.zo-tin' | i18n}}" 
             form-group-class="col-sm-3" 
             ng-model="fmData.zo_tin"
             regexp="rfc"
             regexp-msg="{{'general.regexp.rfc' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+    <span ng-if="(fmData.zo_type=='legal')">
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-corporatename' | i18n}}" 
+            form-group-class="col-sm-6"
+            ng-model="fmData.zo_corporatename"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  </span>
+  <label class="col-sm-12 fieldset"></label>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-zone' | i18n}}" 
+            form-group-class="col-sm-9"
+            ng-model="fmData.zo_zone"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
@@ -39,6 +54,7 @@
             regexp="rfc"
             regexp-msg="{{'general.regexp.rfc' | i18n}}"
             req-msg="Required"
+            is-disabled="true"
             is-required="true">
   </gg-input>
   <gg-input err-class="error"

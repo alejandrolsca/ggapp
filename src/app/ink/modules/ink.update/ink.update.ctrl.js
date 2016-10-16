@@ -25,7 +25,6 @@ module.exports = (function (angular) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
                         $scope.fmData = promise.data[0].in_jsonb;
-                        console.log(promise.data[0].in_jsonb);
                     }
                 }).then(function () {
                     inkUpdateFac.getSuppliers().then(function (promise) {

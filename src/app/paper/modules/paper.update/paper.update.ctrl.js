@@ -26,7 +26,6 @@ module.exports = (function (angular) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
                         $scope.fmData = promise.data[0].pa_jsonb;
-                        console.log(promise.data[0].pa_jsonb);
                     }
                 }).then(function () {
                     paperUpdateFac.getSuppliers().then(function (promise) {

@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.data = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/zone/modules/zone.update/zone.update.mdl.getZone.php', {
+                $http.post('/api/zone/zo_id', {
                     /* POST variables here */
                     zo_id: $stateParams.zo_id
                 }).success(function (data, status, headers, config) {
@@ -21,7 +21,7 @@ module.exports = (function (angular) {
         factory.update = function (zo_jsonb) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/zone/modules/zone.update/zone.update.mdl.update.php', {
+                $http.post('/api/zone/update', {
                     /* POST variables here */
                     zo_id: $stateParams.zo_id,
                     zo_jsonb: zo_jsonb
@@ -35,7 +35,7 @@ module.exports = (function (angular) {
             return deferred.promise;
         };
         factory.getCountries = function () {
-            var promise = $http.get('http://api.geonames.org/countryInfoJSON?username=alejandrolsca')
+            var promise = $http.jsonp('http://api.geonames.org/countryInfoJSON?username=alejandrolsca&callback=JSON_CALLBACK')
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
@@ -45,7 +45,7 @@ module.exports = (function (angular) {
             return promise;
         };
         factory.getStates = function (zo_country) {
-            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId=' + zo_country + '&username=alejandrolsca')
+            var promise = $http.jsonp('http://api.geonames.org/childrenJSON?geonameId=' + zo_country + '&username=alejandrolsca&callback=JSON_CALLBACK')
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
@@ -55,7 +55,7 @@ module.exports = (function (angular) {
             return promise;
         };
         factory.getCityCounty = function (zo_state) {
-            var promise = $http.get('http://api.geonames.org/childrenJSON?geonameId=' + zo_state + '&username=alejandrolsca')
+            var promise = $http.jsonp('http://api.geonames.org/childrenJSON?geonameId=' + zo_state + '&username=alejandrolsca&callback=JSON_CALLBACK')
                 .success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

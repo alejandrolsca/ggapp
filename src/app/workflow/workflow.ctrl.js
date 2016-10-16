@@ -167,6 +167,17 @@ module.exports = (function (angular) {
                 this.push(value)
             }, $scope.wo_statusoptions)
 
+            $scope.pagesizeoptions = [
+                { "label": "2", "value": 2 },
+                { "label": "5", "value": 5 },
+                { "label": "25", "value": 25 },
+                { "label": "50", "value": 50 },
+                { "label": "100", "value": 100 },
+                { "label": "200", "value": 200 },
+                { "label": "500", "value": 500 },
+                { "label": "1000", "value": 1000 },
+            ]
+
             $scope.$on('$viewContentLoaded', function () {
 
                 // this code is executed after the view is loaded
@@ -193,7 +204,7 @@ module.exports = (function (angular) {
                         if (angular.isArray(promise.data)) {
                             // expose data as a CollectionView to get events
                             $scope.data = new wijmo.collections.CollectionView(promise.data);
-                            $scope.data.pageSize = 5;
+                            $scope.data.pageSize = 25;
                         }
                     });
                 });

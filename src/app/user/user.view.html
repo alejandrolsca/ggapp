@@ -4,6 +4,7 @@
 </div>
 <div class="col-sm-12">
     <wj-flex-grid items-source="data" auto-generate-columns="false" initialized="initGrid(s,e)" style="height:390px;">
+        <wj-flex-grid-filter></wj-flex-grid-filter>
         <wj-flex-grid-column is-read-only="true">
             <span class="btn btn-xs btn-success" ng-click="edit($item.us_id)">{{'general.buttons.edit' | i18n}}</span>
             <span class="btn btn-xs btn-success" ng-click="edit($item.us_id)">Registro de actividad</span>
