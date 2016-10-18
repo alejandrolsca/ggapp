@@ -2,6 +2,7 @@ select
     *
 from  public.supplier, 
 jsonb_to_record(su_jsonb) as x (
+    su_type text,
     su_corporatename text,
     su_tin text,
     su_name text,

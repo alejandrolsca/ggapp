@@ -22,6 +22,7 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 $scope.loading = true;
+                var client = undefined;
                 woDuplicateFactory.getData().then(function(promise){
                     $scope.loading = false;
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
@@ -30,15 +31,22 @@ module.exports = (function (angular) {
                             $scope.fmData.wo_previousdate = promise.data[0].wo_date.substring(0, 10);
                     }
                 });
-                woDuplicateFactory.getZone().then(function (promise) {
-                    $scope.zo_idoptions = [];
+                woDuplicateFactory.getClient().then(function (promise) {
                     if (angular.isArray(promise.data)) {
-                        var rows = promise.data;
-                        angular.forEach(rows, function (value, key) {
-                            this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": rows[key]['zo_id'] });
-                        }, $scope.zo_idoptions);
+                        client = promise.data[0];
                     }
-                });
+                }).then(function () {
+                    woDuplicateFactory.getZone().then(function (promise) {
+                        $scope.zo_idoptions = [];
+                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": "0" });
+                        if (angular.isArray(promise.data)) {
+                            var rows = promise.data;
+                            angular.forEach(rows, function (value, key) {
+                                this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": rows[key]['zo_id'] });
+                            }, $scope.zo_idoptions);
+                        }
+                    });
+                })
                 woDuplicateFactory.getMachine().then(function (promise) {
                     $scope.ma_idoptions = [];
                     if (angular.isArray(promise.data)) {
