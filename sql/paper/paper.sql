@@ -8,6 +8,7 @@ jsonb_to_record(pa_jsonb) as x (
     pa_description text,
     pa_weight text,
     pa_width text,
+    pa_measure text,
     pa_height text,
     pa_price text,
     pa_status text

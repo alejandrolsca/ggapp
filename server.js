@@ -394,7 +394,7 @@ if (cluster.isMaster) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('product/product:upate'), [req.body.pr_jsonb, req.body.pr_id], function (err, result) {
+            client.query(file('product/product:update'), [req.body.pr_jsonb, req.body.pr_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -699,7 +699,7 @@ if (cluster.isMaster) {
         });
     });
 
-    /* STATUS */
+    /* WORKFLOW */
     app.post('/api/workflow', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
@@ -717,7 +717,6 @@ if (cluster.isMaster) {
         });
     });
 
-    /* WORKFLOW */
     app.post('/api/workflow/update', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
@@ -733,6 +732,24 @@ if (cluster.isMaster) {
                     return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result)));
+            });
+        });
+    });
+
+    /* TRAFFIC LIGHT REPORT */
+    app.post('/api/tlr', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('tlr/workflow'), [req.body.wo_status], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
             });
         });
     });

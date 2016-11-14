@@ -68,15 +68,17 @@ module.exports = (function (angular) {
                     
                     $scope.$watch(
                         "fmData.pr_id",
-                        function prChange( newValue, oldValue ) {
-                            var product = $filter('filter')(rows, { "pr_id": newValue }, true);
-                            if (product.length > 1) {
-                                $scope.prinfo = false;
-                                return;
-                            } else {
-                                $scope.prinfo = true;
-                                $scope.product = product[0];
-                                $scope.folio = (product[0]['pr_jsonb']['pr_folio']==='yes') ? true : false;
+                        function prChange(newValue, oldValue) {
+                            if (newValue !== undefined) {
+                                var product = $filter('filter')(rows, { "pr_id": newValue }, true);
+                                if (product.length !== 1) {
+                                    $scope.prinfo = false;
+                                    return;
+                                } else {
+                                    $scope.prinfo = true;
+                                    $scope.product = product[0];
+                                    $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
+                                }
                             }
                         }
                     );

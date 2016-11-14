@@ -17,6 +17,23 @@
             req-msg="Required"
             is-required="true">
   </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral-add.labels.pr-code' | i18n}}" 
+            form-group-class="col-sm-6"
+            ng-model="fmData.pr_code"
+            regexp="prcode"
+            regexp-msg="{{'general.regexp.prcode' | i18n}}"
+            >
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productOffsetGeneral-add.labels.pr-name' | i18n}}" 
+            form-group-class="col-sm-12"
+            ng-model="fmData.pr_name"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
   <gg-textarea err-class="error"
             lbl="{{'productOffsetGeneral-add.labels.pr-description' | i18n}}" 
             form-group-class="col-sm-12"
@@ -116,9 +133,13 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset" ng-repeat="paper in pa_idoptions | filter:{'value':fmData.pa_id}">
+    {{paper.width}} x {{paper.height}} {{paper.measure}}
+  </label>
+  <label class="col-sm-12 fieldset">MEDIDA DEL PLIEGO</label>
   <gg-input err-class="error"
             lbl="{{'productOffsetGeneral-add.labels.pr-paperformatsqty' | i18n}}" 
-            form-group-class="col-sm-6"
+            form-group-class="col-sm-3"
             ng-model="fmData.pr_paperformatsqty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
@@ -127,7 +148,7 @@
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'productOffsetGeneral-add.labels.pr-papersizewidth' | i18n}}" 
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-3"
             ng-model="fmData.pr_papersizewidth"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
@@ -136,7 +157,7 @@
   </gg-input>
     <gg-input err-class="error"
             lbl="{{'productOffsetGeneral-add.labels.pr-papersizeheight' | i18n}}" 
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-3"
             ng-model="fmData.pr_papersizeheight"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
@@ -145,7 +166,7 @@
   </gg-input>
   <gg-select err-class="error"
            lbl="{{'productOffsetGeneral-add.labels.pr-papersizemeasure' | i18n}}" 
-           form-group-class="col-sm-4" 
+           form-group-class="col-sm-3" 
            options="pr_papersizemeasureoptions" 
            ng-model="fmData.pr_papersizemeasure"
            regexp="singlespaces"

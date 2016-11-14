@@ -18,6 +18,51 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
+        factory.getClient = function () {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/product/offset/general/client', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id
+                }).success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
+        factory.getInks = function () {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/product/offset/general/ink', {
+                    /* POST variables here */
+                    procces_id: new Date().getMilliseconds()
+                }).success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
+        factory.getPapers = function () {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/product/offset/general/paper', {
+                    /* POST variables here */
+                    procces_id: new Date().getMilliseconds()
+                }).success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
         factory.update = function (pr_jsonb) {
             var deferred = $q.defer();
             deferred.resolve(
@@ -33,36 +78,6 @@ module.exports = (function (angular) {
                 })
             );
             return deferred.promise;
-        };
-        factory.getCountries = function () {
-            var promise = $http.jsonp('http://api.geonames.org/countryInfoJSON?username=alejandrolsca&callback=JSON_CALLBACK')
-                .success(function (data, status, headers, config) {
-                    return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
-                });
-            return promise;
-        };
-        factory.getStates = function (pr_country) {
-            var promise = $http.jsonp('http://api.geonames.org/childrenJSON?geonameId=' + pr_country + '&username=alejandrolsca&callback=JSON_CALLBACK')
-                .success(function (data, status, headers, config) {
-                    return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
-                });
-            return promise;
-        };
-        factory.getCityCounty = function (pr_state) {
-            var promise = $http.jsonp('http://api.geonames.org/childrenJSON?geonameId=' + pr_state + '&username=alejandrolsca&callback=JSON_CALLBACK')
-                .success(function (data, status, headers, config) {
-                    return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
-                });
-            return promise;
         };
         return factory;
     }];

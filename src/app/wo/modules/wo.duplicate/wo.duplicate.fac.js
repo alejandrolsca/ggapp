@@ -85,7 +85,6 @@ module.exports = (function (angular) {
                 /* POST variables here */
                 wo_jsonb: wo_jsonb
             }).success(function (data, status, headers, config) {
-                console.log(JSON.stringify(config))
                 return data;
             }).error(function (data, status, headers, config) {
                 return { "status": false };

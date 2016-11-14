@@ -1,3 +1,4 @@
+window._ = require('lodash');
 (function (angular) {
 
     'use strict';// lo que sea
@@ -24,7 +25,8 @@
         require('./ink').name,
         require('./wo').name,
         require('./zone').name,
-        require('./workflow').name
+        require('./workflow').name,
+        require('./traffic-light-report').name
     ])
 
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {
@@ -70,7 +72,6 @@
                 registerAuthenticationListener: registerAuthenticationListener,
             }
         }])
-
         .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'lockProvider', 'jwtOptionsProvider', 'jwtInterceptorProvider',
             function ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, lockProvider, jwtOptionsProvider, jwtInterceptorProvider) {
 

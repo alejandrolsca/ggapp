@@ -17,7 +17,7 @@ module.exports = {
         "wo-qty": "Cantidad",
         "wo-packageqty": "Cantidad x paquete",
         "wo-excedentqty": "Excedente",
-        "wo-foliosperformat": "Folios x formato",
+        "wo-foliosperformat": "F. x formato",
         "wo-foliosseries": "Serie",
         "wo-foliosfrom": "Del",
         "wo-foliosto": "Al",
@@ -82,7 +82,7 @@ module.exports = {
             { "label": "DLLS", "value": "DLLS" },
         ],
         wo_emailoptions: [
-            { "label": "SI", "value": "yes" },
+            //{ "label": "SI", "value": "yes" },
             { "label": "NO", "value": "no" },
         ]
     }

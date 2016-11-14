@@ -2,6 +2,7 @@ select
     *
 from  public.client, 
 jsonb_to_record(cl_jsonb) as x (
+    cl_type text,
     cl_corporatename text,
     cl_tin text,
     cl_name text,

@@ -126,7 +126,11 @@ module.exports = {
                 "zone-add": require('./zone/modules/zone.add/lang.es-MX'),
                 "zone-update": require('./zone/modules/zone.update/lang.es-MX'),
                 /****************************************
-                STATUS 
+                WORKFLOW 
                 ****************************************/
                 "workflow": require('./workflow/lang.es-MX'),
+                /****************************************
+                TRAFFIC LIGHT REPORT 
+                ****************************************/
+                "tlr": require('./traffic-light-report/lang.es-MX'),
             }

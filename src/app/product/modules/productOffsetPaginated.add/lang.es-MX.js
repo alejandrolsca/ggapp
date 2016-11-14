@@ -177,6 +177,10 @@ module.exports = {
                         pr_statusoptions : [
                             {"label":"Activo","value":"A"},
                             {"label":"Inactivo","value":"I"}
-                        ]
+                        ],
+                        pr_papersizemeasureoptions : [
+                            {"label":"cm","value":"cm"},
+                            {"label":"pulgadas","value":"in"}
+                        ],
                      }
                 }

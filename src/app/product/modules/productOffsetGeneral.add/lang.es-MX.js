@@ -7,6 +7,7 @@ module.exports = {
                         "pr-type": "Tipo",
                         "pr-partno": "No. parte",
                         "pr-code": "Codigo",
+                        "pr-name": "Nombre",
                         "pr-description": "Descripcion",
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Alto",

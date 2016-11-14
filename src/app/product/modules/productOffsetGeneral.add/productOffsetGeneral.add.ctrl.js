@@ -86,7 +86,7 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {
                         $scope.pa_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            this.push({ "label": value.pa_code, "value": value.pa_id });
+                            this.push({ "label": value.pa_code, "value": value.pa_id, "width": value.pa_width, "height": value.pa_height, "measure": value.pa_measure });
                         }, $scope.pa_idoptions);
                     } else {
                         //$scope.updateFail = true;

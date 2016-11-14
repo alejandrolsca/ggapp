@@ -38,8 +38,8 @@ module.exports = {
             './bower_components/bootstrap/js/tab.js',
             './bower_components/auth0-lock/build/lock.js',
             './bower_components/angular-lock/dist/angular-lock.js',
-            './bower_components/angular-jwt/dist/angular-jwt.js'
-
+            './bower_components/angular-jwt/dist/angular-jwt.js',
+            './bower_components/moment/moment.js'
         ],
         custom: [
             dev + '/scripts/**/*.js'

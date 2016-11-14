@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter',
-        function ($scope, woDuplicateFactory, $stateParams, i18nFilter, $filter) {
+    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter','$location',
+        function ($scope, woDuplicateFactory, $stateParams, i18nFilter, $filter, $location) {
 
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
@@ -11,8 +11,8 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 woDuplicateFactory.add($scope.fmData).then(function (promise) {
-                    if (promise.data.rowCount == 1) {
-                        $location.path('/wo/'+$stateParams.cl_id);
+                    if (promise.data.rowCount === 1) {
+                        $location.path('/wo/' + $stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;
                     }
@@ -68,15 +68,17 @@ module.exports = (function (angular) {
                     
                     $scope.$watch(
                         "fmData.pr_id",
-                        function prChange( newValue, oldValue ) {
-                            var product = $filter('filter')(rows, { "pr_id": newValue }, true);
-                            if (product.length > 1) {
-                                $scope.prinfo = false;
-                                return;
-                            } else {
-                                $scope.prinfo = true;
-                                $scope.product = product[0];
-                                $scope.folio = (product[0]['pr_jsonb']['pr_folio']==='yes') ? true : false;
+                        function prChange(newValue, oldValue) {
+                            if (newValue !== undefined) {
+                                var product = $filter('filter')(rows, { "pr_id": newValue }, true);
+                                if (product.length !== 1) {
+                                    $scope.prinfo = false;
+                                    return;
+                                } else {
+                                    $scope.prinfo = true;
+                                    $scope.product = product[0];
+                                    $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
+                                }
                             }
                         }
                     );
