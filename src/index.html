@@ -4,10 +4,15 @@
 <meta charset="UTF-8">
 
 <!-- Setting the right viewport -->
+<!-- ensure IE uses the latest version of IE -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>GGAAPP</title>      
 <!--CSS-->
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+<!-- JSZip library -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+
     
     <!-- build:vendorcss -->
     <link href="content/css/vendor.css" rel="stylesheet" type="text/css" />
@@ -53,7 +58,7 @@
               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">REPORTES <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a ui-sref="tlr">REPORTE SEMAFORO</a></li>
-                <li><a ui-sref="exportInvoices">FACTURAS DE EXPORTACIÓN</a></li>
+                <li><a ui-sref="exportationInvoice">FACTURAS DE EXPORTACIÓN</a></li>
                 <li><a ui-sref="shippingList">LISTAS DE EMBARQUE</a></li>
                 <li><a ui-sref="woGenerator">GENERADOR DE ORDENES</a></li>
               </ul>

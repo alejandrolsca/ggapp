@@ -8,16 +8,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">UPDATE ORDERS</h4>
+        <h4 class="modal-title" id="myModalLabel">ENVIAR CORREO</h4>
       </div>
       <span ng-switch="selected">
       <div class="modal-body">
-          <span ng-switch-when="true">Se van a actualizar las siguientes ordenes de trabajo <b>{{ wo_id }}</b> al status <b>"{{ next_status }}"</b>, desea continuar?</span>
+          <span ng-switch-when="true">Va a preparar un correo con las siguientes ordenes de trabajo <b>{{ wo_id }}</b>, desea continuar?</span>
           <span ng-switch-when="false">Debe seleccionar por lo menos una orden de trabajo.</span>
       </div>
       <div class="modal-footer">
         <button class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
-        <button class="btn btn-primary" ng-click="onSubmit()" ng-switch-when="true">{{'general.labels.submit' | i18n}}</button>
+        <button class="btn btn-primary" ng-click="onSubmit()" ng-switch-when="true">{{'general.labels.continue' | i18n}}</button>
       </div>
     </span>
     </div>
@@ -27,27 +27,7 @@
 <div class="col-sm-12">
   <div class="well well-sm col-sm-6 col-xs-12">
       <form role="form" name="ggform" ng-submit="onUpdate();" novalidate>
-        <gg-select err-class="error"
-                lbl="{{'tlr.labels.wo-status' | i18n}}" 
-                form-group-class="col-sm-6" 
-                options="wo_statusoptions" 
-                ng-model="fmData.wo_status"
-                regexp="singlespaces"
-                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-                req-msg="Required"
-                is-required="false">
-        </gg-select>
-        <gg-select err-class="error"
-                lbl="{{'tlr.labels.wo-nextstatus' | i18n}}" 
-                form-group-class="col-sm-6" 
-                options="actions" 
-                ng-model="fmData.wo_nextstatus"
-                regexp="singlespaces"
-                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-                req-msg="Required"
-                is-required="true">
-        </gg-select>
-        <gg-submit lbl="Actualizar"
+        <gg-submit lbl="Enviar Correo"
                 data-toggle="modal" data-target="#myModal"
                 form-group-class="col-xs-12 col-sm-6" 
                 ng-disabled="ggform.$invalid"
@@ -58,14 +38,15 @@
 </div>
 <div class="col-sm-12">
     <wj-flex-grid 
-    control="ggGrid" 
+    control="ggGrid"
+    allow-editing="false"
     items-source="data" 
     items-source-changed="itemsSourceChanged(s,e)"
     item-formatter="itemFormatter"
     auto-generate-columns="false" 
     initialized="initGrid(s,e)"
     allow-sorting="true" 
-    show-sort="true" 
+    show-sort="true"
     style="height:390px;">
         <wj-flex-grid-filter></wj-flex-grid-filter>
         <wj-flex-grid-column
@@ -74,7 +55,10 @@
         data-type="Boolean">
         </wj-flex-grid-column>
         <wj-flex-grid-column
-        header="Status">
+        header="Status"
+        binding="status"
+        data-type="String"
+        width="*">   
         </wj-flex-grid-column>
     </wj-flex-grid>
 </div>

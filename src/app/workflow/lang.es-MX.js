@@ -31,7 +31,6 @@ module.exports = {
         "wo-currency": "Moneda",
         "wo-email": "Enviar Correo",
         "wo-status": "Estatus",
-        "wo-nextstatus": "Actualizar a:",
         "wo-date": "Fecha"
     },
     "columns": [

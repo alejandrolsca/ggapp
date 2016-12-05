@@ -28,39 +28,88 @@ module.exports = (function (angular) {
             };
 
             $scope.onSubmit = function () {
-                console.log($scope.wo_id.join(','))
-                tlrFactory.update($scope.fmData.wo_nextstatus, $scope.wo_id.join(',')).then(function (promise) {
-                    console.log(promise.data)
-                    if (promise.data.rowCount >= 1) {
-                        $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
-                    } else {
-                        $scope.updateFail = true;
+                var flex = $scope.ggGrid;
+                var arr = []
+                arr.push('Please review the following Work Orders' + '\r\n\r\n')
+                for (var i = 0; i < flex.rows.length; i++) {
+                    if (flex.getCellData(i, flex.columns.getColumn('active').index) === true) {
+                        arr.push(
+                            "traffic light report status: " + flex.getCellData(i, flex.columns.getColumn('status').index) + '\r\n' +
+                            "wo_id: " + flex.getCellData(i, flex.columns.getColumn('wo_id').index) + '\r\n' +
+                            "cl_id: " + flex.getCellData(i, flex.columns.getColumn('cl_id').index) + '\r\n' +
+                            "cl_corporatename: " + flex.getCellData(i, flex.columns.getColumn('cl_corporatename').index) + '\r\n' +
+                            "cl_fatherslastname: " + flex.getCellData(i, flex.columns.getColumn('cl_fatherslastname').index) + '\r\n' +
+                            "cl_motherslastname: " + flex.getCellData(i, flex.columns.getColumn('cl_motherslastname').index) + '\r\n' +
+                            "wo_commitmentdate: " + flex.getCellData(i, flex.columns.getColumn('wo_commitmentdate').index) + '\r\n' +
+                            "wo_deliverydate: " + flex.getCellData(i, flex.columns.getColumn('wo_deliverydate').index) + '\r\n' +
+                            "wo_status: " + flex.getCellData(i, flex.columns.getColumn('wo_status').index) + '\r\n' +
+                            "wo_date: " + flex.getCellData(i, flex.columns.getColumn('wo_date').index) + '\r\n' +
+                            "-----------------------------------------------------------" + '\r\n'
+                        );
                     }
-                });
-                $('#myModal').modal('hide');
-                console.log('submited')
+                }
+
+                var subject = 'Work Orders Review';
+
+                var body = encodeURIComponent(arr.join('\r\n'));
+
+                window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+                console.log(body);
             }
 
             $scope.itemFormatter = function (panel, r, c, cell) {
 
-                if ((panel.cellType == wijmo.grid.CellType.Cell) && (c === 1)) {
-                    var commitment_date = moment(panel.grid.getCellData(r, 24, false).substring(0, 10));
-                    var delivery_date = panel.grid.getCellData(r, 25, false);
-                    var days = undefined;
-                    //console.log(delivery_date);
-                    if (delivery_date === null) {
-                        if (commitment_date.diff(moment(), 'days') <= 0) cell.style.backgroundColor = 'OrangeRed';
-                        if (commitment_date.diff(moment(), 'days') > 0 && commitment_date.diff(moment(), 'days') < 3) cell.style.backgroundColor = 'Gold';
-                        days = commitment_date.diff(moment(), 'days');
-                    } else {
-                        if (commitment_date.diff(moment(delivery_date.substring(0, 10)), 'days') === 0) cell.style.backgroundColor = 'LimeGreen';
-                        if (commitment_date.diff(moment(delivery_date.substring(0, 10)), 'days') < 0) cell.style.backgroundColor = 'Grey';
-                        if (commitment_date.diff(moment(delivery_date.substring(0, 10)), 'days') > 0) cell.style.backgroundColor = 'DodgerBlue';
-                        days = commitment_date.diff(moment(delivery_date.substring(0, 10)), 'days');
+                if ((panel.cellType == wijmo.grid.CellType.Cell)) {
+                    var flex = panel.grid;
+                    var col = flex.columns[c];
+                    var row = flex.rows[r];
+                    cell.style.backgroundColor = '';
+                    cell.style.color = '';
+                    if (col.header === 'Status') {
+                        var commitment_date = moment(panel.grid.getCellData(r, flex.columns.getColumn('wo_commitmentdate').index, false).substring(0, 10));
+                        var delivery_date = panel.grid.getCellData(r, flex.columns.getColumn('wo_deliverydate').index, false);
+                        var days = undefined;
+                        var status = undefined;
+                        //console.log(delivery_date);
+                        if (delivery_date === null) {
+                            days = commitment_date.diff(moment(), 'days');
+                            // delayed, commitment_date is due                            
+                            if (days <= 0) {
+                                status = 'Delayed (' + Math.abs(days) + ')';
+                                cell.style.backgroundColor = 'OrangeRed';
+                                cell.style.color = 'yellow';
+                            }
+                            // 2 days before commitment_date is due                           
+                            if (days > 0 && days < 3) {
+                                status = Math.abs(days) + ' Day(s) left';
+                                cell.style.backgroundColor = 'Gold';
+                            }
+
+                        } else {
+                            days = commitment_date.diff(moment(delivery_date.substring(0, 10)), 'days')
+                            // delivered on commitment_date
+                            if (days === 0) {
+                                status = 'Delivered On Time';
+                                cell.style.backgroundColor = 'LimeGreen';
+                                cell.style.color = 'Black';
+                            }
+                            // delivered after commitment_date
+                            if (days < 0) {
+                                status = 'Late Delivery (' + Math.abs(days) + ')';
+                                cell.style.backgroundColor = 'Grey';
+                                cell.style.color = 'Gainsboro';
+                            }
+                            // delivered before commitment_date                            
+                            if (days > 0) {
+                                status = 'Efficient Delivery (' + Math.abs(days) + ')';
+                                cell.style.backgroundColor = 'DodgerBlue';
+                                cell.style.color = 'White';
+                            }
+                        }
+                        cell.style.overflow = 'visible';
+                        row.dataItem.status = status;
+                        cell.innerHTML = status;
                     }
-                    //a.diff(b, 'days') // 1
-                    cell.style.overflow = 'visible';
-                    cell.innerHTML = days;
                 }
 
 
@@ -69,7 +118,7 @@ module.exports = (function (angular) {
                 if (panel.cellType == wijmo.grid.CellType.Cell) {
                     var flex = panel.grid;
                     var row = flex.rows[r];
-                    if (row.dataItem.active) {
+                    if (row.dataItem.active && col.header !== 'Status') {
                         cell.style.backgroundColor = 'gold';
                     }
                 }
@@ -108,7 +157,6 @@ module.exports = (function (angular) {
                 }
             }
 
-
             // autosize columns
             $scope.itemsSourceChanged = function (sender, args) {
                 sender.autoSizeColumns();
@@ -118,7 +166,8 @@ module.exports = (function (angular) {
             $scope.initGrid = function (s, e) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
-                    col.binding = $scope.columns[i];
+                    col.binding = $scope.columns[i].binding;
+                    col.dataType = $scope.columns[i].type;
                     col.header = i18nFilter("tlr.labels." + $scope.labels[i]);
                     s.columns.push(col);
                 }
@@ -164,34 +213,7 @@ module.exports = (function (angular) {
                 }
             });
 
-            $scope.wo_statusoptions = [];
-            var wo_statusoptions = JSON.parse(JSON.stringify(i18nFilter("tlr.fields.wo_statusoptions")))
-            var duplicated = [];
-            angular.forEach(wo_statusoptions, function (value, key) {
-                if (value.us_group === userProfile.app_metadata.us_group) {
-                    this.push.apply(this, value.wo_prevstatus);
-                }
-            }, duplicated)
-
-            duplicated.reduce(function (accum, current) {
-                if (accum.indexOf(current) < 0) {
-                    accum.push(current);
-                }
-                return accum;
-            }, []);
-
-            angular.forEach(wo_statusoptions, function (value, key) {
-                if (duplicated.includes(value.value)) {
-                    value.notAnOption = false;
-                } else {
-                    value.notAnOption = true;
-                }
-                this.push(value)
-            }, $scope.wo_statusoptions)
-
             $scope.pagesizeoptions = [
-                { "label": "2", "value": 2 },
-                { "label": "5", "value": 5 },
                 { "label": "25", "value": 25 },
                 { "label": "50", "value": 50 },
                 { "label": "100", "value": 100 },
@@ -204,31 +226,13 @@ module.exports = (function (angular) {
 
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                $scope.$watch('fmData.wo_status', function (newValue, oldValue) {
-                    $scope.actions = [];
-                    var actions = JSON.parse(JSON.stringify(i18nFilter("tlr.fields.wo_statusoptions")));
-                    angular.forEach(actions, function (value, key) {
-                        if (value.wo_prevstatus.includes(newValue)) {
-                            if (value.us_group === userProfile.app_metadata.us_group || userProfile.app_metadata.us_group === "admin") {
-                                if ([14, 15].includes(newValue) && [14, 15].includes(value.value)) {
-                                    value.notAnOption = true;
-                                } else {
-                                    value.notAnOption = false;
-                                }
-                            } else {
-                                value.notAnOption = true;
-                            }
-                            this.push(value);
-                        }
-                    }, $scope.actions)
-                    tlrFactory.getData(newValue).then(function (promise) {
-                        $scope.loading = false;
-                        if (angular.isArray(promise.data)) {
-                            // expose data as a CollectionView to get events
-                            $scope.data = new wijmo.collections.CollectionView(promise.data);
-                            $scope.data.pageSize = 25;
-                        }
-                    });
+                tlrFactory.getData(0).then(function (promise) {
+                    $scope.loading = false;
+                    if (angular.isArray(promise.data)) {
+                        // expose data as a CollectionView to get events
+                        $scope.data = new wijmo.collections.CollectionView(promise.data);
+                        $scope.data.pageSize = 25;
+                    }
                 });
             });
         }];

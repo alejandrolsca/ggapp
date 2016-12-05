@@ -1,0 +1,19 @@
+<div class="col-sm-12">
+    <h3>{{'exportation-invoice.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+</div>
+
+<div class="col-md-6 col-xs-12">
+    <div class="form-inline well well-lg">
+        File Name:
+        <input type="text" class="form-control" ng-model="fileName" />
+        <button class="btn btn-default" ng-click="save()">Save</button>
+    </div>
+</div>
+
+
+<div class="col-sm-12">
+    <wj-flex-sheet control="flex" initialized="initialized(s)" style="height:400px;">
+        <wj-sheet name="Exportation Invoice" row-count="50"></wj-sheet>
+    </wj-flex-sheet>
+</div>

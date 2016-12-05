@@ -37,6 +37,7 @@ module.exports = {
                         "duplicate":"duplicar",
                         "show":"mostrar",
                         "submit":"Enviar",
+                        "continue":"Continuar",
                         "close":"Cerrar",
                     },
                     "regexp":{
@@ -129,8 +130,15 @@ module.exports = {
                 WORKFLOW 
                 ****************************************/
                 "workflow": require('./workflow/lang.es-MX'),
+                "workflow-custom": require('./workflow/lang.custom.es-MX'),
                 /****************************************
                 TRAFFIC LIGHT REPORT 
                 ****************************************/
                 "tlr": require('./traffic-light-report/lang.es-MX'),
+                "tlr-custom": require('./traffic-light-report/lang.custom.es-MX'),
+                /****************************************
+                EXPORTATION INVOICE
+                ****************************************/
+                "exportation-invoice": require('./exportation-invoice/lang.es-MX'),
+                "exportation-invoice-custom": require('./exportation-invoice/lang.custom.es-MX'),
             }
