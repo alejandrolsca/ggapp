@@ -29,6 +29,8 @@ module.exports = {
             './bower_components/wijmo/Dist/controls/wijmo.grid.sheet.js',
             './bower_components/wijmo/Dist/controls/wijmo.grid.xlsx.js',
             './bower_components/wijmo/Dist/controls/wijmo.xlsx.js',            
+            './bower_components/wijmo/Dist/controls/wijmo.pdf.js',            
+            './bower_components/wijmo/Dist/controls/wijmo.grid.pdf.js',            
             './bower_components/wijmo/Dist/controls/wijmo.grid.grouppanel.js',
             './bower_components/wijmo/Dist/controls/wijmo.input.js',
             './bower_components/wijmo/Dist/interop/angular/wijmo.angular.js',
@@ -55,8 +57,7 @@ module.exports = {
         vendor: [
             './bower_components/bootstrap/dist/css/bootstrap.css',
             './bower_components/animate.css/animate.css',
-            './bower_components/wijmo/Dist/styles/wijmo.css',
-            './bower_components/wijmo/Dist/styles/themes/wijmo.theme.office.css'
+            './bower_components/wijmo/Dist/styles/wijmo.css'
         ],
         custom: [
             dev + '/sass/**/*.scss'

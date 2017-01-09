@@ -1,0 +1,10 @@
+.wordwrap, .wordwrap-style {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-overflow: clip;
+}
+
+.wj-cell.wj-wrap {
+    white-space: normal;
+    text-overflow: clip;
+}

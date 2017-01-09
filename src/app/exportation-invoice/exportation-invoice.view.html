@@ -5,15 +5,26 @@
 
 <div class="col-md-6 col-xs-12">
     <div class="form-inline well well-lg">
+        <gg-select err-class="error"
+           lbl="{{'wo-add.labels.zo-id' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="zo_idoptions" 
+           ng-model="fmData.zo_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+        </gg-select>
         File Name:
         <input type="text" class="form-control" ng-model="fileName" />
         <button class="btn btn-default" ng-click="save()">Save</button>
+        <!--<button class="btn btn-default" ng-click="savePdf()">Save PDF</button>-->
     </div>
 </div>
 
 
 <div class="col-sm-12">
-    <wj-flex-sheet control="flex" initialized="initialized(s)" style="height:400px;">
-        <wj-sheet name="Exportation Invoice" row-count="50"></wj-sheet>
+    <wj-flex-sheet control="flex" initialized="initialized(s)" style="width:1200px; height:800px;">
+        <wj-sheet name="Exportation Invoice" row-count="30"></wj-sheet>
     </wj-flex-sheet>
 </div>

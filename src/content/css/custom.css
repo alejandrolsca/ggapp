@@ -11,6 +11,15 @@
   -o-animation: 0.5s bounceOutLeft;
   animation: 0.5s bounceOutLeft; }
 
+.wordwrap, .wordwrap-style {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-overflow: clip; }
+
+.wj-cell.wj-wrap {
+  white-space: normal;
+  text-overflow: clip; }
+
 /*
 ********************************************
 SASS VARIABLES

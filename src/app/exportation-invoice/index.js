@@ -6,7 +6,7 @@ module.exports = (function(angular){
     .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('exportationInvoice', {
-            url:'/einvoice',
+            url:'/einvoice/:cl_id',
             templateUrl : 'app/exportation-invoice/exportation-invoice.view.html',
             controller : 'exportationInvoiceCtrl',
             data: {
