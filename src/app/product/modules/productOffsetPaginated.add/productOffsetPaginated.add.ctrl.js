@@ -21,6 +21,7 @@ module.exports = (function (angular) {
                 });
             };
 
+            $scope.pr_languageoptions = i18nFilter("productOffsetPaginated-add.fields.pr_languageoptions");            
             $scope.pr_finalsizemeasureoptions = i18nFilter("productOffsetPaginated-add.fields.pr_finalsizemeasureoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productOffsetPaginated-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productOffsetPaginated-add.fields.pr_inkbackoptions");

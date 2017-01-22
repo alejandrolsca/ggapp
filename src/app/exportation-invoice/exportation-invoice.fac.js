@@ -33,6 +33,22 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
+        factory.searchRelease = function(wo_release) {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/wo/cl_id/wo_release', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id,
+                    wo_release: wo_release
+                }).success(function(data, status, headers, config) {
+                    return data;
+                }).error(function(data, status, headers, config) {
+                    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
         // var countries = ['US', 'Germany', 'UK', 'Japan', 'Italy', 'Greece'];
         // var products = ['Widget', 'Gadget', 'Doohickey'];
 

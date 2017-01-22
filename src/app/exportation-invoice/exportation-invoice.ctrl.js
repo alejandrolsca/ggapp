@@ -105,9 +105,9 @@ module.exports = (function (angular) {
                     flexSheet.mergeRange(new wijmo.grid.CellRange(7, 5, 7, 9));
                     flexSheet.setCellData(7, 5, "COMPRADOR");
                     flexSheet.setCellData(8, 5,
-                        "GILBERTO FERNANDEZ LEO\n" +    
-                        "2632   AV. ZARCO  COL. ZARCO 31020\n" +    
-                        "CHIHUAHUA CHIHUAHUA MEXICO\n" +    
+                        "GILBERTO FERNANDEZ LEO\n" +
+                        "2632   AV. ZARCO  COL. ZARCO 31020\n" +
+                        "CHIHUAHUA CHIHUAHUA MEXICO\n" +
                         "R.F.C. FELG5404291K2"
                     );
 
@@ -157,34 +157,63 @@ module.exports = (function (angular) {
 
 
                 }
-                $scope.savePdf = function savePdf() {
-                    wijmo.grid.pdf.FlexGridPdfConverter.export(flexSheet, "FlexGrid.pdf", {
-                        exportMode: wijmo.grid.pdf.ExportMode.Selection,
-                        scaleMode: wijmo.grid.pdf.ScaleMode.SinglePage,
-                        documentOptions: {
-                            pageSettings: {
-                                layout: wijmo.pdf.PdfPageOrientation.Portrait,
-                                size: wijmo.pdf.PdfPageSize.Letter
-                            }
-                        },
-                        styles: {
-                            cellStyle: {
-                                backgroundColor: '#ffffff',
-                                borderColor: '#c6c6c6'
-                            },
-                            altCellStyle: {
-                                backgroundColor: '#f9f9f9'
-                            },
-                            groupCellStyle: {
-                                backgroundColor: '#dddddd'
-                            },
-                            headerCellStyle: {
-                                backgroundColor: '#eaeaea'
-                            }
-                        }
-                    });
-                }
 
+            }
+
+            $scope.savePdf = function savePdf() {
+                wijmo.grid.pdf.FlexGridPdfConverter.export(flexSheet, "FlexGrid.pdf", {
+                    exportMode: wijmo.grid.pdf.ExportMode.Selection,
+                    scaleMode: wijmo.grid.pdf.ScaleMode.SinglePage,
+                    documentOptions: {
+                        pageSettings: {
+                            layout: wijmo.pdf.PdfPageOrientation.Portrait,
+                            size: wijmo.pdf.PdfPageSize.Letter
+                        }
+                    },
+                    styles: {
+                        cellStyle: {
+                            backgroundColor: '#ffffff',
+                            borderColor: '#c6c6c6'
+                        },
+                        altCellStyle: {
+                            backgroundColor: '#f9f9f9'
+                        },
+                        groupCellStyle: {
+                            backgroundColor: '#dddddd'
+                        },
+                        headerCellStyle: {
+                            backgroundColor: '#eaeaea'
+                        }
+                    }
+                });
+            }
+            $scope.searchRelease = function () {
+                exportationInvoiceFac.searchRelease($scope.wo_release).then(function (promise) {
+                    console.log(promise.data);
+                    if (angular.isArray(promise.data)) {
+                        var flexSheet = $scope.flex,
+                            row = 24;
+                        if (flexSheet) {
+                            promise.data.forEach(function (value) {
+                                console.log(row)
+                                flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 2));
+                                flexSheet.setCellData(row, 0, value.pr_name);
+                                flexSheet.setCellData(row, 3, value.pr_language);
+                                flexSheet.setCellData(row, 4, +value.wo_qty);
+                                flexSheet.setCellData(row, 5, "PIEZAS");
+                                flexSheet.setCellData(row, 6, +value.total_weight);
+                                flexSheet.setCellData(row, 7, +value.total_weight);
+                                flexSheet.setCellData(row, 8, +value.wo_price);
+                                flexSheet.setCellData(row, 9, +value.total_price);
+                                row += 1;
+                            })
+                        }
+                        // var products = [];
+                        // angular.forEach(promise.data, function (value, key) {
+                        //     this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": key });
+                        // }, products);
+                    }
+                })
             }
 
 

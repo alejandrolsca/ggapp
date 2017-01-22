@@ -20,22 +20,42 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="cover">
   <!-- Cover -->  
-  <gg-input err-class="error"
-            lbl="{{'productOffsetPaginated-add.labels.pr-partno' | i18n}}" 
-            form-group-class="col-sm-6"
-            ng-model="fmData.pr_partno"
-            regexp="partno"
-            regexp-msg="{{'general.regexp.partno' | i18n}}"
-            >
-  </gg-input>
-  <gg-input err-class="error"
-            lbl="{{'productOffsetPaginated-add.labels.pr-code' | i18n}}" 
-            form-group-class="col-sm-6"
-            ng-model="fmData.pr_code"
-            regexp="prcode"
-            regexp-msg="{{'general.regexp.prcode' | i18n}}"
-            >
-  </gg-input>
+    <gg-input err-class="error"
+                lbl="{{'productOffsetGeneral-add.labels.pr-partno' | i18n}}" 
+                form-group-class="col-sm-3"
+                ng-model="fmData.pr_partno"
+                regexp="partno"
+                regexp-msg="{{'general.regexp.partno' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+    </gg-input>
+    <gg-input err-class="error"
+                lbl="{{'productOffsetGeneral-add.labels.pr-code' | i18n}}" 
+                form-group-class="col-sm-3"
+                ng-model="fmData.pr_code"
+                regexp="prcode"
+                regexp-msg="{{'general.regexp.prcode' | i18n}}"
+                >
+    </gg-input>
+    <gg-select err-class="error"
+            lbl="{{'productOffsetGeneral-add.labels.pr-language' | i18n}}" 
+            form-group-class="col-sm-3" 
+            options="pr_languageoptions" 
+            ng-model="fmData.pr_language"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+    </gg-select>
+    <gg-input err-class="error"
+                lbl="{{'productOffsetGeneral-add.labels.pr-weight' | i18n}}" 
+                form-group-class="col-sm-3"
+                ng-model="fmData.pr_weight"
+                regexp="decimal"
+                regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+    </gg-input>
     <gg-input err-class="error"
             lbl="{{'productOffsetPaginated-add.labels.pr-name' | i18n}}" 
             form-group-class="col-sm-12"

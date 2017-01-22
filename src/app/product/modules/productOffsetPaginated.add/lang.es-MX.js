@@ -7,6 +7,8 @@ module.exports = {
                         "pr-type": "Tipo",
                         "pr-partno": "No. parte",
                         "pr-code": "Codigo",
+                        "pr-language": "Lenguaje",
+                        "pr-weight": "Peso",
                         "pr-name": "Nombre",
                         "pr-description": "Descripcion",
                         "pr-finalsizewidth": "Ancho",
@@ -48,6 +50,8 @@ module.exports = {
                         "pr_type",
                         "pr_partno",
                         "pr_code",
+                        "pr_language",
+                        "pr_weight",
                         "pr_name",
                         "pr_description",
                         "pr_finalsizewidth",
@@ -83,6 +87,10 @@ module.exports = {
                         "pr_date",
                     ],
                      "fields" : {
+                        pr_languageoptions : [
+                            {"label":"Español","value":"español"},
+                            {"label":"Distintos al español","value":"distintos al español"}
+                        ],
                         pr_finalsizemeasureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
