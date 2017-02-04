@@ -3,15 +3,18 @@ module.exports = (function (angular) {
 
     return ['$scope', 'exportationInvoiceFac', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
         function ($scope, exportationInvoiceFac, $location, i18nFilter, $stateParams, $filter, authService) {
+            $scope.fmData = {};
+            $scope.fmData.wo_search = 'wo_release';
 
             $scope.save = function () {
                 var flexSheet = $scope.flex,
-                    fileName;
+                    fileName, timestamp;
                 if (flexSheet) {
                     if (!!$scope.fileName) {
                         fileName = $scope.fileName;
                     } else {
-                        fileName = 'FlexSheet.xlsx';
+                        timestamp = moment().format();
+                        fileName = 'exportation_invoice_'+ timestamp +'.xlsx';
                     }
                     flexSheet.save(fileName);
                 }
@@ -150,7 +153,7 @@ module.exports = (function (angular) {
                     flexSheet.setCellData(23, 7, "KGS");
                     flexSheet.setCellData(22, 8, "UNITARIO");
                     flexSheet.setCellData(23, 8, "USD");
-                    flexSheet.setCellData(22, 9, "VALOR");
+                    flexSheet.setCellData(22, 9, "VALOR TOTAL");
                     flexSheet.setCellData(23, 9, "USD");
 
 
@@ -187,13 +190,20 @@ module.exports = (function (angular) {
                     }
                 });
             }
-            $scope.searchRelease = function () {
-                exportationInvoiceFac.searchRelease($scope.wo_release).then(function (promise) {
+            $scope.onSubmit = function () {
+                var searchFn = {
+                    "wo_release":"searchWoRelease",
+                    "wo_id":"searchWoId",
+                    "wo_po":"searchWoPo"
+                }
+                exportationInvoiceFac[searchFn[$scope.fmData.wo_search]]($scope.fmData[$scope.fmData.wo_search]).then(function (promise) {
                     console.log(promise.data);
                     if (angular.isArray(promise.data)) {
                         var flexSheet = $scope.flex,
                             row = 24;
                         if (flexSheet) {
+                            flexSheet.deleteRows(24,975);
+                            flexSheet.insertRows(24,975);
                             promise.data.forEach(function (value) {
                                 console.log(row)
                                 flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 2));
@@ -207,6 +217,14 @@ module.exports = (function (angular) {
                                 flexSheet.setCellData(row, 9, +value.total_price);
                                 row += 1;
                             })
+                            row += 2;
+                            flexSheet.setCellData(row, 0, "TOTAL");
+                            flexSheet.setCellData(row, 4, "=sum(E25:E"+(row-2)+")");
+                            flexSheet.setCellData(row, 5, "PIEZAS");
+                            flexSheet.setCellData(row, 6, "=\"\"&text(sum(G25:G"+(row-2)+"),\"#,##0.00000\")");
+                            flexSheet.setCellData(row, 7, "=\"\"&text(sum(H25:H"+(row-2)+"),\"#,##0.00000\")");
+                            flexSheet.setCellData(row, 9, "=\"USD \"&text(sum(J25:J"+(row-2)+"),\"#,##0.00\")");
+
                         }
                         // var products = [];
                         // angular.forEach(promise.data, function (value, key) {
@@ -215,6 +233,8 @@ module.exports = (function (angular) {
                     }
                 })
             }
+
+            $scope.wo_searchoptions = i18nFilter("exportation-invoice-custom.fields.wo_searchoptions");
 
 
             $scope.$on('$viewContentLoaded', function () {

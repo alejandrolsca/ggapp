@@ -54,7 +54,8 @@ module.exports = {
                         "date": "aaaa-mm-dd",
                         "user": "de 4 a 16 caracteres sin espacios ni caracteres especiales.",
                         "password": "la contraseña debe contener de 8-16 caracteres, por lo menos una letra mayuscula, una letra minuscula y un digito.",
-                        "phone": "solo use el simbolo + al principio y numeros del 0 al 9"
+                        "phone": "solo use el simbolo + al principio y numeros del 0 al 9",
+                        "wo_id": "Solo se aceptan numeros enteros separados por coma."
                     },
                     "copyright":"©2014 grupo grafico de méxico s.a. de c.v. todos los derechos reservados."
                 },

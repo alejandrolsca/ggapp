@@ -33,13 +33,45 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
-        factory.searchRelease = function(wo_release) {
+        factory.searchWoRelease = function(wo_release) {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('/api/wo/cl_id/wo_release', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id,
                     wo_release: wo_release
+                }).success(function(data, status, headers, config) {
+                    return data;
+                }).error(function(data, status, headers, config) {
+                    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
+        factory.searchWoId = function(wo_id) {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/wo/cl_id/wo_id', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id,
+                    wo_id: wo_id
+                }).success(function(data, status, headers, config) {
+                    return data;
+                }).error(function(data, status, headers, config) {
+                    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
+        factory.searchWoPo = function(wo_po) {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/wo/cl_id/wo_po', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id,
+                    wo_po: wo_po
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {

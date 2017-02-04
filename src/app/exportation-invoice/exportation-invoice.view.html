@@ -2,12 +2,11 @@
     <h3>{{'exportation-invoice.title' | i18n}}</h3>
     <span ng-if="loading">Cargando...</span>
 </div>
-
+<form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
 <div class="col-md-6 col-xs-12">
-    <div class="form-inline well well-lg">
         <gg-select err-class="error"
            lbl="{{'wo-add.labels.zo-id' | i18n}}" 
-           form-group-class="col-sm-6" 
+           form-group-class="col-sm-3" 
            options="zo_idoptions" 
            ng-model="fmData.zo_id"
            regexp="singlespaces"
@@ -15,19 +14,65 @@
            req-msg="Required"
            is-required="true">
         </gg-select>
-        Release:
-        <input type="text" class="form-control" ng-model="wo_release" />
-        <button class="btn btn-default" ng-click="searchRelease()">Search</button>
-        File Name:
-        <input type="text" class="form-control" ng-model="fileName" />
-        <button class="btn btn-default" ng-click="save()">Save</button>
+        <gg-select err-class="error"
+           lbl="{{'exportation-invoice-custom.labels.wo-search' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="wo_searchoptions" 
+           ng-model="fmData.wo_search"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+        </gg-select>
+        <span ng-if="fmData.wo_search ==='wo_release'">
+            <gg-input err-class="error"
+                lbl="{{'wo-add.labels.wo-release' | i18n}}" 
+                form-group-class="col-sm-3"
+                ng-model="fmData.wo_release"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required">
+            </gg-input>
+        </span>
+        <span ng-if="fmData.wo_search === 'wo_id'">
+            <gg-input err-class="error"
+                lbl="{{'wo-add.labels.wo-id' | i18n}}" 
+                form-group-class="col-sm-3"
+                ng-model="fmData.wo_id"
+                regexp="wo_id"
+                regexp-msg="{{'general.regexp.wo_id' | i18n}}"
+                req-msg="Required">
+            </gg-input>
+        </span>
+        <span ng-if="fmData.wo_search === 'wo_po'">
+            <gg-input err-class="error"
+                lbl="{{'wo-add.labels.wo-po' | i18n}}" 
+                form-group-class="col-sm-3"
+                ng-model="fmData.wo_po"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required">
+            </gg-input>
+        </span>
+        <span class="col-sm-12 fieldset"></span>
+        <gg-submit lbl="Buscar"
+            form-group-class="col-sm-3" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-12 col-md-12">
+        </gg-submit>
+        <gg-action-button lbl="Guardar"
+            form-group-class="col-sm-3"
+            ng-click="save()" 
+            ng-disabled="false"
+            btn-class="col-xs-12 col-sm-12 col-md-12">
+        </gg-action-button>
         <!--<button class="btn btn-default" ng-click="savePdf()">Save PDF</button>-->
-    </div>
 </div>
+</form>
 
 
 <div class="col-sm-12">
     <wj-flex-sheet control="flex" initialized="initialized(s)" style="width:1200px; height:800px;">
-        <wj-sheet name="Exportation Invoice"></wj-sheet>
+        <wj-sheet name="Exportation Invoice" row-count="1000" ></wj-sheet>
     </wj-flex-sheet>
 </div>

@@ -20,6 +20,7 @@
             "user": /^\w{4,16}$/,
             "password": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
             "phone": /^([+])?(\d{2,}-)*(\d{2,}-\d{2,})$/,
+            "wo_id": /^(\d+)(,\s*\d+)*$/,            
             "uppercase": /^[A-Z]{0,}$/
         })
 
@@ -656,6 +657,30 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                     <div class="{{lblClass}} {{fldClass}}">\
                                             <button type="submit" class="btn btn-success {{btnClass}}" ng-disabled="ngDisabled">{{lbl}}</button>\
+                                    </div>\
+                              </div>';
+                }
+            };
+        }])
+        .directive('ggActionButton', ['validTypes', function (validTypes) {
+            return {
+                restrict: "E",
+                require: '^ngModel',
+                scope: {
+                    fldClass: '@',
+                    lbl: '@',
+                    formGroupClass: '@',
+                    fieldWrapperClass: '@',
+                    lblClass: '@',
+                    ngDisabled: '=',
+                    ngClick: '&',
+                    btnClass: '@'
+                },
+                template: function (elem, attrs) {
+
+                    return '<div class="form-group {{formGroupClass}}">\
+                                    <div class="{{lblClass}} {{fldClass}}">\
+                                            <button type="button" ng-click="ngClick" class="btn btn-primary {{btnClass}}" ng-disabled="ngDisabled">{{lbl}}</button>\
                                     </div>\
                               </div>';
                 }
