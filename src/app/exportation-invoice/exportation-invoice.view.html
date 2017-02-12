@@ -31,6 +31,7 @@
                 ng-model="fmData.wo_release"
                 regexp="singlespaces"
                 regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                is-required="true"
                 req-msg="Required">
             </gg-input>
         </span>
@@ -41,6 +42,7 @@
                 ng-model="fmData.wo_id"
                 regexp="wo_id"
                 regexp-msg="{{'general.regexp.wo_id' | i18n}}"
+                is-required="true"
                 req-msg="Required">
             </gg-input>
         </span>
@@ -51,6 +53,7 @@
                 ng-model="fmData.wo_po"
                 regexp="singlespaces"
                 regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                is-required="true"
                 req-msg="Required">
             </gg-input>
         </span>
@@ -63,7 +66,7 @@
         <gg-action-button lbl="Guardar"
             form-group-class="col-sm-3"
             ng-click="save()" 
-            ng-disabled="false"
+            ng-disabled="saveBtn"
             btn-class="col-xs-12 col-sm-12 col-md-12">
         </gg-action-button>
         <!--<button class="btn btn-default" ng-click="savePdf()">Save PDF</button>-->

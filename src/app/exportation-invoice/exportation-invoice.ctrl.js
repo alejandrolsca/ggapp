@@ -3,9 +3,12 @@ module.exports = (function (angular) {
 
     return ['$scope', 'exportationInvoiceFac', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
         function ($scope, exportationInvoiceFac, $location, i18nFilter, $stateParams, $filter, authService) {
+
+            var numberToText = require('./convertir-num-letras');
+
             $scope.fmData = {};
             $scope.fmData.wo_search = 'wo_release';
-
+ 
             $scope.save = function () {
                 var flexSheet = $scope.flex,
                     fileName, timestamp;
@@ -135,7 +138,7 @@ module.exports = (function (angular) {
 
                     flexSheet.mergeRange(new wijmo.grid.CellRange(18, 0, 19, 4));
                     flexSheet.setCellData(18, 0,
-                        "ESTA OPERACIÓN SE REALIZA DE CONFORMIDAD CON LAS REGLAS 5.2.2 y 4.3.23 DE LA R.C.G.M.C.E"
+                        "ESTA OPERACIÓN SE REALIZA DE CONFORMIDAD CON LAS REGLAS 5.2.2 \ny 4.3.23 DE LA R.C.G.M.C.E"
                     );
 
                     flexSheet.mergeRange(new wijmo.grid.CellRange(20, 0, 20, 4));
@@ -190,6 +193,7 @@ module.exports = (function (angular) {
                     }
                 });
             }
+            $scope.saveBtn = true;
             $scope.onSubmit = function () {
                 var searchFn = {
                     "wo_release":"searchWoRelease",
@@ -197,40 +201,65 @@ module.exports = (function (angular) {
                     "wo_po":"searchWoPo"
                 }
                 exportationInvoiceFac[searchFn[$scope.fmData.wo_search]]($scope.fmData[$scope.fmData.wo_search]).then(function (promise) {
-                    console.log(promise.data);
-                    if (angular.isArray(promise.data)) {
+                    $scope.saveBtn = !promise.data.length > 0;
+                    
                         var flexSheet = $scope.flex,
                             row = 24;
                         if (flexSheet) {
                             flexSheet.deleteRows(24,975);
                             flexSheet.insertRows(24,975);
+
+                            var total = {
+                                qty:0,
+                                weight:0,
+                                gross_weight:0,
+                                usd:0
+                            }
+                        }
+                        if (angular.isArray(promise.data)) {
                             promise.data.forEach(function (value) {
-                                console.log(row)
+                                
+                                total.qty += +value.wo_qty;
+                                total.weight += +value.total_weight;
+                                total.gross_weight += +value.total_weight;                                
+                                total.usd += +value.total_price;       
+
                                 flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 2));
                                 flexSheet.setCellData(row, 0, value.pr_name);
                                 flexSheet.setCellData(row, 3, value.pr_language);
-                                flexSheet.setCellData(row, 4, +value.wo_qty);
+                                flexSheet.setCellData(row, 4, value.wo_qty);
                                 flexSheet.setCellData(row, 5, "PIEZAS");
-                                flexSheet.setCellData(row, 6, +value.total_weight);
-                                flexSheet.setCellData(row, 7, +value.total_weight);
-                                flexSheet.setCellData(row, 8, +value.wo_price);
-                                flexSheet.setCellData(row, 9, +value.total_price);
+                                flexSheet.setCellData(row, 6, value.total_weight);
+                                flexSheet.setCellData(row, 7, value.total_weight);
+                                flexSheet.setCellData(row, 8, $filter('currency')(value.wo_price, '$', 5));
+                                flexSheet.setCellData(row, 9, $filter('currency')(value.total_price, '$', 5));
                                 row += 1;
                             })
                             row += 2;
                             flexSheet.setCellData(row, 0, "TOTAL");
-                            flexSheet.setCellData(row, 4, "=sum(E25:E"+(row-2)+")");
+                            flexSheet.setCellData(row, 4, total.qty);
                             flexSheet.setCellData(row, 5, "PIEZAS");
-                            flexSheet.setCellData(row, 6, "=\"\"&text(sum(G25:G"+(row-2)+"),\"#,##0.00000\")");
-                            flexSheet.setCellData(row, 7, "=\"\"&text(sum(H25:H"+(row-2)+"),\"#,##0.00000\")");
-                            flexSheet.setCellData(row, 9, "=\"USD \"&text(sum(J25:J"+(row-2)+"),\"#,##0.00\")");
+                            flexSheet.setCellData(row, 6, $filter('number')(total.weight, 5));
+                            flexSheet.setCellData(row, 7, $filter('number')(total.gross_weight, 5));
+                            flexSheet.setCellData(row, 9, $filter('currency')(total.usd, '$', 2));
+                            flexSheet.applyCellsStyle({
+                                fontWeight: 'bold'
+                            }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
+                            row += 2;
+                            flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 9));
+                            flexSheet.setCellData(row, 0, numberToText(total.usd.toFixed(2)));
+                            flexSheet.applyCellsStyle({
+                                fontWeight: 'bold'
+                            }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
+                            flexSheet.applyCellsStyle({
+                                textAlign: 'right'
+                            }, [new wijmo.grid.CellRange(24, 6, row, 9)]);
 
-                        }
+                        } 
                         // var products = [];
                         // angular.forEach(promise.data, function (value, key) {
                         //     this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": key });
                         // }, products);
-                    }
                 })
             }
 
