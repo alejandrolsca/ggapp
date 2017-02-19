@@ -277,7 +277,7 @@ module.exports = (function (angular) {
                 }).then(function () {
                     exportationInvoiceFac.getZone().then(function (promise) {
                         $scope.zo_idoptions = [];
-                        //$scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": "0" });
+                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": 0 });
                         if (angular.isArray(promise.data)) {
                             rows = promise.data;
                             angular.forEach(rows, function (value, key) {
@@ -292,6 +292,18 @@ module.exports = (function (angular) {
                     function zoChange(newValue, oldValue) {
                         var flexSheet = $scope.flex;
                         if (newValue !== undefined && flexSheet) {
+                                if (newValue === 0) {
+                                    flexSheet.setCellData(8, 0,
+                                        client.cl_jsonb.cl_corporatename + '\n' +
+                                        client.cl_jsonb.cl_street + ' ' + client.cl_jsonb.cl_streetnumber + ' ' + client.cl_jsonb.cl_suitenumber + '\n' +
+                                        client.cl_jsonb.cl_neighborhood + '\n' +
+                                        client.cl_jsonb.cl_state + ' ' + client.cl_jsonb.cl_city + '\n' +
+                                        client.cl_jsonb.cl_tin + '\n' +
+                                        client.cl_jsonb.cl_immex + '\n'
+
+                                    );
+                                    return;
+                                }
                             flexSheet.setCellData(8, 0,
                                 rows[newValue].zo_corporatename + '\n' +
                                 rows[newValue].zo_street + ' ' + rows[newValue].zo_streetnumber + ' ' + rows[newValue].zo_suitenumber + '\n' +
