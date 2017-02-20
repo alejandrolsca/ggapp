@@ -27,7 +27,8 @@ window._ = require('lodash');
         require('./zone').name,
         require('./workflow').name,
         require('./traffic-light-report').name,
-        require('./exportation-invoice').name
+        require('./exportation-invoice').name,
+        require('./shipping-list').name
     ])
 
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {

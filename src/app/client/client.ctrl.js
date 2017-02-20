@@ -34,6 +34,7 @@ module.exports = (function (angular) {
                                             <li><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" data-cl_id="'+ cl_id + '"><span class="glyphicon glyphicon-barcode" aria-hidden="true"></span> Producto</a></li>\
                                             <li><a href="#/zone/add/'+ cl_id + '"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Zona</a></li>\
                                             <li><a href="#/einvoice/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Factura de exportación</a></li>\
+                                            <li><a href="#/shipping-list/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Lista de embarque</a></li>\
                                           </ul>\
                                         </div>\
                                         <div class="btn-group">\
