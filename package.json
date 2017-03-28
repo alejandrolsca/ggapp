@@ -53,6 +53,8 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
     "image-min": "^0.3.2",
-    "require-dir": "^0.3.0"
+    "require-dir": "^0.3.0",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2"
   }
 }
