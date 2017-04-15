@@ -8,7 +8,7 @@ require('./sass/navbar.scss');
 
 (function (angular) {
 
-    'use strict';// lo que sea
+    'use strict';
 
     angular.module('app', [
         'ui.router',

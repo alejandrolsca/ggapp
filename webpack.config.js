@@ -1,6 +1,7 @@
 var webpack = require("webpack"),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
     path = require("path");
 
 var extractSass = new ExtractTextPlugin({
@@ -10,11 +11,11 @@ var extractSass = new ExtractTextPlugin({
 
 module.exports = {
     entry: {
-        app: "./src/app.js"
+        app: "./src/app.js",
     },
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "[name].js"
+        filename: "[name].[hash].js"
     },
     plugins:[
         new CleanWebpackPlugin(['dist'], {
@@ -23,6 +24,9 @@ module.exports = {
             dry: false,
             exclude: [],
             watch: true
+        }),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html'
         }),
         extractSass,
     ],
