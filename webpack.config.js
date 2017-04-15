@@ -5,13 +5,13 @@ var webpack = require("webpack"),
     path = require("path");
 
 var extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
+    filename: "[name].[contenthash].css"
 });
 
 module.exports = {
+    amd: { jQuery: true },
     entry: {
-        app: "./src/app.js",
+        app: "./src/main.js"
     },
     output: {
         path: path.join(__dirname, "dist"),
@@ -28,12 +28,12 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'src/index.html'
         }),
-        extractSass,
+        extractSass
     ],
     module: {
-        loaders: [
+        rules: [
             {
-                test: /\.scss$/,
+                test: /\.(scss|css)$/i,
                 use: extractSass.extract({
                     use: [{
                         loader: "css-loader"
@@ -45,7 +45,22 @@ module.exports = {
                     // use style-loader in development
                     fallback: "style-loader"
                 })
-            }
+            },
+            {
+                test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+                loader: 'url-loader'
+            },
+            { 
+                test: /\.html$/, 
+                loader: 'html-loader'
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack-loader?bypassOnDebug'
+                ]
+            }
         ]
     }
 

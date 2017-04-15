@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('paperUpdate', {
             url:'/paper/update/:pa_id',
-            templateUrl : 'app/paper/modules/paper.update/paper.update.view.html',
+            template: require('./paper.update.view.html'),
             controller : 'paperUpdateCtrl',
             data: {
                 requiresLogin: true

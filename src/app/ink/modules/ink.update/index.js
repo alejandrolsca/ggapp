@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('inkUpdate', {
             url:'/ink/update/:in_id',
-            templateUrl : 'app/ink/modules/ink.update/ink.update.view.html',
+            template: require('./ink.update.view.html'),
             controller : 'inkUpdateCtrl',
             data: {
                 requiresLogin: true

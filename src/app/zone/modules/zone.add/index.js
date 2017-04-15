@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('zoneAdd', {
             url:'/zone/add/:cl_id',
-            templateUrl : 'app/zone/modules/zone.add/zone.add.view.html',
+            template: require('./zone.add.view.html'),
             controller : 'zoneAddCtrl',
             data: {
                 requiresLogin: true

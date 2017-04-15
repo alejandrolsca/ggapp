@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('clientUpdate', {
             url:'/client/update/:cl_id',
-            templateUrl : 'app/client/modules/client.update/client.update.view.html',
+            template: require('./client.update.view.html'),
             controller : 'clientUpdateCtrl',
             data: {
                 requiresLogin: true

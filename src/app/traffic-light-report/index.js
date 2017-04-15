@@ -8,7 +8,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('tlr', {
             url:'/tlr',
-            templateUrl : 'app/traffic-light-report/traffic-light-report.view.html',
+            template: require('./traffic-light-report.view.html'),
             controller : 'tlrController',
             data: {
                 requiresLogin: true

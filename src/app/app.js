@@ -1,16 +1,7 @@
-window._ = require('lodash');
-
-require('./sass/animations.scss');
-require('./sass/exportation-invoice.scss');
-require('./sass/global.scss');
-require('./sass/menu.scss');
-require('./sass/navbar.scss');
-
-(function (angular) {
-
+module.exports = (function (angular) {
     'use strict';
 
-    angular.module('app', [
+    return angular.module('app', [
         'ui.router',
         'ngAnimate',
         'ui.bootstrap',
@@ -20,22 +11,22 @@ require('./sass/navbar.scss');
         'ja.qr',
         'auth0.lock',
         'angular-jwt',
-        require('./app/404').name,
-        require('./app/login').name,
-        require('./app/client').name,
-        require('./app/user').name,
-        require('./app/home').name,
-        require('./app/product').name,
-        require('./app/supplier').name,
-        require('./app/machine').name,
-        require('./app/paper').name,
-        require('./app/ink').name,
-        require('./app/wo').name,
-        require('./app/zone').name,
-        require('./app/workflow').name,
-        require('./app/traffic-light-report').name,
-        require('./app/exportation-invoice').name,
-        require('./app/shipping-list').name
+        require('./404').name,
+        require('./login').name,
+        require('./client').name,
+        require('./user').name,
+        require('./home').name,
+        require('./product').name,
+        require('./supplier').name,
+        require('./machine').name,
+        require('./paper').name,
+        require('./ink').name,
+        require('./wo').name,
+        require('./zone').name,
+        require('./workflow').name,
+        require('./traffic-light-report').name,
+        require('./exportation-invoice').name,
+        require('./shipping-list').name
     ])
 
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {
@@ -125,7 +116,7 @@ require('./sass/navbar.scss');
 
                 $httpProvider.interceptors.push('jwtInterceptor');
 
-                $httpProvider.interceptors.push(require('./app/app.http.interceptor'));
+                $httpProvider.interceptors.push(require('./app.http.interceptor'));
 
                 // Batching multiple $http responses into one $digest
                 $httpProvider.useApplyAsync(true);
@@ -178,10 +169,10 @@ require('./sass/navbar.scss');
 
             }])
 
-        .filter('i18n', require('./app/lang.filter.i18n'))
+        .filter('i18n', require('./lang.filter.i18n'))
 
-        .factory('appFac', require('./app/app.fac'))
+        .factory('appFac', require('./app.fac'))
 
-        .controller('appCtrl', require('./app/app.ctrl'))
+        .controller('appCtrl', require('./app.ctrl'))
 
 })(angular);

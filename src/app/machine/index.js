@@ -10,7 +10,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('machine', {
             url:'/machine',
-            templateUrl : 'app/machine/machine.view.html',
+            template: require('./machine.view.html'),
             controller : 'machineCtrl',
             data: {
                 requiresLogin: true

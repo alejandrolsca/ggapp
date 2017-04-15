@@ -11,7 +11,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('wo', {
             url:'/wo/:cl_id',
-            templateUrl : 'app/wo/wo.view.html',
+            template: require('./wo.view.html'),
             controller : 'woController',
             data: {
                 requiresLogin: true

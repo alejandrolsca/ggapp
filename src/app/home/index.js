@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('home', {
             url:'/home',
-            templateUrl : 'app/home/home.view.html',
+            template: require('./home.view.html'),
             controller : 'homeCtrl',
             data: {
                 requiresLogin: true
