@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon -V server.js & gulp",
-    "dev": "./node_modules/.bin/webpack --devtool source-map && node server.js"
+    "dev": "./node_modules/.bin/webpack && node server.js"
   },
   "repository": {
     "type": "git",

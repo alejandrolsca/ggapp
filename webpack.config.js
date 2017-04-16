@@ -10,6 +10,7 @@ var extractSass = new ExtractTextPlugin({
 
 module.exports = {
     amd: { jQuery: true },
+    devtool: "source-map",
     entry: {
         app: "./src/main.js"
     },
@@ -47,19 +48,24 @@ module.exports = {
                 })
             },
             {
-                test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-                loader: 'url-loader'
+                test: /\.(png|jpe?g|gif)(\?.*)?$/,
+                loader: 'file-loader',
+                query: {
+                limit: 10000,
+                name: 'static/img/[name].[hash:7].[ext]'
+                }
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
+                loader: 'file-loader',
+                query: {
+                limit: 10000,
+                name: 'static/fonts/[name].[hash:7].[ext]'
+                }
             },
             { 
                 test: /\.html$/, 
                 loader: 'html-loader'
-            },
-            {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                loaders: [
-                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-                    'image-webpack-loader?bypassOnDebug'
-                ]
             }
         ]
     }
