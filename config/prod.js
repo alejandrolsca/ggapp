@@ -14,7 +14,12 @@ module.exports = function (env) {
         devServer: {
             contentBase: path.join(path.resolve(), "dist"),
             compress: true,
-            port: 3000
+            port: 3000,
+            proxy: {
+                "/api/*": {
+                    target: "http://localhost:8080"
+                }
+            }
         },
         entry: {
             vendor: ["./src/vendor.js"],

@@ -1,3 +1,5 @@
+var gglogo = require('../../img/gg-logo.png');
+
 module.exports = (function (angular) {
     'use strict';
 
@@ -23,7 +25,7 @@ module.exports = (function (angular) {
                 });
                 console.log('width',wijmo.pdf.pxToPt(150),'height',wijmo.pdf.pxToPt(79))
                 console.log('width',doc.width,'height',doc.height) // plus 72 points
-                doc.header.drawImage("content/img/gg-logo.png",0,0,{
+                doc.header.drawImage(gglogo,0,0,{
                     width: wijmo.pdf.pxToPt(150),
                     height: wijmo.pdf.pxToPt(79)
                 });
