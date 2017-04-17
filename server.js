@@ -801,7 +801,7 @@ if (cluster.isMaster) {
         });
     });
 
-    var server = app.listen(3000, function () {
+    var server = app.listen(8080, function () {
         var host = 'localhost';
         var port = server.address().port;
         console.log('Server running on worker %d listening at http://%s:%s', cluster.worker.id, host, port);
