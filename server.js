@@ -35,7 +35,8 @@ if (cluster.isMaster) {
         cors = require('cors'),
         path = require('path'),
         pg = require('pg'),
-        fs = require('fs');
+        fs = require('fs'),
+        port = (process.env['NODE_ENV'] !== 'production') ? 8080: 3000;
 
     //SETUP APP
     var app = express();
@@ -801,7 +802,7 @@ if (cluster.isMaster) {
         });
     });
 
-    var server = app.listen(8080, function () {
+    var server = app.listen(port, function () {
         var host = 'localhost';
         var port = server.address().port;
         console.log('Server running on worker %d listening at http://%s:%s', cluster.worker.id, host, port);

@@ -5,11 +5,13 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "api": "nodemon -V server.js",
-    "build:dev": "./node_modules/.bin/webpack --env=dev --progress --profile --colors --watch",
-    "build:prod": "./node_modules/.bin/webpack -p --env=prod --progress --profile --colors",
-    "dev": "./node_modules/.bin/webpack-dev-server --progress --profile --colors --open --env=dev",
-    "prod": "./node_modules/.bin/webpack-dev-server --progress --profile --colors --open --env=prod"
+    "api:dev": "NODE_ENV=development nodemon -V server.js",
+    "api:prod": "NODE_ENV=production nodemon -V server.js",
+    "build:dev": "./node_modules/.bin/webpack --progress --profile --colors --watch --env=dev",
+    "build:prod": "./node_modules/.bin/webpack  -p --progress --profile --colors --env=prod",
+    "server:dev": "./node_modules/.bin/webpack-dev-server --progress --profile --colors --open --env=dev",
+    "dev": "npm run api:dev & npm run server:dev",
+    "prod": "npm run api:prod & npm run build:prod"
   },
   "repository": {
     "type": "git",
