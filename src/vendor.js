@@ -7,6 +7,7 @@ require('../bower_components/wijmo/Dist/styles/wijmo.css');
 window._ = require('lodash');
 window.jQuery = require('../bower_components/jquery/dist/jquery.js');
 window.$ = require('../bower_components/jquery/dist/jquery.js');
+require('../bower_components/jszip/dist/jszip.js');
 require('../bower_components/angular/angular.js');
 require('../bower_components/angular-ui-router/release/angular-ui-router.js');
 require('../bower_components/angular-animate/angular-animate.js');
