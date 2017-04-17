@@ -77,18 +77,28 @@ module.exports = function (env) {
             }),
             new CleanWebpackPlugin(['dist'], {
                 root: path.resolve(),
-                verbose: true,
+                verbose: false,
                 dry: false,
                 exclude: [],
                 watch: true
             }),
             new UglifyJSPlugin({
+                comments: false,
                 compress: true,
-                sourceMap: true,
-                comments: false
+                sourceMap: true, 
+                warnings: false
             }),
             new HtmlWebpackPlugin({
-                template: 'src/index.html'
+                template: 'src/index.html',
+                minify: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeAttributeQuotes: true
+                    // more options:
+                    // https://github.com/kangax/html-minifier#options-quick-reference
+                },
+                // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+                chunksSortMode: 'dependency'
             }),
             extractSass
         ]

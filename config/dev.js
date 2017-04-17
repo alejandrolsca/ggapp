@@ -77,13 +77,15 @@ module.exports = function (env) {
             }),
             new CleanWebpackPlugin(['dist'], {
                 root: path.resolve(),
-                verbose: true,
+                verbose: false,
                 dry: false,
                 exclude: [],
                 watch: true
             }),
             new HtmlWebpackPlugin({
-                template: 'src/index.html'
+                template: 'src/index.html',
+                // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+                chunksSortMode: 'dependency'
             }),
             extractSass
         ]

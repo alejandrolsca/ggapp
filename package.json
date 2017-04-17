@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "api": "nodemon -V server.js",
     "build:dev": "./node_modules/.bin/webpack --env=dev --progress --profile --colors --watch",
-    "build:prod": "./node_modules/.bin/webpack --env=prod --progress --profile --colors",
+    "build:prod": "./node_modules/.bin/webpack -p --env=prod --progress --profile --colors",
     "dev": "./node_modules/.bin/webpack-dev-server --progress --profile --colors --open --env=dev",
     "prod": "./node_modules/.bin/webpack-dev-server --progress --profile --colors --open --env=prod"
   },
