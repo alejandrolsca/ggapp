@@ -57,7 +57,7 @@ module.exports = {
                         "phone": "solo use el simbolo + al principio y numeros del 0 al 9",
                         "wo_id": "Solo se aceptan numeros enteros separados por coma."
                     },
-                    "copyright":"©2014 grupo grafico de méxico s.a. de c.v. todos los derechos reservados."
+                    "copyright":"©2017 grupo grafico de méxico s.a. de c.v. todos los derechos reservados."
                 },
                 /****************************************
                 HOME 

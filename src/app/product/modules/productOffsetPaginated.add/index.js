@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('productOffsetPaginatedAdd', {
             url:'/product/add/offset/paginated/:cl_id',
-            templateUrl : 'app/product/modules/productOffsetPaginated.add/productOffsetPaginated.add.view.html',
+            template: require('./productOffsetPaginated.add.view.html'),
             controller : 'productOffsetPaginatedAddCtrl',
             data: {
                 requiresLogin: true

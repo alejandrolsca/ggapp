@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('supplierUpdate', {
             url:'/supplier/update/:su_id',
-            templateUrl : 'app/supplier/modules/supplier.update/supplier.update.view.html',
+            template: require('./supplier.update.view.html'),
             controller : 'supplierUpdateCtrl',
             data: {
                 requiresLogin: true

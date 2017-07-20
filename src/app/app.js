@@ -1,9 +1,7 @@
-window._ = require('lodash');
-(function (angular) {
+module.exports = (function (angular) {
+    'use strict';
 
-    'use strict';// lo que sea
-
-    angular.module('app', [
+    return angular.module('app', [
         'ui.router',
         'ngAnimate',
         'ui.bootstrap',

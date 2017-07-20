@@ -13,7 +13,7 @@ module.exports = {
         "wo-linetotal": "De",
         "pr-id": "Producto",
         "wo-qty": "Cantidad",
-        "wo-packageqty": "Cantidad x paquete",
+        "wo-packageqty": "Cantidad x paquete/rollo",
         "wo-excedentqty": "Excedente",
         "wo-foliosperformat": "Folios x formato",
         "wo-foliosseries": "Serie",

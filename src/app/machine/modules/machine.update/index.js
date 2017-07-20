@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('machineUpdate', {
             url:'/machine/update/:ma_id',
-            templateUrl : 'app/machine/modules/machine.update/machine.update.view.html',
+            template: require('./machine.update.view.html'),
             controller : 'machineUpdateCtrl',
             data: {
                 requiresLogin: true

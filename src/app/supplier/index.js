@@ -10,7 +10,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('supplier', {
             url:'/supplier',
-            templateUrl : 'app/supplier/supplier.view.html',
+            template: require('./supplier.view.html'),
             controller : 'supplierCtrl',
             data: {
                 requiresLogin: true

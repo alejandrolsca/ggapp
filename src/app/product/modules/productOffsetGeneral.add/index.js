@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('productOffsetGeneralAdd', {
             url:'/product/add/offset/general/:cl_id',
-            templateUrl : 'app/product/modules/productOffsetGeneral.add/productOffsetGeneral.add.view.html',
+            template: require('./productOffsetGeneral.add.view.html'),
             controller : 'productOffsetGeneralAddCtrl',
             data: {
                 requiresLogin: true

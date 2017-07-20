@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('woDuplicate', {
             url:'/wo/duplicate/:cl_id/:wo_id',
-            templateUrl : 'app/wo/modules/wo.duplicate/wo.duplicate.view.html',
+            template: require('./wo.duplicate.view.html'),
             controller : 'woDuplicateController',
             data: {
                 requiresLogin: true

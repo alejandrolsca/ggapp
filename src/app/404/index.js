@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('404', {
             url:'/404',
-            templateUrl : 'app/404/404.view.html',
+            template: require('./404.view.html'),
             controller : '404Ctrl',
             data: {
                 requiresLogin: true

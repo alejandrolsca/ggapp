@@ -12,7 +12,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('product', {
             url:'/product/:cl_id',
-            templateUrl : 'app/product/product.view.html',
+            template: require('./product.view.html'),
             controller : 'productCtrl',
             data: {
                 requiresLogin: true

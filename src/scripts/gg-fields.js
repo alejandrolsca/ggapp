@@ -248,7 +248,7 @@
                             ctrl.$setViewValue(value);
                         };
 
-                        var required = (!value && attrs.isRequired === 'true');
+                        var required = ((!value && value !== 0) && attrs.isRequired === 'true');
                         var invalid = (!!value && !validTypes[attrs.regexp].test(value));
 
                         elem.toggleClass('has-error', (required || invalid));

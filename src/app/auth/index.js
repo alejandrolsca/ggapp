@@ -23,7 +23,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $stateProvider.state('auth', {
             url:'/auth',
-            templateUrl : 'app/auth/auth.view.html',
+            template: require('./auth.view.html'),
             controller : 'authCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]

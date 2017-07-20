@@ -8,7 +8,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('workflow', {
             url:'/workflow',
-            templateUrl : 'app/workflow/workflow.view.html',
+            template: require('./workflow.view.html'),
             controller : 'workflowController',
             data: {
                 requiresLogin: true

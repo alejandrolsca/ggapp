@@ -7,7 +7,7 @@ module.exports = (function(angular){
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('exportationInvoice', {
             url:'/einvoice/:cl_id',
-            templateUrl : 'app/exportation-invoice/exportation-invoice.view.html',
+            template: require('./exportation-invoice.view.html'),
             controller : 'exportationInvoiceCtrl',
             data: {
                 requiresLogin: true
