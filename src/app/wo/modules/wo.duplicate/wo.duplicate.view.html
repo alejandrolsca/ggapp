@@ -99,7 +99,7 @@
   
   <gg-input err-class="error"
             lbl="{{'wo-add.labels.wo-qty' | i18n}}" 
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-3"
             ng-model="fmData.wo_qty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
@@ -107,18 +107,27 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'wo-add.labels.wo-packageqty' | i18n}}" 
-            form-group-class="col-sm-4"
-            ng-model="fmData.wo_packageqty""
+            lbl="{{'wo-add.labels.wo-excedentqty' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.wo_excedentqty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'wo-add.labels.wo-excedentqty' | i18n}}" 
-            form-group-class="col-sm-4"
-            ng-model="fmData.wo_excedentqty"
+            lbl="{{'wo-add.labels.wo-packageqty' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.wo_packageqty"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'wo-add.labels.wo-boxqty' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.wo_boxqty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
             req-msg="Required"

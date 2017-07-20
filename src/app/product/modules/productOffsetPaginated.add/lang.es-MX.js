@@ -96,6 +96,7 @@ module.exports = {
                             {"label":"pulgadas","value":"in"}
                         ],
                         pr_inkfrontoptions : [
+                            {"label":"0 tintas","value":0},
                             {"label":"1 tinta","value":1},
                             {"label":"2 tintas","value":2},
                             {"label":"3 tintas","value":3},
@@ -106,6 +107,7 @@ module.exports = {
                             {"label":"8 tintas","value":8},
                         ],
                         pr_inkbackoptions : [
+                            {"label":"0 tintas","value":0},                            
                             {"label":"1 tinta","value":1},
                             {"label":"2 tintas","value":2},
                             {"label":"3 tintas","value":3},
@@ -136,10 +138,6 @@ module.exports = {
                         pr_laminatecaliberoptions : [
                             {"label":".2mm","value":"2mm"},
                             {"label":".4mm","value":"4mm"}
-                        ],
-                        pr_laminatesidesoptions : [
-                            {"label":"Una cara","value":"oneside"},
-                            {"label":"Dos caras","value":"twosides"}
                         ],pr_foliooptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
@@ -172,6 +170,7 @@ module.exports = {
                             {"label":"No","value":"no"},
                             {"label":"Si","value":"yes"},
                         ],pr_spiralbindoptions : [
+                            {"label":"No","value":"no"},
                             {"label":"Plastico","value":"plastic"},
                             {"label":"Metal","value":"metal"},
                         ],pr_blocksoptions : [
