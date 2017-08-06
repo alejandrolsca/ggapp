@@ -14,6 +14,7 @@ module.exports = {
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Alto",
                         "pr-finalsizemeasure": "Medida",
+                        "pr-sheetsperset": "Hojas por juego",
                         "pr-inkfront": "Frente",
                         "pr-inkback": "Reverso",
                         "pa-id": "ID papel",
@@ -21,20 +22,8 @@ module.exports = {
                         "pr-papersizeheight": "Alto",
                         "pr-papersizemeasure": "Medida",
                         "pr-paperformatsqty": "Formatos",
-                        "pr-varnish": "Barniz",
-                        "pr-varnishuv": "Barniz UV",
-                        "pr-varnishfinished": "Acabado",
-                        "pr-laminate": "Laminado",
-                        "pr-laminatefinished": "Acabado",
-                        "pr-laminatecaliber": "Calibre",
-                        "pr-laminatesides": "Caras",
                         "pr-folio": "Folio",
-                        "pr-foldunit1": "Estación 1",
-                        "pr-foldunit2": "Estación 2",
-                        "pr-foldunit3": "Estación 3",
-                        "pr-precut": "Precorte",                        
-                        "pr-diecutting": "Suaje",
-                        "pr-diecuttingqty": "No. Suajes",
+                        "pr-precut": "Precorte",
                         "pr-reinforcement": "Refuerzo",
                         "pr-cord": "Cordón",
                         "pr-wire": "Alámbre",
@@ -56,6 +45,7 @@ module.exports = {
                         "pr_finalsizewidth",
                         "pr_finalsizeheight",
                         "pr_finalsizemeasure",
+                        "pr_sheetsperset",
                         "pr_inkfront",
                         "pr_inkback",
                         "pa_id",
@@ -63,20 +53,8 @@ module.exports = {
                         "pr_papersizeheight",
                         "pr_papersizemeasure",
                         "pr_paperformatsqty",
-                        "pr_varnish",
-                        "pr_varnishuv",
-                        "pr_varnishfinished",
-                        "pr_laminate",
-                        "pr_laminatefinished",
-                        "pr_laminatecaliber",
-                        "pr_laminatesides",
                         "pr_folio",
-                        "pr_foldunit1",
-                        "pr_foldunit2",
-                        "pr_foldunit3",
                         "pr_precut",                        
-                        "pr_diecutting",
-                        "pr_diecuttingqty",
                         "pr_reinforcement",
                         "pr_cord",
                         "pr_wire",
@@ -93,6 +71,13 @@ module.exports = {
                         pr_finalsizemeasureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
+                        ],
+                        pr_sheetspersetoptions : [
+                            {"label":"1","value":1},
+                            {"label":"2","value":2},
+                            {"label":"3","value":3},
+                            {"label":"4","value":4},
+                            {"label":"5","value":5}
                         ],
                         pr_inkfrontoptions : [
                             {"label":"0 tintas","value":0},
@@ -119,28 +104,6 @@ module.exports = {
                         pr_papersizemeasureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
-                        ],
-                        pr_varnishoptions : [
-                            {"label":"No","value":"no"},                            
-                            {"label":"Una cara","value":"oneside"},
-                            {"label":"Dos caras","value":"twosides"}
-                        ],
-                        pr_varnisfinishedoptions : [
-                            {"label":"Mate","value":"matte"},
-                            {"label":"Brillante","value":"bright"}
-                        ],
-                        pr_laminateoptions : [
-                            {"label":"No","value":"no"},
-                            {"label":"Una cara","value":"oneside"},
-                            {"label":"Dos caras","value":"twosides"}
-                        ],
-                        pr_laminatefinishedoptions : [
-                            {"label":"Mate","value":"matte"},
-                            {"label":"Brillante","value":"bright"}
-                        ],
-                        pr_laminatecaliberoptions : [
-                            {"label":".2mm","value":"2mm"},
-                            {"label":".4mm","value":"4mm"}
                         ],pr_foliooptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}

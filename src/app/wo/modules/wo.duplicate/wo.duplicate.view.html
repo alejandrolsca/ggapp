@@ -4,7 +4,7 @@
         <span>{{ fmData| json }}</span>
     </div>
     <span ng-if="loading">Cargando...</span>
-    <form class="row col-sm-6" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+    <form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
     <gg-select err-class="error"
            lbl="{{'wo-add.labels.zo-id' | i18n}}" 
            form-group-class="col-sm-6" 
@@ -107,9 +107,9 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'wo-add.labels.wo-excedentqty' | i18n}}" 
+            lbl="{{'wo-add.labels.wo-materialqty' | i18n}}" 
             form-group-class="col-sm-3"
-            ng-model="fmData.wo_excedentqty"
+            ng-model="fmData.wo_materialqty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
             req-msg="Required"

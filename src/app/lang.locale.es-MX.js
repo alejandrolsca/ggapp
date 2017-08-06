@@ -80,6 +80,7 @@ module.exports = {
                 "productOffsetPaginated-update":{
                     "title" : "actualizar producto",
                 },
+                "productOffsetCounterfoil-add": require('./product/modules/productOffsetCounterfoil.add/lang.es-MX'),
                 /****************************************
                 SUPPLIER 
                 ****************************************/

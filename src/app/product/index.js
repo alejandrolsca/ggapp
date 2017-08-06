@@ -6,6 +6,7 @@ module.exports = (function(angular){
         require('./modules/productOffsetGeneral.update').name,
         require('./modules/productOffsetPaginated.add').name,
         //require('./modules/productOffsetPaginated.update').name
+        require('./modules/productOffsetCounterfoil.add').name,
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

@@ -28,13 +28,16 @@ module.exports = {
                         "pr-laminatecaliber": "Calibre",
                         "pr-laminatesides": "Caras",
                         "pr-folio": "Folio",
-                        "pr-precut": "Precorte",
-                        "pr-fold": "Doblez",
+                        "pr-foldunit1": "Estación 1",
+                        "pr-foldunit2": "Estación 2",
+                        "pr-foldunit3": "Estación 3",
+                        "pr-precut": "Precorte",                        
                         "pr-diecutting": "Suaje",
                         "pr-diecuttingqty": "No. Suajes",
                         "pr-reinforcement": "Refuerzo",
                         "pr-cord": "Cordón",
                         "pr-wire": "Alámbre",
+                        "pr-drill": "Perforación",
                         "pr-stapling": "Grapado",
                         "pr-bound":"Encuadernado",
                         "pr-spiralbind": "Engargolado",
@@ -71,13 +74,16 @@ module.exports = {
                         "pr_laminatecaliber",
                         "pr_laminatesides",
                         "pr_folio",
-                        "pr_precut",
-                        "pr_fold",
+                        "pr_foldunit1",
+                        "pr_foldunit2",
+                        "pr_foldunit3",
+                        "pr_precut",                        
                         "pr_diecutting",
                         "pr_diecuttingqty",
                         "pr_reinforcement",
                         "pr_cord",
                         "pr_wire",
+                        "pr_drill",
                         "pr_blocks",
                         "pr_stapling",
                         "pr_bound",
@@ -141,12 +147,19 @@ module.exports = {
                         ],pr_foliooptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
+                        ],pr_foldunitoptions : [
+                            {"label":"0","value":0},
+                            {"label":"1","value":1},
+                            {"label":"2","value":2},
+                            {"label":"3","value":3},
+                            {"label":"4","value":4},
+                            {"label":"5","value":5},
+                            {"label":"6","value":6}
                         ],pr_precutoptions : [
                             {"label":"No","value":"no"},
                             {"label":"Horizontal","value":"horizontal"},
                             {"label":"Vertical","value":"vertical"},
-                        ],pr_foldoptions : [
-                            {"label":"Triptico","value":"tryptic"},
+                            {"label":"Ambas","value":"both"},
                         ],pr_diecuttingoptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
@@ -162,6 +175,12 @@ module.exports = {
                             {"label":"No","value":"no"},
                             {"label":"Colocado","value":"allocated"},
                             {"label":"Separado","value":"separated"},
+                        ],pr_drilloptions : [
+                            {"label":"1","value":1},
+                            {"label":"2","value":2},
+                            {"label":"3","value":3},
+                            {"label":"4","value":4},
+                            {"label":"5","value":5}
                         ],pr_staplingoptions : [
                             {"label":"No","value":"no"},
                             {"label":"Una grapa","value":"1"},
