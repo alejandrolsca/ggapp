@@ -1,5 +1,5 @@
 <div class="col-sm-12">
-    <h4>{{'productOffsetGeneral-add.title' | i18n}}</h4>
+    <h4>{{'productOffsetCounterfoil-add.title' | i18n}}</h4>
     <h4>Processo: {{fmData.pr_process}}</h4>
     <h4>Tipo: {{fmData.pr_type}}</h4>
     <h4>Tipo: {{fmData | json}}</h4>
@@ -9,7 +9,7 @@
 <form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
     
   <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-partno' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-partno' | i18n}}" 
             form-group-class="col-sm-3"
             ng-model="fmData.pr_partno"
             regexp="partno"
@@ -18,7 +18,7 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-code' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-code' | i18n}}" 
             form-group-class="col-sm-3"
             ng-model="fmData.pr_code"
             regexp="prcode"
@@ -26,7 +26,7 @@
             >
   </gg-input>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-language' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-language' | i18n}}" 
            form-group-class="col-sm-3" 
            options="pr_languageoptions" 
            ng-model="fmData.pr_language"
@@ -36,7 +36,7 @@
            is-required="true">
   </gg-select>
   <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-weight' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-weight' | i18n}}" 
             form-group-class="col-sm-3"
             ng-model="fmData.pr_weight"
             regexp="decimal"
@@ -45,7 +45,7 @@
             is-required="true">
   </gg-input>
     <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-name' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-name' | i18n}}" 
             form-group-class="col-sm-12"
             ng-model="fmData.pr_name"
             regexp="singlespaces"
@@ -54,7 +54,7 @@
             is-required="true">
   </gg-input>
   <gg-textarea err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-description' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-description' | i18n}}" 
             form-group-class="col-sm-12"
             ng-model="fmData.pr_description"
             regexp="singlespaces"
@@ -65,7 +65,7 @@
   </gg-textarea>
   <label class="col-sm-12 fieldset">TAMAÑO FINAL</label>
   <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-finalsizewidth' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-finalsizewidth' | i18n}}" 
             form-group-class="col-sm-4"
             ng-model="fmData.pr_finalsizewidth"
             regexp="decimal"
@@ -74,7 +74,7 @@
             is-required="true">
   </gg-input>
     <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-finalsizeheight' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-finalsizeheight' | i18n}}" 
             form-group-class="col-sm-4"
             ng-model="fmData.pr_finalsizeheight"
             regexp="decimal"
@@ -83,7 +83,7 @@
             is-required="true">
   </gg-input>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-finalsizemeasure' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-finalsizemeasure' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_finalsizemeasureoptions" 
            ng-model="fmData.pr_finalsizemeasure"
@@ -92,24 +92,36 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <label class="col-sm-12 fieldset">TINTAS</label>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-inkfront' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-sheetsperset' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_sheetspersetoptions" 
+           ng-model="fmData.pr_sheetsperset"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+<span ng-repeat="t in sheetsperset track by $index" ng-init="sheetIndex = $index">
+  <label class="col-sm-12 fieldset">TINTAS {{sheetIndex + 1}}</label>
+  <gg-select err-class="error"
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-inkfront' | i18n}}" 
            form-group-class="col-sm-3" 
            options="pr_inkfrontoptions" 
-           ng-model="fmData.pr_inkfront"
+           ng-model="fmData.pr_inkfront[sheetIndex]"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            is-required="true">
   </gg-select>
+  
   <div class="col-sm-12">
-      <span ng-repeat="t in frontInks track by $index">
+      <span ng-repeat="t in frontInks[sheetIndex] track by $index">
           <gg-select err-class="error"
                    lbl="Tinta {{$index+1}}" 
                    form-group-class="col-sm-3" 
                    options="pr_inkoptions" 
-                   ng-model="fmData['pr_inksfront'][$index]"
+                   ng-model="fmData['pr_inksfront'][sheetIndex][$index]"
                    regexp="singlespaces"
                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
                    req-msg="Required"
@@ -118,22 +130,22 @@
       </span>
   </div>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-inkback' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-inkback' | i18n}}" 
            form-group-class="col-sm-3" 
            options="pr_inkbackoptions" 
-           ng-model="fmData.pr_inkback"
+           ng-model="fmData.pr_inkback[sheetIndex]"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            is-required="true">
   </gg-select>
   <div class="col-sm-12">
-      <span ng-repeat="t in backInks track by $index">
+      <span ng-repeat="t in backInks[sheetIndex] track by $index">
           <gg-select err-class="error"
                    lbl="Tinta {{$index+1}}" 
                    form-group-class="col-sm-3" 
                    options="pr_inkoptions" 
-                   ng-model="fmData['pr_inksback'][$index]"
+                   ng-model="fmData['pr_inksback'][sheetIndex][$index]"
                    regexp="singlespaces"
                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
                    req-msg="Required"
@@ -141,25 +153,28 @@
           </gg-select>
       </span>
   </div>
-  <label class="col-sm-12 fieldset">PAPEL</label>
+  <label class="col-sm-12 fieldset">PAPEL {{sheetIndex + 1}}</label>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pa-id' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pa-id' | i18n}}" 
            form-group-class="col-sm-6" 
            options="pa_idoptions" 
-           ng-model="fmData.pa_id"
+           ng-model="fmData.pa_id[sheetIndex]"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <div class="col-sm-12" ng-repeat="paper in pa_idoptions | filter:{'value':fmData.pa_id}">
+  <span ng-if="fmData.pa_id[sheetIndex]">
+  <div class="col-sm-12" ng-repeat="paper in pa_idoptions | filter:{'value':fmData.pa_id[sheetIndex]}">
     <p class="field-info bg-success">
         {{paper.width}} x {{paper.height}} {{paper.measure}}
     </p>
   </div>
+  </span>
+</span>
   <label class="col-sm-12 fieldset">MEDIDA DEL PLIEGO</label>
   <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-paperformatsqty' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-paperformatsqty' | i18n}}" 
             form-group-class="col-sm-3"
             ng-model="fmData.pr_paperformatsqty"
             regexp="integer"
@@ -168,7 +183,7 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-papersizewidth' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-papersizewidth' | i18n}}" 
             form-group-class="col-sm-3"
             ng-model="fmData.pr_papersizewidth"
             regexp="decimal"
@@ -177,7 +192,7 @@
             is-required="true">
   </gg-input>
     <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-papersizeheight' | i18n}}" 
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-papersizeheight' | i18n}}" 
             form-group-class="col-sm-3"
             ng-model="fmData.pr_papersizeheight"
             regexp="decimal"
@@ -186,7 +201,7 @@
             is-required="true">
   </gg-input>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-papersizemeasure' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-papersizemeasure' | i18n}}" 
            form-group-class="col-sm-3" 
            options="pr_papersizemeasureoptions" 
            ng-model="fmData.pr_papersizemeasure"
@@ -195,92 +210,9 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <label class="col-sm-12 fieldset">BARNIZ</label>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-varnish' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_varnishoptions" 
-           ng-model="fmData.pr_varnish"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-varnishfinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_varnisfinishedoptions" 
-           ng-model="fmData.pr_varnishfinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <label class="col-sm-12 fieldset">LAMINADO</label>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-laminate' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminateoptions" 
-           ng-model="fmData.pr_laminate"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-laminatefinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatefinishedoptions" 
-           ng-model="fmData.pr_laminatefinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-laminatecaliber' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatecaliberoptions" 
-           ng-model="fmData.pr_laminatecaliber"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <label class="col-sm-12 fieldset">DOBLEZ</label>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-foldunit1' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_foldunitoptions" 
-           ng-model="fmData.pr_foldunit1"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-foldunit2' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_foldunitoptions" 
-           ng-model="fmData.pr_foldunit2"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-foldunit3' | i18n}}" 
-            form-group-class="col-sm-4" 
-            options="pr_foldunitoptions" 
-            ng-model="fmData.pr_foldunit3"
-            regexp="singlespaces"
-            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-select>
   <label class="col-sm-12 fieldset">OTROS ACABADOS</label>
    <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-precut' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-precut' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_precutoptions" 
            ng-model="fmData.pr_precut"
@@ -289,17 +221,8 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-diecuttingqty' | i18n}}" 
-            form-group-class="col-sm-4"
-            ng-model="fmData.pr_diecuttingqty"
-            regexp="integer"
-            regexp-msg="{{'general.regexp.integer' | i18n}}"
-            req-msg="Requi∫red"
-            is-required="true">
-  </gg-input>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-reinforcement' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-reinforcement' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_reinforcementoptions" 
            ng-model="fmData.pr_reinforcement"
@@ -309,7 +232,7 @@
            is-required="true">
   </gg-select>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-cord' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-cord' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_cordoptions" 
            ng-model="fmData.pr_cord"
@@ -319,7 +242,7 @@
            is-required="true">
   </gg-select>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-wire' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-wire' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_wireoptions" 
            ng-model="fmData.pr_wire"
@@ -329,7 +252,7 @@
            is-required="true">
   </gg-select>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-drill' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-drill' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_drilloptions" 
            ng-model="fmData.pr_drill"
@@ -340,7 +263,7 @@
   </gg-select>
   <label class="col-sm-12 fieldset">NUMERACION Y BLOCKS</label>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-folio' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-folio' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_foliooptions" 
            ng-model="fmData.pr_folio"
@@ -350,7 +273,7 @@
            is-required="true">
   </gg-select>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-blocks' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-blocks' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_blocksoptions" 
            ng-model="fmData.pr_blocks"
@@ -360,7 +283,7 @@
            is-required="true">
   </gg-select>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-status' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-status' | i18n}}" 
            form-group-class="col-sm-4" 
            options="pr_statusoptions" 
            ng-model="fmData.pr_status"

@@ -78,6 +78,7 @@ module.exports = (function (angular) {
                                     $scope.prinfo = true;
                                     $scope.product = product[0];
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
+                                    $scope.paginatedExcedent = (product[0]['pr_jsonb']['pr_process'] === 'offset' && product[0]['pr_jsonb']['pr_type'] === 'paginated') ? true : false;
                                 }
                             }
                         }

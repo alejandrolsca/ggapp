@@ -4,7 +4,7 @@ module.exports = (function (angular) {
     return ['$scope', 'woAddFactory', '$stateParams', 'i18nFilter', '$filter', '$location',
         function ($scope, woAddFactory, $stateParams, i18nFilter, $filter, $location) {
             $scope.fmData = {};
-            //$scope.fmData = {"zo_id": "2", "wo_orderedby": "Alejandro", "wo_attention": "Marco", "ma_id": 1, "wo_release": "rel001", "wo_po": "ABC001", "wo_line": "1", "wo_linetotal": "4", "pr_id": "15", "wo_qty": "100", "wo_packageqty": "10", "wo_excedentqty": "10", "wo_foliosperformat": 1, "wo_foliosseries": "A", "wo_foliosfrom": "1", "wo_foliosto": "100", "wo_commitmentdate": "2016-07-01", "wo_notes": "Esta es una orden de prueba", "wo_price": "99.99", "wo_currency": "DLLS", "wo_email": "yes" };
+            //$scope.fmData = {"zo_id": "2", "wo_orderedby": "Alejandro", "wo_attention": "Marco", "ma_id": 1, "wo_release": "rel001", "wo_po": "ABC001", "wo_line": "1", "wo_linetotal": "4", "pr_id": "15", "wo_qty": "100", "wo_packageqty": "10", "wo_materialqty": "10", "wo_foliosperformat": 1, "wo_foliosseries": "A", "wo_foliosfrom": "1", "wo_foliosto": "100", "wo_commitmentdate": "2016-07-01", "wo_notes": "Esta es una orden de prueba", "wo_price": "99.99", "wo_currency": "DLLS", "wo_email": "yes" };
             $scope.fmData.wo_type = "N"; //N-new,R-rep,C-change
             $scope.fmData.wo_status = 0; //0-Active
             $scope.fmData.cl_id = $stateParams.cl_id;
@@ -66,6 +66,16 @@ module.exports = (function (angular) {
                     $scope.$watch(
                         "fmData.pr_id",
                         function prChange(newValue, oldValue) {
+                            $scope.fmData.wo_qty = undefined;
+                            $scope.fmData.wo_boxqty = undefined;
+                            $scope.fmData.wo_materialcoverqty = undefined;
+                            $scope.fmData.wo_materialinteriorqty = undefined;
+                            $scope.fmData.wo_materialqty = undefined;
+                            $scope.fmData.wo_packageqty = undefined;
+                            $scope.fmData.wo_foliosperformat = undefined;
+                            $scope.fmData.wo_foliosseries = undefined;
+                            $scope.fmData.wo_foliosfrom = undefined;
+                            $scope.fmData.wo_foliosto = undefined;
                             if (newValue !== undefined) {
                                 var product = $filter('filter')(rows, { "pr_id": newValue }, true);
                                 if (product.length !== 1) {
@@ -75,6 +85,7 @@ module.exports = (function (angular) {
                                     $scope.prinfo = true;
                                     $scope.product = product[0];
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
+                                    $scope.paginatedExcedent = (product[0]['pr_jsonb']['pr_process'] === 'offset' && product[0]['pr_jsonb']['pr_type'] === 'paginated') ? true : false;
                                 }
                             }
                         }

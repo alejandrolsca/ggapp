@@ -9,7 +9,7 @@ module.exports = {
                             {"label":"Offset","value":"offset",types:[
                                 {"label":"General","value":"general"},   
                                 {"label":"Paginados","value":"paginated"},   
-                                {"label":"counterfoil","value":"counterfoil"},   
+                                {"label":"Talonario","value":"counterfoil"},   
                             ]},
                             {"label":"Flexo","value":"flexo",types:[
                                 {"label":"Etiquetas","value":"labels"},   
