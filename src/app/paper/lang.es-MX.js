@@ -6,9 +6,9 @@ module.exports = {
                         "pa-code":"Codigo",
                         "pa-type":"Tipo",
                         "pa-description":"Descripción",
-                        "pa-weight":"Peso",
+                        "pa-weight":"Peso (kg)",
                         "pa-width":"Ancho",
-                        "pa-height":"Altura",
+                        "pa-height":"Largo",
                         "pa-measure":"Medida",
                         "pa-price":"Precio",
                         "pa-status":"Estatus",
@@ -42,6 +42,7 @@ module.exports = {
                             {"label":"Plasticos","value":"plastics"},
                             {"label":"Termal Transfer","value":"termal transfer"},
                             {"label":"Direct Termal","value":"direct_termal"},
+                            {"label":"Ribbon","value":"ribbon"},
                             {"label":"Otros","value":"other"}
                         ],
                         pa_measureoptions : [

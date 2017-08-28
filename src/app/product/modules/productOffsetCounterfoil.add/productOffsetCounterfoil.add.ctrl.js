@@ -58,14 +58,13 @@ module.exports = (function (angular) {
                     console.log('frontSet', $scope.frontSet, 'backSet', $scope.backSet)
                 }
             });
-
+            $scope.frontInks = {};
             $scope.$watchCollection('frontSet', function (newValues, oldValues) {
                 if (newValues !== undefined) {
                     newValues.forEach(function (value, index) {
                         $scope.$watch(value, function (newValue, oldValue) {
-                            if (newValue !== undefined) {
-                                console.log('entro')
-                                $scope.frontInks = {};
+                            console.log(value, index)
+                            if (newValue !== undefined) {                              
                                 $scope.frontInks[index] = new Array(newValue);
                                 if ($scope.fmData.pr_inksfront) {
                                     for (var i = 0; i < oldValue; i++) {
@@ -77,13 +76,12 @@ module.exports = (function (angular) {
                     })
                 }
             })
-
+            $scope.backInks = {};
             $scope.$watchCollection('backSet', function (newValues, oldValues) {
-                if (newValues !== undefined) {
+                if (newValues !== undefined) {                   
                     newValues.forEach(function (value, index) {
                         $scope.$watch(value, function (newValue, oldValue) {
-                            if (newValue !== undefined) {
-                                $scope.backInks = {};
+                            if (newValue !== undefined) {                                                            
                                 $scope.backInks[index] = new Array(newValue);
                                 if ($scope.fmData.pr_inksback) {
                                     for (var i = 0; i < oldValue; i++) {

@@ -174,15 +174,6 @@
 </span>
   <label class="col-sm-12 fieldset">MEDIDA DEL PLIEGO</label>
   <gg-input err-class="error"
-            lbl="{{'productOffsetCounterfoil-add.labels.pr-paperformatsqty' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_paperformatsqty"
-            regexp="integer"
-            regexp-msg="{{'general.regexp.integer' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-  <gg-input err-class="error"
             lbl="{{'productOffsetCounterfoil-add.labels.pr-papersizewidth' | i18n}}" 
             form-group-class="col-sm-3"
             ng-model="fmData.pr_papersizewidth"
@@ -210,6 +201,15 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <gg-input err-class="error"
+            lbl="{{'productOffsetCounterfoil-add.labels.pr-paperformatsqty' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_paperformatsqty"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
   <label class="col-sm-12 fieldset">OTROS ACABADOS</label>
    <gg-select err-class="error"
            lbl="{{'productOffsetCounterfoil-add.labels.pr-precut' | i18n}}" 
