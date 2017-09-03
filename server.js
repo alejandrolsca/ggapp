@@ -214,7 +214,7 @@ if (cluster.isMaster) {
     });
 
     /*PAPER*/
-
+    
     app.post('/api/paper/pa_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
@@ -475,6 +475,23 @@ if (cluster.isMaster) {
         })
     });
 
+    app.post('/api/product/flexo/ribbons/paper', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('product/product:flexo:ribbons:paper'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        })
+    });
+
     /* WO */
     app.post('/api/wo/cl_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
@@ -508,6 +525,7 @@ if (cluster.isMaster) {
             });
         });
     });
+
     app.post('/api/wo/cl_id/wo_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
@@ -524,6 +542,7 @@ if (cluster.isMaster) {
             });
         });
     });
+
     app.post('/api/wo/cl_id/wo_po', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
@@ -540,6 +559,7 @@ if (cluster.isMaster) {
             });
         });
     });
+
     app.post('/api/wo/wo_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
@@ -678,7 +698,6 @@ if (cluster.isMaster) {
     });
 
     /* MACHINE */
-
      app.post('/api/machine/ma_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {

@@ -7,6 +7,10 @@ module.exports = (function(angular){
         require('./modules/productOffsetPaginated.add').name,
         //require('./modules/productOffsetPaginated.update').name
         require('./modules/productOffsetCounterfoil.add').name,
+        require('./modules/productFlexoLabels.add').name,
+        require('./modules/productFlexoRibbons.add').name,
+        require('./modules/productPlotterLabels.add').name,        
+        require('./modules/productPlotterSignage.add').name,        
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

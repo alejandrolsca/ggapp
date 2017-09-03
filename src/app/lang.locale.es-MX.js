@@ -81,6 +81,10 @@ module.exports = {
                     "title" : "actualizar producto",
                 },
                 "productOffsetCounterfoil-add": require('./product/modules/productOffsetCounterfoil.add/lang.es-MX'),
+                "productFlexoLabels-add": require('./product/modules/productFlexoLabels.add/lang.es-MX'),
+                "productFlexoRibbons-add": require('./product/modules/productFlexoRibbons.add/lang.es-MX'),
+                "productPlotterLabels-add": require('./product/modules/productPlotterLabels.add/lang.es-MX'),                
+                "productPlotterSignage-add": require('./product/modules/productPlotterSignage.add/lang.es-MX'),                
                 /****************************************
                 SUPPLIER 
                 ****************************************/
