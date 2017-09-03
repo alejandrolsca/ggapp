@@ -13,10 +13,9 @@ module.exports = {
                             ]},
                             {"label":"Flexo","value":"flexo",types:[
                                 {"label":"Etiquetas","value":"labels"},   
-                                {"label":"Ribbons","value":"ribbons"},   
-                                {"label":"counterfoil","value":"offset"},   
+                                {"label":"Ribbons","value":"ribbons"}
                             ]},
-                            {"label":"Ploter","value":"plotter",types:[
+                            {"label":"Plotter","value":"plotter",types:[
                                 {"label":"Etiquetas","value":"labels"},   
                                 {"label":"Señalización","value":"signage"},   
                                 {"label":"Banners","value":"banners"},   
