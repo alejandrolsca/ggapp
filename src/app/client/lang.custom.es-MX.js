@@ -16,10 +16,10 @@ module.exports = {
                                 {"label":"Ribbons","value":"ribbons"}
                             ]},
                             {"label":"Plotter","value":"plotter",types:[
+                                {"label":"General","value":"general"},   
                                 {"label":"Etiquetas","value":"labels"},   
                                 {"label":"Señalización","value":"signage"},   
-                                {"label":"Banners","value":"banners"},   
-                                {"label":"Articulos","value":"Articles"},   
+                                {"label":"Banners","value":"banner"}
                             ]},
                             {"label":"Sellos","value":"seals",types:[
                                 {"label":"Goma","value":"rubber"},   
@@ -29,10 +29,10 @@ module.exports = {
                                 {"label":"Tinta","value":"ink"},   
                             ]},
                             {"label":"Serigrafía","value":"serigraphy",types:[
+                                {"label":"General","value":"general"},
                                 {"label":"Etiquetas","value":"labels"},   
                                 {"label":"Señalización","value":"signage"},   
-                                {"label":"Banners","value":"banners"},   
-                                {"label":"Articulos","value":"Articles"},   
+                                {"label":"Banners","value":"banners"}
                             ]},
                             {"label":"Laser","value":"laser",types:[
                                 {"label":"Laser","value":"laser"},     

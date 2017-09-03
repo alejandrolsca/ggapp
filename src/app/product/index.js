@@ -11,6 +11,8 @@ module.exports = (function(angular){
         require('./modules/productFlexoRibbons.add').name,
         require('./modules/productPlotterLabels.add').name,        
         require('./modules/productPlotterSignage.add').name,        
+        require('./modules/productPlotterBanner.add').name,        
+        require('./modules/productPlotterGeneral.add').name,        
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',
