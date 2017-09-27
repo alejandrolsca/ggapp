@@ -16,7 +16,6 @@ module.exports = {
                                 {"label":"Ribbons","value":"ribbons"}
                             ]},
                             {"label":"Plotter","value":"plotter",types:[
-                                {"label":"General","value":"general"},   
                                 {"label":"Etiquetas","value":"labels"},   
                                 {"label":"Señalización","value":"signage"},   
                                 {"label":"Banners","value":"banner"}
