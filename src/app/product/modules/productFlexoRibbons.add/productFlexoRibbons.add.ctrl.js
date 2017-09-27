@@ -5,8 +5,8 @@ module.exports = (function (angular) {
         function ($scope, productFlexoRibbonsAddFac, $location, i18nFilter, $stateParams) {
             $scope.fmData = {};
             $scope.fmData = { "cl_id": "8", "pa_id": "1", "pr_code": "test123", "pr_cord": "allocated", "pr_fold": "tryptic", "pr_name": "Producto de prueba", "pr_type": "general", "pr_wire": "allocated", "pr_folio": "yes", "pr_blocks": "100", "pr_partno": "TEST-ASA.asas: 23,34", "pr_precut": "horizontal", "pr_status": "A", "pr_weight": "0.25", "pr_inkback": 2, "pr_process": "offset", "pr_varnish": "yes", "pr_inkfront": 2, "pr_inksback": { "0": "5", "1": "3" }, "pr_laminate": "yes", "pr_language": "español", "pr_inksfront": { "0": "2", "1": "2" }, "pr_varnishuv": "oneside", "pr_diecutting": "yes", "pr_description": "este es un producto de prueba", "pr_diecuttingqty": "5", "pr_reinforcement": "one", "pr_finalsizewidth": "100.00", "pr_papersizewidth": "100.00", "pr_finalsizeheight": "200.00", "pr_laminatecaliber": "2mm", "pr_paperformatsqty": "123", "pr_papersizeheight": "200.00", "pr_varnishfinished": "matte", "pr_finalsizemeasure": "cm", "pr_laminatefinished": "matte", "pr_papersizemeasure": "cm" };          
-            $scope.fmData.pr_process = 'offset';
-            $scope.fmData.pr_type = 'general';
+            $scope.fmData.pr_process = 'flexo';
+            $scope.fmData.pr_type = 'ribbons';
             $scope.fmData.cl_id = $stateParams.cl_id;
 
             $scope.onSubmit = function () {

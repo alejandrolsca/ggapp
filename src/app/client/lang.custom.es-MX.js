@@ -16,8 +16,8 @@ module.exports = {
                                 {"label":"Ribbons","value":"ribbons"}
                             ]},
                             {"label":"Plotter","value":"plotter",types:[
-                                {"label":"Etiquetas","value":"labels"},   
-                                {"label":"Señalización","value":"signage"},   
+                                {"label":"Flexibles","value":"flexibles"},   
+                                {"label":"Rigidos","value":"rigid"},   
                                 {"label":"Banners","value":"banner"}
                             ]},
                             {"label":"Sellos","value":"seals",types:[

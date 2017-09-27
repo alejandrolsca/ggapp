@@ -1,17 +1,17 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'productPlotterLabelsAddFac', '$location', 'i18nFilter', '$stateParams',
-        function ($scope, productPlotterLabelsAddFac, $location, i18nFilter, $stateParams) {
+    return ['$scope', 'productPlotterRigidAddFac', '$location', 'i18nFilter', '$stateParams',
+        function ($scope, productPlotterRigidAddFac, $location, i18nFilter, $stateParams) {
             $scope.fmData = {};
             $scope.fmData = { "cl_id": "8", "pa_id": "1", "pr_code": "test123", "pr_cord": "allocated", "pr_fold": "tryptic", "pr_name": "Producto de prueba", "pr_type": "general", "pr_wire": "allocated", "pr_folio": "yes", "pr_blocks": "100", "pr_partno": "TEST-ASA.asas: 23,34", "pr_precut": "horizontal", "pr_status": "A", "pr_weight": "0.25", "pr_inkback": 2, "pr_process": "offset", "pr_varnish": "yes", "pr_inkfront": 2, "pr_inksback": { "0": "5", "1": "3" }, "pr_laminate": "yes", "pr_language": "español", "pr_inksfront": { "0": "2", "1": "2" }, "pr_varnishuv": "oneside", "pr_diecutting": "yes", "pr_description": "este es un producto de prueba", "pr_diecuttingqty": "5", "pr_reinforcement": "one", "pr_finalsizewidth": "100.00", "pr_papersizewidth": "100.00", "pr_finalsizeheight": "200.00", "pr_laminatecaliber": "2mm", "pr_paperformatsqty": "123", "pr_papersizeheight": "200.00", "pr_varnishfinished": "matte", "pr_finalsizemeasure": "cm", "pr_laminatefinished": "matte", "pr_papersizemeasure": "cm" };          
-            $scope.fmData.pr_process = 'flexo';
-            $scope.fmData.pr_type = 'labels';
+            $scope.fmData.pr_process = 'plotter';
+            $scope.fmData.pr_type = 'rigid';
             $scope.fmData.cl_id = $stateParams.cl_id;
 
             $scope.onSubmit = function () {
 
-                productPlotterLabelsAddFac.add($scope.fmData).then(function (promise) {
+                productPlotterRigidAddFac.add($scope.fmData).then(function (promise) {
                     if (promise.data.rowCount === 1) {
                         $location.path('/product/'+$stateParams.cl_id);
                     } else {
@@ -20,21 +20,22 @@ module.exports = (function (angular) {
                 });
             };
 
-            $scope.pr_languageoptions = i18nFilter("productPlotterLabels-add.fields.pr_languageoptions");            
-            $scope.pr_finalsizemeasureoptions = i18nFilter("productPlotterLabels-add.fields.pr_finalsizemeasureoptions");
-            $scope.pr_inkfrontoptions = i18nFilter("productPlotterLabels-add.fields.pr_inkfrontoptions");
-            $scope.pr_inkbackoptions = i18nFilter("productPlotterLabels-add.fields.pr_inkbackoptions");
-            $scope.pr_papersizemeasureoptions = i18nFilter("productPlotterLabels-add.fields.pr_papersizemeasureoptions");
-            $scope.pr_varnishoptions = i18nFilter("productPlotterLabels-add.fields.pr_varnishoptions");
-            $scope.pr_varnisfinishedoptions = i18nFilter("productPlotterLabels-add.fields.pr_varnisfinishedoptions");
-            $scope.pr_laminateoptions = i18nFilter("productPlotterLabels-add.fields.pr_laminateoptions");
-            $scope.pr_laminatefinishedoptions = i18nFilter("productPlotterLabels-add.fields.pr_laminatefinishedoptions");
-            $scope.pr_laminatecaliberoptions = i18nFilter("productPlotterLabels-add.fields.pr_laminatecaliberoptions");
-            $scope.pr_foliooptions = i18nFilter("productPlotterLabels-add.fields.pr_foliooptions");
-            $scope.pr_precutoptions = i18nFilter("productPlotterLabels-add.fields.pr_precutoptions");
-            $scope.pr_transferoptions = i18nFilter("productPlotterLabels-add.fields.pr_transferoptions");
-            $scope.pr_blocksoptions = i18nFilter("productPlotterLabels-add.fields.pr_blocksoptions");
-            $scope.pr_statusoptions = i18nFilter("productPlotterLabels-add.fields.pr_statusoptions");
+            $scope.pr_languageoptions = i18nFilter("productPlotterRigid-add.fields.pr_languageoptions");            
+            $scope.pr_finalsizemeasureoptions = i18nFilter("productPlotterRigid-add.fields.pr_finalsizemeasureoptions");
+            $scope.pr_inkfrontoptions = i18nFilter("productPlotterRigid-add.fields.pr_inkfrontoptions");
+            $scope.pr_inkbackoptions = i18nFilter("productPlotterRigid-add.fields.pr_inkbackoptions");
+            $scope.pr_papersizemeasureoptions = i18nFilter("productPlotterRigid-add.fields.pr_papersizemeasureoptions");
+            $scope.pr_varnishoptions = i18nFilter("productPlotterRigid-add.fields.pr_varnishoptions");
+            $scope.pr_varnisfinishedoptions = i18nFilter("productPlotterRigid-add.fields.pr_varnisfinishedoptions");
+            $scope.pr_laminateoptions = i18nFilter("productPlotterRigid-add.fields.pr_laminateoptions");
+            $scope.pr_laminatefinishedoptions = i18nFilter("productPlotterRigid-add.fields.pr_laminatefinishedoptions");
+            $scope.pr_laminatecaliberoptions = i18nFilter("productPlotterRigid-add.fields.pr_laminatecaliberoptions");
+            $scope.pr_foliooptions = i18nFilter("productPlotterRigid-add.fields.pr_foliooptions");
+            $scope.pr_printedlabeledoptions = i18nFilter("productPlotterRigid-add.fields.pr_printedlabeledoptions");
+            $scope.pr_rivetoptions = i18nFilter("productPlotterRigid-add.fields.pr_rivetoptions");
+            $scope.pr_doublesidedoptions = i18nFilter("productPlotterRigid-add.fields.pr_doublesidedoptions");
+            $scope.pr_blocksoptions = i18nFilter("productPlotterRigid-add.fields.pr_blocksoptions");
+            $scope.pr_statusoptions = i18nFilter("productPlotterRigid-add.fields.pr_statusoptions");
         
             // create front ink fields
             $scope.$watch('fmData.pr_inkfront', function (newValue, oldValue) {
@@ -59,14 +60,14 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 
-                productPlotterLabelsAddFac.getClient().then(function (promise) {
+                productPlotterRigidAddFac.getClient().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isObject(promise.data)) {
                         $scope.client = promise.data;
                     }
                 });
 
-                productPlotterLabelsAddFac.getInks().then(function (promise) {
+                productPlotterRigidAddFac.getInks().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pr_inkoptions = [];
                         angular.forEach(promise.data, function (value, key) {
@@ -77,7 +78,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productPlotterLabelsAddFac.getPapers().then(function (promise) {
+                productPlotterRigidAddFac.getPapers().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pa_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
