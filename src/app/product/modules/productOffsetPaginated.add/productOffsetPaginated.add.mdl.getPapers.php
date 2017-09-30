@@ -6,14 +6,14 @@ $pgsql->beginTransaction();
 $result = $pgsql
         ->prepare("select
                         *
-                    from  public.paper, 
-                    jsonb_to_record(pa_jsonb, true) as x (
-                        pa_code text,
-                        pa_width text,
-                        pa_height text,
-                        pa_measure text
+                    from  public.material, 
+                    jsonb_to_record(mt_jsonb, true) as x (
+                        mt_code text,
+                        mt_width text,
+                        mt_height text,
+                        mt_measure text
                     )
-                    where pa_jsonb->>'pa_status'='A';")
+                    where mt_jsonb->>'mt_status'='A';")
         ->execute()
         ->fetchAll();
 $pgsql->commit();

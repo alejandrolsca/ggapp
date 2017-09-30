@@ -19,7 +19,7 @@ module.exports = (function (angular) {
         require('./product').name,
         require('./supplier').name,
         require('./machine').name,
-        require('./paper').name,
+        require('./material').name,
         require('./ink').name,
         require('./wo').name,
         require('./zone').name,

@@ -1,17 +1,17 @@
 select
     *
-from  public.paper, 
-jsonb_to_record(pa_jsonb) as x (
+from  public.material, 
+jsonb_to_record(mt_jsonb) as x (
     su_id text,
-    pa_code text,
-    pa_type text,
-    pa_description text,
-    pa_width text,
-    pa_height text,
-    pa_weight text,
-    pa_measure text,
-    pa_price text,
-    pa_status text
+    mt_code text,
+    mt_type text,
+    mt_description text,
+    mt_width text,
+    mt_height text,
+    mt_weight text,
+    mt_measure text,
+    mt_price text,
+    mt_status text
 )
-where pa_jsonb->>'pa_type'='ribbon' and
-pa_jsonb->>'pa_status'='A';
+where mt_jsonb->>'mt_type'='ribbon' and
+mt_jsonb->>'mt_status'='A';

@@ -20,10 +20,8 @@ module.exports = {
                                 {"label":"Rigidos","value":"rigid"},   
                                 {"label":"Banners","value":"banner"}
                             ]},
-                            {"label":"Sellos","value":"seals",types:[
-                                {"label":"Goma","value":"rubber"},   
-                                {"label":"Moldura","value":"molding"},   
-                                {"label":"Autoentintable","value":"self_tintable"},   
+                            {"label":"Sellos","value":"stamps",types:[
+                                {"label":"General","value":"general"}, 
                                 {"label":"Cojin","value":"pad"},   
                                 {"label":"Tinta","value":"ink"},   
                             ]},

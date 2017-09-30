@@ -42,7 +42,7 @@ module.exports = {
                     },
                     "regexp":{
                         "singlespaces": "sin espacios dobles ni caracteres especiales.",
-                        "papercode": "sin espacios ni caracteres especiales",
+                        "materialcode": "sin espacios ni caracteres especiales",
                         "inkcode": "sin espacios ni caracteres especiales",
                         "machinetotalinks": "minimo 1 maximo 8",
                         "rfc": "XXXX-######[-XXX]",
@@ -86,6 +86,7 @@ module.exports = {
                 "productPlotterFlexibles-add": require('./product/modules/productPlotterFlexibles.add/lang.es-MX'),                
                 "productPlotterRigid-add": require('./product/modules/productPlotterRigid.add/lang.es-MX'),                
                 "productPlotterBanner-add": require('./product/modules/productPlotterBanner.add/lang.es-MX'),            
+                "productStampsGeneral-add": require('./product/modules/productStampsGeneral.add/lang.es-MX'),                
                 /****************************************
                 SUPPLIER 
                 ****************************************/
@@ -93,11 +94,11 @@ module.exports = {
                 "supplier-add": require('./supplier/modules/supplier.add/lang.es-MX'),
                 "supplier-update": require('./supplier/modules/supplier.update/lang.es-MX'),
                 /****************************************
-                PAPER 
+                MATERIAL 
                 ****************************************/
-                "paper": require('./paper/lang.es-MX'),
-                "paper-add": require('./paper/modules/paper.add/lang.es-MX'),
-                "paper-update": require('./paper/modules/paper.update/lang.es-MX'),
+                "material": require('./material/lang.es-MX'),
+                "material-add": require('./material/modules/material.add/lang.es-MX'),
+                "material-update": require('./material/modules/material.update/lang.es-MX'),
                 /****************************************
                 MACHINE 
                 ****************************************/

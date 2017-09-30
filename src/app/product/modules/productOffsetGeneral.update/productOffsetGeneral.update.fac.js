@@ -48,10 +48,10 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
-        factory.getPapers = function () {
+        factory.getMaterials = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/offset/general/paper', {
+                $http.post('/api/product/offset/general/material', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds()
                 }).success(function (data, status, headers, config) {

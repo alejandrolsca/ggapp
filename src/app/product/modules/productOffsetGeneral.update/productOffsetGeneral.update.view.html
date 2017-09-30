@@ -141,55 +141,55 @@
           </gg-select>
       </span>
   </div>
-  <label class="col-sm-12 fieldset">PAPEL</label>
+  <label class="col-sm-12 fieldset">MATERIAL</label>
   <gg-select err-class="error"
            lbl="{{'productOffsetGeneral-add.labels.pa-id' | i18n}}" 
            form-group-class="col-sm-6" 
-           options="pa_idoptions" 
-           ng-model="fmData.pa_id"
+           options="mt_idoptions" 
+           ng-model="fmData.mt_id"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <div class="col-sm-12" ng-repeat="paper in pa_idoptions | filter:{'value':fmData.pa_id}">
+  <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
     <p class="field-info bg-success">
-    {{paper.width}} x {{paper.height}} {{paper.measure}}
+    {{material.width}} x {{material.height}} {{material.measure}}
     </p>
   </div>
   <label class="col-sm-12 fieldset">MEDIDA DEL PLIEGO</label>
   <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-papersizewidth' | i18n}}" 
+            lbl="{{'productOffsetGeneral-add.labels.pr-materialsizewidth' | i18n}}" 
             form-group-class="col-sm-3"
-            ng-model="fmData.pr_papersizewidth"
+            ng-model="fmData.pr_materialsizewidth"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
     <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-papersizeheight' | i18n}}" 
+            lbl="{{'productOffsetGeneral-add.labels.pr-materialsizeheight' | i18n}}" 
             form-group-class="col-sm-3"
-            ng-model="fmData.pr_papersizeheight"
+            ng-model="fmData.pr_materialsizeheight"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
   <gg-select err-class="error"
-           lbl="{{'productOffsetGeneral-add.labels.pr-papersizemeasure' | i18n}}" 
+           lbl="{{'productOffsetGeneral-add.labels.pr-materialsizemeasure' | i18n}}" 
            form-group-class="col-sm-3" 
-           options="pr_papersizemeasureoptions" 
-           ng-model="fmData.pr_papersizemeasure"
+           options="pr_materialsizemeasureoptions" 
+           ng-model="fmData.pr_materialsizemeasure"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            is-required="true">
   </gg-select>
   <gg-input err-class="error"
-            lbl="{{'productOffsetGeneral-add.labels.pr-paperformatsqty' | i18n}}" 
+            lbl="{{'productOffsetGeneral-add.labels.pr-materialformatsqty' | i18n}}" 
             form-group-class="col-sm-3"
-            ng-model="fmData.pr_paperformatsqty"
+            ng-model="fmData.pr_materialformatsqty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
             req-msg="Required"
