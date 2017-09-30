@@ -7,13 +7,13 @@ module.exports = {
                         "pr-type": "Tipo",
                         "pr-partno": "No. parte",
                         "pr-code": "Codigo",
-                        "pr-language": "Lenguaje",
                         "pr-weight": "Peso (kg)",
                         "pr-name": "Nombre",
                         "pr-description": "Descripcion",
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Largo",
                         "pr-finalsizemeasure": "Medida",
+                        "pr-stamptype": "Tipo de sello",
                         "pr-inkfront": "Frente",
                         "pa-id": "ID material",
                         "pr-materialsizewidth": "Ancho",
@@ -49,12 +49,12 @@ module.exports = {
                         "pr_type",
                         "pr_partno",
                         "pr_code",
-                        "pr_language",
                         "pr_weight",
                         "pr_description",
                         "pr_finalsizewidth",
                         "pr_finalsizeheight",
                         "pr_finalsizemeasure",
+                        "pr_stamptype",
                         "pr_inkfront",
                         "mt_id",
                         "pr_materialsizewidth",
@@ -84,10 +84,6 @@ module.exports = {
                         "pr_date",
                     ],
                      "fields" : {
-                        pr_languageoptions : [
-                            {"label":"Español","value":"español"},
-                            {"label":"Distintos al español","value":"distintos al español"}
-                        ],
                         pr_finalsizemeasureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
@@ -101,6 +97,11 @@ module.exports = {
                         pr_materialsizemeasureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
+                        ],
+                        pr_stamptypeoptions : [
+                            {"label":"Goma","value":"rubber"},
+                            {"label":"Moldura","value":"wood"},
+                            {"label":"Autoentitable","value":"selfinking"},
                         ],
                         pr_varnishoptions : [
                             {"label":"No","value":"no"},                            

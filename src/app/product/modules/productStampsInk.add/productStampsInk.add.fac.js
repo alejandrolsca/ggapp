@@ -36,7 +36,7 @@ module.exports = (function (angular) {
         factory.getMaterials = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/stamps/general/material', {
+                $http.post('/api/product/stamps/ink/material', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds()
                 }).success(function (data, status, headers, config) {

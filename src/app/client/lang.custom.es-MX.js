@@ -22,7 +22,7 @@ module.exports = {
                             ]},
                             {"label":"Sellos","value":"stamps",types:[
                                 {"label":"General","value":"general"}, 
-                                {"label":"Cojin","value":"pad"},   
+                                {"label":"Cojin","value":"inkpad"},  
                                 {"label":"Tinta","value":"ink"},   
                             ]},
                             {"label":"Serigrafía","value":"serigraphy",types:[

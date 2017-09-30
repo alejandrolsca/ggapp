@@ -34,15 +34,18 @@ module.exports = {
                             {"label":"Inactivo","value":"I"}
                         ],
                         mt_typeoptions : [
-                            {"label":"Material","value":"material"},
+                            {"label":"Papel","value":"paper"},
                             {"label":"Cartulina","value":"poster_board"},
-                            {"label":"Material Adhesivo","value":"adhesive_material"},
-                            {"label":"Pelicula Adhesiva","value":"adhesive film"},
+                            {"label":"Papel Adhesivo","value":"adhesive_paper"},
+                            {"label":"Pelicula Adhesiva","value":"adhesive_film"},
                             {"label":"Síntetico","value":"synthetic"},
                             {"label":"Plasticos","value":"plastics"},
-                            {"label":"Termal Transfer","value":"termal transfer"},
+                            {"label":"Termal Transfer","value":"termal_transfer"},
                             {"label":"Direct Termal","value":"direct_termal"},
                             {"label":"Ribbon","value":"ribbon"},
+                            {"label":"Sello","value":"stamp"},
+                            {"label":"Almohadilla de tinta","value":"ink_pad"},
+                            {"label":"Tinta para sello","value":"stamp_ink"},
                             {"label":"Otros","value":"other"}
                         ],
                         mt_measureoptions : [

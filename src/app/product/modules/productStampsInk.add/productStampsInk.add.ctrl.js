@@ -1,17 +1,17 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'productStampsGeneralAddFac', '$location', 'i18nFilter', '$stateParams',
-        function ($scope, productStampsGeneralAddFac, $location, i18nFilter, $stateParams) {
+    return ['$scope', 'productStampsInkAddFac', '$location', 'i18nFilter', '$stateParams',
+        function ($scope, productStampsInkAddFac, $location, i18nFilter, $stateParams) {
             $scope.fmData = {};
-            $scope.fmData = { "pr_process": "stamps", "pr_type": "general", "cl_id": "8", "pr_partno": "TEST", "pr_code": "TEST-1.3", "pr_language": "español", "pr_weight": "0.500", "pr_name": "Test product", "pr_description": "test product description", "pr_finalsizewidth": "10.00", "pr_finalsizeheight": "5.00", "pr_finalsizemeasure": "cm", "pr_inkfront": 2, "pr_inksfront": { "0": "3", "1": "2" }, "mt_id": "1", "pr_status": "A" };
+            $scope.fmData = { "cl_id": "8", "mt_id": "1", "pr_code": "test123", "pr_cord": "allocated", "pr_fold": "tryptic", "pr_name": "Producto de prueba", "pr_type": "general", "pr_wire": "allocated", "pr_folio": "yes", "pr_blocks": "100", "pr_partno": "TEST-ASA.asas: 23,34", "pr_precut": "horizontal", "pr_status": "A", "pr_weight": "0.25", "pr_inkback": 2, "pr_process": "offset", "pr_varnish": "yes", "pr_inkfront": 2, "pr_inksback": { "0": "5", "1": "3" }, "pr_laminate": "yes", "pr_language": "español", "pr_inksfront": { "0": "2", "1": "2" }, "pr_varnishuv": "oneside", "pr_diecutting": "yes", "pr_description": "este es un producto de prueba", "pr_diecuttingqty": "5", "pr_reinforcement": "one", "pr_finalsizewidth": "100.00", "pr_materialsizewidth": "100.00", "pr_finalsizeheight": "200.00", "pr_laminatecaliber": "2mm", "pr_materialformatsqty": "123", "pr_materialsizeheight": "200.00", "pr_varnishfinished": "matte", "pr_finalsizemeasure": "cm", "pr_laminatefinished": "matte", "pr_materialsizemeasure": "cm" };          
             $scope.fmData.pr_process = 'stamps';
-            $scope.fmData.pr_type = 'general';
+            $scope.fmData.pr_type = 'ink';
             $scope.fmData.cl_id = $stateParams.cl_id;
 
             $scope.onSubmit = function () {
 
-                productStampsGeneralAddFac.add($scope.fmData).then(function (promise) {
+                productStampsInkAddFac.add($scope.fmData).then(function (promise) {
                     if (promise.data.rowCount === 1) {
                         $location.path('/product/'+$stateParams.cl_id);
                     } else {
@@ -20,11 +20,7 @@ module.exports = (function (angular) {
                 });
             };
 
-            $scope.pr_languageoptions = i18nFilter("productStampsGeneral-add.fields.pr_languageoptions");            
-            $scope.pr_finalsizemeasureoptions = i18nFilter("productStampsGeneral-add.fields.pr_finalsizemeasureoptions");
-            $scope.pr_stamptypeoptions = i18nFilter("productStampsGeneral-add.fields.pr_stamptypeoptions");
-            $scope.pr_inkfrontoptions = i18nFilter("productStampsGeneral-add.fields.pr_inkfrontoptions");
-            $scope.pr_statusoptions = i18nFilter("productStampsGeneral-add.fields.pr_statusoptions");
+            $scope.pr_statusoptions = i18nFilter("productStampsInk-add.fields.pr_statusoptions");
         
             // create front ink fields
             $scope.$watch('fmData.pr_inkfront', function (newValue, oldValue) {
@@ -35,18 +31,28 @@ module.exports = (function (angular) {
                     }
                 }
             });
+        
+            // create back ink fields
+            $scope.$watch('fmData.pr_inkback', function (newValue, oldValue) {
+                if ($scope.fmData.pr_inkback != undefined) {
+                    $scope.backInks = new Array(newValue);
+                    for (var i = 0; i < oldValue; i++) {
+                        $scope.fmData['pr_inksback'][i] = undefined;
+                    }
+                }
+            });
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 
-                productStampsGeneralAddFac.getClient().then(function (promise) {
+                productStampsInkAddFac.getClient().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isObject(promise.data)) {
                         $scope.client = promise.data;
                     }
                 });
 
-                productStampsGeneralAddFac.getInks().then(function (promise) {
+                productStampsInkAddFac.getInks().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pr_inkoptions = [];
                         angular.forEach(promise.data, function (value, key) {
@@ -57,7 +63,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productStampsGeneralAddFac.getMaterials().then(function (promise) {
+                productStampsInkAddFac.getMaterials().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {

@@ -12,7 +12,9 @@ module.exports = (function(angular){
         require('./modules/productPlotterFlexibles.add').name,        
         require('./modules/productPlotterRigid.add').name,        
         require('./modules/productPlotterBanner.add').name,
-        require('./modules/productStampsGeneral.add').name
+        require('./modules/productStampsGeneral.add').name,
+        require('./modules/productStampsInkPad.add').name,
+        require('./modules/productStampsInk.add').name
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

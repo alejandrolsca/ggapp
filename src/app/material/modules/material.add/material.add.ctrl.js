@@ -9,7 +9,7 @@ module.exports = (function (angular) {
 
                 materialAddFac.add($scope.fmData).then(function (promise) {
                     if (promise.data.rowCount === 1) {
-                        $location.path('/ink');
+                        $location.path('/material');
                     } else {
                         $scope.updateFail = true;
                     }

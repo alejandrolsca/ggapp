@@ -25,16 +25,6 @@
             regexp-msg="{{'general.regexp.prcode' | i18n}}"
             >
   </gg-input>
-  <gg-select err-class="error"
-           lbl="{{'productStampsGeneral-add.labels.pr-language' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="pr_languageoptions" 
-           ng-model="fmData.pr_language"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
   <gg-input err-class="error"
             lbl="{{'productStampsGeneral-add.labels.pr-weight' | i18n}}" 
             form-group-class="col-sm-3"
@@ -66,7 +56,7 @@
   <label class="col-sm-12 fieldset">TAMAÑO FINAL</label>
   <gg-input err-class="error"
             lbl="{{'productStampsGeneral-add.labels.pr-finalsizewidth' | i18n}}" 
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-3"
             ng-model="fmData.pr_finalsizewidth"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
@@ -75,7 +65,7 @@
   </gg-input>
     <gg-input err-class="error"
             lbl="{{'productStampsGeneral-add.labels.pr-finalsizeheight' | i18n}}" 
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-3"
             ng-model="fmData.pr_finalsizeheight"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
@@ -84,7 +74,7 @@
   </gg-input>
   <gg-select err-class="error"
            lbl="{{'productStampsGeneral-add.labels.pr-finalsizemeasure' | i18n}}" 
-           form-group-class="col-sm-4" 
+           form-group-class="col-sm-3" 
            options="pr_finalsizemeasureoptions" 
            ng-model="fmData.pr_finalsizemeasure"
            regexp="singlespaces"
@@ -92,6 +82,16 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <gg-select err-class="error"
+            lbl="{{'productStampsGeneral-add.labels.pr-stamptype' | i18n}}" 
+            form-group-class="col-sm-3" 
+            options="pr_stamptypeoptions" 
+            ng-model="fmData.pr_stamptype"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+    </gg-select>
   <label class="col-sm-12 fieldset">TINTAS</label>
   <gg-select err-class="error"
            lbl="{{'productStampsGeneral-add.labels.pr-inkfront' | i18n}}" 
