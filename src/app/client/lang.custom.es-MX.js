@@ -26,10 +26,9 @@ module.exports = {
                                 {"label":"Tinta","value":"ink"},   
                             ]},
                             {"label":"Serigrafía","value":"serigraphy",types:[
-                                {"label":"General","value":"general"},
-                                {"label":"Etiquetas","value":"labels"},   
-                                {"label":"Señalización","value":"signage"},   
-                                {"label":"Banners","value":"banners"}
+                                {"label":"Flexibles","value":"flexibles"},   
+                                {"label":"Rigidos","value":"rigid"},   
+                                {"label":"Banners","value":"banner"}
                             ]},
                             {"label":"Laser","value":"laser",types:[
                                 {"label":"Laser","value":"laser"},     
