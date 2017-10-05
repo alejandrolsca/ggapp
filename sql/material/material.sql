@@ -10,6 +10,5 @@ jsonb_to_record(mt_jsonb) as x (
     mt_width text,
     mt_measure text,
     mt_height text,
-    mt_price text,
     mt_status text
 );

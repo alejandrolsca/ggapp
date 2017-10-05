@@ -12,7 +12,8 @@
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
-           is-required="true">
+           is-required="true"
+           is-disabled="true">
   </gg-select>
   <gg-input err-class="error"
             lbl="{{'ink.labels.in-code' | i18n}}" 
@@ -21,7 +22,8 @@
             regexp="inkcode"
             regexp-msg="{{'general.regexp.inkcode' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="true"
+            is-disabled="true">
   </gg-input>
   <gg-textarea err-class="error"
             lbl="{{'ink.labels.in-description' | i18n}}"
@@ -31,7 +33,8 @@
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             height="106"
             req-msg="Required"
-            is-required="true">
+            is-required="true"
+            is-disabled="true">
   </gg-textarea>
   <gg-select err-class="error"
            lbl="{{'ink.labels.in-type' | i18n}}" 
@@ -41,17 +44,9 @@
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
-           is-required="true">
+           is-required="true"
+           is-disabled="true">
   </gg-select>
-  <gg-input err-class="error"
-            lbl="{{'ink.labels.in-price' | i18n}}"
-            form-group-class="col-sm-6"
-            ng-model="fmData.in_price"
-            regexp="decimal"
-            regexp-msg="{{'general.regexp.decimal' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
   <gg-select err-class="error"
            lbl="{{'ink.labels.in-status' | i18n}}" 
            form-group-class="col-sm-6" 

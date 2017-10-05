@@ -9,6 +9,5 @@ jsonb_to_record(in_jsonb) as x (
     in_weight text,
     in_width text,
     in_height text,
-    in_price text,
     in_status text
 );
