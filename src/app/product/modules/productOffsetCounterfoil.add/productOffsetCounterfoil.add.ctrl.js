@@ -47,8 +47,8 @@ module.exports = (function (angular) {
                     $scope.fmData.pr_inkfront = undefined;
                     $scope.fmData.pr_inkback = undefined;
                     $scope.sheetsperset = new Array(newValue);
-                    let frontArray = [];
-                    let backArray = [];
+                    var frontArray = [];
+                    var backArray = [];
                     for (var i = 0; i < newValue; i++) {
                         frontArray.push('fmData.pr_inkfront[' + i + ']')
                         backArray.push('fmData.pr_inkback[' + i + ']')
