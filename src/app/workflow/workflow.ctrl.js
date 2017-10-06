@@ -181,8 +181,8 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
 
                 // this code is executed after the view is loaded
-                $scope.loading = true;
                 $scope.$watch('fmData.wo_status', function (newValue, oldValue) {
+                    $scope.loading = true;
                     $scope.actions = [];
                     var actions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions")));
                     angular.forEach(actions, function (value, key) {
