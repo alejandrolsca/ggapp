@@ -18,21 +18,6 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
-        factory.getInks = function () {
-            var deferred = $q.defer();
-            deferred.resolve(
-                $http.post('/api/product/offset/general/ink', {
-                    /* POST variables here */
-                    procces_id: new Date().getMilliseconds()
-                }).success(function (data, status, headers, config) {
-                    return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
-                })
-            );
-            return deferred.promise;
-        };
         factory.getMaterials = function () {
             var deferred = $q.defer();
             deferred.resolve(
