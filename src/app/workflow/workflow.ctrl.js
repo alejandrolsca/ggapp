@@ -6,8 +6,6 @@ module.exports = (function (angular) {
 
             var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
 
-
-
             $scope.labels = Object.keys(i18nFilter("workflow.labels"));
             $scope.columns = i18nFilter("workflow.columns");
 
@@ -168,12 +166,10 @@ module.exports = (function (angular) {
             }, $scope.wo_statusoptions)
 
             $scope.pagesizeoptions = [
-                { "label": "2", "value": 2 },
-                { "label": "5", "value": 5 },
-                { "label": "25", "value": 25 },
                 { "label": "50", "value": 50 },
                 { "label": "100", "value": 100 },
                 { "label": "200", "value": 200 },
+                { "label": "300", "value": 300 },
                 { "label": "500", "value": 500 },
                 { "label": "1000", "value": 1000 },
             ]
@@ -204,7 +200,7 @@ module.exports = (function (angular) {
                         if (angular.isArray(promise.data)) {
                             // expose data as a CollectionView to get events
                             $scope.data = new wijmo.collections.CollectionView(promise.data);
-                            $scope.data.pageSize = 25;
+                            $scope.data.pageSize = 50;
                         }
                     });
                 });
