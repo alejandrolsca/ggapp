@@ -17,7 +17,8 @@ module.exports = (function(angular){
         require('./modules/productStampsInk.add').name,
         require('./modules/productSerigraphyBanner.add').name,
         require('./modules/productSerigraphyFlexibles.add').name,
-        require('./modules/productSerigraphyRigid.add').name
+        require('./modules/productSerigraphyRigid.add').name,
+        require('./modules/productLaserGeneral.add').name
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

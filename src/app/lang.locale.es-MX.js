@@ -92,6 +92,7 @@ module.exports = {
                 "productSerigraphyBanner-add": require('./product/modules/productSerigraphyBanner.add/lang.es-MX'),                            
                 "productSerigraphyFlexibles-add": require('./product/modules/productSerigraphyFlexibles.add/lang.es-MX'),                            
                 "productSerigraphyRigid-add": require('./product/modules/productSerigraphyRigid.add/lang.es-MX'),                            
+                "productLaserGeneral-add": require('./product/modules/productLaserGeneral.add/lang.es-MX'),                          
                 /****************************************
                 SUPPLIER 
                 ****************************************/

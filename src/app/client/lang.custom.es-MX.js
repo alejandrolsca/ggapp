@@ -31,7 +31,7 @@ module.exports = {
                                 {"label":"Banners","value":"banner"}
                             ]},
                             {"label":"Laser","value":"laser",types:[
-                                {"label":"Laser","value":"laser"},     
+                                {"label":"General","value":"general"},     
                             ]},
                         ]
                      }
