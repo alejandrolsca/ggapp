@@ -1,5 +1,5 @@
 module.exports = {
-                    "title" : "agregar producto",
+                    "title" : "Agregar producto",
                     "labels":{
                         "pr-id": "ID producto",
                         "cl-id": "ID cliente",

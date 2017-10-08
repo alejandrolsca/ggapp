@@ -1,3 +1,3 @@
 module.exports = {
-                    "title" : "agregar material",
+                    "title" : "Agregar material",
                 }

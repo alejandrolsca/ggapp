@@ -1,4 +1,4 @@
 module.exports = {
-                    "title" : "inicio",
-                    "welcome" : "bienvenido @@!"
+                    "title" : "404 error",
+                    "subtitle" : "Ooops! page not found!"
                 }

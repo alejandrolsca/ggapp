@@ -4,22 +4,22 @@ module.exports = {
                         {"name":"inicio","url":"#/home"},
                         {"name":"clientes","url":"#/client","submenu": 
                          [
-                             {"name": "agregar","url": "#/client/add"}
+                             {"name": "Agregar","url": "#/client/add"}
                          ]
                         },
                         {"name":"productos","url":"#/product","submenu": 
                          [
-                             {"name": "agregar","url": "#/product/add"}
+                             {"name": "Agregar","url": "#/product/add"}
                          ]
                         },
                         {"name":"ordenes de trabajo","url":"#/wo","submenu": 
                          [
-                             {"name": "agregar","url": "#/wo/add"}
+                             {"name": "Agregar","url": "#/wo/add"}
                          ]
                         },
                         {"name":"usuarios","url":"#/user","submenu": 
                          [
-                             {"name": "agregar","url": "#/user/add"}
+                             {"name": "Agregar","url": "#/user/add"}
                          ]
                         },
                         {"name":"login","url":"#/"},
@@ -60,6 +60,10 @@ module.exports = {
                     "copyright":"©2017 grupo grafico de méxico s.a. de c.v. todos los derechos reservados."
                 },
                 /****************************************
+                404 
+                ****************************************/
+                "404":require('./404/lang.es-MX'),
+                /****************************************
                 HOME 
                 ****************************************/
                 "home":require('./home/lang.es-MX'),
@@ -78,7 +82,7 @@ module.exports = {
                 "productOffsetGeneral-update": require('./product/modules/productOffsetGeneral.update/lang.es-MX'),
                 "productOffsetPaginated-add": require('./product/modules/productOffsetPaginated.add/lang.es-MX'),
                 "productOffsetPaginated-update":{
-                    "title" : "actualizar producto",
+                    "title" : "Actualizar producto",
                 },
                 "productOffsetCounterfoil-add": require('./product/modules/productOffsetCounterfoil.add/lang.es-MX'),
                 "productFlexoLabels-add": require('./product/modules/productFlexoLabels.add/lang.es-MX'),
@@ -121,8 +125,6 @@ module.exports = {
                 USER 
                 ****************************************/
                 "user": require('./user/lang.es-MX'),
-                "user-add": require('./user/modules/user.add/lang.es-MX'),
-                "user-update": require('./user/modules/user.update/lang.es-MX'),
                 "user-profile": require('./user/modules/user.profile/lang.es-MX'),
                 /****************************************
                 WORK ORDER 
@@ -130,10 +132,6 @@ module.exports = {
                 "wo": require('./wo/lang.es-MX'),
                 "wo-add": require('./wo/modules/wo.add/lang.es-MX'),
                 "wo-update": require('./wo/modules/wo.update/lang.es-MX'),
-                /****************************************
-                AUTH 
-                ****************************************/
-                "auth": require('./auth/lang.es-MX'),
                 /****************************************
                 ZONE 
                 ****************************************/
