@@ -16,26 +16,22 @@ module.exports = {
                                 {"label":"Ribbons","value":"ribbons"}
                             ]},
                             {"label":"Plotter","value":"plotter",types:[
-                                {"label":"Etiquetas","value":"labels"},   
-                                {"label":"Señalización","value":"signage"},   
-                                {"label":"Banners","value":"banners"},   
-                                {"label":"Articulos","value":"Articles"},   
+                                {"label":"Flexibles","value":"flexibles"},   
+                                {"label":"Rigidos","value":"rigid"},   
+                                {"label":"Banners","value":"banner"}
                             ]},
-                            {"label":"Sellos","value":"seals",types:[
-                                {"label":"Goma","value":"rubber"},   
-                                {"label":"Moldura","value":"molding"},   
-                                {"label":"Autoentintable","value":"self_tintable"},   
-                                {"label":"Cojin","value":"pad"},   
+                            {"label":"Sellos","value":"stamps",types:[
+                                {"label":"General","value":"general"}, 
+                                {"label":"Cojin","value":"inkpad"},  
                                 {"label":"Tinta","value":"ink"},   
                             ]},
                             {"label":"Serigrafía","value":"serigraphy",types:[
-                                {"label":"Etiquetas","value":"labels"},   
-                                {"label":"Señalización","value":"signage"},   
-                                {"label":"Banners","value":"banners"},   
-                                {"label":"Articulos","value":"Articles"},   
+                                {"label":"Flexibles","value":"flexibles"},   
+                                {"label":"Rigidos","value":"rigid"},   
+                                {"label":"Banners","value":"banner"}
                             ]},
                             {"label":"Laser","value":"laser",types:[
-                                {"label":"Laser","value":"laser"},     
+                                {"label":"General","value":"general"},     
                             ]},
                         ]
                      }

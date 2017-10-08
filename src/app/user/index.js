@@ -2,8 +2,6 @@ module.exports = (function(angular){
     'use strict';
     
     return angular.module('app.user',[
-        require('./modules/user.add').name,
-        require('./modules/user.update').name,
         require('./modules/user.profile').name
     ])
 

@@ -213,14 +213,14 @@ if (cluster.isMaster) {
         });
     });
 
-    /*PAPER*/
+    /*MATERIAL*/
     
-    app.post('/api/paper/pa_id', function (req, res, next) {
+    app.post('/api/material/mt_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('paper/paper:pa_id'), [req.body.pa_id], function (err, result) {
+            client.query(file('material/material:mt_id'), [req.body.mt_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -232,12 +232,12 @@ if (cluster.isMaster) {
         });
     });
 
-    app.post('/api/paper/add', function (req, res, next) {
+    app.post('/api/material/add', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('paper/paper:add'), [req.body.pa_jsonb], function (err, result) {
+            client.query(file('material/material:add'), [req.body.mt_jsonb], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -249,12 +249,12 @@ if (cluster.isMaster) {
         });
     });
 
-    app.post('/api/paper/update', function (req, res, next) {
+    app.post('/api/material/update', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('paper/paper:update'), [req.body.pa_jsonb, req.body.pa_id], function (err, result) {
+            client.query(file('material/material:update'), [req.body.mt_jsonb, req.body.mt_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -266,12 +266,12 @@ if (cluster.isMaster) {
         });
     });
 
-    app.post('/api/paper/', jwtCheck, function (req, res, next) {
+    app.post('/api/material/', jwtCheck, function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('paper/paper'), function (err, result) {
+            client.query(file('material/material'), function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -424,12 +424,12 @@ if (cluster.isMaster) {
         })
     });
 
-    app.post('/api/product/offset/general/paper', function (req, res, next) {
+    app.post('/api/product/offset/general/material', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('product/product:offset:general:paper'), function (err, result) {
+            client.query(file('product/product:offset:general:material'), function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -475,12 +475,63 @@ if (cluster.isMaster) {
         })
     });
 
-    app.post('/api/product/flexo/ribbons/paper', function (req, res, next) {
+    app.post('/api/product/flexo/ribbons/material', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('product/product:flexo:ribbons:paper'), function (err, result) {
+            client.query(file('product/product:flexo:ribbons:material'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        })
+    });
+
+    app.post('/api/product/stamps/general/material', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('product/product:stamps:general:material'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        })
+    });
+
+    app.post('/api/product/stamps/inkpad/material', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('product/product:stamps:inkpad:material'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        })
+    });
+
+    app.post('/api/product/stamps/ink/material', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('product/product:stamps:ink:material'), function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 

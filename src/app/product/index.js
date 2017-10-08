@@ -9,8 +9,16 @@ module.exports = (function(angular){
         require('./modules/productOffsetCounterfoil.add').name,
         require('./modules/productFlexoLabels.add').name,
         require('./modules/productFlexoRibbons.add').name,
-        require('./modules/productPlotterLabels.add').name,        
-        require('./modules/productPlotterSignage.add').name,        
+        require('./modules/productPlotterFlexibles.add').name,        
+        require('./modules/productPlotterRigid.add').name,        
+        require('./modules/productPlotterBanner.add').name,
+        require('./modules/productStampsGeneral.add').name,
+        require('./modules/productStampsInkPad.add').name,
+        require('./modules/productStampsInk.add').name,
+        require('./modules/productSerigraphyBanner.add').name,
+        require('./modules/productSerigraphyFlexibles.add').name,
+        require('./modules/productSerigraphyRigid.add').name,
+        require('./modules/productLaserGeneral.add').name
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

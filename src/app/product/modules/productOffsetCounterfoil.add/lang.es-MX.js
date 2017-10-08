@@ -1,5 +1,5 @@
 module.exports = {
-                    "title" : "agregar producto",
+                    "title" : "Agregar producto",
                     "labels":{
                         "pr-id": "ID producto",
                         "cl-id": "ID cliente",
@@ -17,11 +17,11 @@ module.exports = {
                         "pr-sheetsperset": "Hojas por juego",
                         "pr-inkfront": "Frente",
                         "pr-inkback": "Reverso",
-                        "pa-id": "ID papel",
-                        "pr-papersizewidth": "Ancho",
-                        "pr-papersizeheight": "Largo",
-                        "pr-papersizemeasure": "Medida",
-                        "pr-paperformatsqty": "Formatos",
+                        "pa-id": "ID material",
+                        "pr-materialsizewidth": "Ancho",
+                        "pr-materialsizeheight": "Largo",
+                        "pr-materialsizemeasure": "Medida",
+                        "pr-materialformatsqty": "Formatos",
                         "pr-folio": "Folio",
                         "pr-precut": "Precorte",
                         "pr-reinforcement": "Refuerzo",
@@ -48,11 +48,11 @@ module.exports = {
                         "pr_sheetsperset",
                         "pr_inkfront",
                         "pr_inkback",
-                        "pa_id",
-                        "pr_papersizewidth",
-                        "pr_papersizeheight",
-                        "pr_papersizemeasure",
-                        "pr_paperformatsqty",
+                        "mt_id",
+                        "pr_materialsizewidth",
+                        "pr_materialsizeheight",
+                        "pr_materialsizemeasure",
+                        "pr_materialformatsqty",
                         "pr_folio",
                         "pr_precut",                        
                         "pr_reinforcement",
@@ -101,7 +101,7 @@ module.exports = {
                             {"label":"7 tintas","value":7},
                             {"label":"8 tintas","value":8},
                         ],
-                        pr_papersizemeasureoptions : [
+                        pr_materialsizemeasureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
                         ],pr_foliooptions : [

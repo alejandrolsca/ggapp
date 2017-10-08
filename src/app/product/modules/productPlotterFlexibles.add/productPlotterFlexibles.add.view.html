@@ -1,0 +1,297 @@
+<div class="col-sm-12">
+    <h4>{{'productPlotterFlexibles-add.title' | i18n}}</h4>
+    <h4>Processo: {{fmData.pr_process}}</h4>
+    <h4>Tipo: {{fmData.pr_type}}</h4>
+    
+    <h4>Cliente: {{ client }}</h4>
+    
+</div>
+<form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+    
+  <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-partno' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_partno"
+            regexp="partno"
+            regexp-msg="{{'general.regexp.partno' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-code' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_code"
+            regexp="prcode"
+            regexp-msg="{{'general.regexp.prcode' | i18n}}"
+            >
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-language' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="pr_languageoptions" 
+           ng-model="fmData.pr_language"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-weight' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_weight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-name' | i18n}}" 
+            form-group-class="col-sm-12"
+            ng-model="fmData.pr_name"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-textarea err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-description' | i18n}}" 
+            form-group-class="col-sm-12"
+            ng-model="fmData.pr_description"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            height="106"
+            req-msg="Required"
+            is-required="true">
+  </gg-textarea>
+  <label class="col-sm-12 fieldset">TAMAÑO FINAL</label>
+  <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-finalsizewidth' | i18n}}" 
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_finalsizewidth"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Requi∫red"
+            is-required="true">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-finalsizeheight' | i18n}}" 
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_finalsizeheight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-finalsizemeasure' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_finalsizemeasureoptions" 
+           ng-model="fmData.pr_finalsizemeasure"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset">TINTAS</label>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-inkfront' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="pr_inkfrontoptions" 
+           ng-model="fmData.pr_inkfront"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <div class="col-sm-12">
+      <span ng-repeat="t in frontInks track by $index">
+          <gg-select err-class="error"
+                   lbl="Tinta {{$index+1}}" 
+                   form-group-class="col-sm-3" 
+                   options="pr_inkoptions" 
+                   ng-model="fmData['pr_inksfront'][$index]"
+                   regexp="singlespaces"
+                   regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                   req-msg="Required"
+                   is-required="true">
+          </gg-select>
+      </span>
+  </div>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-inkback' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="pr_inkbackoptions" 
+           ng-model="fmData.pr_inkback"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <div class="col-sm-12">
+      <span ng-repeat="t in backInks track by $index">
+          <gg-select err-class="error"
+                   lbl="Tinta {{$index+1}}" 
+                   form-group-class="col-sm-3" 
+                   options="pr_inkoptions" 
+                   ng-model="fmData['pr_inksback'][$index]"
+                   regexp="singlespaces"
+                   regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                   req-msg="Required"
+                   is-required="true">
+          </gg-select>
+      </span>
+  </div>
+  <label class="col-sm-12 fieldset">MATERIAL</label>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pa-id' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="mt_idoptions" 
+           ng-model="fmData.mt_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
+    <p class="field-info bg-success">
+        {{material.width}} x {{material.height}} {{material.measure}}
+    </p>
+  </div>
+  <label class="col-sm-12 fieldset">MEDIDA DEL ROLLO</label>
+  <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-materialsizewidth' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_materialsizewidth"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-materialsizeheight' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_materialsizeheight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-materialsizemeasure' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="pr_materialsizemeasureoptions" 
+           ng-model="fmData.pr_materialsizemeasure"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset">BARNIZ</label>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-varnish' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_varnishoptions" 
+           ng-model="fmData.pr_varnish"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-varnishfinished' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_varnisfinishedoptions" 
+           ng-model="fmData.pr_varnishfinished"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset">LAMINADO</label>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-laminate' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_laminateoptions" 
+           ng-model="fmData.pr_laminate"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-laminatefinished' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_laminatefinishedoptions" 
+           ng-model="fmData.pr_laminatefinished"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-laminatecaliber' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_laminatecaliberoptions" 
+           ng-model="fmData.pr_laminatecaliber"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset">OTROS ACABADOS</label>
+   <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-precut' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_precutoptions" 
+           ng-model="fmData.pr_precut"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-transfer' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_transferoptions" 
+           ng-model="fmData.pr_transfer"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-input err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-sheetqty' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_sheetqty"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <label class="col-sm-12 fieldset">NUMERACION Y BLOCKS</label>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-folio' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_foliooptions" 
+           ng-model="fmData.pr_folio"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productPlotterFlexibles-add.labels.pr-status' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_statusoptions" 
+           ng-model="fmData.pr_status"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-submit lbl="Submit"
+            form-group-class="col-sm-12" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-4  col-md-2">
+  </gg-submit>
+</form>

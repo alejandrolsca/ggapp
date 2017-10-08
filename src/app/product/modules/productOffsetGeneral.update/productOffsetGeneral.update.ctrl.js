@@ -14,7 +14,7 @@ module.exports = (function (angular) {
             $scope.pr_finalsizemeasureoptions = i18nFilter("productOffsetGeneral-add.fields.pr_finalsizemeasureoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productOffsetGeneral-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productOffsetGeneral-add.fields.pr_inkbackoptions");
-            $scope.pr_papersizemeasureoptions = i18nFilter("productOffsetGeneral-add.fields.pr_papersizemeasureoptions");
+            $scope.pr_materialsizemeasureoptions = i18nFilter("productOffsetGeneral-add.fields.pr_materialsizemeasureoptions");
             $scope.pr_varnishoptions = i18nFilter("productOffsetGeneral-add.fields.pr_varnishoptions");
             $scope.pr_varnishuvoptions = i18nFilter("productOffsetGeneral-add.fields.pr_varnishuvoptions");
             $scope.pr_varnisfinishedoptions = i18nFilter("productOffsetGeneral-add.fields.pr_varnisfinishedoptions");
@@ -75,8 +75,9 @@ module.exports = (function (angular) {
                 productOffsetGeneralUpdateFac.getClient().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isObject(promise.data)) {
-                        $scope.client = promise.data;
-                    }
+                        var client = promise.data[0].cl_jsonb;
+                        var cl_type = client.cl_type
+                        $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_fatherslastname + ' ' + client.cl_motherslastname;                    }
                 });
 
                 productOffsetGeneralUpdateFac.getInks().then(function (promise) {
@@ -90,12 +91,12 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productOffsetGeneralUpdateFac.getPapers().then(function (promise) {
+                productOffsetGeneralUpdateFac.getMaterials().then(function (promise) {
                     if (angular.isArray(promise.data)) {
-                        $scope.pa_idoptions = [];
+                        $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            this.push({ "label": value.pa_code, "value": value.pa_id, "width": value.pa_width, "height": value.pa_height, "measure": value.pa_measure });
-                        }, $scope.pa_idoptions);
+                            this.push({ "label": value.mt_code, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
+                        }, $scope.mt_idoptions);
                     } else {
                         //$scope.updateFail = true;
                     }

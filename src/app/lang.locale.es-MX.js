@@ -4,22 +4,22 @@ module.exports = {
                         {"name":"inicio","url":"#/home"},
                         {"name":"clientes","url":"#/client","submenu": 
                          [
-                             {"name": "agregar","url": "#/client/add"}
+                             {"name": "Agregar","url": "#/client/add"}
                          ]
                         },
                         {"name":"productos","url":"#/product","submenu": 
                          [
-                             {"name": "agregar","url": "#/product/add"}
+                             {"name": "Agregar","url": "#/product/add"}
                          ]
                         },
                         {"name":"ordenes de trabajo","url":"#/wo","submenu": 
                          [
-                             {"name": "agregar","url": "#/wo/add"}
+                             {"name": "Agregar","url": "#/wo/add"}
                          ]
                         },
                         {"name":"usuarios","url":"#/user","submenu": 
                          [
-                             {"name": "agregar","url": "#/user/add"}
+                             {"name": "Agregar","url": "#/user/add"}
                          ]
                         },
                         {"name":"login","url":"#/"},
@@ -42,7 +42,7 @@ module.exports = {
                     },
                     "regexp":{
                         "singlespaces": "sin espacios dobles ni caracteres especiales.",
-                        "papercode": "sin espacios ni caracteres especiales",
+                        "materialcode": "sin espacios ni caracteres especiales",
                         "inkcode": "sin espacios ni caracteres especiales",
                         "machinetotalinks": "minimo 1 maximo 8",
                         "rfc": "XXXX-######[-XXX]",
@@ -59,6 +59,10 @@ module.exports = {
                     },
                     "copyright":"©2017 grupo grafico de méxico s.a. de c.v. todos los derechos reservados."
                 },
+                /****************************************
+                404 
+                ****************************************/
+                "404":require('./404/lang.es-MX'),
                 /****************************************
                 HOME 
                 ****************************************/
@@ -78,13 +82,21 @@ module.exports = {
                 "productOffsetGeneral-update": require('./product/modules/productOffsetGeneral.update/lang.es-MX'),
                 "productOffsetPaginated-add": require('./product/modules/productOffsetPaginated.add/lang.es-MX'),
                 "productOffsetPaginated-update":{
-                    "title" : "actualizar producto",
+                    "title" : "Actualizar producto",
                 },
                 "productOffsetCounterfoil-add": require('./product/modules/productOffsetCounterfoil.add/lang.es-MX'),
                 "productFlexoLabels-add": require('./product/modules/productFlexoLabels.add/lang.es-MX'),
                 "productFlexoRibbons-add": require('./product/modules/productFlexoRibbons.add/lang.es-MX'),
-                "productPlotterLabels-add": require('./product/modules/productPlotterLabels.add/lang.es-MX'),                
-                "productPlotterSignage-add": require('./product/modules/productPlotterSignage.add/lang.es-MX'),                
+                "productPlotterFlexibles-add": require('./product/modules/productPlotterFlexibles.add/lang.es-MX'),                
+                "productPlotterRigid-add": require('./product/modules/productPlotterRigid.add/lang.es-MX'),                
+                "productPlotterBanner-add": require('./product/modules/productPlotterBanner.add/lang.es-MX'),            
+                "productStampsGeneral-add": require('./product/modules/productStampsGeneral.add/lang.es-MX'),                
+                "productStampsInkPad-add": require('./product/modules/productStampsInkPad.add/lang.es-MX'),               
+                "productStampsInk-add": require('./product/modules/productStampsInk.add/lang.es-MX'),
+                "productSerigraphyBanner-add": require('./product/modules/productSerigraphyBanner.add/lang.es-MX'),                            
+                "productSerigraphyFlexibles-add": require('./product/modules/productSerigraphyFlexibles.add/lang.es-MX'),                            
+                "productSerigraphyRigid-add": require('./product/modules/productSerigraphyRigid.add/lang.es-MX'),                            
+                "productLaserGeneral-add": require('./product/modules/productLaserGeneral.add/lang.es-MX'),                          
                 /****************************************
                 SUPPLIER 
                 ****************************************/
@@ -92,11 +104,11 @@ module.exports = {
                 "supplier-add": require('./supplier/modules/supplier.add/lang.es-MX'),
                 "supplier-update": require('./supplier/modules/supplier.update/lang.es-MX'),
                 /****************************************
-                PAPER 
+                MATERIAL 
                 ****************************************/
-                "paper": require('./paper/lang.es-MX'),
-                "paper-add": require('./paper/modules/paper.add/lang.es-MX'),
-                "paper-update": require('./paper/modules/paper.update/lang.es-MX'),
+                "material": require('./material/lang.es-MX'),
+                "material-add": require('./material/modules/material.add/lang.es-MX'),
+                "material-update": require('./material/modules/material.update/lang.es-MX'),
                 /****************************************
                 MACHINE 
                 ****************************************/
@@ -113,8 +125,6 @@ module.exports = {
                 USER 
                 ****************************************/
                 "user": require('./user/lang.es-MX'),
-                "user-add": require('./user/modules/user.add/lang.es-MX'),
-                "user-update": require('./user/modules/user.update/lang.es-MX'),
                 "user-profile": require('./user/modules/user.profile/lang.es-MX'),
                 /****************************************
                 WORK ORDER 
@@ -122,10 +132,6 @@ module.exports = {
                 "wo": require('./wo/lang.es-MX'),
                 "wo-add": require('./wo/modules/wo.add/lang.es-MX'),
                 "wo-update": require('./wo/modules/wo.update/lang.es-MX'),
-                /****************************************
-                AUTH 
-                ****************************************/
-                "auth": require('./auth/lang.es-MX'),
                 /****************************************
                 ZONE 
                 ****************************************/

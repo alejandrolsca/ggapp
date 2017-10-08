@@ -36,13 +36,7 @@ module.exports = (function(angular){
 
         $scope.$on('$viewContentLoaded', function () {
             // this code is executed after the view is loaded
-            $scope.loading = true;
-            userFac.data().then(function(promise){
-                $scope.loading = false;
-                if(angular.isArray(promise.data)) {
-                    $scope.data = new wijmo.collections.CollectionView(promise.data);
-                }
-            });
+            $scope.loading = false;
          });
     }];
     

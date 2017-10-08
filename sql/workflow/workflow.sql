@@ -41,4 +41,5 @@ right join lateral (
 where wo_jsonb->>'wo_status' = $1
 ) wo
 on wo.cl_id = cl.cl_id
-order by wo.wo_date desc;
+order by wo.wo_date desc
+limit 1000;

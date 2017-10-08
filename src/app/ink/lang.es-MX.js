@@ -6,7 +6,6 @@ module.exports = {
                         "in-code": "Codigo",
                         "in-type": "Tipo",
                         "in-description": "Descripcion",
-                        "in-price": "Precio",
                         "in-status": "Estatus",
                         "in-date": "Fecha"
                     },
@@ -16,7 +15,6 @@ module.exports = {
                         "in_code",
                         "in_type",
                         "in_description",
-                        "in_price",
                         "in_status",
                         "in_date"
                     ],

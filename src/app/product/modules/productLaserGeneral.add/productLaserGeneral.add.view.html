@@ -1,0 +1,132 @@
+<div class="col-sm-12">
+    <h4>{{'productLaserGeneral-add.title' | i18n}}</h4>
+    <h4>Processo: {{fmData.pr_process}}</h4>
+    <h4>Tipo: {{fmData.pr_type}}</h4>
+    
+    <h4>Cliente: {{ client }}</h4>
+    
+</div>
+<form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+    
+  <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-partno' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_partno"
+            regexp="partno"
+            regexp-msg="{{'general.regexp.partno' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-code' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_code"
+            regexp="prcode"
+            regexp-msg="{{'general.regexp.prcode' | i18n}}"
+            >
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-weight' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_weight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-name' | i18n}}" 
+            form-group-class="col-sm-12"
+            ng-model="fmData.pr_name"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-textarea err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-description' | i18n}}" 
+            form-group-class="col-sm-12"
+            ng-model="fmData.pr_description"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            height="106"
+            req-msg="Required"
+            is-required="true">
+  </gg-textarea>
+  <label class="col-sm-12 fieldset">TAMAÑO FINAL</label>
+  <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-finalsizewidth' | i18n}}" 
+            form-group-class="col-sm-2"
+            ng-model="fmData.pr_finalsizewidth"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Requi∫red"
+            is-required="true">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-finalsizeheight' | i18n}}" 
+            form-group-class="col-sm-2"
+            ng-model="fmData.pr_finalsizeheight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'productLaserGeneral-add.labels.pr-finalsizemeasure' | i18n}}" 
+           form-group-class="col-sm-2" 
+           options="pr_finalsizemeasureoptions" 
+           ng-model="fmData.pr_finalsizemeasure"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset">ESPECIFICACIONES</label>
+  <gg-select err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-surface' | i18n}}" 
+            form-group-class="col-sm-2" 
+            options="pr_surfaceoptions" 
+            ng-model="fmData.pr_surface"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+    </gg-select>
+    <span ng-if="(fmData.pr_surface === 'other')">
+        <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-othersurface' | i18n}}" 
+            form-group-class="col-sm-2"
+            ng-model="fmData.pr_othersurface"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+        </gg-input>
+    </span>
+    <gg-input err-class="error"
+        lbl="{{'productLaserGeneral-add.labels.pr-time' | i18n}}" 
+        form-group-class="col-sm-2"
+        ng-model="fmData.pr_time"
+        regexp="integer"
+        regexp-msg="{{'general.regexp.integer' | i18n}}"
+        req-msg="Required"
+        is-required="true">
+    </gg-input>
+    <label class="col-sm-12 fieldset"></label>
+  <gg-select err-class="error"
+           lbl="{{'productLaserGeneral-add.labels.pr-status' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_statusoptions" 
+           ng-model="fmData.pr_status"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <gg-submit lbl="Submit"
+            form-group-class="col-sm-12" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-4  col-md-2">
+  </gg-submit>
+</form>

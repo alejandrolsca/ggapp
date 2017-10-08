@@ -2,8 +2,8 @@
     <h4>{{'productFlexoRibbons-add.title' | i18n}}</h4>
     <h4>Processo: {{fmData.pr_process}}</h4>
     <h4>Tipo: {{fmData.pr_type}}</h4>
-    <h4>Tipo: {{fmData | json}}</h4>
-    <h4>Cliente: {{client.cl_corporatename}}</h4>
+    
+    <h4>Cliente: {{ client }}</h4>
     
 </div>
 <form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
@@ -57,16 +57,16 @@
   <gg-select err-class="error"
            lbl="{{'productFlexoRibbons-add.labels.pa-id' | i18n}}" 
            form-group-class="col-sm-6" 
-           options="pa_idoptions" 
-           ng-model="fmData.pa_id"
+           options="mt_idoptions" 
+           ng-model="fmData.mt_id"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <div class="col-sm-12" ng-repeat="paper in pa_idoptions | filter:{'value':fmData.pa_id}">
+  <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
     <p class="field-info bg-success">
-        {{paper.width}} x {{paper.height}} {{paper.measure}}
+        {{material.width}} x {{material.height}} {{material.measure}}
     </p>
   </div>
   <gg-select err-class="error"

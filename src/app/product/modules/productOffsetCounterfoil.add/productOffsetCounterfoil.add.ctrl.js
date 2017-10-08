@@ -4,7 +4,6 @@ module.exports = (function (angular) {
     return ['$scope', 'productOffsetCounterfoilAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productOffsetCounterfoilAddFac, $location, i18nFilter, $stateParams) {
             $scope.fmData = {};
-            //$scope.fmData = { "cl_id": "8", "pa_id": "1", "pr_code": "test123", "pr_cord": "allocated", "pr_fold": "tryptic", "pr_name": "Producto de prueba", "pr_type": "general", "pr_wire": "allocated", "pr_folio": "yes", "pr_blocks": "100", "pr_partno": "TEST-ASA.asas: 23,34", "pr_precut": "horizontal", "pr_status": "A", "pr_weight": "0.25", "pr_inkback": 2, "pr_process": "offset", "pr_varnish": "yes", "pr_inkfront": 2, "pr_inksback": { "0": "5", "1": "3" }, "pr_laminate": "yes", "pr_language": "español", "pr_inksfront": { "0": "2", "1": "2" }, "pr_varnishuv": "oneside", "pr_diecutting": "yes", "pr_description": "este es un producto de prueba", "pr_diecuttingqty": "5", "pr_reinforcement": "one", "pr_finalsizewidth": "100.00", "pr_papersizewidth": "100.00", "pr_finalsizeheight": "200.00", "pr_laminatecaliber": "2mm", "pr_paperformatsqty": "123", "pr_papersizeheight": "200.00", "pr_varnishfinished": "matte", "pr_finalsizemeasure": "cm", "pr_laminatefinished": "matte", "pr_papersizemeasure": "cm" };
             $scope.fmData.pr_process = 'offset';
             $scope.fmData.pr_type = 'counterfoil';
             $scope.fmData.cl_id = $stateParams.cl_id;
@@ -25,7 +24,7 @@ module.exports = (function (angular) {
             $scope.pr_sheetspersetoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_sheetspersetoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_inkbackoptions");
-            $scope.pr_papersizemeasureoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_papersizemeasureoptions");
+            $scope.pr_materialsizemeasureoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_materialsizemeasureoptions");
             $scope.pr_varnishoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_varnishoptions");
             $scope.pr_varnisfinishedoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_varnisfinishedoptions");
             $scope.pr_laminateoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_laminateoptions");
@@ -47,8 +46,8 @@ module.exports = (function (angular) {
                     $scope.fmData.pr_inkfront = undefined;
                     $scope.fmData.pr_inkback = undefined;
                     $scope.sheetsperset = new Array(newValue);
-                    let frontArray = [];
-                    let backArray = [];
+                    var frontArray = [];
+                    var backArray = [];
                     for (var i = 0; i < newValue; i++) {
                         frontArray.push('fmData.pr_inkfront[' + i + ']')
                         backArray.push('fmData.pr_inkback[' + i + ']')
@@ -100,7 +99,9 @@ module.exports = (function (angular) {
                 productOffsetCounterfoilAddFac.getClient().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isObject(promise.data)) {
-                        $scope.client = promise.data;
+                        var client = promise.data[0].cl_jsonb;
+                        var cl_type = client.cl_type
+                        $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_fatherslastname + ' ' + client.cl_motherslastname;
                     }
                 });
 
@@ -115,12 +116,12 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productOffsetCounterfoilAddFac.getPapers().then(function (promise) {
+                productOffsetCounterfoilAddFac.getMaterials().then(function (promise) {
                     if (angular.isArray(promise.data)) {
-                        $scope.pa_idoptions = [];
+                        $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            this.push({ "label": value.pa_code, "value": value.pa_id, "width": value.pa_width, "height": value.pa_height, "measure": value.pa_measure });
-                        }, $scope.pa_idoptions);
+                            this.push({ "label": value.mt_code, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
+                        }, $scope.mt_idoptions);
                     } else {
                         //$scope.updateFail = true;
                     }

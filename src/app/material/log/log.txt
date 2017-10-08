@@ -1,0 +1,33 @@
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-04-05 03:22:47
+Query: select 
+                        *
+                    from  public.material, 
+                    jsonb_to_record(mt_jsonb, true) as x (
+                        mt_corporatename text,
+                        mt_tin text,
+                        mt_name text,
+                        mt_fatherslastname text,
+                        mt_motherslastname text,
+                        mt_street text,
+                        mt_streetnumber text,
+                        mt_suitenumber text,
+                        mt_neighborhood text,
+                        mt_addressreference text,
+                        mt_country text,
+                        mt_state text,
+                        mt_city text,
+                        mt_county text,
+                        mt_zipcode text,
+                        mt_email text,
+                        mt_phone text,
+                        mt_mobile text,
+                        mt_creditlimit decimal,
+                        mt_customerdiscount decimal,
+                        mt_status text
+                    );
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.material" does not exist
+LINE 3:                     from  public.material, 
+                                  ^
+ | Date: 2015-04-05 20:59:08
