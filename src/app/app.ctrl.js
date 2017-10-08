@@ -4,7 +4,7 @@ module.exports = (function (angular) {
     return ['$scope', '$rootScope', 'i18nFilter', '$location', 'authService', 
         function ($scope, $rootScope, i18nFilter, $location, authService) {
 
-            //$scope.authService = authService;
+            $scope.authService = authService;
             /*
             langFac.getLang().then(function (promise) {
                 if (promise.data.success) {

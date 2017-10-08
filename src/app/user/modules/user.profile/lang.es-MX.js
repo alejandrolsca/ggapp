@@ -1,3 +1,3 @@
 module.exports = {
-                    "title" : "perfil del usuario",
+                    "title" : "Perfil del Usuario",
                 }
