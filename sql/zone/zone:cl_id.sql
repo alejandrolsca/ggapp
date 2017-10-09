@@ -3,7 +3,7 @@ select
 from  public.zone, 
 jsonb_to_record(zo_jsonb) as x (
     zo_type text,
-    cl_id text,
+    cl_id int,
     zo_zone text,
     zo_corporatename text,
     zo_tin text,

@@ -2,7 +2,7 @@ select
     *
 from  public.material, 
 jsonb_to_record(mt_jsonb) as x (
-    su_id text,
+    su_id int,
     mt_code text,
     mt_type text,
     mt_description text,

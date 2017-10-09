@@ -6,7 +6,7 @@ module.exports = (function (angular) {
             $scope.fmData = {};
             $scope.fmData.pr_process = 'flexo';
             $scope.fmData.pr_type = 'labels';
-            $scope.fmData.cl_id = $stateParams.cl_id;
+            $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {
 

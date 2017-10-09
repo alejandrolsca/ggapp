@@ -25,7 +25,7 @@ jsonb_to_record(wo_jsonb) as wo_jsonb (
         wo_qty int,
         wo_price decimal, 
         wo_currency text,
-        wo_status text
+        wo_status int
 ),
 jsonb_to_record(pr_jsonb) as pr_jsonb (
 		pr_name text,

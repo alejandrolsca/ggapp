@@ -383,7 +383,6 @@ if (cluster.isMaster) {
                 if (err) {
                     return res.status(500).send(JSON.stringify(err, null, 4));
                 }
-                console.log(JSON.stringify(result));
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
@@ -401,7 +400,6 @@ if (cluster.isMaster) {
                 if (err) {
                     return res.status(500).send(JSON.stringify(err, null, 4));
                 }
-                console.log(JSON.stringify(result));
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
@@ -840,13 +838,11 @@ if (cluster.isMaster) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            console.log(req.body.wo_id)
             client.query(file('workflow/workflow:update'), [req.body.wo_status,req.body.wo_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
                 if (err) {
-                    console.log(err)
                     return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result)));

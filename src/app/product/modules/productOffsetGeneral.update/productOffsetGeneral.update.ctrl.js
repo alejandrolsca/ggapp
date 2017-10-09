@@ -8,7 +8,7 @@ module.exports = (function (angular) {
 
             $scope.fmData.pr_process = 'offset';
             $scope.fmData.pr_type = 'general';
-            $scope.fmData.cl_id = $stateParams.cl_id;
+            $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.pr_languageoptions = i18nFilter("productOffsetGeneral-add.fields.pr_languageoptions");            
             $scope.pr_finalsizemeasureoptions = i18nFilter("productOffsetGeneral-add.fields.pr_finalsizemeasureoptions");

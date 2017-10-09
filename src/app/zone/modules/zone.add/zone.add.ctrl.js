@@ -4,7 +4,7 @@ module.exports = (function (angular) {
     return ['$scope', 'zoneAddFac', '$location', 'i18nFilter', '$interval', '$stateParams',
         function ($scope, zoneAddFac, $location, i18nFilter, $interval, $stateParams) {
             $scope.fmData = {};
-            $scope.fmData.cl_id = $stateParams.cl_id;
+            $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {
 

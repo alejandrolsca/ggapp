@@ -35,7 +35,7 @@ right join lateral (
         wo_price text, 
         wo_currency text, 
         wo_email text, 
-        wo_status text
+        wo_status int
 	)
 where wo_jsonb->>'wo_status' = '0'
 ) wo

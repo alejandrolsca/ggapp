@@ -2,7 +2,7 @@ select
     *
 from  public.product, 
 jsonb_to_record(pr_jsonb) as x (
-    cl_id text,
+    cl_id int,
     pr_partno text,
     pr_code text,
     pr_name text,

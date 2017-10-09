@@ -4,10 +4,9 @@ module.exports = (function (angular) {
     return ['$scope', 'woAddFactory', '$stateParams', 'i18nFilter', '$filter', '$location',
         function ($scope, woAddFactory, $stateParams, i18nFilter, $filter, $location) {
             $scope.fmData = {};
-            //$scope.fmData = {"zo_id": "2", "wo_orderedby": "Alejandro", "wo_attention": "Marco", "ma_id": 1, "wo_release": "rel001", "wo_po": "ABC001", "wo_line": "1", "wo_linetotal": "4", "pr_id": "15", "wo_qty": "100", "wo_packageqty": "10", "wo_materialqty": "10", "wo_foliosperformat": 1, "wo_foliosseries": "A", "wo_foliosfrom": "1", "wo_foliosto": "100", "wo_commitmentdate": "2016-07-01", "wo_notes": "Esta es una orden de prueba", "wo_price": "99.99", "wo_currency": "DLLS", "wo_email": "yes" };
             $scope.fmData.wo_type = "N"; //N-new,R-rep,C-change
             $scope.fmData.wo_status = 0; //0-Active
-            $scope.fmData.cl_id = $stateParams.cl_id;
+            $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
@@ -35,7 +34,7 @@ module.exports = (function (angular) {
                 }).then(function () {
                     woAddFactory.getZone().then(function (promise) {
                         $scope.zo_idoptions = [];
-                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": "0" });
+                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": 0 });
                         if (angular.isArray(promise.data)) {
                             var rows = promise.data;
                             angular.forEach(rows, function (value, key) {
@@ -48,6 +47,7 @@ module.exports = (function (angular) {
                     $scope.ma_idoptions = [];
                     if (angular.isArray(promise.data)) {
                         var rows = promise.data;
+                        console.log(promise.data)
                         angular.forEach(rows, function (value, key) {
                             this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
                         }, $scope.ma_idoptions);
@@ -57,6 +57,7 @@ module.exports = (function (angular) {
                     $scope.pr_idoptions = [];
                     var rows = [];
                     if (angular.isArray(promise.data)) {
+                        console.log(promise.data)                        
                         rows = promise.data;
                         angular.forEach(rows, function (value, key) {
                             this.push({ "label": rows[key]['pr_id'] + '_' + rows[key]['pr_jsonb']['pr_name'] + '_' + rows[key]['pr_jsonb']['pr_code'], "value": rows[key]['pr_id'] });
