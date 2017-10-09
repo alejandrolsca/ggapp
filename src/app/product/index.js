@@ -3,7 +3,7 @@ module.exports = (function(angular){
     
     return angular.module('app.product',[
         require('./modules/productOffsetGeneral.add').name,
-        require('./modules/productOffsetGeneral.update').name,
+        //require('./modules/productOffsetGeneral.update').name,
         require('./modules/productOffsetPaginated.add').name,
         //require('./modules/productOffsetPaginated.update').name
         require('./modules/productOffsetCounterfoil.add').name,
