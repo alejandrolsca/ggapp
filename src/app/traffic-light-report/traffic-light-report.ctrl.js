@@ -226,7 +226,7 @@ module.exports = (function (angular) {
 
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                tlrFactory.getData(0).then(function (promise) {
+                tlrFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data)) {
                         // expose data as a CollectionView to get events

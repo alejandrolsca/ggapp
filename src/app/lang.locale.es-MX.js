@@ -97,6 +97,9 @@ module.exports = {
                 "productSerigraphyFlexibles-add": require('./product/modules/productSerigraphyFlexibles.add/lang.es-MX'),                            
                 "productSerigraphyRigid-add": require('./product/modules/productSerigraphyRigid.add/lang.es-MX'),                            
                 "productLaserGeneral-add": require('./product/modules/productLaserGeneral.add/lang.es-MX'),                          
+                "productDigitalGeneral-add": require('./product/modules/productDigitalGeneral.add/lang.es-MX'),                          
+                "productDigitalPaginated-add": require('./product/modules/productDigitalPaginated.add/lang.es-MX'),                          
+                "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
                 /****************************************
                 SUPPLIER 
                 ****************************************/

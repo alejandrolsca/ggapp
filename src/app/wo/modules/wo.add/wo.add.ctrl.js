@@ -38,7 +38,7 @@ module.exports = (function (angular) {
                         if (angular.isArray(promise.data)) {
                             var rows = promise.data;
                             angular.forEach(rows, function (value, key) {
-                                this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": rows[key]['zo_id'] });
+                                this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
                             }, $scope.zo_idoptions);
                         }
                     });
@@ -47,7 +47,6 @@ module.exports = (function (angular) {
                     $scope.ma_idoptions = [];
                     if (angular.isArray(promise.data)) {
                         var rows = promise.data;
-                        console.log(promise.data)
                         angular.forEach(rows, function (value, key) {
                             this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
                         }, $scope.ma_idoptions);
@@ -56,8 +55,7 @@ module.exports = (function (angular) {
                 woAddFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
                     var rows = [];
-                    if (angular.isArray(promise.data)) {
-                        console.log(promise.data)                        
+                    if (angular.isArray(promise.data)) {                    
                         rows = promise.data;
                         angular.forEach(rows, function (value, key) {
                             this.push({ "label": rows[key]['pr_id'] + '_' + rows[key]['pr_jsonb']['pr_name'] + '_' + rows[key]['pr_jsonb']['pr_code'], "value": rows[key]['pr_id'] });

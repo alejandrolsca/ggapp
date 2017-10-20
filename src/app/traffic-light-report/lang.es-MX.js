@@ -1,5 +1,5 @@
 module.exports = {
-    "title": "Flujo de Trabajo",
+    "title": "Reporte Semaforo",
     "labels": {
         "wo-id": "No. orden",
         "cl-id": "cliente",

@@ -42,7 +42,7 @@ module.exports = (function (angular) {
                         if (angular.isArray(promise.data)) {
                             var rows = promise.data;
                             angular.forEach(rows, function (value, key) {
-                                this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": rows[key]['zo_id'] });
+                                this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
                             }, $scope.zo_idoptions);
                         }
                     });

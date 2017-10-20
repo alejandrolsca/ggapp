@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.getClient = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/offset/general/client', {
+                $http.post('/api/product/client', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id
                 }).success(function (data, status, headers, config) {

@@ -45,6 +45,7 @@ module.exports = {
                         ],
                         ma_processoptions : [
                             {"label":"Offset","value":"offset"},
+                            {"label":"Digital","value":"digital"},
                             {"label":"Flexo","value":"flexo"},
                             {"label":"Plóter","value":"plotter"},
                             {"label":"Sellos","value":"seals"},

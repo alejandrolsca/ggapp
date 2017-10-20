@@ -198,6 +198,7 @@ module.exports = (function (angular) {
                     workflowFactory.getData(newValue).then(function (promise) {
                         $scope.loading = false;
                         if (angular.isArray(promise.data)) {
+                            console.log(promise.data)
                             // expose data as a CollectionView to get events
                             $scope.data = new wijmo.collections.CollectionView(promise.data);
                             $scope.data.pageSize = 50;

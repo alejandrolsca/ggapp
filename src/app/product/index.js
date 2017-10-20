@@ -18,7 +18,10 @@ module.exports = (function(angular){
         require('./modules/productSerigraphyBanner.add').name,
         require('./modules/productSerigraphyFlexibles.add').name,
         require('./modules/productSerigraphyRigid.add').name,
-        require('./modules/productLaserGeneral.add').name
+        require('./modules/productLaserGeneral.add').name,
+        require('./modules/productDigitalGeneral.add').name,
+        require('./modules/productDigitalPaginated.add').name,
+        require('./modules/productDigitalCounterfoil.add').name
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

@@ -11,6 +11,11 @@ module.exports = {
                                 {"label":"Paginados","value":"paginated"},   
                                 {"label":"Talonario","value":"counterfoil"},   
                             ]},
+                            {"label":"Digital","value":"digital",types:[
+                                {"label":"General","value":"general"},   
+                                {"label":"Paginados","value":"paginated"},   
+                                {"label":"Talonario","value":"counterfoil"},   
+                            ]},
                             {"label":"Flexo","value":"flexo",types:[
                                 {"label":"Etiquetas","value":"labels"},   
                                 {"label":"Ribbons","value":"ribbons"}
