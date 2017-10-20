@@ -175,13 +175,22 @@
   </gg-input>
   <gg-phone err-class="error"
             lbl="{{'client.labels.cl-phone' | i18n}}"
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-3"
             ng-model="fmData.cl_phone"
             regexp="phone"
             regexp-msg="{{'general.regexp.phone' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-phone>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-phoneextension' | i18n}}"
+            form-group-class="col-sm-1"
+            ng-model="fmData.cl_phoneextension"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="false">
+  </gg-input>
   <gg-phone err-class="error"
             lbl="{{'client.labels.cl-mobile' | i18n}}"
             form-group-class="col-sm-4"
