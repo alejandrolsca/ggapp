@@ -832,6 +832,23 @@ if (cluster.isMaster) {
         });
     });
 
+    app.post('/api/machine/process', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('machine/machine:ma_process'), [req.body.ma_process, req.body.ma_status], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
     /* WORKFLOW */
     app.post('/api/workflow', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {

@@ -1,5 +1,5 @@
 module.exports = {
-    "title": "Actualizar Orden de Trabajo",
+    "title": "Duplicar Orden de Trabajo",
     "labels": {
         "cl-id": "cliente",
         "zo-id": "zona",

@@ -27,6 +27,8 @@ module.exports = (function (angular) {
                     $scope.loading = false;
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
                             $scope.fmData = promise.data[0].wo_jsonb;
+                            $scope.fmData.wo_type = "R"; //N-new, R-rep, C-change
+                            $scope.fmData.wo_status = 0; //0-Active
                             $scope.fmData.wo_previousid = promise.data[0].wo_id;
                             $scope.fmData.wo_previousdate = promise.data[0].wo_date.substring(0, 10);
                     }
@@ -47,15 +49,6 @@ module.exports = (function (angular) {
                         }
                     });
                 })
-                woDuplicateFactory.getMachine().then(function (promise) {
-                    $scope.ma_idoptions = [];
-                    if (angular.isArray(promise.data)) {
-                        var rows = promise.data;
-                        angular.forEach(rows, function (value, key) {
-                            this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
-                        }, $scope.ma_idoptions);
-                    }
-                });
                 woDuplicateFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
                     var rows = [];
@@ -65,7 +58,6 @@ module.exports = (function (angular) {
                             this.push({ "label": rows[key]['pr_id'] + '_' + rows[key]['pr_jsonb']['pr_name'] + '_' + rows[key]['pr_jsonb']['pr_code'], "value": rows[key]['pr_id'] });
                         }, $scope.pr_idoptions);
                     }
-                    
                     $scope.$watch(
                         "fmData.pr_id",
                         function prChange(newValue, oldValue) {
@@ -79,6 +71,15 @@ module.exports = (function (angular) {
                                     $scope.product = product[0];
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
                                     $scope.paginatedExcedent = (product[0]['pr_jsonb']['pr_process'] === 'offset' && product[0]['pr_jsonb']['pr_type'] === 'paginated') ? true : false;
+                                    woDuplicateFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {
+                                        $scope.ma_idoptions = [];
+                                        if (angular.isArray(promise.data)) {
+                                            var rows = promise.data;
+                                            angular.forEach(rows, function (value, key) {
+                                                this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
+                                            }, $scope.ma_idoptions);
+                                        }
+                                    });
                                 }
                             }
                         }

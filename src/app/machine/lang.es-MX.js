@@ -48,7 +48,7 @@ module.exports = {
                             {"label":"Digital","value":"digital"},
                             {"label":"Flexo","value":"flexo"},
                             {"label":"Plóter","value":"plotter"},
-                            {"label":"Sellos","value":"seals"},
+                            {"label":"Sellos","value":"stamps"},
                             {"label":"Serigrafía","value":"serigraphy"},
                             {"label":"Laser","value":"laser"}
                         ],

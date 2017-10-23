@@ -135,6 +135,7 @@ module.exports = {
                 ****************************************/
                 "wo": require('./wo/lang.es-MX'),
                 "wo-add": require('./wo/modules/wo.add/lang.es-MX'),
+                "wo-duplicate": require('./wo/modules/wo.duplicate/lang.es-MX'),
                 "wo-update": require('./wo/modules/wo.update/lang.es-MX'),
                 /****************************************
                 ZONE 

@@ -43,15 +43,7 @@ module.exports = (function (angular) {
                         }
                     });
                 })
-                woAddFactory.getMachine().then(function (promise) {
-                    $scope.ma_idoptions = [];
-                    if (angular.isArray(promise.data)) {
-                        var rows = promise.data;
-                        angular.forEach(rows, function (value, key) {
-                            this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
-                        }, $scope.ma_idoptions);
-                    }
-                });
+                
                 woAddFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
                     var rows = [];
@@ -85,6 +77,15 @@ module.exports = (function (angular) {
                                     $scope.product = product[0];
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
                                     $scope.paginatedExcedent = (product[0]['pr_jsonb']['pr_process'] === 'offset' && product[0]['pr_jsonb']['pr_type'] === 'paginated') ? true : false;
+                                    woAddFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {
+                                        $scope.ma_idoptions = [];
+                                        if (angular.isArray(promise.data)) {
+                                            var rows = promise.data;
+                                            angular.forEach(rows, function (value, key) {
+                                                this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
+                                            }, $scope.ma_idoptions);
+                                        }
+                                    });
                                 }
                             }
                         }

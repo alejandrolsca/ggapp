@@ -82,7 +82,7 @@ module.exports = {
             { "label": "Facturado/Lista de Embarque", "value": 11, "desc": "Facturado", "us_group": "warehouse", "wo_prevstatus": [10] },
             { "label": "Enviado", "value": 12, "desc": "Los articulos fueron enviados", "us_group": "warehouse", "wo_prevstatus": [11] },
             { "label": "No se pudo entregar", "value": 13, "desc": "El producto no se pudo entregar", "us_group": "warehouse", "wo_prevstatus": [12] },
-            { "label": "Rechazado por el cliente", "value": 14, "desc": "El productofue rechazado por el cliente", "us_group": "warehouse", "wo_prevstatus": [12, 13] },
+            { "label": "Rechazado por el cliente", "value": 14, "desc": "El producto fue rechazado por el cliente", "us_group": "warehouse", "wo_prevstatus": [12, 13] },
             { "label": "Entregado", "value": 15, "desc": "El producto se entrego al cliente con éxito", "us_group": "warehouse", "wo_prevstatus": [12, 13] },
             { "label": "Cancelada", "value": 16, "desc": "La orden de trabajo fue cancelada", "us_group": "admin", "wo_prevstatus": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] }
         ]

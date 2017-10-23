@@ -33,12 +33,13 @@ module.exports = (function(angular) {
             );
             return deferred.promise;
         };
-        factory.getMachine = function() {
+        factory.getMachine = function(ma_process) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/machine', {
+                $http.post('/api/machine/process', {
                     /* POST variables here */
-                    cl_id: $stateParams.cl_id
+                    ma_process: ma_process,
+                    ma_status: 'A'
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {
