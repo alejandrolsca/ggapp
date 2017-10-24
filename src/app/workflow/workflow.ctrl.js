@@ -38,7 +38,7 @@ module.exports = (function (angular) {
                 $('#myModal').modal('hide');
                 console.log('submited')
             }
-
+            
             $scope.itemFormatter = function (panel, r, c, cell) {
 
                 // highlight rows that have 'active' set
@@ -84,7 +84,7 @@ module.exports = (function (angular) {
                 }
             }
 
-
+            
             // autosize columns
             $scope.itemsSourceChanged = function (sender, args) {
                 sender.autoSizeColumns();
@@ -99,7 +99,7 @@ module.exports = (function (angular) {
                     s.columns.push(col);
                 }
             };
-
+            
             // create the tooltip object
             $scope.$watch('ggGrid', function () {
                 if ($scope.ggGrid) {
@@ -138,7 +138,7 @@ module.exports = (function (angular) {
                         rng = null;
                     });
                 }
-            });
+            });         
 
             $scope.wo_statusoptions = [];
             var wo_statusoptions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions")))
@@ -175,8 +175,9 @@ module.exports = (function (angular) {
             ]
 
             $scope.$on('$viewContentLoaded', function () {
-
+                
                 // this code is executed after the view is loaded
+
                 $scope.$watch('fmData.wo_status', function (newValue, oldValue) {
                     $scope.loading = true;
                     $scope.actions = [];
@@ -184,7 +185,7 @@ module.exports = (function (angular) {
                     angular.forEach(actions, function (value, key) {
                         if (value.wo_prevstatus.includes(newValue)) {
                             if (value.us_group === userProfile.app_metadata.us_group || userProfile.app_metadata.us_group === "admin") {
-                                if ([14, 15].includes(newValue) && [14, 15].includes(value.value)) {
+                                if ([15, 16].includes(newValue) && [15, 16].includes(value.value)) {
                                     value.notAnOption = true;
                                 } else {
                                     value.notAnOption = false;
@@ -198,7 +199,6 @@ module.exports = (function (angular) {
                     workflowFactory.getData(newValue).then(function (promise) {
                         $scope.loading = false;
                         if (angular.isArray(promise.data)) {
-                            console.log(promise.data)
                             // expose data as a CollectionView to get events
                             $scope.data = new wijmo.collections.CollectionView(promise.data);
                             $scope.data.pageSize = 50;
