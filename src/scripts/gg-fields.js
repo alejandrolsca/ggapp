@@ -86,7 +86,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -200,7 +200,7 @@
                             $('[id="' + attrs.ngModel + '.phones"]').popover('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -275,7 +275,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -349,7 +349,7 @@
                         }
 
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -424,7 +424,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -499,7 +499,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -573,7 +573,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
