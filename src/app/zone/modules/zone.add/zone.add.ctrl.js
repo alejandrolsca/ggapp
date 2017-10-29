@@ -22,9 +22,9 @@ module.exports = (function (angular) {
                 $scope.zo_cityoptions = [];
                 $scope.zo_countyoptions = [];
                 $interval(function () {
-                    zoneAddFac.getStates($scope.fmData.zo_country).then(function (promise) {
-                        if (angular.isArray(promise.data.geonames)) {
-                            $scope.zo_stateoptions = promise.data.geonames;
+                    zoneAddFac.getChilds($scope.fmData.zo_country).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.zo_stateoptions = promise.data;
                         } else {
                             //$scope.updateFail = true;
                         }
@@ -32,14 +32,26 @@ module.exports = (function (angular) {
                 }, 0, 1);
             }
 
-            $scope.getCityCounty = function () {
+            $scope.getCity = function () {
                 $scope.zo_cityoptions = [];
                 $scope.zo_countyoptions = [];
                 $interval(function () {
-                    zoneAddFac.getStates($scope.fmData.zo_state).then(function (promise) {
-                        if (angular.isArray(promise.data.geonames)) {
-                            $scope.zo_cityoptions = promise.data.geonames;
-                            $scope.zo_countyoptions = promise.data.geonames;
+                    zoneAddFac.getChilds($scope.fmData.zo_state).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.zo_cityoptions = promise.data;
+                        } else {
+                            //$scope.updateFail = true;
+                        }
+                    });
+                }, 0, 1);
+            };
+
+            $scope.getCounty = function () {
+                $scope.zo_countyoptions = [];
+                $interval(function () {
+                    zoneAddFac.getChilds($scope.fmData.zo_city).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.zo_countyoptions = promise.data;
                         } else {
                             //$scope.updateFail = true;
                         }
@@ -61,8 +73,8 @@ module.exports = (function (angular) {
                 });
 
                 zoneAddFac.getCountries().then(function (promise) {
-                    if (angular.isArray(promise.data.geonames)) {
-                        $scope.zo_countryoptions = promise.data.geonames;
+                    if (angular.isArray(promise.data)) {
+                        $scope.zo_countryoptions = promise.data;
                     } else {
                         //$scope.updateFail = true;
                     }

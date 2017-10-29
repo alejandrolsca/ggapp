@@ -100,7 +100,7 @@
            form-group-class="col-sm-3" 
            options="zo_stateoptions" 
            ng-model="fmData.zo_state"
-           ng-change="getCityCounty()"
+           ng-change="getCity()"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
@@ -111,6 +111,7 @@
             form-group-class="col-sm-3"
             options="zo_cityoptions"
             ng-model="fmData.zo_city"
+            ng-change="getCounty()"           
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
@@ -124,7 +125,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-city-county>
   <gg-input err-class="error"
             lbl="{{'zone.labels.zo-street' | i18n}}"

@@ -79,7 +79,7 @@
            form-group-class="col-sm-3" 
            options="cl_stateoptions" 
            ng-model="fmData.cl_state"
-           ng-change="getCityCounty()"
+           ng-change="getCity()"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
@@ -90,6 +90,7 @@
             form-group-class="col-sm-3"
             options="cl_cityoptions"
             ng-model="fmData.cl_city"
+            ng-change="getCounty()"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
@@ -103,7 +104,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-city-county>
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-street' | i18n}}"
