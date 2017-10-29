@@ -152,11 +152,13 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
-    <p class="field-info bg-success">
-        {{material.width}} x {{material.height}} {{material.measure}}
-    </p>
-  </div>
+  <span ng-if="fmData.mt_id">
+    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
+        <p class="field-info bg-success">
+            {{material.width}} x {{material.height}} {{material.measure}}
+        </p>
+    </div>
+  </span>
   <label class="col-sm-12 fieldset">MEDIDA DEL PLIEGO</label>
   <gg-input err-class="error"
             lbl="{{'productDigitalGeneral-add.labels.pr-materialsizewidth' | i18n}}" 

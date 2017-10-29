@@ -23,6 +23,7 @@ jsonb_to_record(zo_jsonb) as x (
     zo_zipcode text,
     zo_email text,
     zo_phone text,
+    zo_phoneextension text,
     zo_mobile text,
     zo_status text
 )

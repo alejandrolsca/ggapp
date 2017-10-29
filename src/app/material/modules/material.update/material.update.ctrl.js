@@ -32,7 +32,7 @@ module.exports = (function (angular) {
                         if (angular.isArray(promise.data)) {
                             $scope.su_idoptions = [];
                             angular.forEach(promise.data, function (value, key) {
-                                this.push({ "label": value.su_corporatename, "value": +value.su_id });
+                                this.push({ "label": value.su_corporatename || (value.su_name + ' ' + value.su_fatherslastname), "value": +value.su_id });
                             }, $scope.su_idoptions);
                         } else {
                             //$scope.updateFail = true;
