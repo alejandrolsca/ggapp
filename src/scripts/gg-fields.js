@@ -275,7 +275,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value || undefined;
+                        return value;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
