@@ -2,7 +2,7 @@ module.exports = (function (angular) {
     'use strict';
 
     return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter','$location',
-        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location) {
+        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location) {         
             
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
@@ -27,6 +27,7 @@ module.exports = (function (angular) {
                     $scope.loading = false;
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
                             $scope.fmData = promise.data[0].wo_jsonb;
+                            $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
                             $scope.wo_id = promise.data[0].wo_id;
                             $scope.wo_date = promise.data[0].wo_date;
                     }
@@ -38,11 +39,11 @@ module.exports = (function (angular) {
                 }).then(function () {
                     woUpdateFactory.getZone().then(function (promise) {
                         $scope.zo_idoptions = [];
-                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": "0" });
+                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": 0 });
                         if (angular.isArray(promise.data)) {
                             var rows = promise.data;
                             angular.forEach(rows, function (value, key) {
-                                this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": rows[key]['zo_id'] });
+                                this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
                             }, $scope.zo_idoptions);
                         }
                     });

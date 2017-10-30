@@ -78,7 +78,7 @@
            form-group-class="col-sm-3" 
            options="su_stateoptions" 
            ng-model="fmData.su_state"
-           ng-change="getCityCounty()"
+           ng-change="getCity()"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
@@ -89,6 +89,7 @@
             form-group-class="col-sm-3"
             options="su_cityoptions"
             ng-model="fmData.su_city"
+            ng-change="getCounty()"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
@@ -102,7 +103,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-city-county>
   <gg-input err-class="error"
             lbl="{{'supplier.labels.su-street' | i18n}}"
@@ -171,13 +172,22 @@
   </gg-input>
   <gg-phone err-class="error"
             lbl="{{'supplier.labels.su-phone' | i18n}}"
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-3"
             ng-model="fmData.su_phone"
             regexp="phone"
             regexp-msg="{{'general.regexp.phone' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-phone>
+  <gg-input err-class="error"
+            lbl="{{'supplier.labels.su-phoneextension' | i18n}}"
+            form-group-class="col-sm-1"
+            ng-model="fmData.su_phoneextension"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="false">
+  </gg-input>
   <gg-phone err-class="error"
             lbl="{{'supplier.labels.su-mobile' | i18n}}"
             form-group-class="col-sm-4"

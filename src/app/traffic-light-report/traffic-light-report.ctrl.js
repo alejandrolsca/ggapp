@@ -66,42 +66,51 @@ module.exports = (function (angular) {
                     cell.style.backgroundColor = '';
                     cell.style.color = '';
                     if (col.header === 'Status') {
-                        var commitment_date = moment(panel.grid.getCellData(r, flex.columns.getColumn('wo_commitmentdate').index, false).substring(0, 10));
+                        var closing_time = 18;
+                        var commitment_date = moment(panel.grid.getCellData(r, flex.columns.getColumn('wo_commitmentdate').index, false)).set({
+                            hour: closing_time,
+                            minute: 0,
+                            second: 0
+                        });
                         var delivery_date = panel.grid.getCellData(r, flex.columns.getColumn('wo_deliverydate').index, false);
-                        var days = undefined;
+                        var hours = undefined;
                         var status = undefined;
-                        //console.log(delivery_date);
                         if (delivery_date === null) {
-                            days = commitment_date.diff(moment(), 'days');
+                            hours = moment.duration(commitment_date.diff(moment().format('YYYY-MM-DD HH:mm:ss'))).asHours();
                             // delayed, commitment_date is due                            
-                            if (days <= 0) {
-                                status = 'Delayed (' + Math.abs(days) + ')';
+                            if (hours < 0) {
+                                status = 'Atrasado (' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas)';
                                 cell.style.backgroundColor = 'OrangeRed';
                                 cell.style.color = 'yellow';
                             }
                             // 2 days before commitment_date is due                           
-                            if (days > 0 && days < 3) {
-                                status = Math.abs(days) + ' Day(s) left';
+                            if (hours >= 0 && hours <= 48) {
+                                status = 'Restan ' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas';
                                 cell.style.backgroundColor = 'Gold';
+                            }
+                            // mora than 2 days before commitment_date is due                           
+                            if (hours > 48) {
+                                status = 'Restan ' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas';
+                                cell.style.backgroundColor = 'LightYellow';
                             }
 
                         } else {
-                            days = commitment_date.diff(moment(delivery_date.substring(0, 10)), 'days')
-                            // delivered on commitment_date
-                            if (days === 0) {
-                                status = 'Delivered On Time';
+                            hours = moment.duration(commitment_date.diff(moment(delivery_date).format('YYYY-MM-DD HH:mm:ss'))).asHours();
+                            // delivered on commitment_date (same day)
+                            if (hours >= 0 && hours <= closing_time) {
+                                status = 'Entregado a tiempo';
                                 cell.style.backgroundColor = 'LimeGreen';
                                 cell.style.color = 'Black';
                             }
-                            // delivered after commitment_date
-                            if (days < 0) {
-                                status = 'Late Delivery (' + Math.abs(days) + ')';
+                            // delivered any time after commitment_date
+                            if (hours < 0) {
+                                status = 'Entrega a destiempo (' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas)';
                                 cell.style.backgroundColor = 'Grey';
                                 cell.style.color = 'Gainsboro';
                             }
-                            // delivered before commitment_date                            
-                            if (days > 0) {
-                                status = 'Efficient Delivery (' + Math.abs(days) + ')';
+                            // delivered a day before commitment_date                            
+                            if (hours > closing_time) {
+                                status = 'Entrega eficiente (' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas)'
                                 cell.style.backgroundColor = 'DodgerBlue';
                                 cell.style.color = 'White';
                             }
@@ -226,7 +235,7 @@ module.exports = (function (angular) {
 
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                tlrFactory.getData(0).then(function (promise) {
+                tlrFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data)) {
                         // expose data as a CollectionView to get events

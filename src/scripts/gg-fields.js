@@ -11,12 +11,13 @@
             "inkcode": /^[a-zA-Z0-9]{1,}$/,
             "machinetotalinks": /^[1-8]{1}$/,
             "rfc": /^[A-Za-z]{3,4}\-\d{6}(?:\-[A-Za-z\d]{3})?$/,
+            "immex": /^\d{1,}-20\d{2,2}$/,
             "email": /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i,
             "decimal": /^(\d+\.\d{2,5})$/,
             "discount": /^(0\.\d{2,2})$/,
             "integer": /^\d{1,}$/,
             "zipcode": /^\d{5,5}$/,
-            "date": /^\d{4}-\d{2}-\d{2}$/,
+            "date": /^20[1-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/,
             "user": /^\w{4,16}$/,
             "password": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
             "phone": /^([+])?(\d{2,}-)*(\d{2,}-\d{2,})$/,
@@ -85,7 +86,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -199,7 +200,7 @@
                             $('[id="' + attrs.ngModel + '.phones"]').popover('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -348,7 +349,7 @@
                         }
 
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -423,7 +424,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -498,7 +499,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -572,7 +573,7 @@
                             $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);

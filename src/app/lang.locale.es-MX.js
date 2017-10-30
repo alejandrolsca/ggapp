@@ -46,6 +46,7 @@ module.exports = {
                         "inkcode": "sin espacios ni caracteres especiales",
                         "machinetotalinks": "minimo 1 maximo 8",
                         "rfc": "XXXX-######[-XXX]",
+                        "immex": "Numero IMMEX (1 o mas digitos)-Año IMMEX (20##)",
                         "email": "por favor introduzca un email valido.",
                         "decimal": "numero y de 2 a 5 decimales (#.##[###])",
                         "discount": "cero mas 2 decimales (0.##)",
@@ -97,6 +98,9 @@ module.exports = {
                 "productSerigraphyFlexibles-add": require('./product/modules/productSerigraphyFlexibles.add/lang.es-MX'),                            
                 "productSerigraphyRigid-add": require('./product/modules/productSerigraphyRigid.add/lang.es-MX'),                            
                 "productLaserGeneral-add": require('./product/modules/productLaserGeneral.add/lang.es-MX'),                          
+                "productDigitalGeneral-add": require('./product/modules/productDigitalGeneral.add/lang.es-MX'),                          
+                "productDigitalPaginated-add": require('./product/modules/productDigitalPaginated.add/lang.es-MX'),                          
+                "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
                 /****************************************
                 SUPPLIER 
                 ****************************************/
@@ -131,6 +135,7 @@ module.exports = {
                 ****************************************/
                 "wo": require('./wo/lang.es-MX'),
                 "wo-add": require('./wo/modules/wo.add/lang.es-MX'),
+                "wo-duplicate": require('./wo/modules/wo.duplicate/lang.es-MX'),
                 "wo-update": require('./wo/modules/wo.update/lang.es-MX'),
                 /****************************************
                 ZONE 

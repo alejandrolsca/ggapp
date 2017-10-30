@@ -73,11 +73,13 @@
           req-msg="Required"
           is-required="true">
   </gg-input>
-  <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
-    <p class="field-info bg-success">
-        {{material.width}} x {{material.height}} {{material.measure}}
-    </p>
-  </div>
+  <span ng-if="fmData.mt_id">
+    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
+      <p class="field-info bg-success">
+          {{material.width}} x {{material.height}} {{material.measure}}
+      </p>
+    </div>
+  </span>
   <gg-select err-class="error"
            lbl="{{'productStampsInk-add.labels.pr-status' | i18n}}" 
            form-group-class="col-sm-4" 

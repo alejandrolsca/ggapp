@@ -20,8 +20,9 @@ jsonb_to_record(cl_jsonb) as x (
     cl_zipcode text,
     cl_email text,
     cl_phone text,
+    cl_phoneextension text,
     cl_mobile text,
-    cl_creditlimit decimal,
-    cl_customerdiscount decimal,
+    cl_creditlimit text,
+    cl_customerdiscount text,
     cl_status text
 );

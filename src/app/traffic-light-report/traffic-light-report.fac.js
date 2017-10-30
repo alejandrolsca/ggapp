@@ -9,7 +9,6 @@ module.exports = (function (angular) {
                 $http.post('/api/tlr', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds(),
-                    wo_status: wo_status
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

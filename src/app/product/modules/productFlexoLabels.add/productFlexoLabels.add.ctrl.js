@@ -6,7 +6,7 @@ module.exports = (function (angular) {
             $scope.fmData = {};
             $scope.fmData.pr_process = 'flexo';
             $scope.fmData.pr_type = 'labels';
-            $scope.fmData.cl_id = $stateParams.cl_id;
+            $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {
 
@@ -63,7 +63,7 @@ module.exports = (function (angular) {
                     if (angular.isObject(promise.data)) {
                         var client = promise.data[0].cl_jsonb;
                         var cl_type = client.cl_type
-                        $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_fatherslastname + ' ' + client.cl_motherslastname;
+                        $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_fatherslastname;
                     }
                 });
 

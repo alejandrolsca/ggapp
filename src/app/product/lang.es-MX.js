@@ -3,6 +3,7 @@ module.exports = {
                     "labels":{
                         "pr-id": "ID producto",
                         "cl-id": "ID Cliente",
+                        "cl-name": "Cliente",
                         "pr-partno": "No. Parte",
                         "pr-code": "Codigo",
                         "pr-name": "Nombre",
@@ -14,6 +15,7 @@ module.exports = {
                     "columns":[
                         "pr_id",
                         "cl_id",
+                        "cl_name",
                         "pr_partno",
                         "pr_code",
                         "pr_name",

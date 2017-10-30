@@ -20,9 +20,9 @@ module.exports = (function (angular) {
                 $scope.su_cityoptions = [];
                 $scope.su_countyoptions = [];
                 $interval(function () {
-                    supplierUpdateFac.getStates($scope.fmData.su_country).then(function (promise) {
-                        if (angular.isArray(promise.data.geonames)) {
-                            $scope.su_stateoptions = promise.data.geonames;
+                    supplierUpdateFac.getChilds($scope.fmData.su_country).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.su_stateoptions = promise.data;
                         } else {
                             //$scope.updateFail = true;
                         }
@@ -30,14 +30,26 @@ module.exports = (function (angular) {
                 }, 0, 1);
             }
 
-            $scope.getCityCounty = function () {
+            $scope.getCity = function () {
                 $scope.su_cityoptions = [];
                 $scope.su_countyoptions = [];
                 $interval(function () {
-                    supplierUpdateFac.getStates($scope.fmData.su_state).then(function (promise) {
-                        if (angular.isArray(promise.data.geonames)) {
-                            $scope.su_cityoptions = promise.data.geonames;
-                            $scope.su_countyoptions = promise.data.geonames;
+                    supplierUpdateFac.getChilds($scope.fmData.su_state).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.su_cityoptions = promise.data;
+                        } else {
+                            //$scope.updateFail = true;
+                        }
+                    });
+                }, 0, 1);
+            }
+
+            $scope.getCounty = function () {
+                $scope.su_countyoptions = [];
+                $interval(function () {
+                    supplierUpdateFac.getChilds($scope.fmData.su_city).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.su_countyoptions = promise.data;
                         } else {
                             //$scope.updateFail = true;
                         }
@@ -58,24 +70,31 @@ module.exports = (function (angular) {
                     }
                 }).then(function () {
                     supplierUpdateFac.getCountries().then(function (promise) {
-                        if (angular.isArray(promise.data.geonames)) {
-                            $scope.su_countryoptions = promise.data.geonames;
+                        if (angular.isArray(promise.data)) {
+                            $scope.su_countryoptions = promise.data;
                         } else {
                             //$scope.updateFail = true;
                         }
                     }).then(function () {
-                        supplierUpdateFac.getStates($scope.fmData.su_country).then(function (promise) {
-                            if (angular.isArray(promise.data.geonames)) {
-                                $scope.su_stateoptions = promise.data.geonames;
+                        supplierUpdateFac.getChilds($scope.fmData.su_country).then(function (promise) {
+                            if (angular.isArray(promise.data)) {
+                                $scope.su_stateoptions = promise.data;
                             } else {
                                 //$scope.updateFail = true;
                             }
                         })
                     }).then(function () {
-                        supplierUpdateFac.getCityCounty($scope.fmData.su_state).then(function (promise) {
-                            if (angular.isArray(promise.data.geonames)) {
-                                $scope.su_cityoptions = promise.data.geonames;
-                                $scope.su_countyoptions = promise.data.geonames;
+                        supplierUpdateFac.getChilds($scope.fmData.su_state).then(function (promise) {
+                            if (angular.isArray(promise.data)) {
+                                $scope.su_cityoptions = promise.data;
+                            } else {
+                                //$scope.updateFail = true;
+                            }
+                        })
+                    }).then(function () {
+                        supplierUpdateFac.getChilds($scope.fmData.su_city).then(function (promise) {
+                            if (angular.isArray(promise.data)) {
+                                $scope.su_countyoptions = promise.data;
                             } else {
                                 //$scope.updateFail = true;
                             }

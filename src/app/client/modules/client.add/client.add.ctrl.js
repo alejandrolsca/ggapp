@@ -21,9 +21,9 @@ module.exports = (function (angular) {
                 $scope.cl_cityoptions = [];
                 $scope.cl_countyoptions = [];
                 $interval(function () {
-                    clientAddFac.getStates($scope.fmData.cl_country).then(function (promise) {
-                        if (angular.isArray(promise.data.geonames)) {
-                            $scope.cl_stateoptions = promise.data.geonames;
+                    clientAddFac.getChilds($scope.fmData.cl_country).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.cl_stateoptions = promise.data;
                         } else {
                             //$scope.updateFail = true;
                         }
@@ -31,14 +31,26 @@ module.exports = (function (angular) {
                 }, 0, 1);
             }
 
-            $scope.getCityCounty = function () {
+            $scope.getCity = function () {
                 $scope.cl_cityoptions = [];
                 $scope.cl_countyoptions = [];
                 $interval(function () {
-                    clientAddFac.getStates($scope.fmData.cl_state).then(function (promise) {
-                        if (angular.isArray(promise.data.geonames)) {
-                            $scope.cl_cityoptions = promise.data.geonames;
-                            $scope.cl_countyoptions = promise.data.geonames;
+                    clientAddFac.getChilds($scope.fmData.cl_state).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.cl_cityoptions = promise.data;
+                        } else {
+                            //$scope.updateFail = true;
+                        }
+                    });
+                }, 0, 1);
+            };
+
+            $scope.getCounty = function () {
+                $scope.cl_countyoptions = [];
+                $interval(function () {
+                    clientAddFac.getChilds($scope.fmData.cl_city).then(function (promise) {
+                        if (angular.isArray(promise.data)) {
+                            $scope.cl_countyoptions = promise.data;
                         } else {
                             //$scope.updateFail = true;
                         }
@@ -53,8 +65,8 @@ module.exports = (function (angular) {
                 // this code is executed after the view is loaded
             
                 clientAddFac.getCountries().then(function (promise) {
-                    if (angular.isArray(promise.data.geonames)) {
-                        $scope.cl_countryoptions = promise.data.geonames;
+                    if (angular.isArray(promise.data)) {
+                        $scope.cl_countryoptions = promise.data;
                     } else {
                         //$scope.updateFail = true;
                     }

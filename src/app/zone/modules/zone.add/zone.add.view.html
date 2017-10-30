@@ -49,8 +49,8 @@
             lbl="{{'zone.labels.zo-immex' | i18n}}" 
             form-group-class="col-sm-3" 
             ng-model="fmData.zo_immex"
-            regexp="rfc"
-            regexp-msg="{{'general.regexp.rfc' | i18n}}"
+            regexp="immex"
+            regexp-msg="{{'general.regexp.immex' | i18n}}"
             req-msg="Required"
             is-required="false">
   </gg-input>
@@ -97,7 +97,7 @@
            form-group-class="col-sm-3" 
            options="zo_stateoptions" 
            ng-model="fmData.zo_state"
-           ng-change="getCityCounty()"
+           ng-change="getCity()"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
@@ -108,6 +108,7 @@
             form-group-class="col-sm-3"
             options="zo_cityoptions"
             ng-model="fmData.zo_city"
+           ng-change="getCounty()"           
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
@@ -121,7 +122,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-city-county>
   <gg-input err-class="error"
             lbl="{{'zone.labels.zo-street' | i18n}}"
@@ -144,12 +145,11 @@
   <gg-input err-class="error"
             lbl="{{'zone.labels.zo-suitenumber' | i18n}}"
             form-group-class="col-sm-4"
-
             ng-model="fmData.zo_suitenumber"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'zone.labels.zo-neighborhood' | i18n}}"
@@ -190,13 +190,22 @@
   </gg-input>
   <gg-phone err-class="error"
             lbl="{{'zone.labels.zo-phone' | i18n}}"
-            form-group-class="col-sm-6"
+            form-group-class="col-sm-5"
             ng-model="fmData.zo_phone"
             regexp="phone"
             regexp-msg="{{'general.regexp.phone' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-phone>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-phoneextension' | i18n}}"
+            form-group-class="col-sm-1"
+            ng-model="fmData.zo_phoneextension"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="false">
+  </gg-input>
   <gg-phone err-class="error"
             lbl="{{'zone.labels.zo-mobile' | i18n}}"
             form-group-class="col-sm-6"

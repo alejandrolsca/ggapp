@@ -143,7 +143,7 @@ if (cluster.isMaster) {
         });
     });
 
-    /*SUPPLIER*/
+    /* SUPPLIER */
 
     app.post('/api/supplier/su_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
@@ -202,6 +202,23 @@ if (cluster.isMaster) {
                 return console.error('error fetching client from pool', err);
             }
             client.query(file('supplier/supplier'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
+    app.post('/api/supplier/su_status', jwtCheck, function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('supplier/supplier:su_status'), [req.body.su_status], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -354,6 +371,23 @@ if (cluster.isMaster) {
     });
 
     /* PRODUCT */
+    app.post('/api/product', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('product/product'), [req.body.cl_id], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
     app.post('/api/product/cl_id', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
@@ -383,7 +417,6 @@ if (cluster.isMaster) {
                 if (err) {
                     return res.status(500).send(JSON.stringify(err, null, 4));
                 }
-                console.log(JSON.stringify(result));
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
@@ -401,18 +434,17 @@ if (cluster.isMaster) {
                 if (err) {
                     return res.status(500).send(JSON.stringify(err, null, 4));
                 }
-                console.log(JSON.stringify(result));
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             });
         });
     });
 
-    app.post('/api/product/offset/general/client', function (req, res, next) {
+    app.post('/api/product/client', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('product/product:offset:general:client'), [req.body.cl_id], function (err, result) {
+            client.query(file('product/product:client'), [req.body.cl_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -424,12 +456,12 @@ if (cluster.isMaster) {
         })
     });
 
-    app.post('/api/product/offset/general/material', function (req, res, next) {
+    app.post('/api/product/material', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('product/product:offset:general:material'), function (err, result) {
+            client.query(file('product/product:material'), function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -441,12 +473,12 @@ if (cluster.isMaster) {
         })
     });
 
-    app.post('/api/product/offset/general/ink', function (req, res, next) {
+    app.post('/api/product/ink', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('product/product:offset:general:ink'), function (err, result) {
+            client.query(file('product/product:ink'), function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -458,12 +490,12 @@ if (cluster.isMaster) {
         })
     });
 
-    app.post('/api/product/offset/general/product', function (req, res, next) {
+    app.post('/api/product/product', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('product/product:offset:general:product'), [req.body.pr_id], function (err, result) {
+            client.query(file('product/product:product'), [req.body.pr_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -817,6 +849,23 @@ if (cluster.isMaster) {
         });
     });
 
+    app.post('/api/machine/process', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('machine/machine:ma_process'), [req.body.ma_process, req.body.ma_status], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
     /* WORKFLOW */
     app.post('/api/workflow', function (req, res, next) {
         pg.connect(conString, function (err, client, done) {
@@ -840,13 +889,11 @@ if (cluster.isMaster) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            console.log(req.body.wo_id)
             client.query(file('workflow/workflow:update'), [req.body.wo_status,req.body.wo_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
                 if (err) {
-                    console.log(err)
                     return res.status(500).send(JSON.stringify(err, null, 4));
                 }
                 res.send(")]}',\n".concat(JSON.stringify(result)));
@@ -860,7 +907,7 @@ if (cluster.isMaster) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('tlr/tlr'), [req.body.wo_status], function (err, result) {
+            client.query(file('tlr/tlr'), [], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -871,6 +918,42 @@ if (cluster.isMaster) {
             });
         });
     });
+
+    /* GEONAMES */
+    app.post('/api/geonames/countries', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('global/geonames:countries'), [], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
+    app.post('/api/geonames/childs/geonameid', function (req, res, next) {
+        pg.connect(conString, function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('global/geonames:childs:geonameid'), [req.body.geonameId], function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
 
     var server = app.listen(port, function () {
         var host = 'localhost';

@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.data = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/offset/general/product', {
+                $http.post('/api/product/product', {
                     /* POST variables here */
                     pr_id: $stateParams.pr_id
                 }).success(function (data, status, headers, config) {
@@ -21,7 +21,7 @@ module.exports = (function (angular) {
         factory.getClient = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/offset/general/client', {
+                $http.post('/api/product/client', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id
                 }).success(function (data, status, headers, config) {
@@ -36,7 +36,7 @@ module.exports = (function (angular) {
         factory.getInks = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/offset/general/ink', {
+                $http.post('/api/product/ink', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds()
                 }).success(function (data, status, headers, config) {
@@ -51,7 +51,7 @@ module.exports = (function (angular) {
         factory.getMaterials = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/offset/general/material', {
+                $http.post('/api/product/material', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds()
                 }).success(function (data, status, headers, config) {

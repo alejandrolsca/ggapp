@@ -14,6 +14,8 @@ module.exports = function (env) {
         devServer: {
             contentBase: path.join(path.resolve(), "dist"),
             compress: true,
+            host: '0.0.0.0',
+            disableHostCheck: true,
             port: 4000,
             proxy: {
                 "/api/*": {
