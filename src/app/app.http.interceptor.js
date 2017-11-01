@@ -15,14 +15,16 @@ module.exports = (function (angular) {
 
                 'requestError': function (rejection) {
                     // do something on error
-                    console.log('response: ',rejection)
+                    console.log('requestError: ',rejection)
                     return $q.reject(rejection);
                 },
                 'responseError': function (rejection) {
-                    console.log('response: ',rejection)
+                    console.log('responseError: ',rejection)
                     // do something on error
                     var alerts = $injector.get('$alerts');
-                    alerts.error('Wooops! an error has ocurred.', JSON.stringify(rejection, null, 4));
+                    if(rejection.status !== 401) {
+                        alerts.error('Wooops! an error has ocurred.', JSON.stringify(rejection, null, 4));
+                    }
                     return $q.reject(rejection);
                 }
             }

@@ -2,7 +2,6 @@ module.exports = {
                     "title" : "Proveedores",
                     "labels":{
                         "su-id":"id proveedor",
-                        "su-type":"Tipo",
                         "su-corporatename":"razón social",
                         "su-tin":"rfc",
                         "su-name":"nombre",
@@ -23,11 +22,11 @@ module.exports = {
                         "su-phoneextension":"Ext.",
                         "su-mobile":"móvil",
                         "su-status":"estatus",
+                        "su-type":"Tipo",
                         "su-date":"fecha",
                     },
                      "columns":[
                         "su_id",
-                        "su_type",
                         "su_corporatename",
                         "su_tin",
                         "su_name",
@@ -48,6 +47,7 @@ module.exports = {
                         "su_phoneextension",
                         "su_mobile",
                         "su_status",
+                        "su_type",
                         "su_date",
                      ],
                      "fields" : {
