@@ -38,8 +38,8 @@ module.exports = (function (angular) {
                             "wo_id: " + flex.getCellData(i, flex.columns.getColumn('wo_id').index) + '\r\n' +
                             "cl_id: " + flex.getCellData(i, flex.columns.getColumn('cl_id').index) + '\r\n' +
                             "cl_corporatename: " + flex.getCellData(i, flex.columns.getColumn('cl_corporatename').index) + '\r\n' +
-                            "cl_fatherslastname: " + flex.getCellData(i, flex.columns.getColumn('cl_fatherslastname').index) + '\r\n' +
-                            "cl_motherslastname: " + flex.getCellData(i, flex.columns.getColumn('cl_motherslastname').index) + '\r\n' +
+                            "cl_firstsurname: " + flex.getCellData(i, flex.columns.getColumn('cl_firstsurname').index) + '\r\n' +
+                            "cl_secondsurname: " + flex.getCellData(i, flex.columns.getColumn('cl_secondsurname').index) + '\r\n' +
                             "wo_commitmentdate: " + flex.getCellData(i, flex.columns.getColumn('wo_commitmentdate').index) + '\r\n' +
                             "wo_deliverydate: " + flex.getCellData(i, flex.columns.getColumn('wo_deliverydate').index) + '\r\n' +
                             "wo_status: " + flex.getCellData(i, flex.columns.getColumn('wo_status').index) + '\r\n' +

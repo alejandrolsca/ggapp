@@ -15,9 +15,11 @@ module.exports = (function (angular) {
 
                 'requestError': function (rejection) {
                     // do something on error
+                    console.log('response: ',rejection)
                     return $q.reject(rejection);
                 },
                 'responseError': function (rejection) {
+                    console.log('response: ',rejection)
                     // do something on error
                     var alerts = $injector.get('$alerts');
                     alerts.error('Wooops! an error has ocurred.', JSON.stringify(rejection, null, 4));

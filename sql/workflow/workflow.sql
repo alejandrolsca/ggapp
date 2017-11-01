@@ -1,8 +1,8 @@
 select
 	cl.cl_jsonb->>'cl_corporatename' as cl_corporatename,
 	cl.cl_jsonb->>'cl_name' as cl_name,
-    cl.cl_jsonb->>'cl_fatherslastname' as cl_fatherslastname,
-    cl.cl_jsonb->>'cl_motherslastname' as cl_motherslastname,
+    cl.cl_jsonb->>'cl_firstsurname' as cl_firstsurname,
+    cl.cl_jsonb->>'cl_secondsurname' as cl_secondsurname,
 	*
 from client cl 
 right join lateral (

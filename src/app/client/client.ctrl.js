@@ -52,6 +52,28 @@ module.exports = (function (angular) {
                                            // <li><a href="#/email/add/'+ cl_id + '"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Correo</a></li>
                 }
             }
+            
+            $scope.itemFormatter = function (panel, r, c, cell) {
+                if ((panel.cellType == wijmo.grid.CellType.Cell)) {
+                    var flex = panel.grid;
+                    var col = flex.columns[c];
+                    var row = flex.rows[r];
+                    var cl_name = panel.grid.getCellData(r, flex.columns.getColumn('cl_name').index,false);
+                    var cl_firstsurname = panel.grid.getCellData(r, flex.columns.getColumn('cl_firstsurname').index,false);
+                    var cl_secondsurname = panel.grid.getCellData(r, flex.columns.getColumn('cl_secondsurname').index,false) || '';                    
+                    var cl_type = panel.grid.getCellData(r, flex.columns.getColumn('cl_type').index,false);
+                    var cl_corporatename = cl_name + ' ' + cl_firstsurname + ' ' + cl_secondsurname
+                    cell.style.backgroundColor = '';
+                    cell.style.color = '';
+                    if (col.index === 2) {
+                        if (cl_type === 'natural') {
+                            row.dataItem.cl_corporatename = cl_corporatename;
+                            cell.innerHTML = cl_corporatename;
+                        }
+                        cell.style.overflow = 'visible';      
+                    }
+                }
+            }
 
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
