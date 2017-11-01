@@ -45,7 +45,7 @@ module.exports = {
                         "materialcode": "sin espacios ni caracteres especiales",
                         "inkcode": "sin espacios ni caracteres especiales",
                         "machinetotalinks": "minimo 1 maximo 8",
-                        "rfc": "XXXX-######[-XXX]",
+                        "rfc": "XXXX######[XXX]",
                         "immex": "Numero IMMEX (1 o mas digitos)-Año IMMEX (20##)",
                         "email": "por favor introduzca un email valido.",
                         "decimal": "numero y de 2 a 5 decimales (#.##[###])",
