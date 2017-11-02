@@ -253,20 +253,30 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/material/add', function (req, res, next) {
-        pool.connect(function (err, client, done) {
-            if (err) {
-                return console.error('error fetching client from pool', err);
-            }
-            client.query(file('material/material:add'), [req.body.mt_jsonb], function (err, result) {
-                //call `done()` to release the client back to the pool
-                done();
-
-                if (err) {
-                    return res.status(500).send(JSON.stringify(err, null, 4));
-                }
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            let result = undefined;
+            try {
+                await client.query('BEGIN')
+                const { rows } = await client.query(file('material/material:add'), [req.body.mt_jsonb])
+                console.log(rows)
+                const code = `"M|${rows[0].su_id}|${rows[0].mt_type}|${rows[0].mt_id}"`
+                console.log(code)
+                const insertCodeQuery = file('material/material:add:code')
+                const insertCodeValues = [code, rows[0].mt_id]
+                result = await client.query(insertCodeQuery, insertCodeValues)
+                await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(result)));
-            });
-        });
+            } catch (e) {
+                await client.query('ROLLBACK')
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
     });
 
     app.post('/api/material/update', function (req, res, next) {

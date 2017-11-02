@@ -1,0 +1,2 @@
+update product
+set pr_jsonb = jsonb_set(pr_jsonb,'{pr_code}', to_jsonb('P' || '|' || (pr_jsonb#>>'{cl_id}') || '|' || (pr_jsonb#>>'{pr_process}') || '|' || (pr_jsonb#>>'{pr_type}') || '|' || pr_id) ,true)

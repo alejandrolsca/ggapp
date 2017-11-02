@@ -32,7 +32,6 @@ module.exports = {
     "columns": [
         "zo_id",
         "cl_id",
-        "zo_type",
         "zo_zone",
         "zo_corporatename",
         "zo_tin",
@@ -51,6 +50,7 @@ module.exports = {
         "zo_phoneextension",
         "zo_mobile",
         "zo_status",
+        "zo_type",
         "zo_date",
     ],
     "fields": {
