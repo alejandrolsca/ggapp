@@ -34,9 +34,10 @@ if (cluster.isMaster) {
         bodyParser = require('body-parser'),
         cors = require('cors'),
         path = require('path'),
-        pg = require('pg'),
         fs = require('fs'),
-        port = (process.env['NODE_ENV'] !== 'production') ? 8080: 3000;
+        port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000;
+
+    const { Pool } = require('pg');
 
     //SETUP APP
     var app = express();
@@ -56,7 +57,9 @@ if (cluster.isMaster) {
     app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
     //SETUP POSTGRESQL
-    var conString = "postgres://Alejandro:a186419.ASB@localhost:5432/ggapp";
+    const pool = new Pool({
+        connectionString: 'postgres://Alejandro:a186419.ASB@localhost:5432/ggapp'
+    })
 
     //SETUP SQL FILE READER
     var sqlPath = __dirname + '/sql/';
@@ -76,7 +79,7 @@ if (cluster.isMaster) {
 
     /* CLIENT */
     app.post('/api/client/cl_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -93,7 +96,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/client/add', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -110,7 +113,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/client/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -127,7 +130,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/client/', jwtCheck, function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -146,7 +149,7 @@ if (cluster.isMaster) {
     /* SUPPLIER */
 
     app.post('/api/supplier/su_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -163,7 +166,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/supplier/add', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -180,7 +183,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/supplier/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -197,7 +200,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/supplier/', jwtCheck, function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -214,7 +217,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/supplier/su_status', jwtCheck, function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -231,9 +234,9 @@ if (cluster.isMaster) {
     });
 
     /*MATERIAL*/
-    
+
     app.post('/api/material/mt_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -250,7 +253,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/material/add', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -267,7 +270,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/material/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -284,7 +287,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/material/', jwtCheck, function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -303,7 +306,7 @@ if (cluster.isMaster) {
     /* INK */
 
     app.post('/api/ink/in_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -320,7 +323,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/ink/add', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -337,7 +340,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/ink/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -354,7 +357,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/ink/', jwtCheck, function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -372,7 +375,7 @@ if (cluster.isMaster) {
 
     /* PRODUCT */
     app.post('/api/product', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -389,7 +392,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/cl_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -406,24 +409,34 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/add', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
-            if (err) {
-                return console.error('error fetching client from pool', err);
-            }
-            client.query(file('product/product:add'), [req.body.pr_jsonb], function (err, result) {
-                //call `done()` to release the client back to the pool
-                done();
-
-                if (err) {
-                    return res.status(500).send(JSON.stringify(err, null, 4));
-                }
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            let result = undefined;
+            try {
+                await client.query('BEGIN')
+                const { rows } = await client.query(file('product/product:add'), [req.body.pr_jsonb])
+                console.log(rows)
+                const code = `"P|${rows[0].cl_id}|${rows[0].pr_process}|${rows[0].pr_type}|${rows[0].pr_id}"`
+                console.log(code)
+                const insertCodeQuery = file('product/product:add:code')
+                const insertCodeValues = [code, rows[0].pr_id]
+                result = await client.query(insertCodeQuery, insertCodeValues)
+                await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(result)));
-            });
-        });
+            } catch (e) {
+                await client.query('ROLLBACK')
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
     });
 
     app.post('/api/product/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -440,7 +453,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/client', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -457,7 +470,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/material', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -474,7 +487,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/ink', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -491,7 +504,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/product', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -508,7 +521,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/flexo/ribbons/material', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -525,7 +538,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/stamps/general/material', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -542,7 +555,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/stamps/inkpad/material', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -559,7 +572,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/product/stamps/ink/material', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -577,7 +590,7 @@ if (cluster.isMaster) {
 
     /* WO */
     app.post('/api/wo/cl_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -593,7 +606,7 @@ if (cluster.isMaster) {
         });
     });
     app.post('/api/wo/cl_id/wo_release', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -610,7 +623,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/wo/cl_id/wo_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -627,7 +640,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/wo/cl_id/wo_po', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -644,7 +657,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/wo/wo_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -661,7 +674,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/wo/add', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -678,7 +691,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/wo/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -696,7 +709,7 @@ if (cluster.isMaster) {
 
     /* ZONE */
     app.post('/api/zone/cl_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -713,7 +726,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/zone/zo_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -730,7 +743,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/zone/add', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -747,7 +760,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/zone/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -764,7 +777,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/zone', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -781,8 +794,8 @@ if (cluster.isMaster) {
     });
 
     /* MACHINE */
-     app.post('/api/machine/ma_id', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+    app.post('/api/machine/ma_id', function (req, res, next) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -799,7 +812,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/machine/add', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -816,7 +829,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/machine/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -833,7 +846,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/machine', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -850,7 +863,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/machine/process', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -868,7 +881,7 @@ if (cluster.isMaster) {
 
     /* WORKFLOW */
     app.post('/api/workflow', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -885,11 +898,11 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/workflow/update', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('workflow/workflow:update'), [req.body.wo_status,req.body.wo_id], function (err, result) {
+            client.query(file('workflow/workflow:update'), [req.body.wo_status, req.body.wo_id], function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 
@@ -903,7 +916,7 @@ if (cluster.isMaster) {
 
     /* TRAFFIC LIGHT REPORT */
     app.post('/api/tlr', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -921,7 +934,7 @@ if (cluster.isMaster) {
 
     /* GEONAMES */
     app.post('/api/geonames/countries', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
@@ -938,7 +951,7 @@ if (cluster.isMaster) {
     });
 
     app.post('/api/geonames/childs/geonameid', function (req, res, next) {
-        pg.connect(conString, function (err, client, done) {
+        pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }

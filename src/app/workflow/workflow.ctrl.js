@@ -95,7 +95,7 @@ module.exports = (function (angular) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i];
-                    col.header = i18nFilter("workflow.labels." + $scope.labels[i]);
+                    col.header = i18nFilter("workflow.labels." + $scope.columns[i].replace('_','-'));
                     s.columns.push(col);
                 }
             };
@@ -185,7 +185,7 @@ module.exports = (function (angular) {
                     angular.forEach(actions, function (value, key) {
                         if (value.wo_prevstatus.includes(newValue)) {
                             if (value.us_group === userProfile.app_metadata.us_group || userProfile.app_metadata.us_group === "admin") {
-                                if ([15, 16].includes(newValue) && [15, 16].includes(value.value)) {
+                                if ([17, 18].includes(newValue) && [17, 18].includes(value.value)) {
                                     value.notAnOption = true;
                                 } else {
                                     value.notAnOption = false;

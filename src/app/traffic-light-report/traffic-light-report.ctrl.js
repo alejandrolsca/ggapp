@@ -177,7 +177,7 @@ module.exports = (function (angular) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
-                    col.header = i18nFilter("tlr.labels." + $scope.labels[i]);
+                    col.header = i18nFilter("tlr.labels." + $scope.columns[i].binding.replace('_','-'));
                     s.columns.push(col);
                 }
             };

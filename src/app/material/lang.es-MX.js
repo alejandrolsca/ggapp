@@ -9,7 +9,7 @@ module.exports = {
                         "mt-weight":"Peso (kg)",
                         "mt-width":"Ancho",
                         "mt-height":"Largo",
-                        "mt-measure":"Medida",
+                        "mt-measure":"Unidad de medida",
                         "mt-status":"Estatus",
                         "mt-date":"Fecha",
                     },

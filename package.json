@@ -32,7 +32,7 @@
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "express-jwt": "^3.4.0",
-    "pg": "^4.4.6",
+    "pg": "^7.3.0",
     "serve-static": "^1.10.2"
   },
   "devDependencies": {

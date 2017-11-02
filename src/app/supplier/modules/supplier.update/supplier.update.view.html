@@ -48,22 +48,22 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'supplier.labels.su-fatherslastname' | i18n}}"
+            lbl="{{'supplier.labels.su-firstsurname' | i18n}}"
             form-group-class="col-sm-4"
-            ng-model="fmData.su_fatherslastname"
+            ng-model="fmData.su_firstsurname"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'supplier.labels.su-motherslastname' | i18n}}"
+            lbl="{{'supplier.labels.su-secondsurname' | i18n}}"
             form-group-class="col-sm-4"
-            ng-model="fmData.su_motherslastname"
+            ng-model="fmData.su_secondsurname"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-countries err-class="error"
            lbl="{{'supplier.labels.su-country' | i18n}}" 
@@ -134,7 +134,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'supplier.labels.su-neighborhood' | i18n}}"

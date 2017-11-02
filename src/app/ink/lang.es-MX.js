@@ -3,7 +3,7 @@ module.exports = {
                     "labels":{
                         "in-id": "ID tinta",
                         "su-id": "ID proveedor",
-                        "in-code": "Codigo",
+                        "in-code": "Codigo (Referencia de Guía)",
                         "in-type": "Tipo",
                         "in-description": "Descripcion",
                         "in-status": "Estatus",

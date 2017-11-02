@@ -12,7 +12,7 @@ module.exports = {
                         "pr-description": "Descripcion",
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Largo",
-                        "pr-finalsizemeasure": "Medida",
+                        "pr-finalsizemeasure": "Unidad de medida",
                         "pr-surface": "Superficie",
                         "pr-othersurface": "Nombre Sup.",
                         "pr-time": "Tiempo (min)",

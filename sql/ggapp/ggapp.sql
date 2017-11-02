@@ -407,8 +407,8 @@ SELECT pg_catalog.setval('seq_zone_zo_id', 3, true);
 --
 
 COPY supplier (su_id, su_jsonb, su_date) FROM stdin;
-2	{"su_tin": "asds-123123", "su_city": 7054329, "su_name": "test", "su_email": "test@test.com", "su_phone": "6656565555", "su_state": 6957553, "su_county": 7054329, "su_mobile": "6145558787", "su_status": "A", "su_street": "test", "su_country": 1149361, "su_zipcode": "99898", "su_suitenumber": "test", "su_neighborhood": "test", "su_streetnumber": "test", "su_corporatename": "proveedor2", "su_fatherslastname": "test", "su_motherslastname": "test", "su_addressreference": "test"}	2015-04-05 16:17:23.299436
-1	{"su_tin": "sabg-899845", "su_city": 8581830, "su_name": "test", "su_email": "test@test.com", "su_phone": "3366998898", "su_state": 4014336, "su_county": 8581830, "su_mobile": "5544885566", "su_status": "A", "su_street": "test", "su_country": 3996063, "su_zipcode": "55556", "su_suitenumber": "test", "su_neighborhood": "tes", "su_streetnumber": "tes", "su_corporatename": "proveedor1", "su_fatherslastname": "test", "su_motherslastname": "test", "su_addressreference": "test"}	2015-04-05 14:10:18.5826
+2	{"su_tin": "asds-123123", "su_city": 7054329, "su_name": "test", "su_email": "test@test.com", "su_phone": "6656565555", "su_state": 6957553, "su_county": 7054329, "su_mobile": "6145558787", "su_status": "A", "su_street": "test", "su_country": 1149361, "su_zipcode": "99898", "su_suitenumber": "test", "su_neighborhood": "test", "su_streetnumber": "test", "su_corporatename": "proveedor2", "su_firstsurname": "test", "su_secondsurname": "test", "su_addressreference": "test"}	2015-04-05 16:17:23.299436
+1	{"su_tin": "sabg-899845", "su_city": 8581830, "su_name": "test", "su_email": "test@test.com", "su_phone": "3366998898", "su_state": 4014336, "su_county": 8581830, "su_mobile": "5544885566", "su_status": "A", "su_street": "test", "su_country": 3996063, "su_zipcode": "55556", "su_suitenumber": "test", "su_neighborhood": "tes", "su_streetnumber": "tes", "su_corporatename": "proveedor1", "su_firstsurname": "test", "su_secondsurname": "test", "su_addressreference": "test"}	2015-04-05 14:10:18.5826
 \.
 
 
@@ -417,7 +417,7 @@ COPY supplier (su_id, su_jsonb, su_date) FROM stdin;
 --
 
 COPY "user" (us_id, us_jsonb, us_date) FROM stdin;
-9	{"gr_id": "1", "us_name": "Alejandro", "us_user": "alejandrolsca", "us_email": "alejandrolsca@gmail.com", "us_phone": "3337979135", "us_mobile": "3316997770", "us_status": "A", "us_password": "a186419.ASB", "us_fatherslastname": "Sánchez", "us_motherslastname": "Betancourt"}	2014-07-27 21:32:29.7385
+9	{"gr_id": "1", "us_name": "Alejandro", "us_user": "alejandrolsca", "us_email": "alejandrolsca@gmail.com", "us_phone": "3337979135", "us_mobile": "3316997770", "us_status": "A", "us_password": "a186419.ASB", "us_firstsurname": "Sánchez", "us_secondsurname": "Betancourt"}	2014-07-27 21:32:29.7385
 \.
 
 
@@ -440,9 +440,9 @@ COPY wo (wo_id, wo_jsonb, wo_date) FROM stdin;
 --
 
 COPY zone (zo_id, zo_jsonb, zo_date) FROM stdin;
-2	{"cl_id": "6", "zo_tin": "SABG-830102", "zo_city": 3040067, "zo_name": "test", "zo_zone": "test", "zo_email": "test@test.com", "zo_immex": "TTTT-123123", "zo_phone": "6144445454", "zo_state": 3040684, "zo_county": 3040067, "zo_mobile": "6148895655", "zo_status": "A", "zo_street": "test", "zo_country": 3041565, "zo_zipcode": "88888", "zo_suitenumber": "test", "zo_neighborhood": "test", "zo_streetnumber": "test", "zo_corporatename": "test", "zo_fatherslastname": "test", "zo_motherslastname": "test", "zo_addressreference": "test"}	2015-04-03 03:03:53.94271
-3	{"cl_id": "6", "zo_tin": "test-123123", "zo_city": 616436, "zo_name": "test", "zo_zone": "test", "zo_email": "test@test.com", "zo_immex": "test-331232", "zo_phone": "6145555555", "zo_state": 828261, "zo_county": 616436, "zo_mobile": "6148899898", "zo_status": "A", "zo_street": "test", "zo_country": 174982, "zo_zipcode": "89956", "zo_suitenumber": "test", "zo_neighborhood": "test", "zo_streetnumber": "test", "zo_corporatename": "test", "zo_fatherslastname": "test", "zo_motherslastname": "test", "zo_addressreference": "test"}	2015-04-03 03:05:45.884652
-1	{"cl_id": "6", "zo_tin": "SABG-830102", "zo_city": 7302102, "zo_name": "test", "zo_zone": "test4", "zo_email": "test@test.com", "zo_immex": "TTTT-123123", "zo_phone": "6144445454", "zo_state": 3041566, "zo_county": 3039181, "zo_mobile": "6148895655", "zo_status": "A", "zo_street": "test", "zo_country": 3041565, "zo_zipcode": "88888", "zo_suitenumber": "test", "zo_neighborhood": "test", "zo_streetnumber": "test", "zo_corporatename": "test4", "zo_fatherslastname": "test", "zo_motherslastname": "test", "zo_addressreference": "test"}	2015-04-03 03:00:05.564991
+2	{"cl_id": "6", "zo_tin": "SABG-830102", "zo_city": 3040067, "zo_name": "test", "zo_zone": "test", "zo_email": "test@test.com", "zo_immex": "TTTT-123123", "zo_phone": "6144445454", "zo_state": 3040684, "zo_county": 3040067, "zo_mobile": "6148895655", "zo_status": "A", "zo_street": "test", "zo_country": 3041565, "zo_zipcode": "88888", "zo_suitenumber": "test", "zo_neighborhood": "test", "zo_streetnumber": "test", "zo_corporatename": "test", "zo_firstsurname": "test", "zo_secondsurname": "test", "zo_addressreference": "test"}	2015-04-03 03:03:53.94271
+3	{"cl_id": "6", "zo_tin": "test-123123", "zo_city": 616436, "zo_name": "test", "zo_zone": "test", "zo_email": "test@test.com", "zo_immex": "test-331232", "zo_phone": "6145555555", "zo_state": 828261, "zo_county": 616436, "zo_mobile": "6148899898", "zo_status": "A", "zo_street": "test", "zo_country": 174982, "zo_zipcode": "89956", "zo_suitenumber": "test", "zo_neighborhood": "test", "zo_streetnumber": "test", "zo_corporatename": "test", "zo_firstsurname": "test", "zo_secondsurname": "test", "zo_addressreference": "test"}	2015-04-03 03:05:45.884652
+1	{"cl_id": "6", "zo_tin": "SABG-830102", "zo_city": 7302102, "zo_name": "test", "zo_zone": "test4", "zo_email": "test@test.com", "zo_immex": "TTTT-123123", "zo_phone": "6144445454", "zo_state": 3041566, "zo_county": 3039181, "zo_mobile": "6148895655", "zo_status": "A", "zo_street": "test", "zo_country": 3041565, "zo_zipcode": "88888", "zo_suitenumber": "test", "zo_neighborhood": "test", "zo_streetnumber": "test", "zo_corporatename": "test4", "zo_firstsurname": "test", "zo_secondsurname": "test", "zo_addressreference": "test"}	2015-04-03 03:00:05.564991
 \.
 
 
