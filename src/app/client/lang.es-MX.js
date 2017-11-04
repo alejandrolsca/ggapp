@@ -22,6 +22,7 @@ module.exports = {
                         "cl-phoneextension":"Ext.",
                         "cl-mobile":"móvil",
                         "cl-creditlimit":"limite de crédito",
+                        "cl-creditdays":"días de crédito",
                         "cl-customerdiscount":"descuento",
                         "cl-status":"estatus",
                         "cl-type":"Tipo de Cliente",

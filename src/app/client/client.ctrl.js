@@ -65,7 +65,7 @@ module.exports = (function (angular) {
                     var cl_corporatename = cl_name + ' ' + cl_firstsurname + ' ' + cl_secondsurname
                     cell.style.backgroundColor = '';
                     cell.style.color = '';
-                    if (col.index === 2) {
+                    if (col.binding === 'cl_corporatename') {
                         if (cl_type === 'natural') {
                             row.dataItem.cl_corporatename = cl_corporatename;
                             cell.innerHTML = cl_corporatename;

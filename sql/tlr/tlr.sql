@@ -3,6 +3,7 @@ select
 	cl.cl_jsonb->>'cl_name' as cl_name,
     cl.cl_jsonb->>'cl_firstsurname' as cl_firstsurname,
     cl.cl_jsonb->>'cl_secondsurname' as cl_secondsurname,
+    cl.cl_jsonb->>'cl_type' as cl_type,
 	*
 from client cl 
 right join lateral (
@@ -38,7 +39,7 @@ right join lateral (
         wo_email text, 
         wo_status int
 	)
-where (wo_jsonb->>'wo_status')::int in (0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+where (wo_jsonb->>'wo_status')::int in (0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)
 ) wo
 on wo.cl_id = cl.cl_id
-order by wo.wo_date desc;
+order by wo.wo_commitmentdate asc;

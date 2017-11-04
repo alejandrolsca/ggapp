@@ -18,6 +18,7 @@ module.exports = (function (angular) {
             $scope.mt_statusoptions = i18nFilter("material.fields.mt_statusoptions");
             $scope.mt_typeoptions = i18nFilter("material.fields.mt_typeoptions");
             $scope.mt_measureoptions = i18nFilter("material.fields.mt_measureoptions");
+            $scope.mt_thicknessmeasureoptions = i18nFilter("material.fields.mt_thicknessmeasureoptions");
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded

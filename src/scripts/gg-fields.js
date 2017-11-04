@@ -6,8 +6,8 @@
         .constant('validTypes', {
             "singlespaces": /^([-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.](.[-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.])*)*$/,
             "partno": /^([-,\.:a-zA-Z0-9](.[-,\.:a-zA-Z0-9])*)*$/,
-            "prcode": /^[-_\.,#:a-zA-Z0-9]{0,}$/,
-            "materialcode": /^[a-zA-Z0-9]{1,}$/,
+            "prcode": /^P|\d+|[_,a-z]+|[_,a-z]+|\d+$/,
+            "materialcode": /^M|\d+|[_,a-z]|[_,a-z]|\d+$/,
             "inkcode": /^[a-zA-Z0-9]{1,}$/,
             "machinetotalinks": /^[1-8]{1}$/,
             "rfc": /^[A-Za-z]{3,4}\d{6}(?:[A-Za-z\d]{3})?$/,

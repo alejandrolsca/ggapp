@@ -210,6 +210,15 @@
             is-required="false">
   </gg-input>
   <gg-input err-class="error"
+            lbl="{{'client.labels.cl-creditdays' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_creditdays"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="false">
+  </gg-input>
+  <gg-input err-class="error"
             lbl="{{'client.labels.cl-customerdiscount' | i18n}}"
             form-group-class="col-sm-4"
             ng-model="fmData.cl_customerdiscount"
@@ -218,6 +227,7 @@
             req-msg="Required"
             is-required="false">
   </gg-input>
+  <label class="col-sm-12 fieldset">STATUS</label>
   <gg-select err-class="error"
            lbl="{{'client.labels.cl-status' | i18n}}" 
            form-group-class="col-sm-4" 
@@ -228,6 +238,7 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset"></label>
   <gg-submit lbl="Submit"
             form-group-class="col-sm-6" 
             ng-disabled="ggform.$invalid"

@@ -21,6 +21,7 @@ jsonb_to_record(wo_jsonb) as x (
         wo_foliosto int, 
         wo_type text,
         wo_commitmentdate timestamp, 
+        wo_deliverydate timestamp, 
         wo_previousid int, 
         wo_previousdate timestamp, 
         wo_notes text, 

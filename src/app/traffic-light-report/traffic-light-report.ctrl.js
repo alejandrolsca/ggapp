@@ -10,6 +10,7 @@ module.exports = (function (angular) {
 
             $scope.labels = Object.keys(i18nFilter("tlr.labels"));
             $scope.columns = i18nFilter("tlr.columns");
+            $scope.workflow = i18nFilter("tlr.fields.wo_statusoptions");
 
             // formatter to add checkboxes to boolean columns
             $scope.onUpdate = function () {
@@ -63,9 +64,29 @@ module.exports = (function (angular) {
                     var flex = panel.grid;
                     var col = flex.columns[c];
                     var row = flex.rows[r];
+                    var cl_name = panel.grid.getCellData(r, flex.columns.getColumn('cl_name').index,false);
+                    var cl_firstsurname = panel.grid.getCellData(r, flex.columns.getColumn('cl_firstsurname').index,false);
+                    var cl_secondsurname = panel.grid.getCellData(r, flex.columns.getColumn('cl_secondsurname').index,false) || '';                    
+                    var cl_type = panel.grid.getCellData(r, flex.columns.getColumn('cl_type').index,false);
+                    var cl_corporatename = cl_name + ' ' + cl_firstsurname + ' ' + cl_secondsurname
                     cell.style.backgroundColor = '';
                     cell.style.color = '';
-                    if (col.header === 'Status') {
+                    if (col.binding === 'cl_corporatename') {
+                        if (cl_type === 'natural') {
+                            row.dataItem.cl_corporatename = cl_corporatename;
+                            cell.innerHTML = cl_corporatename;
+                        }
+                        cell.style.overflow = 'visible';      
+                    }
+                    if (col.binding === 'wo_status') {
+                        angular.forEach($scope.workflow, function (value, key) {
+                            if (value.value === panel.grid.getCellData(r, flex.columns.getColumn('wo_status').index)) {
+                                row.dataItem.wo_status = `(${value.value}) ${value.label}`;
+                                cell.innerHTML = `(${value.value}) ${value.label}`;
+                            }
+                        }); 
+                    }
+                    if (col.binding === 'status') {
                         var closing_time = 18;
                         var commitment_date = moment(panel.grid.getCellData(r, flex.columns.getColumn('wo_commitmentdate').index, false)).set({
                             hour: closing_time,

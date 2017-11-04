@@ -23,7 +23,6 @@ module.exports = (function (angular) {
             $scope.pr_finalsizemeasureoptions = i18nFilter("productFlexoLabels-add.fields.pr_finalsizemeasureoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productFlexoLabels-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productFlexoLabels-add.fields.pr_inkbackoptions");
-            $scope.pr_materialsizemeasureoptions = i18nFilter("productFlexoLabels-add.fields.pr_materialsizemeasureoptions");
             $scope.pr_varnishoptions = i18nFilter("productFlexoLabels-add.fields.pr_varnishoptions");
             $scope.pr_varnisfinishedoptions = i18nFilter("productFlexoLabels-add.fields.pr_varnisfinishedoptions");
             $scope.pr_laminateoptions = i18nFilter("productFlexoLabels-add.fields.pr_laminateoptions");
@@ -82,7 +81,7 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            this.push({ "label": value.mt_code, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
+                            this.push({ "label": `${value.mt_code} – ${value.mt_description}`, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
                         }, $scope.mt_idoptions);
                     } else {
                         //$scope.updateFail = true;

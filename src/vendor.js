@@ -12,7 +12,7 @@ require('../bower_components/angular/angular.js');
 require('../bower_components/angular-ui-router/release/angular-ui-router.js');
 require('../bower_components/angular-animate/angular-animate.js');
 require('../bower_components/angular-bootstrap/ui-bootstrap-tpls.js');
-require('../bower_components/qrcode/lib/qrcode.js');
+window.QRCode = require('../bower_components/qrcode/lib/qrcode.js');
 require('../bower_components/angular-qr/src/angular-qr.js');
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.js');
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.chart.js');

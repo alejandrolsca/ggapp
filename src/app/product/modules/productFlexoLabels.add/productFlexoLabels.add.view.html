@@ -42,7 +42,7 @@
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
     <gg-input err-class="error"
             lbl="{{'productFlexoLabels-add.labels.pr-name' | i18n}}" 
@@ -159,35 +159,7 @@
         </p>
     </div>
   </span>
-  <label class="col-sm-12 fieldset">MEDIDA DE LA BOBINA</label>
-  <gg-input err-class="error"
-            lbl="{{'productFlexoLabels-add.labels.pr-materialsizewidth' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_materialsizewidth"
-            regexp="decimal"
-            regexp-msg="{{'general.regexp.decimal' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-    <gg-input err-class="error"
-            lbl="{{'productFlexoLabels-add.labels.pr-materialsizeheight' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_materialsizeheight"
-            regexp="decimal"
-            regexp-msg="{{'general.regexp.decimal' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-  <gg-select err-class="error"
-           lbl="{{'productFlexoLabels-add.labels.pr-materialsizemeasure' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="pr_materialsizemeasureoptions" 
-           ng-model="fmData.pr_materialsizemeasure"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <label class="col-sm-12 fieldset">ETIQUETAS AL PASO</label>
  <gg-input err-class="error"
             lbl="{{'productFlexoLabels-add.labels.pr-materialformatsqty' | i18n}}" 
             form-group-class="col-sm-3"

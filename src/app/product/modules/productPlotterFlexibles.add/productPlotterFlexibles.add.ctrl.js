@@ -23,7 +23,6 @@ module.exports = (function (angular) {
             $scope.pr_finalsizemeasureoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_finalsizemeasureoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_inkbackoptions");
-            $scope.pr_materialsizemeasureoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_materialsizemeasureoptions");
             $scope.pr_varnishoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_varnishoptions");
             $scope.pr_varnisfinishedoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_varnisfinishedoptions");
             $scope.pr_laminateoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_laminateoptions");

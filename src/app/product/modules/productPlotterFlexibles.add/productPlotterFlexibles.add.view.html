@@ -42,7 +42,7 @@
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
     <gg-input err-class="error"
             lbl="{{'productPlotterFlexibles-add.labels.pr-name' | i18n}}" 
@@ -159,35 +159,6 @@
         </p>
     </div>
   </span>
-  <label class="col-sm-12 fieldset">MEDIDA DEL ROLLO</label>
-  <gg-input err-class="error"
-            lbl="{{'productPlotterFlexibles-add.labels.pr-materialsizewidth' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_materialsizewidth"
-            regexp="decimal"
-            regexp-msg="{{'general.regexp.decimal' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-    <gg-input err-class="error"
-            lbl="{{'productPlotterFlexibles-add.labels.pr-materialsizeheight' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_materialsizeheight"
-            regexp="decimal"
-            regexp-msg="{{'general.regexp.decimal' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-  <gg-select err-class="error"
-           lbl="{{'productPlotterFlexibles-add.labels.pr-materialsizemeasure' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="pr_materialsizemeasureoptions" 
-           ng-model="fmData.pr_materialsizemeasure"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
   <label class="col-sm-12 fieldset">BARNIZ</label>
   <gg-select err-class="error"
            lbl="{{'productPlotterFlexibles-add.labels.pr-varnish' | i18n}}" 

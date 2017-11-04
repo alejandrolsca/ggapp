@@ -9,7 +9,9 @@ module.exports = {
                         "mt-weight":"Peso (kg)",
                         "mt-width":"Ancho",
                         "mt-height":"Largo",
-                        "mt-measure":"Unidad de medida",
+                        "mt-measure":"U. de medida",
+                        "mt-thickness":"Grosor",
+                        "mt-thicknessmeasure":"U. de medida",
                         "mt-status":"Estatus",
                         "mt-date":"Fecha",
                     },
@@ -49,6 +51,13 @@ module.exports = {
                         mt_measureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
+                        ],
+                        mt_thicknessmeasureoptions : [
+                            {"label":"cm","value":"cm"},
+                            {"label":"Milimetros","value":"mm"},
+                            {"label":"Milesimas","value":"mil"},
+                            {"label":"pulgadas","value":"in"},
+                            {"label":"puntos","value":"pt"}
                         ],
                     }
                 }
