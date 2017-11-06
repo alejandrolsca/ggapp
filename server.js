@@ -261,17 +261,14 @@ if (cluster.isMaster) {
             try {
                 await client.query('BEGIN')
                 const { rows } = await client.query(file('material/material:add'), [req.body.mt_jsonb])
-                console.log(rows)
-                const code = `"M|${rows[0].su_id}|${rows[0].mt_type}|${rows[0].mt_id}"`
-                console.log(code)
+                const mt_id = rows[0].mt_id;
                 const insertCodeQuery = file('material/material:add:code')
-                const insertCodeValues = [code, rows[0].mt_id]
+                const insertCodeValues = [mt_id]
                 result = await client.query(insertCodeQuery, insertCodeValues)
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 await client.query('ROLLBACK')
-                console.log(e)
                 return res.status(500).send(JSON.stringify(e, null, 4));
             } finally {
                 client.release()
@@ -427,17 +424,14 @@ if (cluster.isMaster) {
             try {
                 await client.query('BEGIN')
                 const { rows } = await client.query(file('product/product:add'), [req.body.pr_jsonb])
-                console.log(rows)
-                const code = `"P|${rows[0].cl_id}|${rows[0].pr_process}|${rows[0].pr_type}|${rows[0].pr_id}"`
-                console.log(code)
+                const pr_id = rows[0].pr_id;
                 const insertCodeQuery = file('product/product:add:code')
-                const insertCodeValues = [code, rows[0].pr_id]
+                const insertCodeValues = [pr_id]
                 result = await client.query(insertCodeQuery, insertCodeValues)
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 await client.query('ROLLBACK')
-                console.log(e)
                 return res.status(500).send(JSON.stringify(e, null, 4));
             } finally {
                 client.release()

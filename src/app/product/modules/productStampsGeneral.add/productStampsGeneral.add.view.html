@@ -129,7 +129,7 @@
            is-required="true">
   </gg-select>
   <span ng-if="fmData.mt_id">
-    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
+    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}:true">
         <p class="field-info bg-success">
             {{material.width}} x {{material.height}} {{material.measure}}
         </p>

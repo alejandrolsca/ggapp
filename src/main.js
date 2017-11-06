@@ -2,8 +2,8 @@
 require('./sass/animations.scss');
 require('./sass/exportation-invoice.scss');
 require('./sass/global.scss');
-require('./sass/menu.scss');
 require('./sass/navbar.scss');
+require('./sass/bootstrap_override.scss');
 
 // Aplication Libraries
 require('./scripts/gg-alerts.js');

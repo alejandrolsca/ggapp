@@ -23,6 +23,15 @@ module.exports = function (env) {
         module: {
             rules: [
                 {
+                // JS LOADER
+                // Reference: https://github.com/babel/babel-loader
+                // Transpile .js files using babel-loader
+                // Compiles ES6 and ES7 into ES5 code
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: [/node_modules/,/bower_components/]
+            },
+                {
                     test: /\.(scss|css)$/i,
                     use: extractSass.extract({
                         use: [{
@@ -72,21 +81,8 @@ module.exports = function (env) {
                 exclude: [],
                 watch: true
             }),
-            new UglifyJSPlugin({
-                comments: false,
-                compress: true,
-                sourceMap: true,
-                warnings: false
-            }),
             new HtmlWebpackPlugin({
                 template: 'src/index.html',
-                minify: {
-                    removeComments: true,
-                    collapseWhitespace: true,
-                    removeAttributeQuotes: true
-                    // more options:
-                    // https://github.com/kangax/html-minifier#options-quick-reference
-                },
                 // necessary to consistently work with multiple chunks via CommonsChunkPlugin
                 chunksSortMode: 'dependency'
             }),

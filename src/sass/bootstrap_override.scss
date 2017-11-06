@@ -1,0 +1,74 @@
+@import 'variables';
+/*
+********************************************
+BOOTSTRAP OVERRIDE
+********************************************
+*/
+
+.navbar-collapse{  max-height: 100%;}
+span.glyphicon-user {font-size: 15px;}
+
+/*
+button[class*="col-"] {
+  margin-bottom: 15px;
+}
+*/
+
+.red-tooltip + .tooltip > .tooltip-inner { background-color: $tooltip-bg;}
+.red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color: $tooltip-bg; }
+
+.nav-tabs {
+    background-color: #fff;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+    padding-left: 1em;
+    padding-top: 1em;
+    padding-right: 1em;
+}
+.tab-content {
+    background-color: $tab;
+    padding-top: 1em;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+    margin-bottom: 1em;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: $body-color;
+    background-color: $tab;
+}
+
+.has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline {
+    color: $error;
+}
+.has-success .help-block, .has-success .control-label, .has-success .radio, .has-success .checkbox, .has-success .radio-inline, .has-success .checkbox-inline {
+    color: $success;
+}
+.has-error .form-control {
+    border-color: $error;
+}
+.has-error .form-control:focus {
+    border-color: $error;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px $error;
+}
+.has-success .form-control {
+    border-color: $success;
+}
+.has-success .form-control:focus {
+    border-color: $success;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px $success;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: $btn-success-bg;
+    border-color: $btn-success-border;
+}
+.btn-success:hover, .btn-success.disabled:focus, .btn-success[disabled]:focus, fieldset[disabled] .btn-success:focus, .btn-success.disabled:active, .btn-success[disabled]:active, fieldset[disabled] .btn-success:active, .btn-success.disabled.active, .btn-success[disabled].active, fieldset[disabled] .btn-success.active {
+    background-color: $btn-success-bg;
+    border-color: $btn-success-border;
+}
+.btn-success.disabled, .btn-success[disabled], fieldset[disabled] .btn-success, .btn-success.disabled:hover, .btn-success[disabled]:hover, fieldset[disabled] .btn-success:hover, .btn-success.disabled:focus, .btn-success[disabled]:focus, fieldset[disabled] .btn-success:focus, .btn-success.disabled:active, .btn-success[disabled]:active, fieldset[disabled] .btn-success:active, .btn-success.disabled.active, .btn-success[disabled].active, fieldset[disabled] .btn-success.active {
+    background-color: $btn-success-disabled-bg;
+    border-color: $btn-success-disabled-border;
+}

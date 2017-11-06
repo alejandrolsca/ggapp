@@ -1,0 +1,41 @@
+/*
+********************************************
+SASS VARIABLES
+********************************************
+*/
+
+$body-bg: #eceff1;
+$body-color: #455a64;
+$body-font: 'Open Sans', sans-serif;
+
+$layout-bg: #fff;
+$layout-padding: 1em 0 1em 0;
+$layout-border: 1px solid #ddd;
+
+$error: #0064b7;
+$success: $body-color;
+
+/*
+********************************************
+BOOTSTRAP VARIABLES
+********************************************
+*/
+
+$btn-success-bg: #0064b7;
+$btn-success-border: #007ac1;
+$btn-success-disabled-bg: #546e7a;
+$btn-success-disabled-border: #29434e;
+$tab: #ffecb3;
+$tooltip-bg: #ff5722;
+
+/*
+********************************************
+NAVBAR
+********************************************
+*/
+
+$bgDefault      : #0064b7;
+$bgHighlight    : #007ac1;
+$colDefault     : #ecf0f1;
+$colHighlight   : #fff;
+$dropDown       : false;

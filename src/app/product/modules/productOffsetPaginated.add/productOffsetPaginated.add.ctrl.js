@@ -7,6 +7,7 @@ module.exports = (function (angular) {
             $scope.fmData.pr_process = 'offset';
             $scope.fmData.pr_type = 'paginated';
             $scope.fmData.cl_id = +$stateParams.cl_id;
+            $scope.fmData.pr_components = 1;
 
             $scope.onSubmit = function () {
 
@@ -21,6 +22,7 @@ module.exports = (function (angular) {
 
             $scope.pr_languageoptions = i18nFilter("productOffsetPaginated-add.fields.pr_languageoptions");            
             $scope.pr_finalsizemeasureoptions = i18nFilter("productOffsetPaginated-add.fields.pr_finalsizemeasureoptions");
+            $scope.pr_componentsoptions = i18nFilter("productOffsetPaginated-add.fields.pr_componentsoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productOffsetPaginated-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productOffsetPaginated-add.fields.pr_inkbackoptions");
             $scope.pr_varnishoptions = i18nFilter("productOffsetPaginated-add.fields.pr_varnishoptions");
@@ -43,54 +45,84 @@ module.exports = (function (angular) {
             $scope.pr_statusoptions = i18nFilter("productOffsetPaginated-add.fields.pr_statusoptions");
             $scope.pr_materialsizemeasureoptions = i18nFilter("productOffsetPaginated-add.fields.pr_materialsizemeasureoptions");
             
-
-            // create front ink fields
-            $scope.$watch('fmData.pr_inkfront', function (newValue, oldValue) {
-                if ($scope.fmData.pr_inkfront != undefined) {
-                    $scope.frontInks = new Array(newValue);
-                    for (var i = 0; i < newValue; i++) {
-                        if (oldValue != newValue) {
-                            $scope.fmData['pr_inksfront'][i] = undefined;
+            // create components
+            $scope.$watch('fmData.pr_components', function (newValue, oldValue) {
+                if(newValue===undefined){
+                    $scope.components = [];
+                    return;
+                }
+                $scope.components = new Array(newValue)
+                
+                var componentFields = [
+                    'pr_pages',
+                    'pr_inkfront',
+                    'pr_inksfront',
+                    'pr_inkback',
+                    'pr_inksback',
+                    'mt_id',
+                    'pr_materialsizewidth',
+                    'pr_materialsizeheight',
+                    'pr_materialsizemeasure',
+                    'pr_materialformatsqty',
+                    'pr_varnish',
+                    'pr_varnishfinished',
+                    'pr_laminate',
+                    'pr_laminatefinished',
+                    'pr_laminatecaliber',
+                    'pr_foldunit1',
+                    'pr_foldunit2',
+                    'pr_foldunit3',
+                    'pr_precut',
+                    'pr_drill'
+                ];
+                var index = undefined;
+                for(var i = 8; newValue <= i; --i){
+                    index = i.toString();
+                    angular.forEach(componentFields,function(value,key){
+                        if($scope.fmData[value]) {
+                            if($scope.fmData[value][index]){
+                                $scope.fmData[value][index] = undefined;
+                            }
                         }
-                    }
+                    })
                 }
             });
 
-            // create back ink fields
-            $scope.$watch('fmData.pr_inkback', function (newValue, oldValue) {
-                if ($scope.fmData.pr_inkback != undefined) {
-                    $scope.backInks = new Array(newValue);
-                    for (var i = 0; i < oldValue; i++) {
-                        if (oldValue != newValue) {
-                            $scope.fmData['pr_inksback'][i] = undefined;
+            $scope.frontInks = {};
+            $scope.$watchCollection('fmData.pr_inkfront',function(newValues,oldValues){
+                if ($scope.fmData.pr_inkfront !== undefined) {
+                    angular.forEach(Object.keys(newValues),function(value,key){
+                        $scope.frontInks[value] = new Array($scope.fmData.pr_inkfront[value]);
+                        for (var i = $scope.fmData.pr_inkfront[value]; i < 8; i++) {
+                            if ($scope.fmData['pr_inksfront']) {
+                                if($scope.fmData['pr_inksfront'][value]){
+                                    if($scope.fmData['pr_inksfront'][value][i]) {
+                                        $scope.fmData['pr_inksfront'][value][i] = undefined;
+                                    }
+                                }
+                            }
                         }
-                    }
+                    })    
                 }
-            });
+            })
 
-            // create front interior ink fields
-            $scope.$watch('fmData.pr_intinkfront', function (newValue, oldValue) {
-                if ($scope.fmData.pr_intinkfront != undefined) {
-                    $scope.intFrontInks = new Array(newValue);
-                    for (var i = 0; i < newValue; i++) {
-                        if (oldValue != newValue) {
-                            $scope.fmData['pr_intinksfront'][i] = undefined;
+            $scope.backInks = {};
+            $scope.$watchCollection('fmData.pr_inkback',function(newValues,oldValues){
+                if ($scope.fmData.pr_inkback !== undefined) {
+                    angular.forEach(Object.keys(newValues),function(value,key){
+                        $scope.backInks[value] = new Array($scope.fmData.pr_inkback[value]);
+                        for (var i = $scope.fmData.pr_inkback[value]; i < 8; i++) {
+                            if ($scope.fmData['pr_inksback']) {
+                                if($scope.fmData['pr_inksback'][value]){
+                                    if($scope.fmData['pr_inksback'][value][i]) {
+                                        $scope.fmData['pr_inksback'][value][i] = undefined;
+                                    }
+                                }
+                            }
                         }
-                    }
+                    })    
                 }
-            });
-
-            // create back interior ink fields
-            $scope.$watch('fmData.pr_intinkback', function (newValue, oldValue) {
-                if ($scope.fmData.pr_intinkback != undefined) {
-                    $scope.intBackInks = new Array(newValue);
-                    for (var i = 0; i < oldValue; i++) {
-                        if (oldValue != newValue) {
-                            $scope.fmData['pr_intinksback'][i] = undefined;
-                        }
-                    }
-                }
-            });
+            })
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
@@ -118,7 +150,7 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            this.push({ "label": value.mt_code, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
+                            this.push({ "label": `${value.mt_code} – ${value.mt_description}`, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
                         }, $scope.mt_idoptions);
                     } else {
                         //$scope.updateFail = true;
