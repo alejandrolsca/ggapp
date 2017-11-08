@@ -57,7 +57,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productStampsGeneralAddFac.getMaterials().then(function (promise) {
+                productStampsGeneralAddFac.getMaterials($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {

@@ -17,7 +17,6 @@ module.exports = (function (angular) {
             };
 
             $scope.mt_statusoptions = i18nFilter("material.fields.mt_statusoptions");
-            $scope.mt_typeoptions = i18nFilter("material.fields.mt_typeoptions");
             $scope.mt_measureoptions = i18nFilter("material.fields.mt_measureoptions");
             $scope.mt_thicknessmeasureoptions = i18nFilter("material.fields.mt_thicknessmeasureoptions");
 
@@ -30,6 +29,16 @@ module.exports = (function (angular) {
                         angular.forEach(promise.data, function (value, key) {
                             this.push({ "label": value.su_corporatename || (value.su_name + ' ' + value.su_firstsurname), "value": +value.su_id });
                         }, $scope.su_idoptions);
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                });
+                materialAddFac.getMaterialTypes().then(function (promise) {
+                    if (angular.isArray(promise.data)) {
+                        $scope.mt_typeoptions = [];
+                        angular.forEach(promise.data, function (value, key) {
+                            this.push({ "label": value.maty_jsonb.label, "value": +value.maty_id });
+                        }, $scope.mt_typeoptions);
                     } else {
                         //$scope.updateFail = true;
                     }

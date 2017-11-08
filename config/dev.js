@@ -2,12 +2,7 @@ var webpack = require("webpack"),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
-    UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
     path = require("path");
-
-var extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css"
-});
 
 module.exports = function (env) {
     return {
@@ -111,7 +106,7 @@ module.exports = function (env) {
                 },              
                 {
                     test: /\.(scss|css)$/i,
-                    use: extractSass.extract({
+                    use: ExtractTextPlugin.extract({
                         use: [{
                             loader: "css-loader"
                         }, {
@@ -164,7 +159,9 @@ module.exports = function (env) {
                 // necessary to consistently work with multiple chunks via CommonsChunkPlugin
                 chunksSortMode: 'dependency'
             }),
-            extractSass
+            new ExtractTextPlugin({
+                filename: "[name].[contenthash].css"
+            })
         ]
     }
 }

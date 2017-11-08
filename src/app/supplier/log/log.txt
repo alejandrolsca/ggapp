@@ -6,7 +6,7 @@ Query: select
                     from  public.supplier, 
                     jsonb_to_record(su_jsonb, true) as x (
                         su_corporatename text,
-                        su_tin text,
+                        su_rfc text,
                         su_name text,
                         su_firstsurname text,
                         su_secondsurname text,

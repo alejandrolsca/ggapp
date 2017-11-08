@@ -34,7 +34,7 @@ module.exports = (function (angular) {
                 }).then(function () {
                     woAddFactory.getZone().then(function (promise) {
                         $scope.zo_idoptions = [];
-                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": 0 });
+                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_rfc, "value": 0 });
                         if (angular.isArray(promise.data)) {
                             var rows = promise.data;
                             angular.forEach(rows, function (value, key) {

@@ -1,11 +1,16 @@
-select
-	cl.cl_jsonb->>'cl_corporatename' as cl_corporatename,
+select 
+	wo.*,
+	case
+		when cl.cl_jsonb->>'cl_type' = 'natural' 
+			then (cl.cl_jsonb->>'cl_firstsurname' || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
+		else cl.cl_jsonb->>'cl_corporatename'
+	end as cl_corporatename,
 	cl.cl_jsonb->>'cl_name' as cl_name,
     cl.cl_jsonb->>'cl_firstsurname' as cl_firstsurname,
     cl.cl_jsonb->>'cl_secondsurname' as cl_secondsurname,
-	*
-from client cl 
-right join lateral (
+    cl.cl_jsonb->>'cl_type' as cl_type,
+	pr.pr_jsonb->>'pr_name' as pr_name
+from (
 	select 
 		*
 	from  wo, 
@@ -40,6 +45,9 @@ right join lateral (
 	)
 where wo_jsonb->>'wo_status' = $1
 ) wo
+left join client cl
 on wo.cl_id = cl.cl_id
+left join product pr
+on wo.pr_id = pr.pr_id
 order by wo.wo_date desc
 limit 1000;

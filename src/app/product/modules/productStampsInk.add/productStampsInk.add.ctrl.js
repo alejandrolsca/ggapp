@@ -52,7 +52,7 @@ module.exports = (function (angular) {
                         $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_firstsurname;                    }
                 });
 
-                productStampsInkAddFac.getMaterials().then(function (promise) {
+                productStampsInkAddFac.getMaterials($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {

@@ -76,7 +76,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productPlotterFlexiblesAddFac.getMaterials().then(function (promise) {
+                productPlotterFlexiblesAddFac.getMaterials($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {

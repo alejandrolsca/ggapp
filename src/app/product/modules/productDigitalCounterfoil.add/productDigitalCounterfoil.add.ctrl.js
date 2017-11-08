@@ -116,7 +116,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productDigitalCounterfoilAddFac.getMaterials().then(function (promise) {
+                productDigitalCounterfoilAddFac.getMaterials($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {

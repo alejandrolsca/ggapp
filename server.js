@@ -252,6 +252,23 @@ if (cluster.isMaster) {
         });
     });
 
+    app.post('/api/material/materialtype', function (req, res, next) {
+        pool.connect(function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+            client.query(file('material/materialtype'), function (err, result) {
+                //call `done()` to release the client back to the pool
+                done();
+
+                if (err) {
+                    return res.status(500).send(JSON.stringify(err, null, 4));
+                }
+                res.send(")]}',\n".concat(JSON.stringify(result.rows)));
+            });
+        });
+    });
+
     app.post('/api/material/add', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
@@ -478,7 +495,7 @@ if (cluster.isMaster) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query(file('product/product:material'), function (err, result) {
+            client.query(file('product/product:material'), [req.body.mt_type],function (err, result) {
                 //call `done()` to release the client back to the pool
                 done();
 

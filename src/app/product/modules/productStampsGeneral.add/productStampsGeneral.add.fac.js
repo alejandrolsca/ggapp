@@ -33,12 +33,13 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
-        factory.getMaterials = function () {
+        factory.getMaterials = function (mt_type) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/stamps/general/material', {
+                $http.post('/api/product/material', {
                     /* POST variables here */
-                    procces_id: new Date().getMilliseconds()
+                    procces_id: new Date().getMilliseconds(),
+                    mt_type: mt_type
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

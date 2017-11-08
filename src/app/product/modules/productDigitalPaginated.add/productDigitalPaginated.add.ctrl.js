@@ -114,7 +114,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productDigitalPaginatedAddFac.getMaterials().then(function (promise) {
+                productDigitalPaginatedAddFac.getMaterials($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {

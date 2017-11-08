@@ -52,7 +52,7 @@ module.exports = (function (angular) {
                                 client.cl_jsonb.cl_street + ' ' + client.cl_jsonb.cl_streetnumber + ' ' + client.cl_jsonb.cl_suitenumber + '\n' +
                                 client.cl_jsonb.cl_neighborhood + '\n' +
                                 client.cl_jsonb.cl_state + ' ' + client.cl_jsonb.cl_city + '\n' +
-                                client.cl_jsonb.cl_tin
+                                client.cl_jsonb.cl_rfc
                             ,0, 100, {
                             align: wijmo.pdf.PdfTextHorizontalAlign.Left,
                             width: 270
@@ -299,7 +299,7 @@ module.exports = (function (angular) {
                 }).then(function () {
                     shippingListFac.getZone().then(function (promise) {
                         $scope.zo_idoptions = [];
-                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": "0" });
+                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_rfc, "value": "0" });
                         if (angular.isArray(promise.data)) {
                             rows = promise.data;
                             angular.forEach(rows, function (value, key) {
@@ -320,7 +320,7 @@ module.exports = (function (angular) {
                                         client.cl_jsonb.cl_street + ' ' + client.cl_jsonb.cl_streetnumber + ' ' + client.cl_jsonb.cl_suitenumber + '\n' +
                                         client.cl_jsonb.cl_neighborhood + '\n' +
                                         client.cl_jsonb.cl_state + ' ' + client.cl_jsonb.cl_city + '\n' +
-                                        client.cl_jsonb.cl_tin + '\n' +
+                                        client.cl_jsonb.cl_rfc + '\n' +
                                         client.cl_jsonb.cl_immex + '\n'
 
                                     );
@@ -331,7 +331,7 @@ module.exports = (function (angular) {
                                 rows[newValue].zo_street + ' ' + rows[newValue].zo_streetnumber + ' ' + rows[newValue].zo_suitenumber + '\n' +
                                 rows[newValue].zo_neighborhood + '\n' +
                                 rows[newValue].zo_state + ' ' + rows[newValue].zo_city + '\n' +
-                                rows[newValue].zo_tin + '\n' +
+                                rows[newValue].zo_rfc + '\n' +
                                 rows[newValue].zo_immex + '\n'
 
                             );
