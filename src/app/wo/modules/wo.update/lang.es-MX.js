@@ -18,7 +18,7 @@ module.exports = {
         "wo-materialqty": "Mat. Ordenado",
         "wo-materialcoverqty": "Mat. Ordenado Portada",
         "wo-materialinteriorqty": "Mat. Ordenado Interior",
-        "wo-packageqty": "Cant. x paquete/rollo",
+        "wo-packageqty": "Cant. x paq/rollo",
         "wo-boxqty": "Cant. x caja",   
         "wo-foliosperformat": "F. x formato",
         "wo-foliosseries": "Serie",
