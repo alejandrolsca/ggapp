@@ -1,11 +1,18 @@
 var webpack = require("webpack"),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
+
     path = require("path");
 
 module.exports = function (env) {
     return {
+        stats: { 
+            children: false,
+            modules: false,
+            version: true
+        },
         entry: {
             vendor: ["./src/vendor.js"],
             app: ["./src/main.js"],
@@ -18,14 +25,14 @@ module.exports = function (env) {
         module: {
             rules: [
                 {
-                // JS LOADER
-                // Reference: https://github.com/babel/babel-loader
-                // Transpile .js files using babel-loader
-                // Compiles ES6 and ES7 into ES5 code
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: [/node_modules/,/bower_components/]
-            },
+                    // JS LOADER
+                    // Reference: https://github.com/babel/babel-loader
+                    // Transpile .js files using babel-loader
+                    // Compiles ES6 and ES7 into ES5 code
+                    test: /\.js$/,
+                    loader: 'babel-loader',
+                    exclude: [/node_modules/, /bower_components/]
+                },
                 {
                     test: /\.(scss|css)$/i,
                     use: ExtractTextPlugin.extract({
@@ -63,8 +70,6 @@ module.exports = function (env) {
             ]
         },
         plugins: [
-            new webpack.HotModuleReplacementPlugin(),
-            new webpack.NamedModulesPlugin(),
             new webpack.optimize.CommonsChunkPlugin({
                 names: ['app', 'vendor'], // Order matters: right to left.
                 minChunks: Infinity
@@ -76,8 +81,23 @@ module.exports = function (env) {
                 exclude: [],
                 watch: true
             }),
+            new UglifyJSPlugin({
+                uglifyOptions: {
+                    ie8: false,
+                    ecma: 8,
+                    compress: true,
+                    warnings: false
+                }
+            }),
             new HtmlWebpackPlugin({
                 template: 'src/index.html',
+                minify: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeAttributeQuotes: true
+                    // more options:
+                    // https://github.com/kangax/html-minifier#options-quick-reference
+                },
                 // necessary to consistently work with multiple chunks via CommonsChunkPlugin
                 chunksSortMode: 'dependency'
             }),

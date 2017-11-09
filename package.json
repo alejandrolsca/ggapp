@@ -8,7 +8,7 @@
     "api:dev": "NODE_ENV=development nodemon -V server.js",
     "api:prod": "NODE_ENV=production nodemon -V server.js",
     "build:dev": "./node_modules/.bin/webpack -d --progress --colors --watch --env=dev",
-    "build:prod": "./node_modules/.bin/webpack  -p --progress --colors --env=prod",
+    "build:prod": "./node_modules/.bin/webpack --progress --colors --env=prod",
     "server:dev": "./node_modules/.bin/webpack-dev-server -d --progress --profile --colors --open --env=dev",
     "dev": "npm run api:dev & npm run server:dev",
     "prod": "npm run api:prod & npm run build:prod"
@@ -55,6 +55,7 @@
     "sass-loader": "^6.0.6",
     "script-loader": "^0.7.0",
     "style-loader": "^0.16.1",
+    "uglifyjs-webpack-plugin": "^1.0.1",
     "url-loader": "^0.5.8",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.1",
