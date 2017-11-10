@@ -1,9 +1,14 @@
-select 
-    *
-from  public.client, 
+select
+    case
+		when cl.cl_jsonb->>'cl_type' = 'natural' 
+			then (cl.cl_jsonb->>'cl_firstsurname' || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
+		else cl_jsonb->>'cl_corporatename'
+	end as cl_corporatename,
+	cl.*,
+    x.*
+from  public.client cl, 
 jsonb_to_record(cl_jsonb) as x (
     cl_type text,
-    cl_corporatename text,
     cl_rfc text,
     cl_ssntin text,
     cl_name text,
