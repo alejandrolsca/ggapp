@@ -53,7 +53,7 @@ module.exports = {
                         "decimal": "numero y de 2 a 5 decimales (#.##[###])",
                         "discount": "cero mas 2 decimales (0.##)",
                         "integer": "solo numeros enteros",
-                        "zipcode": "el codigo postal es de 5 numeros.",
+                        "zipcode": "Solo mayusculas, numeros enteros y guíon medio.",
                         "date": "aaaa-mm-dd",
                         "user": "de 4 a 16 caracteres sin espacios ni caracteres especiales.",
                         "password": "la contraseña debe contener de 8-16 caracteres, por lo menos una letra mayuscula, una letra minuscula y un digito.",

@@ -84,8 +84,8 @@ module.exports = function (env) {
             new UglifyJSPlugin({
                 uglifyOptions: {
                     ie8: false,
-                    ecma: 8,
-                    compress: true,
+                    ecma: 7,
+                    compress: false, //auth0 login modal fails on true
                     warnings: false
                 }
             }),
