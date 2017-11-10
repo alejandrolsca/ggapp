@@ -22,7 +22,6 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                var client = undefined;
                 woDuplicateFactory.getData().then(function(promise){
                     $scope.loading = false;
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
@@ -33,22 +32,17 @@ module.exports = (function (angular) {
                             $scope.fmData.wo_previousdate = promise.data[0].wo_date.substring(0, 10);
                     }
                 });
-                woDuplicateFactory.getClient().then(function (promise) {
+
+                woDuplicateFactory.getZone().then(function (promise) {
+                    $scope.zo_idoptions = [];
                     if (angular.isArray(promise.data)) {
-                        client = promise.data[0];
+                        var rows = promise.data;
+                        angular.forEach(rows, function (value, key) {
+                            this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
+                        }, $scope.zo_idoptions);
                     }
-                }).then(function () {
-                    woDuplicateFactory.getZone().then(function (promise) {
-                        $scope.zo_idoptions = [];
-                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_rfc, "value": 0 });
-                        if (angular.isArray(promise.data)) {
-                            var rows = promise.data;
-                            angular.forEach(rows, function (value, key) {
-                                this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
-                            }, $scope.zo_idoptions);
-                        }
-                    });
-                })
+                });
+
                 woDuplicateFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
                     var rows = [];

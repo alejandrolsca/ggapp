@@ -1,6 +1,10 @@
 select 
 	wo.*,
-	cl.cl_jsonb->>'cl_corporatename' as cl_corporatename,
+	case
+		when cl.cl_jsonb->>'cl_type' = 'natural' 
+			then (cl.cl_jsonb->>'cl_firstsurname' || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
+		else cl.cl_jsonb->>'cl_corporatename'
+	end as cl_corporatename,
 	cl.cl_jsonb->>'cl_name' as cl_name,
     cl.cl_jsonb->>'cl_firstsurname' as cl_firstsurname,
     cl.cl_jsonb->>'cl_secondsurname' as cl_secondsurname,

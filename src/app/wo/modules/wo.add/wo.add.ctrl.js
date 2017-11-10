@@ -26,24 +26,16 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                var client = undefined;
-                woAddFactory.getClient().then(function (promise) {
+                woAddFactory.getZone().then(function (promise) {
+                    $scope.zo_idoptions = [];
                     if (angular.isArray(promise.data)) {
-                        client = promise.data[0];
+                        var rows = promise.data;
+                        angular.forEach(rows, function (value, key) {
+                            this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
+                        }, $scope.zo_idoptions);
                     }
-                }).then(function () {
-                    woAddFactory.getZone().then(function (promise) {
-                        $scope.zo_idoptions = [];
-                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_rfc, "value": 0 });
-                        if (angular.isArray(promise.data)) {
-                            var rows = promise.data;
-                            angular.forEach(rows, function (value, key) {
-                                this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
-                            }, $scope.zo_idoptions);
-                        }
-                    });
-                })
-                
+                });
+
                 woAddFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
                     var rows = [];
