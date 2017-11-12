@@ -57,12 +57,10 @@
                 },
                 link: function (scope, elem, attrs, ctrl) {
 
-                    elem.on('$destroy',
+                    scope.$on('$destroy',
                         function handleDestroyEvent() {
-                            scope.$apply(function(){
-                                ctrl.$setViewValue(undefined);
-                            })
-                        }
+                            ctrl.$setViewValue(undefined);
+                        }      
                     );
 
                     var validator = function (value) {
@@ -140,12 +138,10 @@
                 },
                 link: function (scope, elem, attrs, ctrl) {
 
-                    elem.on('$destroy',
+                    scope.$on('$destroy',
                         function handleDestroyEvent() {
-                            scope.$apply(function(){
-                                ctrl.$setViewValue(undefined);
-                            })
-                        }
+                            ctrl.$setViewValue(undefined);
+                        }      
                     );
 
                     var validator = function (value) {
@@ -229,7 +225,7 @@
             };
         }])
 
-        .directive('ggSelect', ['validTypes','$parse', function (validTypes,$parse) {
+        .directive('ggSelect', ['validTypes', function (validTypes) {
             return {
                 restrict: "E",
                 require: '^ngModel',
@@ -262,11 +258,9 @@
                 },
                 link: function (scope, elem, attrs, ctrl) {
 
-                    elem.on('$destroy',
+                    scope.$on('$destroy',
                         function handleDestroyEvent() {
-                            scope.$apply(function(){
-                                ctrl.$setViewValue(undefined);
-                            })
+                            ctrl.$setViewValue(undefined);
                         }      
                     );
 
@@ -345,12 +339,10 @@
                 },
                 link: function (scope, elem, attrs, ctrl) {
 
-                    elem.on('$destroy',
+                    scope.$on('$destroy',
                         function handleDestroyEvent() {
-                            scope.$apply(function(){
-                                ctrl.$setViewValue(undefined);
-                            })
-                        }
+                            ctrl.$setViewValue(undefined);
+                        }      
                     );
 
                     var validator = function (value) {
@@ -427,12 +419,10 @@
                 },
                 link: function (scope, elem, attrs, ctrl, ggStatesCtrl) {
 
-                    elem.on('$destroy',
+                    scope.$on('$destroy',
                         function handleDestroyEvent() {
-                            scope.$apply(function(){
-                                ctrl.$setViewValue(undefined);
-                            })
-                        }
+                            ctrl.$setViewValue(undefined);
+                        }      
                     );
 
                     var validator = function (value) {
@@ -510,12 +500,10 @@
                 },
                 link: function (scope, elem, attrs, ctrl, ggStatesCtrl) {
 
-                    elem.on('$destroy',
+                    scope.$on('$destroy',
                         function handleDestroyEvent() {
-                            scope.$apply(function(){
-                                ctrl.$setViewValue(undefined);
-                            })
-                        }
+                            ctrl.$setViewValue(undefined);
+                        }      
                     );
 
                     var validator = function (value) {
@@ -592,12 +580,10 @@
                 },
                 link: function (scope, elem, attrs, ctrl) {
 
-                    elem.on('$destroy',
+                    scope.$on('$destroy',
                         function handleDestroyEvent() {
-                            scope.$apply(function(){
-                                ctrl.$setViewValue(undefined);
-                            })
-                        }
+                            ctrl.$setViewValue(undefined);
+                        }      
                     );
 
                     var validator = function (value) {

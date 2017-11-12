@@ -74,7 +74,7 @@ module.exports = (function (angular) {
         }])
         .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'lockProvider', 'jwtOptionsProvider', 'jwtInterceptorProvider',
             function ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, lockProvider, jwtOptionsProvider, jwtInterceptorProvider) {
-
+                var ggauthlogo = require('../static/img/brand-logo.png');
                 lockProvider.init({
                     clientID: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y',
                     domain: 'grupografico.auth0.com',
@@ -95,8 +95,8 @@ module.exports = (function (angular) {
                         },
                         theme: {
                             labeledSubmitButton: true,
-                            //logo: "img/ggauth-logo.png",
-                            primaryColor: "green"
+                            //logo: ggauthlogo,
+                            primaryColor: "#0064b7"
                         }
                     }
                 });
@@ -160,7 +160,7 @@ module.exports = (function (angular) {
                 // Use the authManager from angular-jwt to check for
                 // the user's authentication state when the page is
                 // refreshed and maintain authentication
-                //authManager.checkAuthOnRefresh();
+                authManager.checkAuthOnRefresh();
 
                 // Listen for 401 unauthorized requests and redirect
                 // the user to the login page
