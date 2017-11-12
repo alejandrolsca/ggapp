@@ -3,9 +3,11 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productFlexoRibbonsAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productFlexoRibbonsAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
-            $scope.fmData.pr_process = 'flexo';
-            $scope.fmData.pr_type = 'ribbons';
+            $scope.fmData = {
+                "pr_process": "flexo",
+                "pr_type": "ribbons",
+                "pr_status": "A"
+            };
             $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {

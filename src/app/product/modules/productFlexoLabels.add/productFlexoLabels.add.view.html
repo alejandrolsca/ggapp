@@ -159,16 +159,6 @@
         </p>
     </div>
   </span>
-  <label class="col-sm-12 fieldset">ETIQUETAS AL PASO</label>
- <gg-input err-class="error"
-            lbl="{{'productFlexoLabels-add.labels.pr-materialformatsqty' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_materialformatsqty"
-            regexp="integer"
-            regexp-msg="{{'general.regexp.integer' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
   <label class="col-sm-12 fieldset">BARNIZ</label>
   <gg-select err-class="error"
            lbl="{{'productFlexoLabels-add.labels.pr-varnish' | i18n}}" 
@@ -180,16 +170,18 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productFlexoLabels-add.labels.pr-varnishfinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_varnisfinishedoptions" 
-           ng-model="fmData.pr_varnishfinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <span ng-if="!(fmData.pr_varnish==='no')">
+        <gg-select err-class="error"
+                lbl="{{'productFlexoLabels-add.labels.pr-varnishfinished' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_varnisfinishedoptions" 
+                ng-model="fmData.pr_varnishfinished"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+  </span>
   <label class="col-sm-12 fieldset">LAMINADO</label>
   <gg-select err-class="error"
            lbl="{{'productFlexoLabels-add.labels.pr-laminate' | i18n}}" 
@@ -201,26 +193,28 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productFlexoLabels-add.labels.pr-laminatefinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatefinishedoptions" 
-           ng-model="fmData.pr_laminatefinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productFlexoLabels-add.labels.pr-laminatecaliber' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatecaliberoptions" 
-           ng-model="fmData.pr_laminatecaliber"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <span ng-if="!(fmData.pr_laminate==='no')">
+        <gg-select err-class="error"
+                lbl="{{'productFlexoLabels-add.labels.pr-laminatefinished' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_laminatefinishedoptions" 
+                ng-model="fmData.pr_laminatefinished"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+        <gg-select err-class="error"
+                lbl="{{'productFlexoLabels-add.labels.pr-laminatecaliber' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_laminatecaliberoptions" 
+                ng-model="fmData.pr_laminatecaliber"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+  </span>
   <label class="col-sm-12 fieldset">OTROS ACABADOS</label>
    <gg-select err-class="error"
            lbl="{{'productFlexoLabels-add.labels.pr-precut' | i18n}}" 
@@ -243,9 +237,9 @@
            is-required="true">
   </gg-select>
   <gg-input err-class="error"
-            lbl="{{'productFlexoLabels-add.labels.pr-rollqty' | i18n}}" 
+            lbl="{{'productFlexoLabels-add.labels.pr-materialformatsqty' | i18n}}" 
             form-group-class="col-sm-3"
-            ng-model="fmData.pr_rollqty"
+            ng-model="fmData.pr_materialformatsqty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
             req-msg="Required"
@@ -262,6 +256,7 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'productFlexoLabels-add.labels.pr-status' | i18n}}" 
            form-group-class="col-sm-4" 

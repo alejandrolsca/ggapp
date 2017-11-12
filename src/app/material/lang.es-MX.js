@@ -11,7 +11,7 @@ module.exports = {
                         "mt-width":"Ancho",
                         "mt-height":"Largo",
                         "mt-measure":"U. de medida",
-                        "mt-thickness":"Grosor",
+                        "mt-thickness":"Espesor",
                         "mt-thicknessmeasure":"U. de medida",
                         "mt-status":"Estatus",
                         "mt-date":"Fecha",

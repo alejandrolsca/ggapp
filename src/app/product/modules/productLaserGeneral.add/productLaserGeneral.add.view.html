@@ -56,6 +56,53 @@
   <label class="col-sm-12 fieldset">TAMAÑO FINAL</label>
   <gg-input err-class="error"
             lbl="{{'productLaserGeneral-add.labels.pr-finalsizewidth' | i18n}}" 
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_finalsizewidth"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Requi∫red"
+            is-required="true">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-finalsizeheight' | i18n}}" 
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_finalsizeheight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'productLaserGeneral-add.labels.pr-finalsizemeasure' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_finalsizemeasureoptions" 
+           ng-model="fmData.pr_finalsizemeasure"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset">MATERIAL</label>
+  <gg-select err-class="error"
+           lbl="{{'productLaserGeneral-add.labels.mt-id' | i18n}}" 
+           form-group-class="col-sm-6" 
+           options="mt_idoptions" 
+           ng-model="fmData.mt_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true">
+  </gg-select>
+  <span ng-if="fmData.mt_id">
+    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}:true">
+        <p class="field-info bg-success">
+            {{material.width}} x {{material.height}} {{material.measure}}
+        </p>
+    </div>
+  </span>
+  <label class="col-sm-12 fieldset">AREA DE GRABADO</label>
+  <gg-input err-class="error"
+            lbl="{{'productLaserGeneral-add.labels.pr-finalsizewidth' | i18n}}" 
             form-group-class="col-sm-2"
             ng-model="fmData.pr_finalsizewidth"
             regexp="decimal"
@@ -83,16 +130,6 @@
            is-required="true">
   </gg-select>
   <label class="col-sm-12 fieldset">ESPECIFICACIONES</label>
-  <gg-select err-class="error"
-            lbl="{{'productLaserGeneral-add.labels.pr-surface' | i18n}}" 
-            form-group-class="col-sm-2" 
-            options="pr_surfaceoptions" 
-            ng-model="fmData.pr_surface"
-            regexp="singlespaces"
-            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-    </gg-select>
     <span ng-if="(fmData.pr_surface === 'other')">
         <gg-input err-class="error"
             lbl="{{'productLaserGeneral-add.labels.pr-othersurface' | i18n}}" 
@@ -108,12 +145,12 @@
         lbl="{{'productLaserGeneral-add.labels.pr-time' | i18n}}" 
         form-group-class="col-sm-2"
         ng-model="fmData.pr_time"
-        regexp="integer"
-        regexp-msg="{{'general.regexp.integer' | i18n}}"
+        regexp="time"
+        regexp-msg="{{'general.regexp.time' | i18n}}"
         req-msg="Required"
         is-required="true">
     </gg-input>
-    <label class="col-sm-12 fieldset"></label>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'productLaserGeneral-add.labels.pr-status' | i18n}}" 
            form-group-class="col-sm-4" 

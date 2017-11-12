@@ -3,7 +3,16 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productFlexoLabelsAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productFlexoLabelsAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
+            $scope.fmData = {
+                "pr_process": "flexo",
+                "pr_type": "labels", 
+                "pr_laminate": "no", 
+                "pr_varnish": "no", 
+                "pr_precut": "no",
+                "pr_core": 2,
+                "pr_folio": "no", 
+                "pr_status": "A"
+            };
             $scope.fmData.pr_process = 'flexo';
             $scope.fmData.pr_type = 'labels';
             $scope.fmData.cl_id = +$stateParams.cl_id;

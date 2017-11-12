@@ -17,14 +17,12 @@ module.exports = {
                         "pr-inkfront": "Frente",
                         "pr-inkback": "Reverso",
                         "pa-id": "ID material",
-                        "pr-materialsizewidth": "Ancho",
-                        "pr-materialsizeheight": "Largo",
-                        "pr-materialsizemeasure": "Unidad de medida",
                         "pr-varnish": "Barniz",
                         "pr-varnishuv": "Barniz UV",
                         "pr-varnishfinished": "Acabado",
                         "pr-printedlabeled": "Impreso / Rotulado",                      
                         "pr-rivet": "Remaches",                      
+                        "pr-drill": "Perforación",                      
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },
@@ -44,14 +42,12 @@ module.exports = {
                         "pr_inkfront",
                         "pr_inkback",
                         "mt_id",
-                        "pr_materialsizewidth",
-                        "pr_materialsizeheight",
-                        "pr_materialsizemeasure",
                         "pr_varnish",
                         "pr_varnishuv",
                         "pr_varnishfinished",
                         "pr_printedlabeled",                        
                         "pr_rivet",                                                                   
+                        "pr_drill",                                                                   
                         "pr_status",
                         "pr_date",
                     ],
@@ -86,10 +82,6 @@ module.exports = {
                             {"label":"7 tintas","value":7},
                             {"label":"8 tintas","value":8},
                         ],
-                        pr_materialsizemeasureoptions : [
-                            {"label":"cm","value":"cm"},
-                            {"label":"pulgadas","value":"in"}
-                        ],
                         pr_varnishoptions : [
                             {"label":"No","value":"no"},                            
                             {"label":"Una cara","value":"oneside"},
@@ -103,6 +95,9 @@ module.exports = {
                             {"label":"Rotulado","value":"labeled"},
                             {"label":"Ambos","value":"both"}
                         ],pr_rivetoptions : [
+                            {"label":"Si","value":"yes"},
+                            {"label":"No","value":"no"}
+                        ],pr_drilloptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
                         ],

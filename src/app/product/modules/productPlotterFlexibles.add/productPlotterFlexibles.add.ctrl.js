@@ -3,9 +3,17 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productPlotterFlexiblesAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productPlotterFlexiblesAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
-            $scope.fmData.pr_process = 'plotter';
-            $scope.fmData.pr_type = 'flexibles';
+            $scope.fmData = {
+                "pr_process": "plotter",
+                "pr_type": "flexibles", 
+                "pr_laminate": "no", 
+                "pr_varnish": "no", 
+                "pr_precut": "no",
+                "pr_transfer": "no", 
+                "pr_drill": "no", 
+                "pr_folio": "no", 
+                "pr_status": "A"
+            };
             $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {
@@ -31,6 +39,7 @@ module.exports = (function (angular) {
             $scope.pr_foliooptions = i18nFilter("productPlotterFlexibles-add.fields.pr_foliooptions");
             $scope.pr_precutoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_precutoptions");
             $scope.pr_transferoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_transferoptions");
+            $scope.pr_drilloptions = i18nFilter("productPlotterFlexibles-add.fields.pr_drilloptions");            
             $scope.pr_blocksoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_blocksoptions");
             $scope.pr_statusoptions = i18nFilter("productPlotterFlexibles-add.fields.pr_statusoptions");
         

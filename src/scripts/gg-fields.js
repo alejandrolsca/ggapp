@@ -9,7 +9,8 @@
             "partno": /^([-,\.:a-zA-Z0-9](.[-,\.:a-zA-Z0-9])*)*$/,
             "prcode": /^P|\d+|[_,a-z]+|[_,a-z]+|\d+$/,
             "materialcode": /^M|\d+|[_,a-z]|[_,a-z]|\d+$/,
-            "inkcode": /^[a-zA-Z0-9]{1,}$/,
+            "inkcode": /^([a-zA-Z0-9](.[a-zA-Z0-9])*)*$/,
+            "time": /^(0[1-9]|1[0-9]|2[0-3]):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$/,
             "machinetotalinks": /^[1-8]{1}$/,
             "rfc": /^[A-Za-z]{3,4}\d{6}(?:[A-Za-z\d]{3})?$/,
             "ssntin": /^(?:\d{3}-\d{2}-\d{4}|\d{2}-\d{7})$/,
@@ -18,7 +19,7 @@
             "decimal": /^(\d+\.\d{2,5})$/,
             "discount": /^(0\.\d{2,2})$/,
             "integer": /^\d{1,}$/,
-            "zipcode": /^^([\-A-Z0-9](.[\-A-Z0-9])*)*$/,
+            "zipcode": /^([\-A-Z0-9](.[\-A-Z0-9])*)*$/,
             "date": /^20[1-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/,
             "user": /^\w{4,16}$/,
             "password": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
@@ -55,6 +56,14 @@
                           </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+
+                    elem.on('$destroy',
+                        function handleDestroyEvent() {
+                            scope.$apply(function(){
+                                ctrl.$setViewValue(undefined);
+                            })
+                        }
+                    );
 
                     var validator = function (value) {
 
@@ -130,6 +139,14 @@
                           </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+
+                    elem.on('$destroy',
+                        function handleDestroyEvent() {
+                            scope.$apply(function(){
+                                ctrl.$setViewValue(undefined);
+                            })
+                        }
+                    );
 
                     var validator = function (value) {
 
@@ -212,7 +229,7 @@
             };
         }])
 
-        .directive('ggSelect', ['validTypes', function (validTypes) {
+        .directive('ggSelect', ['validTypes','$parse', function (validTypes,$parse) {
             return {
                 restrict: "E",
                 require: '^ngModel',
@@ -244,6 +261,14 @@
                               </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+
+                    elem.on('$destroy',
+                        function handleDestroyEvent() {
+                            scope.$apply(function(){
+                                ctrl.$setViewValue(undefined);
+                            })
+                        }      
+                    );
 
                     var validator = function (value) {
 
@@ -320,6 +345,14 @@
                 },
                 link: function (scope, elem, attrs, ctrl) {
 
+                    elem.on('$destroy',
+                        function handleDestroyEvent() {
+                            scope.$apply(function(){
+                                ctrl.$setViewValue(undefined);
+                            })
+                        }
+                    );
+
                     var validator = function (value) {
 
                         if(!!value || !ctrl.$pristine) {
@@ -393,6 +426,14 @@
                               </div>';
                 },
                 link: function (scope, elem, attrs, ctrl, ggStatesCtrl) {
+
+                    elem.on('$destroy',
+                        function handleDestroyEvent() {
+                            scope.$apply(function(){
+                                ctrl.$setViewValue(undefined);
+                            })
+                        }
+                    );
 
                     var validator = function (value) {
 
@@ -469,6 +510,14 @@
                 },
                 link: function (scope, elem, attrs, ctrl, ggStatesCtrl) {
 
+                    elem.on('$destroy',
+                        function handleDestroyEvent() {
+                            scope.$apply(function(){
+                                ctrl.$setViewValue(undefined);
+                            })
+                        }
+                    );
+
                     var validator = function (value) {
 
                         if(!!value || !ctrl.$pristine) {
@@ -542,6 +591,14 @@
                               </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+
+                    elem.on('$destroy',
+                        function handleDestroyEvent() {
+                            scope.$apply(function(){
+                                ctrl.$setViewValue(undefined);
+                            })
+                        }
+                    );
 
                     var validator = function (value) {
 

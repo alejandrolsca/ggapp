@@ -141,7 +141,8 @@ module.exports = {
                             {"label":"1 1/2\"","value":1.5},
                             {"label":"2\"","value":2},
                             {"label":"2 1/2\"","value":2.5},
-                            {"label":"3\"","value":3}
+                            {"label":"3\"","value":3},
+                            {"label":"Fan Fold","value":"fan_fold"}
                         ],pr_blocksoptions : [
                             {"label":"No","value":"no"},
                             {"label":"20","value":"20"},

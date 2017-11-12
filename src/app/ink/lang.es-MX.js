@@ -22,11 +22,9 @@ module.exports = {
                         in_typeoptions : [
                             {"label":"Offset","value":"offset"},
                             {"label":"Flexo","value":"flexo"},
-                            {"label":"Plotter - Inkjet agua","value":"inkjet_water"},
-                            {"label":"Plotter - Inkjet solvente","value":"inkjet_solvent"},
-                            {"label":"Plotter - Inkjet UV","value":"inkjet_uv"},
+                            {"label":"Plotter","value":"plotter"},
                             {"label":"Serigrafía","value":"serigraphy"},
-                            {"label":"Digital - Toner","value":"toner"},
+                            {"label":"Digital","value":"digital"},
                             {"label":"Sellos","value":"stamps"},
                             {"label":"Otros","value":"other"},
                         ],

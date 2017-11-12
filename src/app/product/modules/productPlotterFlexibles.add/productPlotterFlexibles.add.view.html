@@ -170,16 +170,18 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productPlotterFlexibles-add.labels.pr-varnishfinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_varnisfinishedoptions" 
-           ng-model="fmData.pr_varnishfinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <span ng-if="!(fmData.pr_varnish==='no')">
+        <gg-select err-class="error"
+                lbl="{{'productPlotterFlexibles-add.labels.pr-varnishfinished' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_varnisfinishedoptions" 
+                ng-model="fmData.pr_varnishfinished"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+  </span>
   <label class="col-sm-12 fieldset">LAMINADO</label>
   <gg-select err-class="error"
            lbl="{{'productPlotterFlexibles-add.labels.pr-laminate' | i18n}}" 
@@ -191,26 +193,28 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productPlotterFlexibles-add.labels.pr-laminatefinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatefinishedoptions" 
-           ng-model="fmData.pr_laminatefinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productPlotterFlexibles-add.labels.pr-laminatecaliber' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatecaliberoptions" 
-           ng-model="fmData.pr_laminatecaliber"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <span ng-if="!(fmData.pr_laminate==='no')">
+        <gg-select err-class="error"
+                lbl="{{'productPlotterFlexibles-add.labels.pr-laminatefinished' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_laminatefinishedoptions" 
+                ng-model="fmData.pr_laminatefinished"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+        <gg-select err-class="error"
+                lbl="{{'productPlotterFlexibles-add.labels.pr-laminatecaliber' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_laminatecaliberoptions" 
+                ng-model="fmData.pr_laminatecaliber"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+  </span>
   <label class="col-sm-12 fieldset">OTROS ACABADOS</label>
    <gg-select err-class="error"
            lbl="{{'productPlotterFlexibles-add.labels.pr-precut' | i18n}}" 
@@ -239,8 +243,18 @@
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
+  <gg-select err-class="error"
+            lbl="{{'productPlotterFlexibles-add.labels.pr-drill' | i18n}}" 
+            form-group-class="col-sm-4" 
+            options="pr_drilloptions" 
+            ng-model="fmData.pr_drill"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+    </gg-select>
   <label class="col-sm-12 fieldset">NUMERACION Y BLOCKS</label>
   <gg-select err-class="error"
            lbl="{{'productPlotterFlexibles-add.labels.pr-folio' | i18n}}" 

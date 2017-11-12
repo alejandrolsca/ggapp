@@ -10,9 +10,10 @@ module.exports = {
                         "pr-weight": "Peso (kg)",
                         "pr-name": "Nombre",
                         "pr-description": "Descripcion",
+                        "mt-id": "ID material",
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Largo",
-                        "pr-finalsizemeasure": "Unidad de medida",
+                        "pr-finalsizemeasure": "U. de medida",
                         "pr-surface": "Superficie",
                         "pr-othersurface": "Nombre Sup.",
                         "pr-time": "Tiempo (min)",
@@ -28,6 +29,7 @@ module.exports = {
                         "pr_code",
                         "pr_weight",
                         "pr_description",
+                        "mt_id",
                         "pr_finalsizewidth",
                         "pr_finalsizeheight",
                         "pr_finalsizemeasure",
@@ -47,22 +49,6 @@ module.exports = {
                             {"label":"1 tinta","value":1},
                             {"label":"2 tintas","value":2},
                             {"label":"3 tintas","value":3}
-                        ],
-                        pr_materialsizemeasureoptions : [
-                            {"label":"cm","value":"cm"},
-                            {"label":"pulgadas","value":"in"}
-                        ],
-                        pr_surfaceoptions : [
-                            {"label":"Plastico","value":"plastic"},
-                            {"label":"Hule","value":"rubber"},
-                            {"label":"Metal","value":"metal"},
-                            {"label":"Madera","value":"wood"},
-                            {"label":"Ceramica","value":"ceramic"},
-                            {"label":"Piel","value":"skin"},
-                            {"label":"Papel","value":"paper"},
-                            {"label":"Carton","value":"paperboard"},
-                            {"label":"Vidrio","value":"glass"},
-                            {"label":"Otros","value":"other"}
                         ],
                         pr_statusoptions : [
                             {"label":"Activo","value":"A"},

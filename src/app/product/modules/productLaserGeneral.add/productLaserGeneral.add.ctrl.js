@@ -20,7 +20,6 @@ module.exports = (function (angular) {
             };
       
             $scope.pr_finalsizemeasureoptions = i18nFilter("productLaserGeneral-add.fields.pr_finalsizemeasureoptions");
-            $scope.pr_surfaceoptions = i18nFilter("productLaserGeneral-add.fields.pr_surfaceoptions");
             $scope.pr_statusoptions = i18nFilter("productLaserGeneral-add.fields.pr_statusoptions");
 
              // create front ink fields
@@ -41,6 +40,18 @@ module.exports = (function (angular) {
                         $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_firstsurname;
                     }
                 });
+
+                productLaserGeneralAddFac.getMaterials($scope.fmData.pr_process).then(function (promise) {
+                    if (angular.isArray(promise.data)) {
+                        $scope.mt_idoptions = [];
+                        angular.forEach(promise.data, function (value, key) {
+                            this.push({ "label": `${value.mt_code} – ${value.mt_description}`, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
+                        }, $scope.mt_idoptions);
+                    } else {
+                        //$scope.updateFail = true;
+                    }
+                });
+
             });
         }];
 

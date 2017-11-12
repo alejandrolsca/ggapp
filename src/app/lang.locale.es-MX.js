@@ -46,6 +46,7 @@ module.exports = {
                         "materialcode": "sin espacios ni caracteres especiales",
                         "inkcode": "sin espacios ni caracteres especiales",
                         "machinetotalinks": "minimo 1 maximo 8",
+                        "time": "Tiempo 00:00:00",
                         "rfc": "AAAA111111[AAA]",
                         "ssntin": "11-1111111 ó 111-11-1111",
                         "immex": "Numero IMMEX (1 o mas digitos)-Año IMMEX (20##)",
@@ -82,11 +83,7 @@ module.exports = {
                 ****************************************/
                 "product": require('./product/lang.es-MX'),
                 "productOffsetGeneral-add": require('./product/modules/productOffsetGeneral.add/lang.es-MX'),
-                "productOffsetGeneral-update": require('./product/modules/productOffsetGeneral.update/lang.es-MX'),
                 "productOffsetPaginated-add": require('./product/modules/productOffsetPaginated.add/lang.es-MX'),
-                "productOffsetPaginated-update":{
-                    "title" : "Actualizar producto",
-                },
                 "productOffsetCounterfoil-add": require('./product/modules/productOffsetCounterfoil.add/lang.es-MX'),
                 "productFlexoLabels-add": require('./product/modules/productFlexoLabels.add/lang.es-MX'),
                 "productFlexoRibbons-add": require('./product/modules/productFlexoRibbons.add/lang.es-MX'),

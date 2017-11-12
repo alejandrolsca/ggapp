@@ -208,16 +208,18 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productDigitalGeneral-add.labels.pr-varnishfinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_varnisfinishedoptions" 
-           ng-model="fmData.pr_varnishfinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <span ng-if="!(fmData.pr_varnish==='no')">
+        <gg-select err-class="error"
+                lbl="{{'productDigitalGeneral-add.labels.pr-varnishfinished' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_varnisfinishedoptions" 
+                ng-model="fmData.pr_varnishfinished"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+  </span>
   <label class="col-sm-12 fieldset">LAMINADO</label>
   <gg-select err-class="error"
            lbl="{{'productDigitalGeneral-add.labels.pr-laminate' | i18n}}" 
@@ -229,26 +231,28 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productDigitalGeneral-add.labels.pr-laminatefinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatefinishedoptions" 
-           ng-model="fmData.pr_laminatefinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productDigitalGeneral-add.labels.pr-laminatecaliber' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatecaliberoptions" 
-           ng-model="fmData.pr_laminatecaliber"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <span ng-if="!(fmData.pr_laminate==='no')">
+        <gg-select err-class="error"
+                lbl="{{'productDigitalGeneral-add.labels.pr-laminatefinished' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_laminatefinishedoptions" 
+                ng-model="fmData.pr_laminatefinished"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+        <gg-select err-class="error"
+                lbl="{{'productDigitalGeneral-add.labels.pr-laminatecaliber' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_laminatecaliberoptions" 
+                ng-model="fmData.pr_laminatecaliber"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+  </span>
   <label class="col-sm-12 fieldset">DOBLEZ</label>
   <gg-select err-class="error"
            lbl="{{'productDigitalGeneral-add.labels.pr-foldunit1' | i18n}}" 

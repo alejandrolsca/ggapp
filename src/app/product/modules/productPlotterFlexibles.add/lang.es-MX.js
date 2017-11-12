@@ -31,6 +31,7 @@ module.exports = {
                         "pr-precut": "Precorte",                      
                         "pr-transfer": "Transfer",                      
                         "pr-sheetqty": "Cantidad x Plantilla",                      
+                        "pr-drill": "Perforación",                      
                         "pr-blocks": "Blocks",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
@@ -65,6 +66,7 @@ module.exports = {
                         "pr_precut",                        
                         "pr_transfer",                        
                         "pr_sheetqty",                        
+                        "pr_drill",                        
                         "pr_blocks",
                         "pr_status",
                         "pr_date",
@@ -134,6 +136,9 @@ module.exports = {
                             {"label":"Vertical","value":"vertical"},
                             {"label":"Ambas","value":"both"}
                         ],pr_transferoptions : [
+                            {"label":"Si","value":"yes"},
+                            {"label":"No","value":"no"}
+                        ],pr_drilloptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
                         ],pr_blocksoptions : [

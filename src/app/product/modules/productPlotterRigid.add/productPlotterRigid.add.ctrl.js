@@ -3,9 +3,18 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productPlotterRigidAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productPlotterRigidAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
-            $scope.fmData.pr_process = 'plotter';
-            $scope.fmData.pr_type = 'rigid';
+            $scope.fmData = {
+                "pr_process": "plotter",
+                "pr_type": "rigid", 
+                "pr_laminate": "no", 
+                "pr_varnish": "no", 
+                "pr_rivet": "no",
+                "pr_doublesided": "no", 
+                "pr_fold": "no", 
+                "pr_drill": "no", 
+                "pr_folio": "no", 
+                "pr_status": "A"
+            };
             $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {
@@ -23,7 +32,6 @@ module.exports = (function (angular) {
             $scope.pr_finalsizemeasureoptions = i18nFilter("productPlotterRigid-add.fields.pr_finalsizemeasureoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productPlotterRigid-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productPlotterRigid-add.fields.pr_inkbackoptions");
-            $scope.pr_materialsizemeasureoptions = i18nFilter("productPlotterRigid-add.fields.pr_materialsizemeasureoptions");
             $scope.pr_varnishoptions = i18nFilter("productPlotterRigid-add.fields.pr_varnishoptions");
             $scope.pr_varnisfinishedoptions = i18nFilter("productPlotterRigid-add.fields.pr_varnisfinishedoptions");
             $scope.pr_laminateoptions = i18nFilter("productPlotterRigid-add.fields.pr_laminateoptions");
@@ -33,6 +41,8 @@ module.exports = (function (angular) {
             $scope.pr_printedlabeledoptions = i18nFilter("productPlotterRigid-add.fields.pr_printedlabeledoptions");
             $scope.pr_rivetoptions = i18nFilter("productPlotterRigid-add.fields.pr_rivetoptions");
             $scope.pr_doublesidedoptions = i18nFilter("productPlotterRigid-add.fields.pr_doublesidedoptions");
+            $scope.pr_foldoptions = i18nFilter("productPlotterRigid-add.fields.pr_foldoptions");
+            $scope.pr_drilloptions = i18nFilter("productPlotterRigid-add.fields.pr_drilloptions");
             $scope.pr_blocksoptions = i18nFilter("productPlotterRigid-add.fields.pr_blocksoptions");
             $scope.pr_statusoptions = i18nFilter("productPlotterRigid-add.fields.pr_statusoptions");
         

@@ -14,7 +14,7 @@ module.exports = {
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Largo",
                         "pr-finalsizemeasure": "Unidad de medida",
-                        "pr-sheetsperset": "Hojas por juego",
+                        "pr-components": "Hojas por juego",
                         "pr-inkfront": "Frente",
                         "pr-inkback": "Reverso",
                         "pa-id": "ID material",
@@ -45,7 +45,7 @@ module.exports = {
                         "pr_finalsizewidth",
                         "pr_finalsizeheight",
                         "pr_finalsizemeasure",
-                        "pr_sheetsperset",
+                        "pr_components",
                         "pr_inkfront",
                         "pr_inkback",
                         "mt_id",
@@ -72,7 +72,7 @@ module.exports = {
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
                         ],
-                        pr_sheetspersetoptions : [
+                        pr_componentsoptions : [
                             {"label":"1","value":1},
                             {"label":"2","value":2},
                             {"label":"3","value":3},
@@ -133,6 +133,7 @@ module.exports = {
                             {"label":"Colocado","value":"allocated"},
                             {"label":"Separado","value":"separated"},
                         ],pr_drilloptions : [
+                            {"label":"0","value":0},
                             {"label":"1","value":1},
                             {"label":"2","value":2},
                             {"label":"3","value":3},

@@ -3,10 +3,20 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productOffsetCounterfoilAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productOffsetCounterfoilAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
-            $scope.fmData.pr_process = 'offset';
-            $scope.fmData.pr_type = 'counterfoil';
+            $scope.fmData = {
+                "pr_process": "offset",
+                "pr_type": "counterfoil", 
+                "pr_precut": "no",
+                "pr_reinforcement": "no", 
+                "pr_cord": "no", 
+                "pr_wire": "no", 
+                "pr_drill": 0, 
+                "pr_folio": "no", 
+                "pr_blocks": "no", 
+                "pr_status": "A"
+            };
             $scope.fmData.cl_id = +$stateParams.cl_id;
+            $scope.fmData.pr_components = 1;
 
             $scope.onSubmit = function () {
 
@@ -21,6 +31,7 @@ module.exports = (function (angular) {
 
             $scope.pr_languageoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_languageoptions");
             $scope.pr_finalsizemeasureoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_finalsizemeasureoptions");
+            $scope.pr_componentsoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_componentsoptions");
             $scope.pr_sheetspersetoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_sheetspersetoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_inkbackoptions");
@@ -40,56 +51,67 @@ module.exports = (function (angular) {
             $scope.pr_blocksoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_blocksoptions");
             $scope.pr_statusoptions = i18nFilter("productOffsetCounterfoil-add.fields.pr_statusoptions");
 
-            // populate sheets per set fields
-            $scope.$watch('fmData.pr_sheetsperset', function (newValue, oldValue) {
-                if ($scope.fmData.pr_sheetsperset !== undefined) {
-                    $scope.fmData.pr_inkfront = undefined;
-                    $scope.fmData.pr_inkback = undefined;
-                    $scope.sheetsperset = new Array(newValue);
-                    var frontArray = [];
-                    var backArray = [];
-                    for (var i = 0; i < newValue; i++) {
-                        frontArray.push('fmData.pr_inkfront[' + i + ']')
-                        backArray.push('fmData.pr_inkback[' + i + ']')
-                    }
-                    $scope.frontSet = frontArray;
-                    $scope.backSet = backArray;
-                    console.log('frontSet', $scope.frontSet, 'backSet', $scope.backSet)
+            // create components
+            $scope.$watch('fmData.pr_components', function (newValue, oldValue) {
+                if(newValue===undefined){
+                    $scope.components = [];
+                    return;
+                }
+                $scope.components = new Array(newValue)
+                
+                var componentFields = [
+                    'pr_inkfront',
+                    'pr_inksfront',
+                    'pr_inkback',
+                    'pr_inksback',
+                    'mt_id'
+                ];
+                var index = undefined;
+                for(var i = 8; newValue <= i; --i){
+                    index = i.toString();
+                    angular.forEach(componentFields,function(value,key){
+                        if($scope.fmData[value]) {
+                            if($scope.fmData[value][index]){
+                                $scope.fmData[value][index] = undefined;
+                            }
+                        }
+                    })
                 }
             });
+
             $scope.frontInks = {};
-            $scope.$watchCollection('frontSet', function (newValues, oldValues) {
-                if (newValues !== undefined) {
-                    newValues.forEach(function (value, index) {
-                        $scope.$watch(value, function (newValue, oldValue) {
-                            console.log(value, index)
-                            if (newValue !== undefined) {                              
-                                $scope.frontInks[index] = new Array(newValue);
-                                if ($scope.fmData.pr_inksfront) {
-                                    for (var i = 0; i < oldValue; i++) {
-                                        $scope.fmData['pr_inksfront'][index] = undefined;
+            $scope.$watchCollection('fmData.pr_inkfront',function(newValues,oldValues){
+                if ($scope.fmData.pr_inkfront !== undefined) {
+                    angular.forEach(Object.keys(newValues),function(value,key){
+                        $scope.frontInks[value] = new Array($scope.fmData.pr_inkfront[value]);
+                        for (var i = $scope.fmData.pr_inkfront[value]; i < 8; i++) {
+                            if ($scope.fmData['pr_inksfront']) {
+                                if($scope.fmData['pr_inksfront'][value]){
+                                    if($scope.fmData['pr_inksfront'][value][i]) {
+                                        $scope.fmData['pr_inksfront'][value][i] = undefined;
                                     }
                                 }
                             }
-                        });
-                    })
+                        }
+                    })    
                 }
             })
+
             $scope.backInks = {};
-            $scope.$watchCollection('backSet', function (newValues, oldValues) {
-                if (newValues !== undefined) {                   
-                    newValues.forEach(function (value, index) {
-                        $scope.$watch(value, function (newValue, oldValue) {
-                            if (newValue !== undefined) {                                                            
-                                $scope.backInks[index] = new Array(newValue);
-                                if ($scope.fmData.pr_inksback) {
-                                    for (var i = 0; i < oldValue; i++) {
-                                        $scope.fmData['pr_inksback'][index] = undefined;
+            $scope.$watchCollection('fmData.pr_inkback',function(newValues,oldValues){
+                if ($scope.fmData.pr_inkback !== undefined) {
+                    angular.forEach(Object.keys(newValues),function(value,key){
+                        $scope.backInks[value] = new Array($scope.fmData.pr_inkback[value]);
+                        for (var i = $scope.fmData.pr_inkback[value]; i < 8; i++) {
+                            if ($scope.fmData['pr_inksback']) {
+                                if($scope.fmData['pr_inksback'][value]){
+                                    if($scope.fmData['pr_inksback'][value][i]) {
+                                        $scope.fmData['pr_inksback'][value][i] = undefined;
                                     }
                                 }
                             }
-                        });
-                    })
+                        }
+                    })    
                 }
             })
 

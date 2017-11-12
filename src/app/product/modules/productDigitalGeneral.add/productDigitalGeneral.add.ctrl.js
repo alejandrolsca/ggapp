@@ -3,9 +3,24 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productDigitalGeneralAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productDigitalGeneralAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
-            $scope.fmData.pr_process = 'digital';
-            $scope.fmData.pr_type = 'general';
+            $scope.fmData = $scope.fmData = {
+                "pr_process": "digital",
+                "pr_type": "general", 
+                "pr_laminate": "no", 
+                "pr_varnish": "no", 
+                "pr_foldunit1": 0, 
+                "pr_foldunit2": 0, 
+                "pr_foldunit3": 0, 
+                "pr_precut": "no",
+                "pr_diecuttingqty": "0", 
+                "pr_reinforcement": 
+                "no", "pr_cord": "no", 
+                "pr_wire": "no", 
+                "pr_drill": 0, 
+                "pr_folio": "no", 
+                "pr_blocks": "no", 
+                "pr_status": "A"
+            };
             $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {

@@ -159,7 +159,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'supplier.labels.su-email' | i18n}}"
@@ -197,6 +197,7 @@
             req-msg="Required"
             is-required="true">
   </gg-phone>
+  <label class="col-sm-12 fieldset">STATUS</label>
   <gg-select err-class="error"
            lbl="{{'supplier.labels.su-status' | i18n}}" 
            form-group-class="col-sm-4" 
@@ -207,6 +208,7 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset"></label>
   <gg-submit lbl="Submit"
             form-group-class="col-sm-12" 
             ng-disabled="ggform.$invalid"

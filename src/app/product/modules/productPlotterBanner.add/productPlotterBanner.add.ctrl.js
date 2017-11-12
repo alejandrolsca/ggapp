@@ -3,7 +3,14 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productPlotterBannerAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productPlotterBannerAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
+            $scope.fmData = {
+                "pr_process": "plotter",
+                "pr_type": "banner", 
+                "pr_varnish": "no", 
+                "pr_rivet": "no",
+                "pr_drill": "no", 
+                "pr_status": "A"
+            };
             $scope.fmData.pr_process = 'plotter';
             $scope.fmData.pr_type = 'banner';
             $scope.fmData.cl_id = +$stateParams.cl_id;
@@ -23,11 +30,11 @@ module.exports = (function (angular) {
             $scope.pr_finalsizemeasureoptions = i18nFilter("productPlotterBanner-add.fields.pr_finalsizemeasureoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productPlotterBanner-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productPlotterBanner-add.fields.pr_inkbackoptions");
-            $scope.pr_materialsizemeasureoptions = i18nFilter("productPlotterBanner-add.fields.pr_materialsizemeasureoptions");
             $scope.pr_varnishoptions = i18nFilter("productPlotterBanner-add.fields.pr_varnishoptions");
             $scope.pr_varnisfinishedoptions = i18nFilter("productPlotterBanner-add.fields.pr_varnisfinishedoptions");
             $scope.pr_printedlabeledoptions = i18nFilter("productPlotterBanner-add.fields.pr_printedlabeledoptions");
             $scope.pr_rivetoptions = i18nFilter("productPlotterBanner-add.fields.pr_rivetoptions");
+            $scope.pr_drilloptions = i18nFilter("productPlotterBanner-add.fields.pr_drilloptions");            
             $scope.pr_statusoptions = i18nFilter("productPlotterBanner-add.fields.pr_statusoptions");
         
             // create front ink fields

@@ -3,23 +3,38 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productOffsetGeneralAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productOffsetGeneralAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
-            $scope.fmData.pr_process = 'offset';
-            $scope.fmData.pr_type = 'general';
+            $scope.fmData = {
+                "pr_process": "offset",
+                "pr_type": "general", 
+                "pr_laminate": "no", 
+                "pr_varnish": "no", 
+                "pr_foldunit1": 0, 
+                "pr_foldunit2": 0, 
+                "pr_foldunit3": 0, 
+                "pr_precut": "no",
+                "pr_diecuttingqty": "0", 
+                "pr_reinforcement": "no", 
+                "pr_cord": "no", 
+                "pr_wire": "no", 
+                "pr_drill": 0, 
+                "pr_folio": "no", 
+                "pr_blocks": "no", 
+                "pr_status": "A"
+            };
             $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {
 
                 productOffsetGeneralAddFac.add($scope.fmData).then(function (promise) {
                     if (promise.data.rowCount === 1) {
-                        $location.path('/product/'+$stateParams.cl_id);
+                        $location.path('/product/' + $stateParams.cl_id);
                     } else {
                         $scope.updateFail = true;
                     }
                 });
             };
 
-            $scope.pr_languageoptions = i18nFilter("productOffsetGeneral-add.fields.pr_languageoptions");            
+            $scope.pr_languageoptions = i18nFilter("productOffsetGeneral-add.fields.pr_languageoptions");
             $scope.pr_finalsizemeasureoptions = i18nFilter("productOffsetGeneral-add.fields.pr_finalsizemeasureoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productOffsetGeneral-add.fields.pr_inkfrontoptions");
             $scope.pr_inkbackoptions = i18nFilter("productOffsetGeneral-add.fields.pr_inkbackoptions");
@@ -31,14 +46,14 @@ module.exports = (function (angular) {
             $scope.pr_laminatecaliberoptions = i18nFilter("productOffsetGeneral-add.fields.pr_laminatecaliberoptions");
             $scope.pr_foliooptions = i18nFilter("productOffsetGeneral-add.fields.pr_foliooptions");
             $scope.pr_foldunitoptions = i18nFilter("productOffsetGeneral-add.fields.pr_foldunitoptions");
-            $scope.pr_precutoptions = i18nFilter("productOffsetGeneral-add.fields.pr_precutoptions");            
+            $scope.pr_precutoptions = i18nFilter("productOffsetGeneral-add.fields.pr_precutoptions");
             $scope.pr_reinforcementoptions = i18nFilter("productOffsetGeneral-add.fields.pr_reinforcementoptions");
             $scope.pr_cordoptions = i18nFilter("productOffsetGeneral-add.fields.pr_cordoptions");
             $scope.pr_wireoptions = i18nFilter("productOffsetGeneral-add.fields.pr_wireoptions");
             $scope.pr_drilloptions = i18nFilter("productOffsetGeneral-add.fields.pr_drilloptions");
             $scope.pr_blocksoptions = i18nFilter("productOffsetGeneral-add.fields.pr_blocksoptions");
             $scope.pr_statusoptions = i18nFilter("productOffsetGeneral-add.fields.pr_statusoptions");
-        
+
             // create front ink fields
             $scope.$watch('fmData.pr_inkfront', function (newValue, oldValue) {
                 if ($scope.fmData.pr_inkfront != undefined) {
@@ -48,7 +63,7 @@ module.exports = (function (angular) {
                     }
                 }
             });
-        
+
             // create back ink fields
             $scope.$watch('fmData.pr_inkback', function (newValue, oldValue) {
                 if ($scope.fmData.pr_inkback != undefined) {
@@ -61,7 +76,7 @@ module.exports = (function (angular) {
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
-                
+
                 productOffsetGeneralAddFac.getClient().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isObject(promise.data)) {

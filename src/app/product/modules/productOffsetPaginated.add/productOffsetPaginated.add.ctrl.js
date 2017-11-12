@@ -3,9 +3,15 @@ module.exports = (function (angular) {
 
     return ['$scope', 'productOffsetPaginatedAddFac', '$location', 'i18nFilter', '$stateParams',
         function ($scope, productOffsetPaginatedAddFac, $location, i18nFilter, $stateParams) {
-            $scope.fmData = {};
-            $scope.fmData.pr_process = 'offset';
-            $scope.fmData.pr_type = 'paginated';
+            $scope.fmData = {
+                "pr_process": "offset",
+                "pr_type": "paginated",
+                "pr_spiralbind": "no", 
+                "pr_stapling": "no", 
+                "pr_bound": "no",
+                "pr_folio": "no", 
+                "pr_status": "A"
+            };
             $scope.fmData.cl_id = +$stateParams.cl_id;
             $scope.fmData.pr_components = 1;
 
@@ -75,6 +81,15 @@ module.exports = (function (angular) {
                     'pr_precut',
                     'pr_drill'
                 ];
+                var componentDefaults = [
+                    {"field":"pr_varnish", "value":"no"},
+                    {"field": "pr_laminate", "value": "no"},
+                    {"field": "pr_foldunit1", "value": 0},
+                    {"field": "pr_foldunit2", "value": 0},
+                    {"field": "pr_foldunit3", "value": 0},
+                    {"field": "pr_precut", "value": "no"},
+                    {"field": "pr_drill", "value": 0}
+                ];
                 var index = undefined;
                 for(var i = 8; newValue <= i; --i){
                     index = i.toString();
@@ -83,6 +98,20 @@ module.exports = (function (angular) {
                             if($scope.fmData[value][index]){
                                 $scope.fmData[value][index] = undefined;
                             }
+                        }                
+                    })
+                }
+                for(var i = 0; i < newValue; i++){
+                    index = i.toString();
+                    angular.forEach(componentDefaults, function(value,key){
+                        if(!$scope.fmData[value.field]){
+                            $scope.fmData[value.field] = {};
+                            if(!$scope.fmData[value.field][index]){
+                                $scope.fmData[value.field][index] = value.value;
+                            }
+                        }
+                        if(!$scope.fmData[value.field][index]){
+                            $scope.fmData[value.field][index] = value.value;
                         }
                     })
                 }

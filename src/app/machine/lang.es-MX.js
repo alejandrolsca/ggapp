@@ -50,7 +50,8 @@ module.exports = {
                             {"label":"Plóter","value":"plotter"},
                             {"label":"Sellos","value":"stamps"},
                             {"label":"Serigrafía","value":"serigraphy"},
-                            {"label":"Laser","value":"laser"}
+                            {"label":"Laser","value":"laser"},
+                            {"label":"Suajado/corte","value":"diecutting"}
                         ],
                         ma_statusoptions : [
                             {"label":"Activo","value":"A"},
