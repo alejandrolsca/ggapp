@@ -1,0 +1,166 @@
+Query: insert into public.product
+                    (pr_jsonb)
+                    values ('{"pr_process":"digital","pr_type":"general","cl_id":"6","pr_partno":"test-1-ABC,CDE.abc:100 folder","pr_description":"este es el primer producto de prueba","pr_finalsizewidth":"15.00","pr_finalsizeheight":"26.00","pr_finalsizemeasure":"cm","pr_inkfront":1,"pr_inksfront":[2],"pr_inkback":3,"pr_inksback":[2,2,3],"mt_id":1,"pr_materialformatsqty":"100","pr_materialsizewidth":"100.00","pr_materialsizeheight":"200.00","pr_materialsizemeasure":"cm","pr_varnish":"yes","pr_varnishuv":"oneside","pr_varnishfinished":"matte","pr_laminate":"yes","pr_laminatefinished":"matte","pr_laminatecaliber":"2mm","pr_precut":"horizontal","pr_fold":"tryptic","pr_diecutting":"yes","pr_diecuttingqty":"4","pr_reinforcement":"one","pr_cord":"allocated","pr_wire":"allocated","pr_folio":"yes","pr_blocks":"100","pr_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.product" does not exist
+LINE 1: insert into public.product
+                    ^
+ | Date: 2015-05-31 05:31:58
+Query: insert into public.product
+                    (pr_jsonb)
+                    values ('{"pr_process":"digital","pr_type":"general","cl_id":"6","pr_partno":"test-1-ABC,CDE.abc:100 folder","pr_description":"este es el primer producto de prueba","pr_finalsizewidth":"15.00","pr_finalsizeheight":"26.00","pr_finalsizemeasure":"cm","pr_inkfront":1,"pr_inksfront":[2],"pr_inkback":3,"pr_inksback":[2,2,3],"mt_id":1,"pr_materialformatsqty":"100","pr_materialsizewidth":"100.00","pr_materialsizeheight":"200.00","pr_materialsizemeasure":"cm","pr_varnish":"yes","pr_varnishuv":"oneside","pr_varnishfinished":"matte","pr_laminate":"yes","pr_laminatefinished":"matte","pr_laminatecaliber":"2mm","pr_precut":"horizontal","pr_fold":"tryptic","pr_diecutting":"yes","pr_diecuttingqty":"4","pr_reinforcement":"one","pr_cord":"allocated","pr_wire":"allocated","pr_folio":"yes","pr_blocks":"100","pr_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.product" does not exist
+LINE 1: insert into public.product
+                    ^
+ | Date: 2015-05-31 05:36:17
+Query: insert into public.product
+                    (pr_jsonb)
+                    values ('{"pr_process":"digital","pr_type":"general","cl_id":"6","pr_partno":"TEST-ASA.asas: 23,34","pr_description":"este es un producto de prueba","pr_finalsizewidth":"100.00","pr_finalsizeheight":"200.00","pr_finalsizemeasure":"cm","pr_inkfront":2,"pr_inksfront":[2,2],"pr_inkback":3,"pr_inksback":[2,3,3],"mt_id":1,"pr_materialformatsqty":"123","pr_materialsizewidth":"100.00","pr_materialsizeheight":"200.00","pr_materialsizemeasure":"cm","pr_varnish":"yes","pr_varnishuv":"oneside","pr_varnishfinished":"matte","pr_laminate":"yes","pr_laminatefinished":"matte","pr_laminatecaliber":"2mm","pr_precut":"horizontal","pr_fold":"tryptic","pr_diecutting":"yes","pr_diecuttingqty":"5","pr_reinforcement":"one","pr_cord":"allocated","pr_wire":"allocated","pr_folio":"yes","pr_blocks":"100","pr_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.product" does not exist
+LINE 1: insert into public.product
+                    ^
+ | Date: 2015-05-31 05:40:12
+Query: insert into public.product
+                    (pr_jsonb)
+                    values ('{"pr_process":"digital","pr_type":"general","cl_id":"6","pr_partno":"TEST-ASA.asas: 23,34","pr_description":"este es un producto de prueba","pr_finalsizewidth":"100.00","pr_finalsizeheight":"200.00","pr_finalsizemeasure":"cm","pr_inkfront":2,"pr_inksfront":[2,2],"pr_inkback":3,"pr_inksback":[2,2,2],"mt_id":1,"pr_materialformatsqty":"123","pr_materialsizewidth":"100.00","pr_materialsizeheight":"200.00","pr_materialsizemeasure":"cm","pr_varnish":"yes","pr_varnishuv":"oneside","pr_varnishfinished":"matte","pr_laminate":"yes","pr_laminatefinished":"matte","pr_laminatecaliber":"2mm","pr_precut":"horizontal","pr_fold":"tryptic","pr_diecutting":"yes","pr_diecuttingqty":"5","pr_reinforcement":"one","pr_cord":"allocated","pr_wire":"allocated","pr_folio":"yes","pr_blocks":"100","pr_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.product" does not exist
+LINE 1: insert into public.product
+                    ^
+ | Date: 2015-05-31 05:42:17
+Query: insert into public.product
+                    (pr_jsonb)
+                    values ('{"pr_process":"digital","pr_type":"general","cl_id":"6","pr_partno":"TEST-ASA.asas: 23,34","pr_description":"este es un producto de prueba","pr_finalsizewidth":"100.00","pr_finalsizeheight":"200.00","pr_finalsizemeasure":"cm","pr_inkfront":2,"pr_inksfront":[2,2],"pr_inkback":3,"pr_inksback":[2,2,2],"mt_id":1,"pr_materialformatsqty":"123","pr_materialsizewidth":"100.00","pr_materialsizeheight":"200.00","pr_materialsizemeasure":"cm","pr_varnish":"yes","pr_varnishuv":"oneside","pr_varnishfinished":"matte","pr_laminate":"yes","pr_laminatefinished":"matte","pr_laminatecaliber":"2mm","pr_precut":"horizontal","pr_fold":"tryptic","pr_diecutting":"yes","pr_diecuttingqty":"5","pr_reinforcement":"one","pr_cord":"allocated","pr_wire":"allocated","pr_folio":"yes","pr_blocks":"100","pr_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.product" does not exist
+LINE 1: insert into public.product
+                    ^
+ | Date: 2015-05-31 05:42:52
+Query: insert into public.product
+                    (pr_jsonb)
+                    values ('{"pr_process":"digital","pr_type":"general","cl_id":"6","pr_partno":"TEST-ASA.asas: 23,34","pr_description":"este es un producto de prueba","pr_finalsizewidth":"100.00","pr_finalsizeheight":"200.00","pr_finalsizemeasure":"cm","pr_inkfront":2,"pr_inksfront":[2,2],"pr_inkback":3,"pr_inksback":[2,2,2],"mt_id":1,"pr_materialformatsqty":"123","pr_materialsizewidth":"100.00","pr_materialsizeheight":"200.00","pr_materialsizemeasure":"cm","pr_varnish":"yes","pr_varnishuv":"oneside","pr_varnishfinished":"matte","pr_laminate":"yes","pr_laminatefinished":"matte","pr_laminatecaliber":"2mm","pr_precut":"horizontal","pr_fold":"tryptic","pr_diecutting":"yes","pr_diecuttingqty":"5","pr_reinforcement":"one","pr_cord":"allocated","pr_wire":"allocated","pr_folio":"yes","pr_blocks":"100","pr_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.product" does not exist
+LINE 1: insert into public.product
+                    ^
+ | Date: 2015-05-31 05:42:53
+Query: insert into public.product
+                    (pr_jsonb)
+                    values ('{"pr_process":"digital","pr_type":"general","cl_id":"6","pr_partno":"TEST-ASA.asas: 23,34","pr_description":"este es un producto de prueba","pr_finalsizewidth":"100.00","pr_finalsizeheight":"200.00","pr_finalsizemeasure":"cm","pr_inkfront":2,"pr_inksfront":[2,2],"pr_inkback":3,"pr_inksback":[2,2,2],"mt_id":1,"pr_materialformatsqty":"123","pr_materialsizewidth":"100.00","pr_materialsizeheight":"200.00","pr_materialsizemeasure":"cm","pr_varnish":"yes","pr_varnishuv":"oneside","pr_varnishfinished":"matte","pr_laminate":"yes","pr_laminatefinished":"matte","pr_laminatecaliber":"2mm","pr_precut":"horizontal","pr_fold":"tryptic","pr_diecutting":"yes","pr_diecuttingqty":"5","pr_reinforcement":"one","pr_cord":"allocated","pr_wire":"allocated","pr_folio":"yes","pr_blocks":"100","pr_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.product" does not exist
+LINE 1: insert into public.product
+                    ^
+ | Date: 2015-05-31 05:42:53
+Query: insert into public.product
+                    (pr_jsonb)
+                    values ('{"pr_process":"digital","pr_type":"general","cl_id":"6","pr_partno":"TEST-ASA.asas: 23,34","pr_description":"este es un producto de prueba","pr_finalsizewidth":"100.00","pr_finalsizeheight":"200.00","pr_finalsizemeasure":"cm","pr_inkfront":2,"pr_inksfront":[2,2],"pr_inkback":3,"pr_inksback":[2,2,2],"mt_id":1,"pr_materialformatsqty":"123","pr_materialsizewidth":"100.00","pr_materialsizeheight":"200.00","pr_materialsizemeasure":"cm","pr_varnish":"yes","pr_varnishuv":"oneside","pr_varnishfinished":"matte","pr_laminate":"yes","pr_laminatefinished":"matte","pr_laminatecaliber":"2mm","pr_precut":"horizontal","pr_fold":"tryptic","pr_diecutting":"yes","pr_diecuttingqty":"5","pr_reinforcement":"one","pr_cord":"allocated","pr_wire":"allocated","pr_folio":"yes","pr_blocks":"100","pr_status":"A"}');
+ | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.product" does not exist
+LINE 1: insert into public.product
+                    ^
+ | Date: 2015-05-31 05:42:56
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:14:25
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:14:25
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:14:25
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:15:51
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:15:51
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:15:51
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:16:16
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:16:16
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:16:16
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:23:19
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:23:19
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:23:19
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:23:38
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:23:38
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:23:38
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:24:08
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:24:08
+Connection Error #: 7
+ | Error: SQLSTATE[08006] [7] FATAL:  database "user=Alejandro" does not exist
+ | Date: 2015-11-21 23:24:08
+Query: select
+                        *
+                    from  public.material, 
+                    jsonb_to_record(mt_jsonb, true) as x (
+                        mt_code text
+                        mt_width text
+                        mt_height text
+                        mt_measure text
+                    )
+                    where mt_jsonb->>'mt_status'='A';
+ | Error: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "mt_width"
+LINE 6:                         mt_width text
+                                ^
+ | Date: 2015-11-22 01:53:57
+Query: select
+                        *
+                    from  public.material, 
+                    jsonb_to_record(mt_jsonb, true) as x (
+                        mt_code text
+                        mt_width text
+                        mt_height text
+                        mt_measure text
+                    )
+                    where mt_jsonb->>'mt_status'='A';
+ | Error: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "mt_width"
+LINE 6:                         mt_width text
+                                ^
+ | Date: 2015-11-22 01:54:25
+Query: select
+                        *
+                    from  public.material, 
+                    jsonb_to_record(mt_jsonb, true) as x (
+                        mt_code text
+                        mt_width text
+                        mt_height text
+                        mt_measure text
+                    )
+                    where mt_jsonb->>'mt_status'='A';
+ | Error: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "mt_width"
+LINE 6:                         mt_width text
+                                ^
+ | Date: 2015-11-22 01:54:40
+Query: select
+                        *
+                    from  public.material, 
+                    jsonb_to_record(mt_jsonb, true) as x (
+                        mt_code text
+                        mt_width text
+                        mt_height text
+                        mt_measure text
+                    )
+                    where mt_jsonb->>'mt_status'='A';
+ | Error: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "mt_width"
+LINE 6:                         mt_width text
+                                ^
+ | Date: 2015-11-22 01:54:45
