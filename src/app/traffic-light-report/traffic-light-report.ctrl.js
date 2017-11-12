@@ -64,6 +64,10 @@ module.exports = (function (angular) {
                     var flex = panel.grid;
                     var col = flex.columns[c];
                     var row = flex.rows[r];
+                    // fix prevent randomn coloring
+                    cell.style.backgroundColor = '';
+                    cell.style.color = '';
+                    // end fix
                     if (col.binding === 'wo_status') {
                         angular.forEach($scope.workflow, function (value, key) {
                             if (value.value === panel.grid.getCellData(r, flex.columns.getColumn('wo_status').index)) {
