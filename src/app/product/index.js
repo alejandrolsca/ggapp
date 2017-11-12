@@ -19,7 +19,8 @@ module.exports = (function(angular){
         require('./modules/productLaserGeneral.add').name,
         require('./modules/productDigitalGeneral.add').name,
         require('./modules/productDigitalPaginated.add').name,
-        require('./modules/productDigitalCounterfoil.add').name
+        require('./modules/productDigitalCounterfoil.add').name,
+        require('./modules/productDiecuttingGeneral.add').name
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',
