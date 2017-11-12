@@ -86,7 +86,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productOffsetGeneralAddFac.getInks().then(function (promise) {
+                productOffsetGeneralAddFac.getInks($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pr_inkoptions = [];
                         angular.forEach(promise.data, function (value, key) {

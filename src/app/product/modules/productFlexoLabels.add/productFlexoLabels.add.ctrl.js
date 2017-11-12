@@ -75,7 +75,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productFlexoLabelsAddFac.getInks().then(function (promise) {
+                productFlexoLabelsAddFac.getInks($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pr_inkoptions = [];
                         angular.forEach(promise.data, function (value, key) {

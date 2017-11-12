@@ -17,12 +17,13 @@ module.exports = (function (angular) {
                 );
             return deferred.promise;
         };
-        factory.getInks = function () {
+        factory.getInks = function (in_type) {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('/api/product/ink', {
                     /* POST variables here */
-                    procces_id: new Date().getMilliseconds()
+                    procces_id: new Date().getMilliseconds(),
+                    in_type: in_type
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

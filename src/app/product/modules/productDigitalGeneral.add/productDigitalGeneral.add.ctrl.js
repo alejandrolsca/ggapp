@@ -86,7 +86,7 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productDigitalGeneralAddFac.getInks().then(function (promise) {
+                productDigitalGeneralAddFac.getInks($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pr_inkoptions = [];
                         angular.forEach(promise.data, function (value, key) {
