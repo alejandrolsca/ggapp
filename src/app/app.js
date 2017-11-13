@@ -74,7 +74,7 @@ module.exports = (function (angular) {
         }])
         .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'lockProvider', 'jwtOptionsProvider', 'jwtInterceptorProvider',
             function ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, lockProvider, jwtOptionsProvider, jwtInterceptorProvider) {
-                var ggauthlogo = require('../static/img/brand-logo.png');
+                var ggauthlogo = require('../static/img/ggauth-logo.png');
                 lockProvider.init({
                     clientID: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y',
                     domain: 'grupografico.auth0.com',
@@ -95,7 +95,7 @@ module.exports = (function (angular) {
                         },
                         theme: {
                             labeledSubmitButton: true,
-                            //logo: ggauthlogo,
+                            logo: ggauthlogo,
                             primaryColor: "#0064b7"
                         }
                     }
