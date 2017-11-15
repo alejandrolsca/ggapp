@@ -102,28 +102,28 @@
   </span>
   <label class="col-sm-12 fieldset">AREA DE GRABADO</label>
   <gg-input err-class="error"
-            lbl="{{'productLaserGeneral-add.labels.pr-finalsizewidth' | i18n}}" 
+            lbl="{{'productLaserGeneral-add.labels.pr-engravingwidth' | i18n}}" 
             form-group-class="col-sm-2"
-            ng-model="fmData.pr_finalsizewidth"
+            ng-model="fmData.pr_engravingwidth"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Requi∫red"
             is-required="true">
   </gg-input>
     <gg-input err-class="error"
-            lbl="{{'productLaserGeneral-add.labels.pr-finalsizeheight' | i18n}}" 
+            lbl="{{'productLaserGeneral-add.labels.pr-engravingheight' | i18n}}" 
             form-group-class="col-sm-2"
-            ng-model="fmData.pr_finalsizeheight"
+            ng-model="fmData.pr_engravingheight"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
   <gg-select err-class="error"
-           lbl="{{'productLaserGeneral-add.labels.pr-finalsizemeasure' | i18n}}" 
+           lbl="{{'productLaserGeneral-add.labels.pr-engravingmeasure' | i18n}}" 
            form-group-class="col-sm-2" 
-           options="pr_finalsizemeasureoptions" 
-           ng-model="fmData.pr_finalsizemeasure"
+           options="pr_engravingmeasureoptions" 
+           ng-model="fmData.pr_engravingmeasure"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"

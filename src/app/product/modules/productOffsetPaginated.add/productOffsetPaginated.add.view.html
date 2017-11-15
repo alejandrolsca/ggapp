@@ -110,12 +110,23 @@
     <!-- Tab panes -->
     <div class="tab-content row">
         <div ng-repeat="c in components track by $index" ng-init="componentIndex = $index" role="tabpanel" class="tab-pane" ng-class="{'active': $index===0}" id="component{{$index}}">
+           <gg-input err-class="error"
+                        lbl="{{'productOffsetPaginated-add.labels.pr-concept' | i18n}}" 
+                        form-group-class="col-sm-6"
+                        ng-model="fmData.pr_concept[componentIndex]"
+                        regexp="concept"
+                        regexp-msg="{{'general.regexp.concept' | i18n}}"
+                        max-length="17"
+                        req-msg="Required"
+                        is-required="true">
+            </gg-input>
             <gg-input err-class="error"
                         lbl="{{'productOffsetPaginated-add.labels.pr-pages' | i18n}}" 
                         form-group-class="col-sm-6"
                         ng-model="fmData.pr_pages[componentIndex]"
                         regexp="integer"
                         regexp-msg="{{'general.regexp.integer' | i18n}}"
+                        max-length="17"
                         req-msg="Required"
                         is-required="true">
             </gg-input>

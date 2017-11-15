@@ -8,6 +8,7 @@ module.exports = (function(angular) {
             deferred.resolve(
                 $http.post('/api/client/cl_id', {
                     /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
                     cl_id: $stateParams.cl_id
                 }).success(function(data, status, headers, config) {
                     return data;
@@ -23,6 +24,7 @@ module.exports = (function(angular) {
             deferred.resolve(
                 $http.post('/api/zone/cl_id', {
                     /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
                     cl_id: $stateParams.cl_id
                 }).success(function(data, status, headers, config) {
                     return data;
@@ -38,6 +40,7 @@ module.exports = (function(angular) {
             deferred.resolve(
                 $http.post('/api/machine/process', {
                     /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
                     ma_process: ma_process,
                     ma_status: 'A'
                 }).success(function(data, status, headers, config) {
@@ -54,6 +57,7 @@ module.exports = (function(angular) {
             deferred.resolve(
                 $http.post('/api/product/cl_id', {
                     /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
                     cl_id: $stateParams.cl_id,
                     pr_status: 'A'
                 }).success(function(data, status, headers, config) {

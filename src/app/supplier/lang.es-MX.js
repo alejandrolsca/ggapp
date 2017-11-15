@@ -3,7 +3,7 @@ module.exports = {
                     "labels":{
                         "su-id":"id proveedor",
                         "su-corporatename":"razón social",
-                        "su-rfc":"rfc",
+                        "su-rfc":"RFC",
                         "su-name":"nombre",
                         "su-firstsurname":"1er apellido",
                         "su-secondsurname":"2do apellido",

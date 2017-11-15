@@ -55,7 +55,7 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {
                         rows = promise.data;
                         angular.forEach(rows, function (value, key) {
-                            this.push({ "label": rows[key]['pr_id'] + '_' + rows[key]['pr_jsonb']['pr_name'] + '_' + rows[key]['pr_jsonb']['pr_code'], "value": rows[key]['pr_id'] });
+                            this.push({ "label": rows[key]['pr_jsonb']['pr_code'] + ' - ' + rows[key]['pr_jsonb']['pr_name'], "value": rows[key]['pr_id'] });
                         }, $scope.pr_idoptions);
                     }
                     

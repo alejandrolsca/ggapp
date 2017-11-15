@@ -110,6 +110,16 @@
         <!-- Tab panes -->
         <div class="tab-content row">
             <div ng-repeat="c in components track by $index" ng-init="componentIndex = $index" role="tabpanel" class="tab-pane" ng-class="{'active': $index===0}" id="component{{$index}}">
+            <gg-input err-class="error"
+                    lbl="{{'productDigitalCounterfoil-add.labels.pr-concept' | i18n}}" 
+                    form-group-class="col-sm-6"
+                    ng-model="fmData.pr_concept[componentIndex]"
+                    regexp="concept"
+                    regexp-msg="{{'general.regexp.concept' | i18n}}"
+                    max-length="17"
+                    req-msg="Required"
+                    is-required="true">
+            </gg-input>
             <label class="col-sm-12 fieldset">TINTAS {{componentIndex + 1}}</label>
             <gg-select err-class="error"
                     lbl="{{'productDigitalCounterfoil-add.labels.pr-inkfront' | i18n}}" 

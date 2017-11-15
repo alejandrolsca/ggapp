@@ -3,7 +3,7 @@ module.exports = {
                     "labels":{
                         "cl-id":"id cliente",
                         "cl-corporatename":"razón social",
-                        "cl-rfc":"rfc",
+                        "cl-rfc":"RFC",
                         "cl-ssntin":"SSN/TIN",
                         "cl-name":"nombre(s)",
                         "cl-firstsurname":"1er apellido",

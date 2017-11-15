@@ -6,7 +6,7 @@ module.exports = {
         "zo-type": "tipo",
         "zo-zone": "zona",
         "zo-corporatename": "razón social",
-        "zo-rfc": "rfc",
+        "zo-rfc": "RFC",
         "zo-immex": "immex",
         "zo-name": "nombre",
         "zo-firstsurname": "1er apellido",

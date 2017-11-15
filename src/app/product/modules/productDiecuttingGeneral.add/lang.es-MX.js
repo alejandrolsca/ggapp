@@ -14,6 +14,10 @@ module.exports = {
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Largo",
                         "pr-finalsizemeasure": "U. de medida",
+                        "pr-diecuttingwidth": "Ancho",
+                        "pr-diecuttingheight": "Largo",
+                        "pr-diecuttingmeasure": "U. de medida",
+                        "pr-cavities": "Cavidades",
                         "pr-surface": "Superficie",
                         "pr-othersurface": "Nombre Sup.",
                         "pr-time": "Tiempo (min)",
@@ -33,6 +37,10 @@ module.exports = {
                         "pr_finalsizewidth",
                         "pr_finalsizeheight",
                         "pr_finalsizemeasure",
+                        "pr_diecuttingwidth",
+                        "pr_diecuttingheight",
+                        "pr_diecuttingmeasure",
+                        "pr_cavities",
                         "pr_surface",
                         "pr_othersurface",
                         "pr_time",
@@ -41,6 +49,10 @@ module.exports = {
                     ],
                      "fields" : {
                         pr_finalsizemeasureoptions : [
+                            {"label":"cm","value":"cm"},
+                            {"label":"pulgadas","value":"in"}
+                        ],
+                        pr_diecuttingmeasureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
                         ],

@@ -42,7 +42,7 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {                    
                         rows = promise.data;
                         angular.forEach(rows, function (value, key) {
-                            this.push({ "label": rows[key]['pr_id'] + '_' + rows[key]['pr_jsonb']['pr_name'] + '_' + rows[key]['pr_jsonb']['pr_code'], "value": rows[key]['pr_id'] });
+                            this.push({ "label": rows[key]['pr_jsonb']['pr_code'] + ' - ' + rows[key]['pr_jsonb']['pr_name'], "value": rows[key]['pr_id'] });
                         }, $scope.pr_idoptions);
                     }
 
@@ -68,7 +68,9 @@ module.exports = (function (angular) {
                                     $scope.prinfo = true;
                                     $scope.product = product[0];
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
-                                    $scope.paginatedExcedent = (product[0]['pr_jsonb']['pr_process'] === 'offset' && product[0]['pr_jsonb']['pr_type'] === 'paginated') ? true : false;
+                                    var pr_type = product[0]['pr_jsonb']['pr_type'] 
+                                    $scope.components = (pr_type === 'paginated' || pr_type === 'counterfoil') ? true : false;
+                                    $scope.componentsArray = new Array(product[0]['pr_jsonb']['pr_components'])
                                     woAddFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {
                                         $scope.ma_idoptions = [];
                                         if (angular.isArray(promise.data)) {

@@ -100,35 +100,44 @@
         </p>
     </div>
   </span>
-  <label class="col-sm-12 fieldset">AREA DE GRABADO</label>
+  <label class="col-sm-12 fieldset">TAMAÑO DEL SUAJE</label>
   <gg-input err-class="error"
-            lbl="{{'productDiecuttingGeneral-add.labels.pr-finalsizewidth' | i18n}}" 
+            lbl="{{'productDiecuttingGeneral-add.labels.pr-diecuttingwidth' | i18n}}" 
             form-group-class="col-sm-2"
-            ng-model="fmData.pr_finalsizewidth"
-            regexp="decimal"
-            regexp-msg="{{'general.regexp.decimal' | i18n}}"
-            req-msg="Requi∫red"
-            is-required="true">
-  </gg-input>
-    <gg-input err-class="error"
-            lbl="{{'productDiecuttingGeneral-add.labels.pr-finalsizeheight' | i18n}}" 
-            form-group-class="col-sm-2"
-            ng-model="fmData.pr_finalsizeheight"
+            ng-model="fmData.pr_diecuttingwidth"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productDiecuttingGeneral-add.labels.pr-diecuttingheight' | i18n}}" 
+            form-group-class="col-sm-2"
+            ng-model="fmData.pr_diecuttingheight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="false">
   </gg-input>
   <gg-select err-class="error"
-           lbl="{{'productDiecuttingGeneral-add.labels.pr-finalsizemeasure' | i18n}}" 
+           lbl="{{'productDiecuttingGeneral-add.labels.pr-diecuttingmeasure' | i18n}}" 
            form-group-class="col-sm-2" 
-           options="pr_finalsizemeasureoptions" 
-           ng-model="fmData.pr_finalsizemeasure"
+           options="pr_diecuttingmeasureoptions" 
+           ng-model="fmData.pr_diecuttingmeasure"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
-           is-required="true">
+           is-required="false">
   </gg-select>
+  <gg-input err-class="error"
+        lbl="{{'productDiecuttingGeneral-add.labels.pr-cavities' | i18n}}" 
+        form-group-class="col-sm-2"
+        ng-model="fmData.pr_cavities"
+        regexp="integer"
+        regexp-msg="{{'general.regexp.integer' | i18n}}"
+        req-msg="Required"
+        is-required="false">
+</gg-input>
   <label class="col-sm-12 fieldset">ESPECIFICACIONES</label>
     <span ng-if="(fmData.pr_surface === 'other')">
         <gg-input err-class="error"
@@ -148,7 +157,7 @@
         regexp="time"
         regexp-msg="{{'general.regexp.time' | i18n}}"
         req-msg="Required"
-        is-required="true">
+        is-required="false">
     </gg-input>
   <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"

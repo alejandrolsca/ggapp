@@ -42,6 +42,7 @@ module.exports = {
                     },
                     "regexp":{
                         "singlespaces": "sin espacios dobles ni caracteres especiales.",
+                        "concept": "max. 17 - sin espacios dobles ni caracteres especiales.",
                         "receiptschedule": "sin espacios dobles ni caracteres especiales.",
                         "materialcode": "sin espacios ni caracteres especiales",
                         "inkcode": "sin espacios ni caracteres especiales",
@@ -102,6 +103,7 @@ module.exports = {
                 "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
                 "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
                 "productDiecuttingGeneral-add": require('./product/modules/productDiecuttingGeneral.add/lang.es-MX'),                          
+                "productDirectSaleGeneral-add": require('./product/modules/productDirectSaleGeneral.add/lang.es-MX'),                          
                 /****************************************
                 SUPPLIER 
                 ****************************************/

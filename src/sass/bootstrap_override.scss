@@ -72,3 +72,13 @@ button[class*="col-"] {
     background-color: $btn-success-disabled-bg;
     border-color: $btn-success-disabled-border;
 }
+
+.form-group > label {
+    font-weight: 600;
+}
+.form-group > label:first-letter {
+    text-transform: uppercase;
+}
+.control-label > .glyphicon-asterisk {
+    font-size: .8em;
+}

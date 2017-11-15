@@ -1,6 +1,53 @@
 select 
-    *
-from  public.product, 
+    *,
+	case 
+		when jsonb_typeof(pr_jsonb->'mt_id') = 'object'
+		then (
+			select 
+				array_to_string(
+					array_agg(
+						(mt_jsonb->>'mt_code') || ' ' ||
+						(mt_jsonb->>'mt_width') || 'x' ||
+						(mt_jsonb->>'mt_height') || 
+						(mt_jsonb->>'mt_measure') || ' ' ||
+						(
+									case 
+										when mt_jsonb->>'mt_measure' = 'in'
+										then round((((mt_jsonb->>'mt_width')::decimal*2.54)*((mt_jsonb->>'mt_height')::decimal*2.54))/100,2)
+										else round(((mt_jsonb->>'mt_width')::decimal*(mt_jsonb->>'mt_height')::decimal)/100,2)
+									end
+						)  || 'm2'
+					),', '
+				) 
+								
+			from material 
+			where mt_id = any (
+				('{'||coalesce((select 
+					array_to_string(array_agg(mt.value),', ')
+				from (
+					select 
+						(jsonb_each(pr.pr_jsonb->'mt_id')).*
+				) mt),'')||'}')::int[]
+			)
+		)
+		else (
+			select 
+				(mt_jsonb->>'mt_code') || ' ' ||
+				(mt_jsonb->>'mt_width') || 'x' ||
+				(mt_jsonb->>'mt_height') || 
+				(mt_jsonb->>'mt_measure') || ' ' ||
+				(
+							case 
+								when mt_jsonb->>'mt_measure' = 'in'
+								then round((((mt_jsonb->>'mt_width')::decimal*2.54)*((mt_jsonb->>'mt_height')::decimal*2.54))/100,2)
+								else round(((mt_jsonb->>'mt_width')::decimal*(mt_jsonb->>'mt_height')::decimal)/100,2)
+							end
+				) || 'm2'
+			from material 
+			where mt_id = (pr.pr_jsonb->>'mt_id')::integer
+		)
+	end as pr_material
+from  public.product pr, 
 jsonb_to_record(pr_jsonb) as x (
     cl_id int,
     pr_partno text,
