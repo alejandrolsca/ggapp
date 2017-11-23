@@ -76,6 +76,12 @@ module.exports = (function (angular) {
                             }
                         });
                     }
+                    if (col.binding === 'wo_deliverydate') {
+                        if(row.dataItem.wo_deliverydate) {
+                            console.log(row.dataItem.wo_deliverydate)
+                            row.dataItem.wo_deliverydate = moment(row.dataItem.wo_deliverydate).tz('America/Chihuahua').format();
+                        }
+                    }
                     if (col.binding === 'status') {
                         var closing_time = 18;
                         var commitment_date = moment(panel.grid.getCellData(r, flex.columns.getColumn('wo_commitmentdate').index, false)).set({
