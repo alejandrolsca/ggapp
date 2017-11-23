@@ -51,8 +51,6 @@ module.exports = (function (angular) {
                         function prChange(newValue, oldValue) {
                             $scope.fmData.wo_qty = undefined;
                             $scope.fmData.wo_boxqty = undefined;
-                            $scope.fmData.wo_materialcoverqty = undefined;
-                            $scope.fmData.wo_materialinteriorqty = undefined;
                             $scope.fmData.wo_materialqty = undefined;
                             $scope.fmData.wo_packageqty = undefined;
                             $scope.fmData.wo_foliosperformat = undefined;

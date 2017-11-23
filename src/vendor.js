@@ -35,4 +35,5 @@ require('../bower_components/bootstrap/js/tab.js');
 require('../bower_components/auth0-lock/build/lock.js');
 require('../bower_components/angular-lock/dist/angular-lock.js');
 require('../bower_components/angular-jwt/dist/angular-jwt.js');
-window.moment = require('../bower_components/moment/moment.js');
+window.moment = require('./scripts/moment-timezone-with-data.js');
+//require('../bower_components/moment-timezone/moment-timezone.js');

@@ -25,7 +25,9 @@ module.exports = (function (angular) {
                 woUpdateFactory.getData().then(function(promise){
                     $scope.loading = false;
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
+                            var fmData = promise.data[0].wo_jsonb
                             $scope.fmData = promise.data[0].wo_jsonb;
+                            console.log(promise.data[0].wo_jsonb.wo_materialqty)
                             $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
                             $scope.wo_id = promise.data[0].wo_id;
                             $scope.wo_date = promise.data[0].wo_date;
@@ -58,7 +60,7 @@ module.exports = (function (angular) {
                             this.push({ "label": rows[key]['pr_jsonb']['pr_code'] + ' - ' + rows[key]['pr_jsonb']['pr_name'], "value": rows[key]['pr_id'] });
                         }, $scope.pr_idoptions);
                     }
-                    
+                    console.log($scope.fmData)
                     $scope.$watch(
                         "fmData.pr_id",
                         function prChange(newValue, oldValue) {
@@ -71,12 +73,14 @@ module.exports = (function (angular) {
                                     $scope.prinfo = true;
                                     $scope.product = product[0];
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
-                                    $scope.paginatedExcedent = (product[0]['pr_jsonb']['pr_process'] === 'offset' && product[0]['pr_jsonb']['pr_type'] === 'paginated') ? true : false;
+                                    var pr_type = product[0]['pr_jsonb']['pr_type'] 
+                                    $scope.components = (pr_type === 'paginated' || pr_type === 'counterfoil') ? true : false;
+                                    $scope.componentsArray = new Array(product[0]['pr_jsonb']['pr_components'])
                                 }
                             }
                         }
                     );
-                });
+                })
                 $scope.loading = false;
             });
         }];

@@ -74,7 +74,7 @@ module.exports = (function (angular) {
                                 row.dataItem.wo_status = `(${value.value}) ${value.label}`;
                                 cell.innerHTML = `(${value.value}) ${value.label}`;
                             }
-                        }); 
+                        });
                     }
                     if (col.binding === 'status') {
                         var closing_time = 18;
@@ -87,26 +87,26 @@ module.exports = (function (angular) {
                         var hours = undefined;
                         var status = undefined;
                         if (delivery_date === null) {
-                            hours = moment.duration(commitment_date.diff(moment().format('YYYY-MM-DD HH:mm:ss'))).asHours();
+                            hours = moment.duration(commitment_date.diff(moment().tz('America/Chihuahua').format('YYYY-MM-DD HH:mm:ss'))).asHours();
                             // delayed, commitment_date is due                            
                             if (hours < 0) {
-                                status = 'Atrasado (' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas)';
+                                status = 'Atrasado (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)';
                                 cell.style.backgroundColor = 'OrangeRed';
                                 cell.style.color = 'yellow';
                             }
                             // 2 days before commitment_date is due                           
                             if (hours >= 0 && hours <= 48) {
-                                status = 'Restan ' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas';
+                                status = 'Restan ' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas';
                                 cell.style.backgroundColor = 'Gold';
                             }
                             // mora than 2 days before commitment_date is due                           
                             if (hours > 48) {
-                                status = 'Restan ' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas';
+                                status = 'Restan ' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas';
                                 cell.style.backgroundColor = 'LightYellow';
                             }
 
                         } else {
-                            hours = moment.duration(commitment_date.diff(moment(delivery_date).format('YYYY-MM-DD HH:mm:ss'))).asHours();
+                            hours = moment.duration(commitment_date.diff(moment(delivery_date).tz('America/Chihuahua').format('YYYY-MM-DD HH:mm:ss'))).asHours();
                             // delivered on commitment_date (same day)
                             if (hours >= 0 && hours <= closing_time) {
                                 status = 'Entregado a tiempo';
@@ -115,13 +115,13 @@ module.exports = (function (angular) {
                             }
                             // delivered any time after commitment_date
                             if (hours < 0) {
-                                status = 'Entrega a destiempo (' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas)';
+                                status = 'Entrega a destiempo (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)';
                                 cell.style.backgroundColor = 'Grey';
                                 cell.style.color = 'Gainsboro';
                             }
                             // delivered a day before commitment_date                            
                             if (hours > closing_time) {
-                                status = 'Entrega eficiente (' + Math.floor(Math.abs(hours)/24) + ' Dia(s) ' + Math.floor(Math.abs(hours)%24) + ' horas)'
+                                status = 'Entrega eficiente (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)'
                                 cell.style.backgroundColor = 'DodgerBlue';
                                 cell.style.color = 'White';
                             }
@@ -188,7 +188,7 @@ module.exports = (function (angular) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
-                    col.header = i18nFilter("tlr.labels." + $scope.columns[i].binding.replace('_','-'));
+                    col.header = i18nFilter("tlr.labels." + $scope.columns[i].binding.replace('_', '-'));
                     s.columns.push(col);
                 }
             };

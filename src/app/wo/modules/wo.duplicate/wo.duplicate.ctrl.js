@@ -41,7 +41,7 @@ module.exports = (function (angular) {
                             this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
                         }, $scope.zo_idoptions);
                     }
-                });
+                })
 
                 woDuplicateFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
@@ -64,7 +64,9 @@ module.exports = (function (angular) {
                                     $scope.prinfo = true;
                                     $scope.product = product[0];
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
-                                    $scope.paginatedExcedent = (product[0]['pr_jsonb']['pr_process'] === 'offset' && product[0]['pr_jsonb']['pr_type'] === 'paginated') ? true : false;
+                                    var pr_type = product[0]['pr_jsonb']['pr_type'] 
+                                    $scope.components = (pr_type === 'paginated' || pr_type === 'counterfoil') ? true : false;
+                                    $scope.componentsArray = new Array(product[0]['pr_jsonb']['pr_components'])
                                     woDuplicateFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {
                                         $scope.ma_idoptions = [];
                                         if (angular.isArray(promise.data)) {

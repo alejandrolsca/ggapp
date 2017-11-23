@@ -16,7 +16,8 @@ select
 										then round((((mt_jsonb->>'mt_width')::decimal*2.54)*((mt_jsonb->>'mt_height')::decimal*2.54))/100,2)
 										else round(((mt_jsonb->>'mt_width')::decimal*(mt_jsonb->>'mt_height')::decimal)/100,2)
 									end
-						)  || 'm2'
+						)  || 'm2'  || ' ' ||
+						(mt_jsonb->>'mt_description')
 					),', '
 				) 
 								
@@ -42,7 +43,8 @@ select
 								then round((((mt_jsonb->>'mt_width')::decimal*2.54)*((mt_jsonb->>'mt_height')::decimal*2.54))/100,2)
 								else round(((mt_jsonb->>'mt_width')::decimal*(mt_jsonb->>'mt_height')::decimal)/100,2)
 							end
-				) || 'm2'
+				) || 'm2'  || ' ' ||
+				(mt_jsonb->>'mt_description')
 			from material 
 			where mt_id = (pr.pr_jsonb->>'mt_id')::integer
 		)
@@ -55,6 +57,7 @@ jsonb_to_record(pr_jsonb) as x (
     pr_name text,
     pr_process text,
     pr_type text,
+    pr_concept text,
     pr_folio text,
     pr_status text
 )

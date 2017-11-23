@@ -166,38 +166,31 @@
                   is-disabled="true">
       </gg-select>
     </span>
-    <label class="col-sm-12 fieldset">MATERIAL</label>
-  <span ng-if="!paginatedExcedent">
-    <gg-input err-class="error"
-              lbl="{{'wo-update.labels.wo-materialqty' | i18n}}" 
-              form-group-class="col-sm-3"
-              ng-model="fmData.wo_materialqty"
-              regexp="integer"
-              regexp-msg="{{'general.regexp.integer' | i18n}}"
-              req-msg="Required"
-              is-required="true">
-    </gg-input>
-   </span>
-   <span ng-if="paginatedExcedent">
-    <gg-input err-class="error"
-              lbl="{{'wo-update.labels.wo-materialcoverqty' | i18n}}" 
-              form-group-class="col-sm-3"
-              ng-model="fmData.wo_materialcoverqty"
-              regexp="integer"
-              regexp-msg="{{'general.regexp.integer' | i18n}}"
-              req-msg="Required"
-              is-required="true">
-    </gg-input>
-    <gg-input err-class="error"
-              lbl="{{'wo-update.labels.wo-materialinteriorqty' | i18n}}" 
-              form-group-class="col-sm-3"
-              ng-model="fmData.wo_materialinteriorqty"
-              regexp="integer"
-              regexp-msg="{{'general.regexp.integer' | i18n}}"
-              req-msg="Required"
-              is-required="true">
-    </gg-input>
-   </span>
+    <label class="col-sm-12 fieldset">MATERIAL ORDENADO</label>
+    <span ng-if="!components">
+        <gg-input err-class="error"
+                  lbl="{{'wo-add.labels.wo-materialqty' | i18n}}" 
+                  form-group-class="col-sm-3"
+                  ng-model="fmData.wo_materialqty"
+                  regexp="decimal"
+                  regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                  req-msg="Required"
+                  is-required="true">
+        </gg-input>
+       </span>
+       <span ng-if="components">
+               <span ng-repeat="material in componentsArray track by $index">
+                      <gg-input err-class="error"
+                              lbl="{{product['pr_jsonb']['pr_concept'][$index]}}" 
+                              form-group-class="col-sm-3"
+                              ng-model="fmData.wo_componentmaterialqty[$index]"
+                              regexp="decimal"
+                              regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                              req-msg="Required"
+                              is-required="true">
+                    </gg-input>
+               </span>
+       </span>
    <label class="col-sm-12 fieldset">EMPAQUE</label>
    <gg-input err-class="error"
              lbl="{{'wo-update.labels.wo-packageqty' | i18n}}" 
