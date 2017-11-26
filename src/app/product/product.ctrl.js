@@ -47,7 +47,7 @@ module.exports = (function (angular) {
                     pr_type = e.panel.getCellData(e.row, s.columns.getColumn('pr_type').index, false);
                     wo_previousid = e.panel.getCellData(e.row, s.columns.getColumn('wo_previousid').index, false);
                     wo_action = wo_previousid === null ? `add/${cl_id}/${pr_id}`: `duplicate/${cl_id}/${wo_previousid}`;
-                    wo_actionlabel = wo_previousid === null ? 'Orden (Nueva)':'Orden (Duplicado)';
+                    wo_actionlabel = wo_previousid === null ? 'Orden (Nueva)':'Orden (Duplicar)';
                     code_data = (function () { //QR Code data from columns 
                         var text = '';
                         for (var i = 0; i < $scope.columns.length; i++) {
