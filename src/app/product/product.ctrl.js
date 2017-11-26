@@ -27,6 +27,9 @@ module.exports = (function (angular) {
             var cl_id;
             var pr_process;
             var pr_type;
+            var wo_previousid;
+            var wo_action;
+            var wo_actionlabel;
             var code_data;
             $scope.formatItem = function (s, e, cell) {
 
@@ -35,29 +38,45 @@ module.exports = (function (angular) {
                 }
 
                 s.rows.defaultSize = 30;
-            
+                var col = s.columns[e.col];
                 // add Bootstrap html
-                if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (e.col == 0)) {
-                    pr_id = e.panel.getCellData(e.row, 1, false);
-                    cl_id = e.panel.getCellData(e.row, 2, false);
-                    pr_process = e.panel.getCellData(e.row, 6, false);
-                    pr_type = e.panel.getCellData(e.row, 7, false);
+                if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (col.binding === 'actions')) {
+                    pr_id = e.panel.getCellData(e.row, s.columns.getColumn('pr_id').index, false);
+                    cl_id = e.panel.getCellData(e.row, s.columns.getColumn('cl_id').index, false);
+                    pr_process = e.panel.getCellData(e.row, s.columns.getColumn('pr_process').index, false);
+                    pr_type = e.panel.getCellData(e.row, s.columns.getColumn('pr_type').index, false);
+                    wo_previousid = e.panel.getCellData(e.row, s.columns.getColumn('wo_previousid').index, false);
+                    wo_action = wo_previousid === null ? `add/${cl_id}/${pr_id}`: `duplicate/${cl_id}/${wo_previousid}`;
+                    wo_actionlabel = wo_previousid === null ? 'Orden (Nueva)':'Orden (Duplicado)';
                     code_data = (function () { //QR Code data from columns 
                         var text = '';
                         for (var i = 0; i < $scope.columns.length; i++) {
-                            text += i18nFilter("product.labels." + $scope.columns[i].replace('_','-')) + ': ' + e.panel.getCellData(e.row, (i + 1), false) + '\n'
+                            text += i18nFilter("product.labels." + $scope.columns[i].binding.replace('_','-')) + ': ' + e.panel.getCellData(e.row, (i + 1), false) + '\n'
                         }
                         return text;
                     })();
                     e.cell.style.overflow = 'visible';
-                    e.cell.innerHTML = '<div class="btn-group btn-group-justified" role="group" aria-label="...">\
-                                        <div class="btn-group" role="group">\
-                                            <a href="#/product/'+ pr_process + '/' + pr_type + '/update/' + cl_id + '/' + pr_id + '" class="btn btn-default btn-xs" ng-click="edit($item.cl_id)">Editar</a>\
-                                        </div>\
-                                        <div class="btn-group" role="group">\
-                                            <a data-toggle="modal" data-target="#myModal" data-code_data="'+ code_data + '" class="btn btn-default btn-xs">QR Code</a>\
-                                        </div>\
-                                    </div>';
+                    e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                            <div class="btn-group" role="group">
+                                                <a href="#/product/${pr_process}/${pr_type}/update/${cl_id}/${pr_id}" class="btn btn-default btn-xs">Editar</a>
+                                            </div>
+                                            <div class="btn-group">
+                                            <button type="button" class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                ${i18nFilter("general.labels.add")} <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#/wo/${wo_action}"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> ${wo_actionlabel}</a></li>
+                                            </ul>
+                                            </div>
+                                            <div class="btn-group">
+                                            <button type="button" class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                ${i18nFilter("general.labels.show")} <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a data-toggle="modal" data-target="#myModal" data-code_data="${code_data}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> QR Code</a></li>
+                                            </ul>
+                                            </div>
+                                        </div>`;
                 }
             }
         
@@ -65,11 +84,13 @@ module.exports = (function (angular) {
             $scope.initGrid = function (s, e) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
-                    col.binding = $scope.columns[i];
-                    col.header = i18nFilter("product.labels." + $scope.columns[i].replace('_','-'));
+                    col.binding = $scope.columns[i].binding;
+                    col.dataType = $scope.columns[i].type;
+                    col.header = i18nFilter("product.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.wordWrap = false;
                     col.width = 150;
                     s.columns.push(col);
+                    
                 }
             };
             // create the tooltip object

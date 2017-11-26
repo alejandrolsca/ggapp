@@ -30,7 +30,6 @@ module.exports = (function (angular) {
                                             '+ i18nFilter("general.labels.add") + ' <span class="caret"></span>\
                                           </button>\
                                           <ul class="dropdown-menu" role="menu">\
-                                            <li><a href="#/wo/add/'+ cl_id + '"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Orden</a></li>\
                                             <li><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" data-cl_id="'+ cl_id + '"><span class="glyphicon glyphicon-barcode" aria-hidden="true"></span> Producto</a></li>\
                                             <li><a href="#/zone/add/'+ cl_id + '"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Zona</a></li>\
                                             <li><a href="#/einvoice/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Factura de exportación</a></li>\

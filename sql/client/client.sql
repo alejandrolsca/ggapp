@@ -1,7 +1,7 @@
 select
     case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
-			then (cl.cl_jsonb->>'cl_firstsurname' || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
+			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
 		else cl_jsonb->>'cl_corporatename'
 	end as cl_corporatename,
 	cl.*,

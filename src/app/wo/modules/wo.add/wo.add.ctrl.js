@@ -7,6 +7,7 @@ module.exports = (function (angular) {
             $scope.fmData.wo_type = "N"; //N-new,R-rep,C-change
             $scope.fmData.wo_status = 0; //0-Active
             $scope.fmData.cl_id = +$stateParams.cl_id;
+            $scope.fmData.pr_id = +$stateParams.pr_id;
 
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
