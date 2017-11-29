@@ -65,10 +65,10 @@
             regexp-msg="{{'general.regexp.integer' | i18n}}"
             req-msg="Required">
   </gg-input>
-  <label class="col-sm-12 fieldset">PRODUCTO</label>
+  <label class="col-sm-12 col-xs-12 fieldset">PRODUCTO</label>
   <gg-select err-class="error"
            lbl="{{'wo-add.labels.pr-id' | i18n}}" 
-           form-group-class="col-sm-9" 
+           form-group-class="col-sm-8 col-xs-10" 
            options="pr_idoptions" 
            ng-model="fmData.pr_id"
            regexp="singlespaces"
@@ -77,9 +77,15 @@
            is-required="true"
            is-disabled="true">
   </gg-select>
+    <div class="form-group col-sm-2 col-xs-2">
+            <label class="control-label">&nbsp</label>
+            <div>
+                <button type="button" class="btn btn-primary form-control" data-toggle="modal" data-target="#modal" data-code_data="${code_data}">Detalles</button>  
+            </div>
+    </div>
   <gg-input err-class="error"
             lbl="{{'wo-add.labels.wo-qty' | i18n}}" 
-            form-group-class="col-sm-3"
+            form-group-class="col-sm-2"
             ng-model="fmData.wo_qty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
@@ -250,3 +256,35 @@
             btn-class="col-xs-12 col-sm-4 col-md-2">
   </gg-submit> 
 </form>
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">DETALLES DEL PRODUCTO</h4>
+                </div>
+        <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+        <div class="modal-body">
+                <div class="table-responsive">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <th></th>
+                                <th>General</th>
+                                <th ng-repeat="c in components track by $index">{{'Componente '+($index+1)}}</th>
+                            </thead>
+                          <tr ng-repeat="row in prInfo">
+                                <th class="product-left-headers">{{row.key}}</th>
+                                <td>{{row.value}}</td>
+                                <td ng-repeat="c in components track by $index">{{row['component'+($index+1)]}}</td>
+                          </tr>
+                        </table>
+                      </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
+        </div>
+        </form>
+        </div>
+    </div>
+</div>

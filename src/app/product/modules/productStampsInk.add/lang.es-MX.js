@@ -10,7 +10,7 @@ module.exports = {
                         "pr-weight": "Peso (kg)",
                         "pr-name": "Nombre",
                         "pr-description": "Descripcion",
-                        "pa-id": "ID material",
+                        "mt-id": "ID material",
                         "pr-milliliters": "Contenido Neto (ml)",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",

@@ -69,6 +69,54 @@ module.exports = (function(angular) {
             );
             return deferred.promise;
         };
+        factory.getProductInfo = function() {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/product/info', {
+                    /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
+                    pr_id: $stateParams.pr_id,
+                    pr_status: 'A'
+                }).success(function(data, status, headers, config) {
+                    return data;
+                }).error(function(data, status, headers, config) {    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
+        factory.getProductInfoInks = function(in_id) {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/product/info/inks', {
+                    /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
+                    in_id: in_id,
+                    in_status: 'A'
+                }).success(function(data, status, headers, config) {
+                    return data;
+                }).error(function(data, status, headers, config) {    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
+        factory.getProductInfoMaterial = function(mt_id) {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/product/info/material', {
+                    /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
+                    mt_id: mt_id,
+                    mt_status: 'A'
+                }).success(function(data, status, headers, config) {
+                    return data;
+                }).error(function(data, status, headers, config) {    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
         factory.add = function(wo_jsonb) {
             var promise = $http.post('/api/wo/add', {
                 /* POST variables here */

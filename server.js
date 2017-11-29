@@ -514,6 +514,76 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
+    app.post('/api/product/info', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('product/product:info')
+                const parameters = [req.body.pr_id, req.body.pr_status]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/product/info/inks', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('product/product:info:ink')
+                console.log(req.body.in_id, req.body.in_status)
+                const parameters = [req.body.in_id, req.body.in_status]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/product/info/material', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('product/product:info:material')
+                const parameters = [req.body.mt_id, req.body.mt_status]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
     app.post('/api/product/cl_id', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
