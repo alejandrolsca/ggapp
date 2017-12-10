@@ -32,6 +32,7 @@ module.exports = {
                         "pr-wire": "Alámbre",
                         "pr-drill": "Perforación",
                         "pr-blocks": "Blocks/Juegos",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },

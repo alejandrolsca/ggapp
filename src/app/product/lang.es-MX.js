@@ -10,6 +10,7 @@ module.exports = {
                         "pr-process": "Proceso",
                         "pr-type": "Tipo",
                         "wo-previousid": "Orden Anterior",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },

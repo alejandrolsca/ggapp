@@ -11,6 +11,7 @@ module.exports = {
                         "pr-name": "Nombre",
                         "pr-description": "Descripcion",
                         "mt-id": "ID material",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },

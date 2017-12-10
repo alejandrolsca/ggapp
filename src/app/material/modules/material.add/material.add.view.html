@@ -79,16 +79,18 @@
           req-msg="Required"
           is-required="false">
   </gg-input>
-<gg-select err-class="error"
-          lbl="{{'material.labels.mt-thicknessmeasure' | i18n}}" 
-          form-group-class="col-sm-4" 
-          options="mt_thicknessmeasureoptions" 
-          ng-model="fmData.mt_thicknessmeasure"
-          regexp="singlespaces"
-          regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-          req-msg="Required"
-          is-required="false">
-  </gg-select>
+  <span ng-if="fmData.mt_thickness">
+    <gg-select err-class="error"
+            lbl="{{'material.labels.mt-thicknessmeasure' | i18n}}" 
+            form-group-class="col-sm-4" 
+            options="mt_thicknessmeasureoptions" 
+            ng-model="fmData.mt_thicknessmeasure"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+    </gg-select>
+  </span>
   <gg-select err-class="error"
            lbl="{{'material.labels.mt-status' | i18n}}" 
            form-group-class="col-sm-4" 

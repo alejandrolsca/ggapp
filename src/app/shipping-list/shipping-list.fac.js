@@ -23,7 +23,8 @@ module.exports = (function (angular) {
             deferred.resolve(
                 $http.post('/api/zone/cl_id', {
                     /* POST variables here */
-                    cl_id: $stateParams.cl_id
+                    cl_id: $stateParams.cl_id,
+                    zo_status: 'A'
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {

@@ -97,6 +97,16 @@ module.exports = (function (angular) {
                     }
                 });
 
+                productFlexoLabelsAddFac.getTariffCodes().then(function (promise) {
+                    $scope.tc_idoptions = [];
+                    const { data } = promise
+                    if (angular.isArray(data)) {
+                        angular.forEach(data, function (value, key) {
+                            this.push({ "label": `${value.tc_jsonb.tc_code} - ${value.tc_jsonb.tc_description}`, "value": value.tc_id });
+                        }, $scope.tc_idoptions);
+                    }
+                });
+
             });
         }];
 

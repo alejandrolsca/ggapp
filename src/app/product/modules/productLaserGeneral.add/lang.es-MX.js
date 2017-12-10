@@ -20,6 +20,7 @@ module.exports = {
                         "pr-surface": "Superficie",
                         "pr-othersurface": "Nombre Sup.",
                         "pr-time": "Tiempo (min)",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },

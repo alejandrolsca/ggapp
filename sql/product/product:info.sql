@@ -17,6 +17,6 @@ FROM (
 		(jsonb_each(pr_jsonb)).*
 	FROM product
 	WHERE pr_id = $1
-	AND pr_jsonb->>'pr_status' = $2
+	AND pr_jsonb->>'pr_status' =  any(string_to_array($2,',')::text[])
 	ORDER BY pr_id,(jsonb_each(pr_jsonb)).key ASC
 ) pr

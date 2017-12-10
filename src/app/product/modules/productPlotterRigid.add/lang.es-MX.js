@@ -33,6 +33,7 @@ module.exports = {
                         "pr-fold": "Doblez",                                        
                         "pr-drill": "Perforación",                                        
                         "pr-blocks": "Blocks",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },

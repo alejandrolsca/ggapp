@@ -61,6 +61,21 @@ module.exports = (function (angular) {
             });
             return promise;
         };
+        factory.getTariffCodes = function () {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/tariffcode', {
+                    /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
+                    tc_status: 'A'
+                }).success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
         return factory;
     }];
 

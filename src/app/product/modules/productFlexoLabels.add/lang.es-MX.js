@@ -35,6 +35,7 @@ module.exports = {
                         "pr-core": "Core",                      
                         "pr-rollqty": "Cantidad x Rollo",                      
                         "pr-blocks": "Blocks",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },

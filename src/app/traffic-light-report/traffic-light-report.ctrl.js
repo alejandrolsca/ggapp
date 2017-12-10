@@ -77,7 +77,7 @@ module.exports = (function (angular) {
                         });
                     }
                     if (col.binding === 'wo_deliverydate') {
-                        if(row.dataItem.wo_deliverydate) {
+                        if (row.dataItem.wo_deliverydate) {
                             row.dataItem.wo_deliverydate = moment(row.dataItem.wo_deliverydate).tz('America/Chihuahua').format();
                         }
                     }

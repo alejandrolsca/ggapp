@@ -94,12 +94,7 @@
   </gg-input>
   <span class="col-sm-12">
     <div ng-show="prinfo" class="pr-info col-sm-12 bg-info">
-            <strong>Id:</strong> {{product['pr_id']}}<br/>
-            <strong>Name:</strong> {{product['pr_jsonb']['pr_name']}}<br/>
             <strong>Part No:</strong> {{product['pr_jsonb']['pr_partno']}}<br/>
-            <strong>Code:</strong> {{product['pr_jsonb']['pr_code']}}<br/>
-            <strong>Proceso:</strong> {{product['pr_jsonb']['pr_process']}}<br/>
-            <strong>Type:</strong> {{product['pr_jsonb']['pr_type']}}<br/>   
             <strong>Folios:</strong> {{product['pr_jsonb']['pr_folio']}}<br/>
             <strong>Material:</strong> <br>
             <span ng-repeat="material in product['pr_material'].split(',')">{{material}}<br/></span>
@@ -264,7 +259,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="modalLabel">DETALLES DEL PRODUCTO</h4>
                 </div>
-        <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
         <div class="modal-body">
                 <div class="table-responsive">
                         <table class="table table-bordered table-condensed">
@@ -284,7 +278,6 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
         </div>
-        </form>
         </div>
     </div>
 </div>

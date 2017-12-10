@@ -8,7 +8,7 @@ module.exports = (function (angular) {
 
             $scope.fmData = {};
             $scope.fmData.wo_search = 'wo_release';
- 
+
             $scope.save = function () {
                 var flexSheet = $scope.flex,
                     fileName, timestamp;
@@ -16,8 +16,8 @@ module.exports = (function (angular) {
                     if (!!$scope.fileName) {
                         fileName = $scope.fileName;
                     } else {
-                        timestamp = moment().format();
-                        fileName = 'exportation_invoice_'+ timestamp +'.xlsx';
+                        timestamp = moment().tz('America/Chihuahua').format();
+                        fileName = 'exportation_invoice_' + timestamp + '.xlsx';
                     }
                     flexSheet.save(fileName);
                 }
@@ -34,7 +34,10 @@ module.exports = (function (angular) {
                     flexSheet.applyCellsStyle({
                         fontWeight: 'bold',
                         textAlign: 'center'
-                    }, [new wijmo.grid.CellRange(0, 0, 0, 0)]);
+                    }, [
+                            new wijmo.grid.CellRange(0, 0, 0, 0),
+                            new wijmo.grid.CellRange(22, 0, 23, 9)
+                        ]);
 
                     flexSheet.applyCellsStyle({
                         fontWeight: 'bold',
@@ -44,11 +47,9 @@ module.exports = (function (angular) {
                             new wijmo.grid.CellRange(1, 8, 3, 9),
                             new wijmo.grid.CellRange(7, 0, 7, 0),
                             new wijmo.grid.CellRange(7, 5, 7, 5),
-                            new wijmo.grid.CellRange(15, 0, 15, 0),
                             new wijmo.grid.CellRange(15, 5, 15, 5),
                             new wijmo.grid.CellRange(17, 0, 17, 0),
-                            new wijmo.grid.CellRange(20, 0, 20, 0),
-                            new wijmo.grid.CellRange(22, 0, 23, 9),
+                            new wijmo.grid.CellRange(20, 0, 20, 0)
                         ]);
 
                     flexSheet.applyCellsStyle({
@@ -60,10 +61,10 @@ module.exports = (function (angular) {
                             new wijmo.grid.CellRange(18, 0, 19, 4),
                             new wijmo.grid.CellRange(16, 5, 21, 9)
                         ]);
-
+                    /*
                     flexSheet.applyCellsStyle({
                         backgroundColor: 'lightGreen'
-                    }, [new wijmo.grid.CellRange(1, 0, 5, 3)]);
+                    }, [new wijmo.grid.CellRange(1, 0, 1, 3)]);
 
                     flexSheet.applyCellsStyle({
                         backgroundColor: 'YellowGreen'
@@ -89,7 +90,7 @@ module.exports = (function (angular) {
                         backgroundColor: 'SkyBlue',
                         textAlign: 'center'
                     }, [new wijmo.grid.CellRange(22, 0, 23, 9)]);
-
+                    */
                     flexSheet.mergeRange(new wijmo.grid.CellRange(1, 0, 1, 3));
                     flexSheet.setCellData(1, 0, "EXPORTADOR");
                     flexSheet.mergeRange(new wijmo.grid.CellRange(2, 0, 5, 3));
@@ -111,12 +112,11 @@ module.exports = (function (angular) {
                     flexSheet.mergeRange(new wijmo.grid.CellRange(7, 5, 7, 9));
                     flexSheet.setCellData(7, 5, "COMPRADOR");
                     flexSheet.setCellData(8, 5,
-                        "GILBERTO FERNANDEZ LEO\n" +
-                        "2632   AV. ZARCO  COL. ZARCO 31020\n" +
-                        "CHIHUAHUA CHIHUAHUA MEXICO\n" +
-                        "R.F.C. FELG5404291K2"
+                        "CARDINAL HEALTH, INC.\n" +
+                        "TAX ID 31-0958666  7000 CARDINAL PLACE\n" +
+                        "DUBLIN OHIO 43017 U.S.A\n" +
+                        "R.F.C. XEXX010101000"
                     );
-
                     flexSheet.mergeRange(new wijmo.grid.CellRange(8, 5, 14, 9));
 
                     flexSheet.mergeRange(new wijmo.grid.CellRange(15, 0, 15, 4));
@@ -138,7 +138,7 @@ module.exports = (function (angular) {
 
                     flexSheet.mergeRange(new wijmo.grid.CellRange(18, 0, 19, 4));
                     flexSheet.setCellData(18, 0,
-                        "ESTA OPERACIÓN SE REALIZA DE CONFORMIDAD CON LAS REGLAS 5.2.7 FRACCION II y 4.3.19 DE LA R.C.G.M.C.E"
+                        "ESTA OPERACIÓN SE REALIZA DE CONFORMIDAD CON LAS REGLAS 5.2.7 \nFRACCION II y 4.3.19 DE LA R.C.G.M.C.E"
                     );
 
                     flexSheet.mergeRange(new wijmo.grid.CellRange(20, 0, 20, 4));
@@ -167,6 +167,7 @@ module.exports = (function (angular) {
             }
 
             $scope.savePdf = function savePdf() {
+                var flexSheet = $scope.flex;
                 wijmo.grid.pdf.FlexGridPdfConverter.export(flexSheet, "FlexGrid.pdf", {
                     exportMode: wijmo.grid.pdf.ExportMode.Selection,
                     scaleMode: wijmo.grid.pdf.ScaleMode.SinglePage,
@@ -193,73 +194,116 @@ module.exports = (function (angular) {
                     }
                 });
             }
-            $scope.saveBtn = true;
+            $scope.xlsDisabled = true
             $scope.onSubmit = function () {
                 var searchFn = {
-                    "wo_release":"searchWoRelease",
-                    "wo_id":"searchWoId",
-                    "wo_po":"searchWoPo"
+                    "wo_release": "searchWoRelease",
+                    "wo_id": "searchWoId",
+                    "wo_po": "searchWoPo"
                 }
                 exportationInvoiceFac[searchFn[$scope.fmData.wo_search]]($scope.fmData[$scope.fmData.wo_search]).then(function (promise) {
-                    $scope.saveBtn = !promise.data.length > 0;
-                    
-                        var flexSheet = $scope.flex,
-                            row = 24;
-                        if (flexSheet) {
-                            flexSheet.deleteRows(24,975);
-                            flexSheet.insertRows(24,975);
+                    const { data } = promise;
+                    $scope.xlsDisabled = !data.length > 0;
 
-                            var total = {
-                                qty:0,
-                                weight:0,
-                                gross_weight:0,
-                                usd:0
-                            }
+                    var flexSheet = $scope.flex,
+                        row = 24;
+                    if (flexSheet) {
+                        flexSheet.deleteRows(24, 975);
+                        flexSheet.insertRows(24, 975);
+                        console.log('entro')
+                        var total = {
+                            qty: 0,
+                            weight: 0,
+                            gross_weight: 0,
+                            usd: 0
                         }
-                        if (angular.isArray(promise.data)) {
-                            promise.data.forEach(function (value) {
-                                
+                    }
+                    if (angular.isArray(data) && (data.length > 0)) {
+                        var tariffCodeHeaders = [];
+                        data.map((value, index, data) => {
+                            if (value.pr_language === 'TOTAL FRACCION') {
+                                tariffCodeHeaders.push({ "row": row, "tc_code": data[index - 1].tc_code, "tc_description": data[index - 1].tc_description })
                                 total.qty += +value.wo_qty;
-                                total.weight += +value.total_weight;
-                                total.gross_weight += +value.total_weight;                                
-                                total.usd += +value.total_price;       
+                                total.weight += +value.pr_weight;
+                                total.gross_weight += +value.pr_grossweight;
+                                total.usd += +value.total_price;
+                                flexSheet.applyCellsStyle({
+                                    fontWeight: 'bold'
+                                }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
+                            }
+                            console.log(tariffCodeHeaders)
 
-                                flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 2));
-                                flexSheet.setCellData(row, 0, value.pr_name);
-                                flexSheet.setCellData(row, 3, value.pr_language);
-                                flexSheet.setCellData(row, 4, value.wo_qty);
-                                flexSheet.setCellData(row, 5, "PIEZAS");
-                                flexSheet.setCellData(row, 6, value.total_weight);
-                                flexSheet.setCellData(row, 7, value.total_weight);
-                                flexSheet.setCellData(row, 8, $filter('currency')(value.wo_price, '$', 5));
-                                flexSheet.setCellData(row, 9, $filter('currency')(value.total_price, '$', 5));
-                                row += 1;
-                            })
-                            row += 2;
-                            flexSheet.setCellData(row, 0, "TOTAL");
-                            flexSheet.setCellData(row, 4, total.qty);
+                            flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 2));
+                            flexSheet.setCellData(row, 0, value.pr_partno);
+                            flexSheet.setCellData(row, 3, value.pr_language);
+                            flexSheet.setCellData(row, 4, value.wo_qty);
                             flexSheet.setCellData(row, 5, "PIEZAS");
-                            flexSheet.setCellData(row, 6, $filter('number')(total.weight, 5));
-                            flexSheet.setCellData(row, 7, $filter('number')(total.gross_weight, 5));
-                            flexSheet.setCellData(row, 9, $filter('currency')(total.usd, '$', 2));
-                            flexSheet.applyCellsStyle({
-                                fontWeight: 'bold'
-                            }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
-                            row += 2;
-                            flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 9));
-                            flexSheet.setCellData(row, 0, numberToText(total.usd.toFixed(2)));
-                            flexSheet.applyCellsStyle({
-                                fontWeight: 'bold'
-                            }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
-                            flexSheet.applyCellsStyle({
-                                textAlign: 'right'
-                            }, [new wijmo.grid.CellRange(24, 6, row, 9)]);
+                            flexSheet.setCellData(row, 6, $filter('number')(value.pr_weight, 5));
+                            flexSheet.setCellData(row, 7, $filter('number')(value.pr_grossweight, 5));
+                            flexSheet.setCellData(row, 8, $filter('currency')(value.wo_price, '$', 5));
+                            flexSheet.setCellData(row, 9, $filter('currency')(value.total_price, '$', 5));
+                            row += 1;
+                        })
+                        row += 2;
+                        flexSheet.setCellData(row, 0, "TOTAL");
+                        flexSheet.setCellData(row, 4, total.qty);
+                        flexSheet.setCellData(row, 5, "PIEZAS");
+                        flexSheet.setCellData(row, 6, $filter('number')(total.weight, 5));
+                        flexSheet.setCellData(row, 7, $filter('number')(total.gross_weight, 5));
+                        flexSheet.setCellData(row, 9, $filter('currency')(total.usd, '$', 2));
+                        flexSheet.applyCellsStyle({
+                            fontWeight: 'bold'
+                        }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
+                        flexSheet.applyCellsStyle({
+                            textAlign: 'right'
+                        }, [new wijmo.grid.CellRange(24, 4, row, 4)]);
+                        row += 2;
+                        flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 9));
+                        flexSheet.setCellData(row, 0, numberToText(total.usd.toFixed(2)));
+                        flexSheet.applyCellsStyle({
+                            fontWeight: 'bold'
+                        }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
+                        flexSheet.applyCellsStyle({
+                            textAlign: 'right'
+                        }, [new wijmo.grid.CellRange(24, 6, row, 9)]);
 
-                        } 
-                        // var products = [];
-                        // angular.forEach(promise.data, function (value, key) {
-                        //     this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": key });
-                        // }, products);
+                        var sumRow = 2;
+                        tariffCodeHeaders.reverse().map((value, index, data) => {
+                            if (index > 0) {
+                                flexSheet.insertRows(data[index].row + 1, 2)
+                                flexSheet.setCellData(data[index].row + 1, 0, data[index - 1].tc_description);
+                                flexSheet.setCellData(data[index].row + 2, 0, `FRACCION ${data[index - 1].tc_code}`);
+                                flexSheet.mergeRange(new wijmo.grid.CellRange(data[index].row + 1, 0, data[index].row + 1, 2));
+                                flexSheet.mergeRange(new wijmo.grid.CellRange(data[index].row + 2, 0, data[index].row + 2, 2));
+                                flexSheet.applyCellsStyle({
+                                    className: 'wordwrap',
+                                    fontWeight: 'bold'
+                                }, [
+                                        new wijmo.grid.CellRange(data[index].row + 1, 0, data[index].row + 1, 2),
+                                        new wijmo.grid.CellRange(data[index].row + 2, 0, data[index].row + 2, 2)
+                                    ])
+                                flexSheet.autoSizeRow(data[index].row + 1);
+                            }
+                        })
+                        tariffCodeHeaders.reverse().map((value, index, data) => {
+                            if (index === 0) {
+                                flexSheet.insertRows(24, 2)
+                                flexSheet.setCellData(24, 0, value.tc_description);
+                                flexSheet.setCellData(25, 0, `FRACCION ${value.tc_code}`);
+                                flexSheet.mergeRange(new wijmo.grid.CellRange(24, 0, 24, 2));
+                                flexSheet.mergeRange(new wijmo.grid.CellRange(25, 0, 25, 2));
+                                flexSheet.applyCellsStyle({
+                                    className: 'wordwrap',
+                                    fontWeight: 'bold'
+                                }, [
+                                        new wijmo.grid.CellRange(24, 0, 24, 2),
+                                        new wijmo.grid.CellRange(25, 0, 25, 2)
+                                    ])
+                                flexSheet.autoSizeRow(24);
+                            }
+                        })
+
+                    }
                 })
             }
 
@@ -271,17 +315,18 @@ module.exports = (function (angular) {
                 var client = undefined;
                 var rows = undefined;
                 exportationInvoiceFac.getClient().then(function (promise) {
-                    if (angular.isArray(promise.data)) {
-                        client = promise.data[0];
+                    const { data } = promise
+                    if (angular.isArray(data)) {
+                        const [client] = data
                     }
                 }).then(function () {
                     exportationInvoiceFac.getZone().then(function (promise) {
                         $scope.zo_idoptions = [];
-                        // $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_rfc, "value": "0" });
-                        if (angular.isArray(promise.data)) {
-                            rows = promise.data;
+                        const { data } = promise
+                        if (angular.isArray(data)) {
+                            rows = data;
                             angular.forEach(rows, function (value, key) {
-                                this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": key });
+                                this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": key });
                             }, $scope.zo_idoptions);
                         }
                     });
@@ -292,25 +337,13 @@ module.exports = (function (angular) {
                     function zoChange(newValue, oldValue) {
                         var flexSheet = $scope.flex;
                         if (newValue !== undefined && flexSheet) {
-                                // if (newValue === "0") {
-                                //     flexSheet.setCellData(8, 0,
-                                //         client.cl_jsonb.cl_corporatename + '\n' +
-                                //         client.cl_jsonb.cl_street + ' ' + client.cl_jsonb.cl_streetnumber + ' ' + client.cl_jsonb.cl_suitenumber + '\n' +
-                                //         client.cl_jsonb.cl_neighborhood + '\n' +
-                                //         client.cl_jsonb.cl_state + ' ' + client.cl_jsonb.cl_city + '\n' +
-                                //         client.cl_jsonb.cl_rfc + '\n' +
-                                //         client.cl_jsonb.cl_immex + '\n'
-
-                                //     );
-                                //     return;
-                                // }
                             flexSheet.setCellData(8, 0,
                                 rows[newValue].zo_corporatename + '\n' +
-                                rows[newValue].zo_street + ' ' + rows[newValue].zo_streetnumber + ' ' + rows[newValue].zo_suitenumber + '\n' +
-                                rows[newValue].zo_neighborhood + '\n' +
-                                rows[newValue].zo_state + ' ' + rows[newValue].zo_city + '\n' +
+                                rows[newValue].zo_street + ' ' + rows[newValue].zo_streetnumber + ' ' + (rows[newValue].zo_suitenumber || '') + '\n' +
+                                (rows[newValue].zo_neighborhood || '') + '\n' +
+                                rows[newValue].zo_city + ', ' + rows[newValue].zo_state + '. ' + rows[newValue].zo_country + '\n' +
                                 rows[newValue].zo_rfc + '\n' +
-                                rows[newValue].zo_immex + '\n'
+                                (rows[newValue].zo_immex || '') + '\n'
 
                             );
                         }

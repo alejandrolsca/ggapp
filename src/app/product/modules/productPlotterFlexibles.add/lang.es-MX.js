@@ -35,6 +35,7 @@ module.exports = {
                         "pr-sheetqty": "Cantidad x Plantilla",                      
                         "pr-drill": "Perforación",                      
                         "pr-blocks": "Blocks",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },

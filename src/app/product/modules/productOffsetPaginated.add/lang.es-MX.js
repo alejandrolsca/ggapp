@@ -47,6 +47,7 @@ module.exports = {
                         "pr-blocks": "Blocks",
                         "pr-pages":"No. de Paginas",
                         "pr-concept":"Concepto",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },

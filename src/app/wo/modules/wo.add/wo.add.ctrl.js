@@ -43,32 +43,41 @@ module.exports = (function (angular) {
                     })
                     if (hasComponents) {
                         const componentsData = data.map(async (value, index, data) => {
+                            if (typeof value.value === 'object') {
+                                value.value = null
+                            }
                             if (value.key === 'mt_id') {
                                 for (let i = 1; i <= data[componentsIndex].value; i++) {
-                                    console.log(value['component' + i])
-                                    debugger;
                                     const { data } = await woAddFactory.getProductInfoMaterial(value['component' + i])
                                     value['component' + i] = data[0].material
                                 }
                             }
                             if (value.key === 'pr_inksfront') {
                                 for (let i = 1; i <= data[componentsIndex].value; i++) {
-                                    console.log(Object.values(value['component' + i]).join(','))
-                                    const { data } = await woAddFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
-                                    value['component' + i] = data[0].inks
+                                    if (value['component' + i]) {
+                                        const { data } = await woAddFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
+                                        value['component' + i] = data[0].inks
+                                    }
                                 }
                             }
                             if (value.key === 'pr_inksback') {
                                 for (let i = 1; i <= data[componentsIndex].value; i++) {
-                                    console.log(Object.values(value['component' + i]).join(','))
-                                    const { data } = await woAddFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
-                                    value['component' + i] = data[0].inks
+                                    if (value['component' + i]) {
+                                        const { data } = await woAddFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
+                                        value['component' + i] = data[0].inks
+                                    }
                                 }
                             }
                             return value
                         })
+                        componentsData.map(async (value, index, data) => {
+                            if (typeof value.value === 'object') {
+                                value.value = null
+                                console.log(typeof value.value)
+                            }
+                            return value
+                        })
                         Promise.all(componentsData).then((completed) => {
-                            console.log(completed)
                             completed.map((value) => {
                                 value.key = i18nFilter(`${camelCase('product', pr_process, pr_type)}-add.labels.${value.key.replace('_', '-')}`);
                             })
@@ -81,15 +90,19 @@ module.exports = (function (angular) {
                         const generalData = data.map(async (value, index, data) => {
                             if (value.key === 'mt_id') {
                                 const { data } = await woAddFactory.getProductInfoMaterial(value.value)
-                                value.value= data[0].material
+                                value.value = data[0].material
                             }
                             if (value.key === 'pr_inksfront') {
-                                const { data } = await woAddFactory.getProductInfoInks(Object.values(value.value).join(','))
-                                value.value= data[0].inks
+                                if (value.value) {
+                                    const { data } = await woAddFactory.getProductInfoInks(Object.values(value.value).join(','))
+                                    value.value = data[0].inks
+                                }
                             }
                             if (value.key === 'pr_inksback') {
-                                const { data } = await woAddFactory.getProductInfoInks(Object.values(value.value).join(','))
-                                value.value= data[0].inks
+                                if (value.value) {
+                                    const { data } = await woAddFactory.getProductInfoInks(Object.values(value.value).join(','))
+                                    value.value = data[0].inks
+                                }
                             }
                             return value
                         })

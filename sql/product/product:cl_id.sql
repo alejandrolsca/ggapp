@@ -19,17 +19,18 @@ select
 						)  || 'm2'  || ' ' ||
 						(mt_jsonb->>'mt_description')
 					),', '
-				) 
-								
-			from material 
-			where mt_id = any (
-				('{'||coalesce((select 
+				) as material
+			from (
+				select *
+				from   material 
+				join   unnest(string_to_array((select 
 					array_to_string(array_agg(mt.value),', ')
 				from (
 					select 
 						(jsonb_each(pr.pr_jsonb->'mt_id')).*
-				) mt),'')||'}')::int[]
-			)
+				) mt),',')::int[]) with ordinality t(mt_id, ord) using (mt_id)
+				order by t.ord
+			) mt
 		)
 		else (
 			select 

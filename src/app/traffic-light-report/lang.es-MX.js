@@ -78,7 +78,7 @@ module.exports = {
         wo_statusoptions: [
             { "label": "Activo", "value": 0, "desc": "Orden Activa", "us_group": "sales", "wo_prevstatus": [] },
             { "label": "En espera de material", "value": 1, "desc": "No hay material en el almacén", "us_group": "warehouse", "wo_prevstatus": [0, 4, 6, 9, 16] },
-            { "label": "Material disponible", "value": 2, "desc": "Hay material en el almacén pero aun no se ha iniciado el trabajo", "us_group": "warehouse", "wo_prevstatus": [0, 1] },
+            { "label": "Material disponible", "value": 2, "desc": "Hay material en el almacén pero aun no se ha iniciado el trabajo", "us_group": "warehouse", "wo_prevstatus": [1] },
             { "label": "En producción", "value": 3, "desc": "En producción", "us_group": "production", "wo_prevstatus": [2,4] },
             { "label": "Detenido en Producción", "value": 4, "desc": "La orden se detuvo en producción", "us_group": "production", "wo_prevstatus": [3] },
             { "label": "Acabados", "value": 5, "desc": "Procesando Acabados", "us_group": "production", "wo_prevstatus": [3, 6] },

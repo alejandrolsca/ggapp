@@ -34,6 +34,7 @@
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "express-jwt": "^3.4.0",
+    "jszip": "^2.5.0",
     "moment": "^2.19.2",
     "moment-timezone": "^0.5.14",
     "pg": "^7.4.0",

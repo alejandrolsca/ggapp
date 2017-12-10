@@ -13,4 +13,4 @@ select
 	(mt_jsonb->>'mt_description')  as material
 from material 
 where mt_id = $1
-and mt_jsonb->>'mt_status' = $2
+and mt_jsonb->>'mt_status' = any(string_to_array($2,',')::text[])

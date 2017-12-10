@@ -55,7 +55,7 @@
   </gg-textarea>
   <label class="col-sm-12 fieldset">MATERIAL</label>
   <gg-select err-class="error"
-           lbl="{{'productStampsInk-add.labels.pa-id' | i18n}}" 
+           lbl="{{'productStampsInk-add.labels.mt-id' | i18n}}" 
            form-group-class="col-sm-6" 
            options="mt_idoptions" 
            ng-model="fmData.mt_id"
@@ -80,6 +80,17 @@
       </p>
     </div>
   </span>
+  <label class="col-sm-12 fieldset">FRACCION ARANCELARIA</label>
+  <gg-select err-class="error"
+           lbl="{{'productStampsInk-add.labels.tc-id' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="tc_idoptions" 
+           ng-model="fmData.tc_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="false">
+  </gg-select>
   <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'productStampsInk-add.labels.pr-status' | i18n}}" 

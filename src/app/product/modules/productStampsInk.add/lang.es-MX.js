@@ -12,6 +12,7 @@ module.exports = {
                         "pr-description": "Descripcion",
                         "mt-id": "ID material",
                         "pr-milliliters": "Contenido Neto (ml)",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },
