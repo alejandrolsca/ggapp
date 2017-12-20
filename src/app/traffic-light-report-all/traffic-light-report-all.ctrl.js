@@ -1,14 +1,14 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'tlrFactory', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
-        function ($scope, tlrFactory, $location, i18nFilter, $stateParams, $filter, authService) {
+    return ['$scope', 'tlrAllFactory', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
+        function ($scope, tlrAllFactory, $location, i18nFilter, $stateParams, $filter, authService) {
 
             var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
 
-            $scope.labels = Object.keys(i18nFilter("tlr.labels"));
-            $scope.columns = i18nFilter("tlr.columns");
-            $scope.workflow = i18nFilter("tlr.fields.wo_statusoptions");
+            $scope.labels = Object.keys(i18nFilter("tlrAll.labels"));
+            $scope.columns = i18nFilter("tlrAll.columns");
+            $scope.workflow = i18nFilter("tlrAll.fields.wo_statusoptions");
 
             // formatter to add checkboxes to boolean columns
             $scope.onUpdate = function () {
@@ -28,7 +28,7 @@ module.exports = (function (angular) {
 
             $scope.exportXLS = function () {
                 const timestamp = moment().tz('America/Chihuahua').format();
-                const fileName = `tlr_clientid_${$stateParams.cl_id}_${timestamp}.xlsx`;
+                const fileName = `tlrAll_${timestamp}.xlsx`;
                 const flexGrid = $scope.ggGrid
                 try {
                     wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
@@ -176,7 +176,7 @@ module.exports = (function (angular) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
-                    col.header = i18nFilter("tlr.labels." + $scope.columns[i].binding.replace('_', '-'));
+                    col.header = i18nFilter("tlrAll.labels." + $scope.columns[i].binding.replace('_', '-'));
                     s.columns.push(col);
                 }
             };
@@ -225,7 +225,7 @@ module.exports = (function (angular) {
 
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                tlrFactory.getData().then(function (promise) {
+                tlrAllFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data)) {
                         // expose data as a CollectionView to get events

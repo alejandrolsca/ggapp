@@ -8,7 +8,8 @@ module.exports = (function (angular) {
             deferred.resolve(
                 $http.post('/api/client/cl_id', {
                     /* POST variables here */
-                    cl_id: $stateParams.cl_id
+                    cl_id: $stateParams.cl_id,
+                    cl_status: 'A'
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

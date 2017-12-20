@@ -29,6 +29,7 @@ jsonb_to_record(tc_jsonb) as tc_jsonb (
 		tc_description text
 )
 where wo_jsonb->>'cl_id' = $1
+and wo_jsonb->'wo_status' between '13' and '17'
 and wo_jsonb->>'wo_release' = $2
 union all
 select
@@ -60,6 +61,7 @@ jsonb_to_record(tc_jsonb) as tc_jsonb (
 		tc_description text
 )
 where wo_jsonb->>'cl_id' = $1
+and wo_jsonb->'wo_status' between '13' and '17'
 and wo_jsonb->>'wo_release' = $2
 group by tc_id
 order by 9,10

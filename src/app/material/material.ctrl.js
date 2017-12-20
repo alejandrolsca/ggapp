@@ -6,6 +6,21 @@ module.exports = (function(angular){
     
         $scope.labels = Object.keys(i18nFilter("material.labels"));
         $scope.columns = i18nFilter("material.columns");
+
+        // export to xls
+        $scope.exportXLS = function () {
+            const timestamp = moment().tz('America/Chihuahua').format();
+            const fileName = `materials_${timestamp}.xlsx`;
+            const flexGrid = $scope.ggGrid
+            try {
+                wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                    includeColumnHeaders: true, 
+                    includeCellStyles: false
+                }, fileName);
+            } catch (error) {
+                throw new Error(error)
+            }
+        }
         
         // formatItem event handler
         var mt_id;

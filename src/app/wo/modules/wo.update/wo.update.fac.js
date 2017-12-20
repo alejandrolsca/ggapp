@@ -26,7 +26,8 @@ module.exports = (function (angular) {
                 $http.post('/api/client/cl_id', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds(),
-                    cl_id: $stateParams.cl_id
+                    cl_id: $stateParams.cl_id,
+                    cl_status: 'A,I'
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {

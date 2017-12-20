@@ -8,7 +8,7 @@ module.exports = (function (angular) {
                     // if user is athenticated, add the profile to the headers
 
                     if (!!authService.userProfile) {
-                        config.headers.profile = JSON.stringify(authService.userProfile);
+                        config.headers.username = authService.userProfile.username;
                     }
                     return config;
                 },

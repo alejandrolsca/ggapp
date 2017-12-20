@@ -1,5 +1,5 @@
 module.exports = {
-    "title": "Facturas de exportación",
+    "title": "Lista de Embarque",
     "labels": {
         
     },

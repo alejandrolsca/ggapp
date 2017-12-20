@@ -49,6 +49,5 @@ on wo.cl_id = cl.cl_id
 left join product pr
 on wo.pr_id = pr.pr_id
 where (wo_jsonb->>'wo_status')::int in (0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
-and cl.cl_id = $1
 order by wo.wo_commitmentdate asc
 limit 1000;

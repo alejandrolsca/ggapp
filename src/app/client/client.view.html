@@ -1,6 +1,7 @@
 <div class="col-sm-12">
     <h3>{{'client.title' | i18n}}</h3>
-    <div ui-sref="clientAdd" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> {{'general.labels.add' | i18n}}</div><br/><br/>
+    <div ui-sref="clientAdd" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> {{'general.labels.add' | i18n}}</div> 
+    <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
     <span ng-if="loading">Cargando...</span>
 </div>
 <!-- Modal -->

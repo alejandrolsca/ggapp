@@ -25,6 +25,7 @@ module.exports = (function (angular) {
         require('./zone').name,
         require('./workflow').name,
         require('./traffic-light-report').name,
+        require('./traffic-light-report-all').name,
         require('./exportation-invoice').name,
         require('./shipping-list').name
     ])
@@ -55,9 +56,13 @@ module.exports = (function (angular) {
 
                     lock.getProfile(authResult.idToken, function (error, profile) {
                         if (error) {
-                            console.log(error);
+                            throw new Error(error)
                         }
-
+                        const { username, us_group } = profile
+                        profile = {
+                            username: username,
+                            us_group: us_group
+                        }
                         localStorage.setItem('profile', JSON.stringify(profile));
                         $rootScope.$broadcast('userProfileSet', profile);
                     });

@@ -101,7 +101,7 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('client/client:cl_id')
-                const parameters = [req.body.cl_id]
+                const parameters = [req.body.cl_id, req.body.cl_status]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
@@ -1182,6 +1182,30 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('tlr/tlr')
+                const parameters = [req.body.cl_id]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    /* TRAFFIC LIGHT REPORT ALL*/
+    app.post('/api/tlrall', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('tlr/tlr:all')
                 const parameters = []
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
@@ -1255,6 +1279,31 @@ if (cluster.isMaster) {
                 // execute query
                 const query = file('tariffcode/tariffcode')
                 const parameters = [req.body.tc_status]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    /* SHIPPING LIST */
+
+    app.post('/api/shippinglist/cl_id/wo_id', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('shippinglist/wo:cl_id:wo_id')
+                const parameters = [req.body.cl_id, req.body.wo_id]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {

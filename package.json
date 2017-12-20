@@ -42,6 +42,7 @@
     "source-list-map": "^2.0.0"
   },
   "devDependencies": {
+    "babel-plugin-dedent": "^2.0.0",
     "bower": "^1.8.0",
     "clean-webpack-plugin": "^0.1.16",
     "css-hot-loader": "^1.0.2",

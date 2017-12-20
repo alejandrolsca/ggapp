@@ -63,9 +63,15 @@
             ng-disabled="ggform.$invalid"
             btn-class="col-xs-12 col-sm-12 col-md-12">
         </gg-submit>
-        <gg-action-button lbl="Guardar"
+        <gg-action-button lbl="XLS"
             form-group-class="col-sm-3"
-            ng-click="export()" 
+            ng-click="exportXLS()"
+            ng-disabled="saveBtn"
+            btn-class="col-xs-12 col-sm-12 col-md-12">
+        </gg-action-button>
+        <gg-action-button lbl="PDF"
+            form-group-class="col-sm-3"
+            ng-click="exportPDF()"
             ng-disabled="saveBtn"
             btn-class="col-xs-12 col-sm-12 col-md-12">
         </gg-action-button>
@@ -74,7 +80,7 @@
 
 
 <div class="col-sm-12">
-    <wj-flex-sheet control="flex" initialized="initialized(s)" style="width:1200px; height:800px;">
+    <wj-flex-sheet control="flex" initialized="initialized(s)" style="width:100%; height:480px;">
         <wj-sheet name="Exportation Invoice" row-count="1000" ></wj-sheet>
     </wj-flex-sheet>
 </div>

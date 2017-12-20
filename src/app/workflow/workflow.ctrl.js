@@ -4,10 +4,32 @@ module.exports = (function (angular) {
     return ['$scope', 'workflowFactory', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
         function ($scope, workflowFactory, $location, i18nFilter, $stateParams, $filter, authService) {
 
+            $scope.fmData = {};
+
             var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
 
             $scope.labels = Object.keys(i18nFilter("workflow.labels"));
             $scope.columns = i18nFilter("workflow.columns");
+
+            // export to xls
+            $scope.exportXLS = function () {
+                if ($scope.fmData.wo_status || $scope.fmData.wo_status === 0) {
+                    const { label: current_status } = $scope.wo_statusoptions.find((value) => {
+                        return value.value === $scope.fmData.wo_status
+                    })
+                    const timestamp = moment().tz('America/Chihuahua').format();
+                    const fileName = `workflow_${current_status}_${timestamp}.xlsx`;
+                    const flexGrid = $scope.ggGrid
+                    try {
+                        wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                            includeColumnHeaders: true,
+                            includeCellStyles: false
+                        }, fileName);
+                    } catch (error) {
+                        throw new Error(error)
+                    }
+                }
+            }
 
             // formatter to add checkboxes to boolean columns
             $scope.onUpdate = function () {
@@ -38,7 +60,7 @@ module.exports = (function (angular) {
                 $('#myModal').modal('hide');
                 console.log('submited')
             }
-            
+
             $scope.itemFormatter = function (panel, r, c, cell) {
 
                 // highlight rows that have 'active' set
@@ -84,7 +106,7 @@ module.exports = (function (angular) {
                 }
             }
 
-            
+
             // autosize columns
             $scope.itemsSourceChanged = function (sender, args) {
                 sender.autoSizeColumns();
@@ -95,11 +117,11 @@ module.exports = (function (angular) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i];
-                    col.header = i18nFilter("workflow.labels." + $scope.columns[i].replace('_','-'));
+                    col.header = i18nFilter("workflow.labels." + $scope.columns[i].replace('_', '-'));
                     s.columns.push(col);
                 }
             };
-            
+
             // create the tooltip object
             $scope.$watch('ggGrid', function () {
                 if ($scope.ggGrid) {
@@ -138,32 +160,17 @@ module.exports = (function (angular) {
                         rng = null;
                     });
                 }
-            });         
+            });
 
             $scope.wo_statusoptions = [];
-            var wo_statusoptions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions")))
-            var duplicated = [];
-            angular.forEach(wo_statusoptions, function (value, key) {
-                if (value.us_group === userProfile.app_metadata.us_group) {
-                    this.push.apply(this, value.wo_prevstatus);
-                }
-            }, duplicated)
-
-            duplicated.reduce(function (accum, current) {
-                if (accum.indexOf(current) < 0) {
-                    accum.push(current);
-                }
-                return accum;
-            }, []);
-
-            angular.forEach(wo_statusoptions, function (value, key) {
-                if (duplicated.includes(value.value)) {
+            $scope.wo_statusoptions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions"))) // clone array
+            $scope.wo_statusoptions.map((value) => {
+                value.notAnOption = true;
+                if (value.us_group === userProfile.us_group || userProfile.us_group === 'admin') {
                     value.notAnOption = false;
-                } else {
-                    value.notAnOption = true;
                 }
-                this.push(value)
-            }, $scope.wo_statusoptions)
+                return value
+            })
 
             $scope.pagesizeoptions = [
                 { "label": "50", "value": 50 },
@@ -175,27 +182,22 @@ module.exports = (function (angular) {
             ]
 
             $scope.$on('$viewContentLoaded', function () {
-                
+
                 // this code is executed after the view is loaded
 
                 $scope.$watch('fmData.wo_status', function (newValue, oldValue) {
                     $scope.loading = true;
                     $scope.actions = [];
-                    var actions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions")));
-                    angular.forEach(actions, function (value, key) {
+                    const actions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions"))) // clone array
+                    actions.map((value) => {
                         if (value.wo_prevstatus.includes(newValue)) {
-                            if (value.us_group === userProfile.app_metadata.us_group || userProfile.app_metadata.us_group === "admin") {
-                                if ([17, 18].includes(newValue) && [17, 18].includes(value.value)) {
-                                    value.notAnOption = true;
-                                } else {
-                                    value.notAnOption = false;
-                                }
-                            } else {
+                            value.notAnOption = false;
+                            if ((value.value == 18) && (userProfile.us_group !== 'admin')) {
                                 value.notAnOption = true;
                             }
-                            this.push(value);
+                            $scope.actions.push(value)
                         }
-                    }, $scope.actions)
+                    })
                     workflowFactory.getData(newValue).then(function (promise) {
                         $scope.loading = false;
                         if (angular.isArray(promise.data)) {

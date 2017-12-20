@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.getData = function (wo_status) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/tlr', {
+                $http.post('/api/tlrall', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds(),
                     cl_id: $stateParams.cl_id

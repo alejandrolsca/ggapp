@@ -157,6 +157,11 @@ module.exports = {
                 "tlr": require('./traffic-light-report/lang.es-MX'),
                 "tlr-custom": require('./traffic-light-report/lang.custom.es-MX'),
                 /****************************************
+                TRAFFIC LIGHT REPORT 
+                ****************************************/
+                "tlrAll": require('./traffic-light-report-all/lang.es-MX'),
+                "tlrAll-custom": require('./traffic-light-report-all/lang.custom.es-MX'),
+                /****************************************
                 EXPORTATION INVOICE
                 ****************************************/
                 "exportation-invoice": require('./exportation-invoice/lang.es-MX'),

@@ -4,7 +4,11 @@ select
     x.zo_type,
     x.cl_id,
     x.zo_zone,
-    x.zo_corporatename,
+    case
+      when zo.zo_jsonb->>'zo_type' = 'natural' 
+        then ((zo.zo_jsonb->>'zo_name') || ' ' || (zo.zo_jsonb->>'zo_firstsurname') || ' ' || coalesce(zo.zo_jsonb->>'zo_secondsurname',''))
+      else zo_jsonb->>'zo_corporatename'
+    end as zo_corporatename,
     x.zo_rfc,
     x.zo_immex,
     x.zo_name,

@@ -7,6 +7,22 @@ module.exports = (function (angular) {
             $scope.labels = Object.keys(i18nFilter("client.labels"));
             $scope.columns = i18nFilter("client.columns");
 
+            // expport to xls
+            $scope.exportXLS = function () {
+                const timestamp = moment().tz('America/Chihuahua').format();
+                const fileName = `clients_${timestamp}.xlsx`;
+                const flexGrid = $scope.ggGrid
+                try {
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                        includeColumnHeaders: true, 
+                        includeCellStyles: false
+                    }, fileName);
+                } catch (error) {
+                    throw new Error(error)
+                }
+                
+            }
+
             // formatItem event handler
             var cl_id;
             $scope.formatItem = function (s, e, cell) {
@@ -44,6 +60,7 @@ module.exports = (function (angular) {
                                             <li><a href="#/wo/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Ordenes</a></li>\
                                             <li><a href="#/product/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Productos</a></li>\
                                             <li><a href="#/zone/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Zonas</a></li>\
+                                            <li><a href="#/tlr/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Reporte Semaforo</a></li>\
                                           </ul>\
                                         </div>\
                                     </div>';
