@@ -6,7 +6,7 @@ module.exports = (function (angular) {
 
             $scope.fmData = {};
 
-            var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
+            var userProfile = authService.userProfile;
 
             $scope.labels = Object.keys(i18nFilter("workflow.labels"));
             $scope.columns = i18nFilter("workflow.columns");

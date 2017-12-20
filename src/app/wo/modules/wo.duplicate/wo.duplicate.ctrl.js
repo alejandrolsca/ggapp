@@ -140,6 +140,8 @@ module.exports = (function (angular) {
                             $scope.fmData.wo_status = 0; //0-Active
                             $scope.fmData.wo_previousid = promise.data[0].wo_id;
                             $scope.fmData.wo_previousdate = promise.data[0].wo_date.substring(0, 10);
+                            $scope.fmData.wo_createdby = authService.userProfile.username;
+
                     }
                 });
 

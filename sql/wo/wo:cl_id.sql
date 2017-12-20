@@ -28,6 +28,9 @@ jsonb_to_record(wo_jsonb) as x (
         wo_price text, 
         wo_currency text, 
         wo_email text, 
-        wo_status int
+        wo_status int,
+        wo_createdby text, 
+        wo_updatedby text,
+        wo_updatedate text
 )
 where wo_jsonb->>'cl_id' = $1;

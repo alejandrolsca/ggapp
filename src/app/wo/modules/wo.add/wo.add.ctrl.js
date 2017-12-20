@@ -1,13 +1,14 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woAddFactory', '$stateParams', 'i18nFilter', '$filter', '$location',
-        function ($scope, woAddFactory, $stateParams, i18nFilter, $filter, $location) {
+    return ['$scope', 'woAddFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService',
+        function ($scope, woAddFactory, $stateParams, i18nFilter, $filter, $location, authService) {
             $scope.fmData = {};
             $scope.fmData.wo_type = "N"; //N-new,R-rep,C-change
             $scope.fmData.wo_status = 0; //0-Active
             $scope.fmData.cl_id = +$stateParams.cl_id;
             $scope.fmData.pr_id = +$stateParams.pr_id;
+            $scope.fmData.wo_createdby = authService.userProfile.username;
 
             const camelCase = (...args) => {
                 const camelCase = args.map(function (value, index) {

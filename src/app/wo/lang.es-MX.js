@@ -28,6 +28,9 @@ module.exports = {
         "wo-currency": "Moneda",
         "wo-email": "Enviar Correo",
         "wo-status": "Estatus",
+        "wo-createdby":"Creado por",
+        "wo-updatedby":"Actualizado por",
+        "wo-updatedate":"Fecha de Actualizacion",
         "wo-date": "Fecha"
     },
     "columns": [
@@ -58,6 +61,9 @@ module.exports = {
         "wo_currency",
         "wo_email",
         "wo_status",
+        "wo_createdby",
+        "wo_updatedby",
+        "wo_updatedate",
         "wo_date"
     ]
 }

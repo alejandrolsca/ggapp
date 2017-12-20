@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter','$location',
-        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location) {
+    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter','$location', 'authService',
+        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location, authService) {
             
             const camelCase = (...args) => {
                 const camelCase = args.map(function (value, index) {
@@ -139,6 +139,8 @@ module.exports = (function (angular) {
                             $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
                             $scope.wo_id = promise.data[0].wo_id;
                             $scope.wo_date = promise.data[0].wo_date;
+                            $scope.fmData.wo_updatedby = authService.userProfile.username;
+                            
                     }
                     woUpdateFactory.getProduct($scope.fmData.pr_id).then(function (promise) {
                         $scope.pr_idoptions = [];

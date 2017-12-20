@@ -58,8 +58,9 @@ module.exports = (function (angular) {
                         if (error) {
                             throw new Error(error)
                         }
-                        const { username, us_group } = profile
+                        const { picture, username, us_group } = profile
                         profile = {
+                            picture: picture,
                             username: username,
                             us_group: us_group
                         }
