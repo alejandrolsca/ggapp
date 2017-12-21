@@ -164,7 +164,7 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('client/client')
-                const parameters = []
+                const parameters = [req.body.cl_status]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {

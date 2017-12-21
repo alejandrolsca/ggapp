@@ -45,6 +45,24 @@ COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, inclu
 SET search_path = public, pg_catalog;
 
 --
+-- Name: wo_after_update(); Type: FUNCTION; Schema: public; Owner: Alejandro
+--
+
+CREATE FUNCTION wo_after_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+	UPDATE wo
+	SET wo_jsonb = jsonb_set(wo_jsonb,'{wo_updatedate}',to_jsonb(now()), true)
+	WHERE wo_id = NEW.wo_id;
+	RETURN NULL;
+END;
+$$;
+
+
+ALTER FUNCTION public.wo_after_update() OWNER TO "Alejandro";
+
+--
 -- Name: seq_client_cl_id; Type: SEQUENCE; Schema: public; Owner: Alejandro
 --
 
@@ -323,8 +341,7 @@ ALTER TABLE zone OWNER TO "Alejandro";
 --
 
 COPY client (cl_id, cl_jsonb, cl_date) FROM stdin;
-2	{"cl_rfc": "GGM020610Q54", "cl_city": 8581816, "cl_name": "Arturo", "cl_type": "legal", "cl_email": "ingo@grupografico.com.mx", "cl_phone": "6144216260", "cl_state": 4014336, "cl_mobile": "6144216260", "cl_status": "A", "cl_street": "Retorno El Saucito", "cl_country": 3996063, "cl_zipcode": "31123", "cl_creditdays": "30", "cl_creditlimit": "100000.00", "cl_suitenumber": "10", "cl_firstsurname": "Rivas", "cl_neighborhood": "Complejo Industrial El Saucito", "cl_streetnumber": "1030", "cl_corporatename": "GRUPO GRAFICO DE MEXICO S.A. DE C.V.", "cl_secondsurname": "Romero", "cl_receiptschedule": "10-12", "cl_addressreference": "bodega", "cl_customerdiscount": "0.95"}	2017-12-09 02:22:47.603304+00
-1	{"cl_rfc": "AABM7206302F2", "cl_city": 8581816, "cl_name": "MARCO ANTONIO", "cl_type": "natural", "cl_email": "marcoalanis@me.com", "cl_phone": "6144216260", "cl_state": 4014336, "cl_mobile": "6144216260", "cl_status": "A", "cl_street": "Colegio Cumbres", "cl_country": 3996063, "cl_zipcode": "31124", "cl_creditdays": "30", "cl_creditlimit": "100000.00", "cl_firstsurname": "ALANIS", "cl_neighborhood": "Paseo de las Misiones", "cl_streetnumber": "2628", "cl_secondsurname": "BATISTA", "cl_receiptschedule": "10 a 12", "cl_addressreference": "local azul", "cl_customerdiscount": "0.10"}	2017-12-09 02:20:26.425564+00
+1	{"cl_rfc": "XEXX010101000", "cl_city": 4512214, "cl_name": "Javier", "cl_type": "legal", "cl_email": "Javier.Martinez@cardinalhealth.com", "cl_phone": "0019157759221", "cl_state": 5165418, "cl_county": 7316907, "cl_mobile": "0019159202521", "cl_ssntin": "31-0958666", "cl_status": "A", "cl_street": "Cardinal Place", "cl_country": 6252001, "cl_zipcode": "43017", "cl_firstsurname": "Martinez", "cl_streetnumber": "7000", "cl_corporatename": "CARDINAL HEALTH, INC."}	2017-12-20 19:50:24.048162+00
 \.
 
 
@@ -333,16 +350,27 @@ COPY client (cl_id, cl_jsonb, cl_date) FROM stdin;
 --
 
 COPY ink (in_id, in_jsonb, in_date) FROM stdin;
-1	{"su_id": 4, "in_code": "Negro", "in_type": "offset", "in_status": "A", "in_description": "Negro Concentrado"}	2017-12-09 00:01:37.36636+00
 2	{"su_id": 4, "in_code": "2995 Pantone", "in_type": "offset", "in_status": "A", "in_description": "Azul 2995 Pantone"}	2017-12-09 00:04:43.958354+00
 3	{"su_id": 4, "in_code": "Process Blue Pantone", "in_type": "offset", "in_status": "A", "in_description": "Azul ProcesoPantone"}	2017-12-09 00:06:33.556072+00
 4	{"su_id": 4, "in_code": "254 Pantone", "in_type": "offset", "in_status": "A", "in_description": "Purpura 254 Pantone"}	2017-12-09 00:07:17.902896+00
 5	{"su_id": 4, "in_code": "021 Pantone", "in_type": "offset", "in_status": "A", "in_description": "Naranja 021 Pantone"}	2017-12-09 00:10:23.641935+00
-6	{"su_id": 5, "in_code": "185 PANTONE", "in_type": "flexo", "in_status": "A", "in_description": "Rojo 185 Pantone"}	2017-12-09 00:10:30.854878+00
 7	{"su_id": 5, "in_code": "286 Pantone", "in_type": "flexo", "in_status": "A", "in_description": "286 Azul Pantone"}	2017-12-09 00:11:02.251001+00
 8	{"su_id": 4, "in_code": "Reflex Blue Pantone", "in_type": "offset", "in_status": "A", "in_description": "Azul Reflejo Pantone"}	2017-12-09 00:11:04.942788+00
 9	{"su_id": 5, "in_code": "Negro", "in_type": "flexo", "in_status": "A", "in_description": "Negro denso"}	2017-12-09 00:12:03.277409+00
 10	{"su_id": 4, "in_code": "2925 Pantone", "in_type": "offset", "in_status": "A", "in_description": "Azul 2925 Pantone"}	2017-12-09 00:14:43.881895+00
+6	{"su_id": 5, "in_code": "185 PANTONE", "in_type": "flexo", "in_status": "A", "in_description": "Rojo 185 Pantone"}	2017-12-09 00:10:30.854878+00
+11	{"su_id": 5, "in_code": "Warm Red Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Rojo Warm Pantone"}	2017-12-19 21:44:53.712586+00
+12	{"su_id": 5, "in_code": "Magenta Process Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Magenta Proceso Pantone"}	2017-12-19 23:57:21.179868+00
+13	{"su_id": 5, "in_code": "Yellow Process Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Amarillo Proceso Pantone"}	2017-12-19 23:59:43.053263+00
+14	{"su_id": 5, "in_code": "Orange 021 Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Naranja 021 Pantone"}	2017-12-20 00:00:59.180856+00
+15	{"su_id": 5, "in_code": "306 Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Azul 306 Pantone"}	2017-12-20 17:02:03.539157+00
+16	{"su_id": 5, "in_code": "2925 Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Azul 2925 Pantone"}	2017-12-20 17:02:31.56939+00
+17	{"su_id": 5, "in_code": "2995 Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Azul 2995 Pantone"}	2017-12-20 17:03:27.282312+00
+18	{"su_id": 5, "in_code": "2592 Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Purpura 2592 Pantone"}	2017-12-20 17:05:52.336784+00
+19	{"su_id": 5, "in_code": "254 Pantone", "in_type": "flexo", "in_status": "A", "in_description": "Purpura 254 Pantone"}	2017-12-20 17:06:24.908667+00
+20	{"su_id": 5, "in_code": "Cool Gray 4", "in_type": "flexo", "in_status": "A", "in_description": "Cool Gray 4C"}	2017-12-20 17:13:28.715487+00
+21	{"su_id": 5, "in_code": "Opaque White", "in_type": "flexo", "in_status": "A", "in_description": "Blanco Opaco"}	2017-12-20 17:15:51.60165+00
+1	{"su_id": 4, "in_code": "Negro", "in_type": "offset", "in_status": "A", "in_description": "Negro Concentrado"}	2017-12-09 00:01:37.36636+00
 \.
 
 
@@ -436,12 +464,8 @@ COPY materialtype (maty_id, maty_jsonb, maty_date) FROM stdin;
 --
 
 COPY product (pr_id, pr_jsonb, pr_date) FROM stdin;
-2	{"cl_id": 2, "mt_id": {"0": 3, "1": 1, "2": 3}, "pr_code": "P-0002-0000002-offset-paginated", "pr_name": "Manual de Operación", "pr_type": "paginated", "pr_bound": "no", "pr_drill": {"0": 0, "1": 0, "2": 0}, "pr_folio": "no", "pr_pages": {"0": "2", "1": "12", "2": "2"}, "pr_partno": "j2345", "pr_precut": {"0": "no", "1": "no", "2": "horizontal"}, "pr_status": "A", "pr_weight": 10.50, "pr_concept": {"0": "portada", "1": "interior", "2": "incerto"}, "pr_inkback": {"0": 0, "1": 1, "2": 3}, "pr_process": "offset", "pr_varnish": {"0": "oneside", "1": "no", "2": "no"}, "pr_inkfront": {"0": 2, "1": 1, "2": 2}, "pr_inksback": {"1": {"0": 1}, "2": {"0": 2, "1": 4, "2": 4}}, "pr_laminate": {"0": "no", "1": "no", "2": "oneside"}, "pr_language": "español", "pr_stapling": "2", "pr_foldunit1": {"0": 0, "1": 0, "2": 0}, "pr_foldunit2": {"0": 0, "1": 0, "2": 0}, "pr_foldunit3": {"0": 0, "1": 0, "2": 0}, "pr_inksfront": {"0": {"0": 3, "1": 1}, "1": {"0": 1}, "2": {"0": 3, "1": 5}}, "pr_components": 3, "pr_spiralbind": "no", "pr_description": "Manual para Induccion", "pr_finalsizewidth": "21.50", "pr_finalsizeheight": "28.00", "pr_laminatecaliber": {"2": "2mm"}, "pr_varnishfinished": {"0": "bright"}, "pr_finalsizemeasure": "cm", "pr_laminatefinished": {"2": "bright"}, "pr_materialsizewidth": {"0": "30.50", "1": "43.00", "2": "30.50"}, "pr_materialformatsqty": {"0": "1", "1": "1", "2": "2"}, "pr_materialsizeheight": {"0": "45.00", "1": "28.00", "2": "45.00"}, "pr_materialsizemeasure": {"0": "cm", "1": "cm", "2": "cm"}}	2017-12-09 02:34:41.219314+00
-1	{"cl_id": 1, "mt_id": 3, "pr_code": "P-0001-0000001-offset-general", "pr_cord": "no", "pr_name": "Volantes El buen Fin", "pr_type": "general", "pr_wire": "no", "pr_drill": 0, "pr_folio": "no", "pr_blocks": "no", "pr_partno": "mm2123", "pr_precut": "no", "pr_status": "A", "pr_weight": 10.50, "pr_inkback": 1, "pr_process": "offset", "pr_varnish": "oneside", "pr_inkfront": 2, "pr_inksback": {"0": 1}, "pr_laminate": "no", "pr_language": "español", "pr_foldunit1": 0, "pr_foldunit2": 0, "pr_foldunit3": 0, "pr_inksfront": {"0": 2, "1": 4}, "pr_description": "Volantes Media carta Papel Bond", "pr_diecuttingqty": "0", "pr_reinforcement": "no", "pr_finalsizewidth": "21.50", "pr_finalsizeheight": "14.00", "pr_varnishfinished": "bright", "pr_finalsizemeasure": "cm", "pr_materialsizewidth": "30.50", "pr_materialformatsqty": "4", "pr_materialsizeheight": "45.00", "pr_materialsizemeasure": "cm"}	2017-12-09 02:27:34.223059+00
-3	{"cl_id": 2, "mt_id": {"0": 4, "1": 6, "2": 13}, "pr_code": "P-0002-0000003-offset-counterfoil", "pr_cord": "no", "pr_name": "Requisicion de compra", "pr_type": "counterfoil", "pr_wire": "no", "pr_drill": 0, "pr_folio": "yes", "pr_blocks": 25, "pr_partno": "m23612", "pr_precut": "no", "pr_status": "A", "pr_weight": 10.50, "pr_concept": {"0": "original", "1": "copia 1", "2": "copia 2"}, "pr_inkback": {"0": 0, "1": 1, "2": 0}, "pr_process": "offset", "pr_inkfront": {"0": 1, "1": 1, "2": 1}, "pr_inksback": {"1": {"0": 2}}, "pr_language": "español", "pr_inksfront": {"0": {"0": 1}, "1": {"0": 1}, "2": {"0": 2}}, "pr_components": 3, "pr_description": "Formatos para Compra", "pr_reinforcement": "no", "pr_finalsizewidth": "21.50", "pr_finalsizeheight": "28.00", "pr_finalsizemeasure": "cm", "pr_materialsizewidth": {"0": "21.50", "1": "21.50", "2": "21.50"}, "pr_materialformatsqty": {"0": "1", "1": "1", "2": "1"}, "pr_materialsizeheight": {"0": "28.00", "1": "28.00", "2": "28.00"}, "pr_materialsizemeasure": {"0": "in", "1": "cm", "2": "cm"}}	2017-12-09 02:39:08.454292+00
-4	{"cl_id": 2, "mt_id": 1, "pr_code": "P-0002-0000004-offset-general", "pr_cord": "no", "pr_name": "Flyer todos a las fiesta", "pr_type": "general", "pr_wire": "no", "pr_drill": 0, "pr_folio": "no", "pr_blocks": "no", "pr_partno": "m376", "pr_precut": "no", "pr_status": "A", "pr_weight": 10.50, "pr_inkback": 2, "pr_process": "offset", "pr_varnish": "twosides", "pr_inkfront": 2, "pr_inksback": {"0": 2, "1": 2}, "pr_laminate": "no", "pr_language": "español", "pr_foldunit1": 2, "pr_foldunit2": 0, "pr_foldunit3": 0, "pr_inksfront": {"0": 2, "1": 3}, "pr_description": "volante para promocionar fiestas", "pr_diecuttingqty": "0", "pr_reinforcement": "no", "pr_finalsizewidth": "21.50", "pr_finalsizeheight": "14.00", "pr_varnishfinished": "bright", "pr_finalsizemeasure": "cm", "pr_materialsizewidth": "43.00", "pr_materialformatsqty": "4", "pr_materialsizeheight": "28.00", "pr_materialsizemeasure": "cm"}	2017-12-09 02:41:09.289092+00
-5	{"cl_id": 2, "mt_id": 20, "pr_code": "P-0002-0000005-flexo-labels", "pr_core": 2, "pr_name": "Etiqueta Directa 4x6 pulgadas", "pr_type": "labels", "pr_folio": "no", "pr_partno": "m534", "pr_precut": "vertical", "pr_status": "A", "pr_weight": 10.50, "pr_inkback": 0, "pr_process": "flexo", "pr_varnish": "no", "pr_inkfront": 0, "pr_laminate": "no", "pr_language": "español", "pr_description": "etiqueta Trasferencia Directa Bca", "pr_finalsizewidth": "4.00", "pr_finalsizeheight": "6.00", "pr_finalsizemeasure": "in", "pr_materialformatsqty": "1"}	2017-12-09 02:42:58.008584+00
-6	{"cl_id": 2, "mt_id": 15, "pr_code": "P-0002-0000006-flexo-labels", "pr_core": 2, "pr_name": "Etiqueta de Producto Amarillo", "pr_type": "labels", "pr_folio": "no", "pr_partno": "m5445", "pr_precut": "horizontal", "pr_status": "A", "pr_weight": 10.50, "pr_inkback": 0, "pr_process": "flexo", "pr_varnish": "no", "pr_inkfront": 3, "pr_laminate": "oneside", "pr_language": "español", "pr_inksfront": {"0": 7, "1": 6, "2": 9}, "pr_description": "Etiqueta de Producto", "pr_finalsizewidth": "10.00", "pr_finalsizeheight": "20.00", "pr_laminatecaliber": "2mm", "pr_finalsizemeasure": "cm", "pr_laminatefinished": "matte", "pr_materialformatsqty": "2"}	2017-12-09 02:46:10.697715+00
+1	{"cl_id": 1, "mt_id": 19, "tc_id": 4, "pr_code": "P-0001-0000001-flexo-labels", "pr_core": 3, "pr_name": "14594", "pr_type": "labels", "pr_folio": "no", "pr_partno": "14594", "pr_precut": "horizontal", "pr_status": "A", "pr_inkback": 0, "pr_process": "flexo", "pr_varnish": "no", "pr_inkfront": 1, "pr_laminate": "no", "pr_language": "distintos al español", "pr_inksfront": {"0": 16}, "pr_description": "ETIQUETA ADHESIVA IMPRESA 3 X 2 PULGADAS", "pr_finalsizewidth": "3.00", "pr_finalsizeheight": "2.00", "pr_finalsizemeasure": "in", "pr_materialformatsqty": "1"}	2017-12-20 22:58:43.508128+00
+2	{"cl_id": 1, "mt_id": 1, "tc_id": 4, "pr_code": "P-0001-0000002-offset-general", "pr_cord": "no", "pr_name": "R29013-62", "pr_type": "general", "pr_wire": "no", "pr_drill": 0, "pr_folio": "no", "pr_blocks": "no", "pr_partno": "R29013-62", "pr_precut": "no", "pr_status": "A", "pr_inkback": 0, "pr_process": "offset", "pr_varnish": "no", "pr_inkfront": 1, "pr_laminate": "no", "pr_language": "distintos al español", "pr_foldunit1": 0, "pr_foldunit2": 0, "pr_foldunit3": 0, "pr_inksfront": {"0": 4}, "pr_description": "ETIQUETA IMPRESA 21.50 X 28.00 CM", "pr_diecuttingqty": "0", "pr_reinforcement": "no", "pr_finalsizewidth": "21.50", "pr_finalsizeheight": "28.00", "pr_finalsizemeasure": "cm", "pr_materialsizewidth": "43.00", "pr_materialformatsqty": "2", "pr_materialsizeheight": "28.00", "pr_materialsizemeasure": "cm"}	2017-12-20 23:20:17.952142+00
 \.
 
 
@@ -479,9 +503,6 @@ COPY tariffcode (tc_id, tc_jsonb, tc_date) FROM stdin;
 --
 
 COPY wo (wo_id, wo_jsonb, wo_date) FROM stdin;
-1	{"cl_id": 2, "ma_id": 1, "pr_id": 2, "wo_po": "GG001", "zo_id": 1, "wo_qty": "100", "wo_line": "1", "wo_type": "N", "wo_email": "no", "wo_notes": "los manuales deben. de quedar perfectamente cortados", "wo_price": "35.00", "wo_boxqty": "1", "wo_status": 0, "wo_release": "123", "wo_currency": "MXN", "wo_attention": "Maria Borunda", "wo_linetotal": "5", "wo_orderedby": "Maria Borunda", "wo_packageqty": "1", "wo_commitmentdate": "2017-12-30", "wo_componentmaterialqty": {"0": "30.00", "1": "320.00", "2": "70.00"}}	2017-12-09 05:50:48.970179+00
-2	{"cl_id": 2, "ma_id": 1, "pr_id": 3, "wo_po": "345", "zo_id": 1, "wo_qty": "1000", "wo_line": "1", "wo_type": "N", "wo_email": "no", "wo_notes": "Folios en tinta morada12", "wo_price": "1.00", "wo_boxqty": "1000", "wo_status": 0, "wo_release": "123", "wo_currency": "MXN", "wo_foliosto": "1000", "wo_attention": "Enrique", "wo_linetotal": "1", "wo_orderedby": "Enrique Lopez", "wo_foliosfrom": "0001", "wo_packageqty": "500", "wo_foliosseries": "J", "wo_commitmentdate": "2017-12-29", "wo_foliosperformat": 2, "wo_componentmaterialqty": {"0": "1020.00", "1": "1020.00", "2": "1020.00"}}	2017-12-09 05:57:49.727712+00
-4	{"cl_id": 2, "ma_id": 1, "pr_id": 2, "wo_po": "GG002", "zo_id": 1, "wo_qty": "200", "wo_line": "1", "wo_type": "R", "wo_email": "no", "wo_notes": "los manuales deben. de quedar perfectamente cortados", "wo_price": "35.00", "wo_boxqty": "1", "wo_status": 17, "wo_release": "123", "wo_currency": "MXN", "wo_attention": "Maria Borunda", "wo_linetotal": "5", "wo_orderedby": "Maria Borunda", "wo_packageqty": "1", "wo_previousid": 1, "wo_deliverydate": "2017-12-11T05:04:02.422806+00:00", "wo_previousdate": "2017-12-08", "wo_commitmentdate": "2017-12-31", "wo_componentmaterialqty": {"0": "60.00", "1": "640.00", "2": "140.00"}}	2017-12-09 06:08:29.427931+00
 \.
 
 
@@ -490,8 +511,9 @@ COPY wo (wo_id, wo_jsonb, wo_date) FROM stdin;
 --
 
 COPY zone (zo_id, zo_jsonb, zo_date) FROM stdin;
-1	{"cl_id": 2, "zo_rfc": "GGM020610Q54", "zo_city": 8581816, "zo_name": "Marco", "zo_type": "legal", "zo_zone": "Acacias", "zo_email": "info@grupografico.com.mx", "zo_phone": "6144216262", "zo_state": 4014336, "zo_mobile": "6144216565", "zo_status": "A", "zo_street": "Acacias", "zo_country": 3996063, "zo_zipcode": "31160", "zo_firstsurname": "Alanis", "zo_neighborhood": "Granjas", "zo_streetnumber": "410", "zo_corporatename": "GRUPO GRAFICO DE MEXICO SA DE CV", "zo_receiptschedule": "10-12", "zo_addressreference": "Bodega"}	2017-12-09 05:22:44.174035+00
-2	{"cl_id": 1, "zo_rfc": "AABM7206302F2", "zo_city": 8581816, "zo_name": "RICARDO", "zo_type": "natural", "zo_zone": "CENTRO", "zo_email": "ricardo@ggg.com.mx", "zo_phone": "6154342424", "zo_state": 4014336, "zo_mobile": "6363626236", "zo_status": "A", "zo_street": "2 da.", "zo_country": 3996063, "zo_zipcode": "31111", "zo_firstsurname": "ALANIS", "zo_neighborhood": "Centro", "zo_streetnumber": "1020", "zo_receiptschedule": "10-12", "zo_addressreference": "casa verde"}	2017-12-09 05:25:09.155615+00
+3	{"cl_id": 1, "zo_rfc": "CDE890310KA0", "zo_city": 8581818, "zo_name": "Ramon", "zo_type": "legal", "zo_zone": "Delicias", "zo_email": "Ramon.Villa@cardinalhealth.com", "zo_immex": "2647-2006", "zo_phone": "016390000000", "zo_state": 4014336, "zo_mobile": "016390000000", "zo_status": "A", "zo_street": "Libramiento Carr. Panamericana", "zo_country": 3996063, "zo_zipcode": "33018", "zo_firstsurname": "Villa", "zo_neighborhood": "Parque Industrial Las Virgenes", "zo_streetnumber": "SN", "zo_corporatename": "Cirpro de Delicias, S. A. de C. V.", "zo_addressreference": "NA"}	2017-12-20 22:20:13.75527+00
+1	{"cl_id": 1, "zo_rfc": "QCU9002028A5", "zo_city": 8581829, "zo_name": "Raul", "zo_type": "legal", "zo_zone": "Cuauhtemoc Planta 1", "zo_email": "Raul.Villanueva@cardinalhealth.com", "zo_immex": "3301-2006", "zo_phone": "016560000000", "zo_state": 4014336, "zo_mobile": "016560000000", "zo_status": "A", "zo_street": "Av. Rio Santa Clara", "zo_country": 3996063, "zo_zipcode": "31543", "zo_firstsurname": "Villanueva", "zo_neighborhood": "Parque Industrial Cuauhtemoc", "zo_streetnumber": "Lotes 12 y 13", "zo_corporatename": "Quiroproductos de Cuauhtemoc, S. de R. L. de C. V", "zo_addressreference": "NA"}	2017-12-20 21:22:16.385854+00
+2	{"cl_id": 1, "zo_rfc": "QCU9002028A5", "zo_city": 8581829, "zo_name": "Raul", "zo_type": "legal", "zo_zone": "Cuauhtemoc Planta 2", "zo_email": "Raul.Villanueva@cardinalhealth.com", "zo_immex": "3301-2006", "zo_phone": "016560000000", "zo_state": 4014336, "zo_mobile": "016560000000", "zo_status": "A", "zo_street": "Av. Rio Chuviscar", "zo_country": 3996063, "zo_zipcode": "31543", "zo_firstsurname": "Villanueva", "zo_neighborhood": "Parque Industrial Cuauhtemoc", "zo_streetnumber": "8950", "zo_corporatename": "Quiroproductos de Cuauhtemoc, S. de R. L. de C. V.", "zo_addressreference": "NA"}	2017-12-20 21:28:59.287441+00
 \.
 
 
@@ -499,14 +521,14 @@ COPY zone (zo_id, zo_jsonb, zo_date) FROM stdin;
 -- Name: seq_client_cl_id; Type: SEQUENCE SET; Schema: public; Owner: Alejandro
 --
 
-SELECT pg_catalog.setval('seq_client_cl_id', 2, true);
+SELECT pg_catalog.setval('seq_client_cl_id', 1, true);
 
 
 --
 -- Name: seq_ink_in_id; Type: SEQUENCE SET; Schema: public; Owner: Alejandro
 --
 
-SELECT pg_catalog.setval('seq_ink_in_id', 10, true);
+SELECT pg_catalog.setval('seq_ink_in_id', 21, true);
 
 
 --
@@ -534,7 +556,7 @@ SELECT pg_catalog.setval('seq_materialtype_maty_id', 30, true);
 -- Name: seq_product_pr_id; Type: SEQUENCE SET; Schema: public; Owner: Alejandro
 --
 
-SELECT pg_catalog.setval('seq_product_pr_id', 6, true);
+SELECT pg_catalog.setval('seq_product_pr_id', 2, true);
 
 
 --
@@ -555,14 +577,14 @@ SELECT pg_catalog.setval('seq_tariffcode_tc_id', 7, true);
 -- Name: seq_wo_wo_id; Type: SEQUENCE SET; Schema: public; Owner: Alejandro
 --
 
-SELECT pg_catalog.setval('seq_wo_wo_id', 4, true);
+SELECT pg_catalog.setval('seq_wo_wo_id', 1, false);
 
 
 --
 -- Name: seq_zone_zo_id; Type: SEQUENCE SET; Schema: public; Owner: Alejandro
 --
 
-SELECT pg_catalog.setval('seq_zone_zo_id', 2, true);
+SELECT pg_catalog.setval('seq_zone_zo_id', 3, true);
 
 
 --
@@ -657,6 +679,13 @@ CREATE UNIQUE INDEX client_cl_type_cl_tin_unique ON client USING btree (((cl_jso
 --
 
 CREATE UNIQUE INDEX wo_po_line_linetotal_unique ON wo USING btree (((wo_jsonb ->> 'wo_po'::text)), ((wo_jsonb ->> 'wo_line'::text)), ((wo_jsonb ->> 'wo_linetotal'::text)));
+
+
+--
+-- Name: wo wo_after_update; Type: TRIGGER; Schema: public; Owner: Alejandro
+--
+
+CREATE TRIGGER wo_after_update AFTER UPDATE ON wo FOR EACH ROW WHEN ((pg_trigger_depth() = 0)) EXECUTE PROCEDURE wo_after_update();
 
 
 --

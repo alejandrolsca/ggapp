@@ -1,0 +1,6 @@
+assets
+db_backups
+node_modules
+dist
+node_modules
+npm-debug.log

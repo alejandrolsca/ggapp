@@ -2,7 +2,7 @@
   "name": "ggapp",
   "version": "1.0.0",
   "description": "Grupo Grafico APP",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "api:dev": "NODE_ENV=development nodemon -V server.js",

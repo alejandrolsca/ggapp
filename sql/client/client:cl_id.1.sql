@@ -16,7 +16,7 @@ select
     x.cl_suitenumber,
     x.cl_neighborhood,
     x.cl_addressreference,
-    (select name from countryinfo where geonameid = x.cl_country::int limit 1) as cl_country,
+    (select name from countryinfo where geonameid = x.cl_country::int) as cl_country,
     (
 		select
 			gn.name
@@ -25,7 +25,6 @@ select
 		join geoname gn 
 		on gn.geonameid = hi.childid
 		where hi.parentid = x.cl_country::int and hi.childid = x.cl_state::int
-        limit 1
     ) as cl_state,
     (
 		select
@@ -35,7 +34,6 @@ select
 		join geoname gn 
 		on gn.geonameid = hi.childid
 		where hi.parentid = x.cl_state::int and hi.childid = x.cl_city::int
-        limit 1
     ) as cl_city,
     (
 		select
@@ -45,7 +43,6 @@ select
 		join geoname gn 
 		on gn.geonameid = hi.childid
 		where hi.parentid = x.cl_city::int and hi.childid = x.cl_county::int
-        limit 1
     ) as cl_county,
     x.cl_zipcode,
     x.cl_email,
@@ -89,4 +86,5 @@ jsonb_to_record(cl_jsonb) as x (
     cl_receiptschedule text,
     cl_status text
 )
-where cl.cl_jsonb->>'cl_status' = any(string_to_array($1,',')::text[])
+where cl.cl_id = $1
+and cl.cl_jsonb->>'cl_status' = any(string_to_array($2,',')::text[])
