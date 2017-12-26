@@ -15,19 +15,28 @@
            is-required="true">
   </gg-select>
    <gg-input err-class="error"
-            lbl="{{'client.labels.cl-tin' | i18n}}" 
+            lbl="{{'client.labels.cl-rfc' | i18n}}" 
             form-group-class="col-sm-3" 
-            ng-model="fmData.cl_tin"
+            ng-model="fmData.cl_rfc"
             regexp="rfc"
             regexp-msg="{{'general.regexp.rfc' | i18n}}"
             req-msg="Required"
             is-disabled="true"
             is-required="true">
   </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-ssntin' | i18n}}" 
+            form-group-class="col-sm-3" 
+            ng-model="fmData.cl_ssntin"
+            regexp="ssntin"
+            regexp-msg="{{'general.regexp.ssntin' | i18n}}"
+            req-msg="Required"
+            is-required="false">
+  </gg-input>
   <span ng-if="(fmData.cl_type=='legal')">
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-corporatename' | i18n}}" 
-            form-group-class="col-sm-6"
+            form-group-class="col-sm-3"
             ng-model="fmData.cl_corporatename"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
@@ -49,22 +58,22 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'client.labels.cl-fatherslastname' | i18n}}"
+            lbl="{{'client.labels.cl-firstsurname' | i18n}}"
             form-group-class="col-sm-4"
-            ng-model="fmData.cl_fatherslastname"
+            ng-model="fmData.cl_firstsurname"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'client.labels.cl-motherslastname' | i18n}}"
+            lbl="{{'client.labels.cl-secondsurname' | i18n}}"
             form-group-class="col-sm-4"
-            ng-model="fmData.cl_motherslastname"
+            ng-model="fmData.cl_secondsurname"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            ng-required="false">
+            is-required="false">
   </gg-input>
   <gg-countries err-class="error"
            lbl="{{'client.labels.cl-country' | i18n}}" 
@@ -82,7 +91,7 @@
            form-group-class="col-sm-3" 
            options="cl_stateoptions" 
            ng-model="fmData.cl_state"
-           ng-change="getCityCounty()"
+           ng-change="getCity()"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
@@ -93,6 +102,7 @@
             form-group-class="col-sm-3"
             options="cl_cityoptions"
             ng-model="fmData.cl_city"
+            ng-change="getCounty()"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
@@ -119,7 +129,7 @@
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-streetnumber' | i18n}}"
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-2"
             ng-model="fmData.cl_streetnumber"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
@@ -128,13 +138,12 @@
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-suitenumber' | i18n}}"
-            form-group-class="col-sm-4"
-
+            form-group-class="col-sm-2"
             ng-model="fmData.cl_suitenumber"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-neighborhood' | i18n}}"
@@ -144,7 +153,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
           <gg-input err-class="error"
             lbl="{{'client.labels.cl-zipcode' | i18n}}"
@@ -162,8 +171,17 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-receiptschedule' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_receiptschedule"
+            regexp="receiptschedule"
+            regexp-msg="{{'general.regexp.receiptschedule' | i18n}}"
+            req-msg="Required"
+            is-required="false">
+</gg-input>
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-email' | i18n}}"
             form-group-class="col-sm-4"
@@ -175,13 +193,22 @@
   </gg-input>
   <gg-phone err-class="error"
             lbl="{{'client.labels.cl-phone' | i18n}}"
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-3"
             ng-model="fmData.cl_phone"
             regexp="phone"
             regexp-msg="{{'general.regexp.phone' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-phone>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-phoneextension' | i18n}}"
+            form-group-class="col-sm-1"
+            ng-model="fmData.cl_phoneextension"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="false">
+  </gg-input>
   <gg-phone err-class="error"
             lbl="{{'client.labels.cl-mobile' | i18n}}"
             form-group-class="col-sm-4"
@@ -198,7 +225,16 @@
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'client.labels.cl-creditdays' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.cl_creditdays"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'client.labels.cl-customerdiscount' | i18n}}"
@@ -207,8 +243,9 @@
             regexp="discount"
             regexp-msg="{{'general.regexp.discount' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'client.labels.cl-status' | i18n}}" 
            form-group-class="col-sm-4" 
@@ -219,6 +256,7 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset"></label>
   <gg-submit lbl="Submit"
             form-group-class="col-sm-6" 
             ng-disabled="ggform.$invalid"

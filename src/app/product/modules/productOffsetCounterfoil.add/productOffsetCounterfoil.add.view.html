@@ -4,7 +4,7 @@
     <h4>Tipo: {{fmData.pr_type}}</h4>
     
     <h4>Cliente: {{ client }}</h4>
-    
+
 </div>
 <form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
     
@@ -15,7 +15,7 @@
             regexp="partno"
             regexp-msg="{{'general.regexp.partno' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'productOffsetCounterfoil-add.labels.pr-code' | i18n}}" 
@@ -42,7 +42,7 @@
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
     <gg-input err-class="error"
             lbl="{{'productOffsetCounterfoil-add.labels.pr-name' | i18n}}" 
@@ -93,124 +93,143 @@
            is-required="true">
   </gg-select>
   <gg-select err-class="error"
-           lbl="{{'productOffsetCounterfoil-add.labels.pr-sheetsperset' | i18n}}" 
+           lbl="{{'productOffsetCounterfoil-add.labels.pr-components' | i18n}}" 
            form-group-class="col-sm-4" 
-           options="pr_sheetspersetoptions" 
-           ng-model="fmData.pr_sheetsperset"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-<span ng-repeat="t in sheetsperset track by $index" ng-init="sheetIndex = $index">
-  <label class="col-sm-12 fieldset">TINTAS {{sheetIndex + 1}}</label>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetCounterfoil-add.labels.pr-inkfront' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="pr_inkfrontoptions" 
-           ng-model="fmData.pr_inkfront[sheetIndex]"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  
-  <div class="col-sm-12">
-      <span ng-repeat="t in frontInks[sheetIndex] track by $index">
-          <gg-select err-class="error"
-                   lbl="Tinta {{$index+1}}" 
-                   form-group-class="col-sm-3" 
-                   options="pr_inkoptions" 
-                   ng-model="fmData['pr_inksfront'][sheetIndex][$index]"
-                   regexp="singlespaces"
-                   regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-                   req-msg="Required"
-                   is-required="true">
-          </gg-select>
-      </span>
-  </div>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetCounterfoil-add.labels.pr-inkback' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="pr_inkbackoptions" 
-           ng-model="fmData.pr_inkback[sheetIndex]"
+           options="pr_componentsoptions" 
+           ng-model="fmData.pr_components"
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
            is-required="true">
   </gg-select>
   <div class="col-sm-12">
-      <span ng-repeat="t in backInks[sheetIndex] track by $index">
-          <gg-select err-class="error"
-                   lbl="Tinta {{$index+1}}" 
-                   form-group-class="col-sm-3" 
-                   options="pr_inkoptions" 
-                   ng-model="fmData['pr_inksback'][sheetIndex][$index]"
-                   regexp="singlespaces"
-                   regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-                   req-msg="Required"
-                   is-required="true">
-          </gg-select>
-      </span>
-  </div>
-  <label class="col-sm-12 fieldset">MATERIAL {{sheetIndex + 1}}</label>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetCounterfoil-add.labels.pa-id' | i18n}}" 
-           form-group-class="col-sm-6" 
-           options="mt_idoptions" 
-           ng-model="fmData.mt_id[sheetIndex]"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <span ng-if="fmData.mt_id[sheetIndex]">
-  <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id[sheetIndex]}">
-    <p class="field-info bg-success">
-        {{material.width}} x {{material.height}} {{material.measure}}
-    </p>
-  </div>
-  </span>
-</span>
-  <label class="col-sm-12 fieldset">MEDIDA DEL PLIEGO</label>
-  <gg-input err-class="error"
-            lbl="{{'productOffsetCounterfoil-add.labels.pr-materialsizewidth' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_materialsizewidth"
-            regexp="decimal"
-            regexp-msg="{{'general.regexp.decimal' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-    <gg-input err-class="error"
-            lbl="{{'productOffsetCounterfoil-add.labels.pr-materialsizeheight' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_materialsizeheight"
-            regexp="decimal"
-            regexp-msg="{{'general.regexp.decimal' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-  <gg-select err-class="error"
-           lbl="{{'productOffsetCounterfoil-add.labels.pr-materialsizemeasure' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="pr_materialsizemeasureoptions" 
-           ng-model="fmData.pr_materialsizemeasure"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-input err-class="error"
-            lbl="{{'productOffsetCounterfoil-add.labels.pr-materialformatsqty' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.pr_materialformatsqty"
-            regexp="integer"
-            regexp-msg="{{'general.regexp.integer' | i18n}}"
-            req-msg="Required"
-            is-required="true">
-  </gg-input>
-  <label class="col-sm-12 fieldset">OTROS ACABADOS</label>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs row" role="tablist">
+            <li ng-repeat="c in components track by $index" role="presentation" ng-class="{'active': $index===0}"><a href="#component{{$index}}" target="_self" aria-controls="component{{$index}}" role="tab" data-toggle="tab">Comp. {{$index+1}}</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content row">
+            <div ng-repeat="c in components track by $index" ng-init="componentIndex = $index" role="tabpanel" class="tab-pane" ng-class="{'active': $index===0}" id="component{{$index}}">
+            <gg-input err-class="error"
+                    lbl="{{'productOffsetCounterfoil-add.labels.pr-concept' | i18n}}" 
+                    form-group-class="col-sm-6"
+                    ng-model="fmData.pr_concept[componentIndex]"
+                    regexp="concept"
+                    regexp-msg="{{'general.regexp.concept' | i18n}}"
+                    max-length="17"
+                    req-msg="Required"
+                    is-required="true">
+            </gg-input>
+            <label class="col-sm-12 fieldset">TINTAS {{componentIndex + 1}}</label>
+            <gg-select err-class="error"
+                    lbl="{{'productOffsetCounterfoil-add.labels.pr-inkfront' | i18n}}" 
+                    form-group-class="col-sm-3" 
+                    options="pr_inkfrontoptions" 
+                    ng-model="fmData.pr_inkfront[componentIndex]"
+                    regexp="singlespaces"
+                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                    req-msg="Required"
+                    is-required="true">
+            </gg-select>
+            
+            <div class="col-sm-12">
+                <span ng-repeat="t in frontInks[componentIndex] track by $index">
+                    <gg-select err-class="error"
+                            lbl="Tinta {{$index+1}}" 
+                            form-group-class="col-sm-3" 
+                            options="pr_inkoptions" 
+                            ng-model="fmData['pr_inksfront'][componentIndex][$index]"
+                            regexp="singlespaces"
+                            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                            req-msg="Required"
+                            is-required="true">
+                    </gg-select>
+                </span>
+            </div>
+            <gg-select err-class="error"
+                    lbl="{{'productOffsetCounterfoil-add.labels.pr-inkback' | i18n}}" 
+                    form-group-class="col-sm-3" 
+                    options="pr_inkbackoptions" 
+                    ng-model="fmData.pr_inkback[componentIndex]"
+                    regexp="singlespaces"
+                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                    req-msg="Required"
+                    is-required="true">
+            </gg-select>
+            <div class="col-sm-12">
+                <span ng-repeat="t in backInks[componentIndex] track by $index">
+                    <gg-select err-class="error"
+                            lbl="Tinta {{$index+1}}" 
+                            form-group-class="col-sm-3" 
+                            options="pr_inkoptions" 
+                            ng-model="fmData['pr_inksback'][componentIndex][$index]"
+                            regexp="singlespaces"
+                            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                            req-msg="Required"
+                            is-required="true">
+                    </gg-select>
+                </span>
+            </div>
+            <label class="col-sm-12 fieldset">MATERIAL {{componentIndex + 1}}</label>
+            <gg-select err-class="error"
+                    lbl="{{'productOffsetCounterfoil-add.labels.mt-id' | i18n}}" 
+                    form-group-class="col-sm-6" 
+                    options="mt_idoptions" 
+                    ng-model="fmData.mt_id[componentIndex]"
+                    regexp="singlespaces"
+                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                    req-msg="Required"
+                    is-required="true">
+            </gg-select>
+            <span ng-if="fmData.mt_id[componentIndex]">
+            <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id[componentIndex]}:true">
+                <p class="field-info bg-warning">
+                    {{material.width}} x {{material.height}} {{material.measure}}
+                </p>
+            </div>
+            </span>
+            <label class="col-sm-12 fieldset">MEDIDA DEL PLIEGO</label>
+            <gg-input err-class="error"
+                        lbl="{{'productOffsetCounterfoil-add.labels.pr-materialsizewidth' | i18n}}" 
+                        form-group-class="col-sm-3"
+                        ng-model="fmData.pr_materialsizewidth[componentIndex]"
+                        regexp="decimal"
+                        regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                        req-msg="Required"
+                        is-required="true">
+            </gg-input>
+                <gg-input err-class="error"
+                        lbl="{{'productOffsetCounterfoil-add.labels.pr-materialsizeheight' | i18n}}" 
+                        form-group-class="col-sm-3"
+                        ng-model="fmData.pr_materialsizeheight[componentIndex]"
+                        regexp="decimal"
+                        regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                        req-msg="Required"
+                        is-required="true">
+            </gg-input>
+            <gg-select err-class="error"
+                    lbl="{{'productOffsetCounterfoil-add.labels.pr-materialsizemeasure' | i18n}}" 
+                    form-group-class="col-sm-3" 
+                    options="pr_materialsizemeasureoptions" 
+                    ng-model="fmData.pr_materialsizemeasure[componentIndex]"
+                    regexp="singlespaces"
+                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                    req-msg="Required"
+                    is-required="true">
+            </gg-select>
+            <gg-input err-class="error"
+                        lbl="{{'productOffsetCounterfoil-add.labels.pr-materialformatsqty' | i18n}}" 
+                        form-group-class="col-sm-3"
+                        ng-model="fmData.pr_materialformatsqty[componentIndex]"
+                        regexp="integer"
+                        regexp-msg="{{'general.regexp.integer' | i18n}}"
+                        req-msg="Required"
+                        is-required="true">
+            </gg-input>
+        </div>
+    </div>
+</div>
+  <label class="col-sm-12 fieldset">ACABADOS GENERALES</label>
    <gg-select err-class="error"
            lbl="{{'productOffsetCounterfoil-add.labels.pr-precut' | i18n}}" 
            form-group-class="col-sm-4" 
@@ -282,6 +301,18 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset">FRACCION ARANCELARIA</label>
+  <gg-select err-class="error"
+           lbl="{{'productOffsetCounterfoil-add.labels.tc-id' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="tc_idoptions" 
+           ng-model="fmData.tc_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="false">
+  </gg-select>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'productOffsetCounterfoil-add.labels.pr-status' | i18n}}" 
            form-group-class="col-sm-4" 

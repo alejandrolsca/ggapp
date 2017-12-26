@@ -48,10 +48,10 @@ module.exports = {
                     "FIELDS":{
                         "CL_ID":"Client ID",
                         "CL_CORPORATENAME":"Corporate Name",
-                        "CL_TIN":"TIN",
+                        "CL_rfc":"TIN",
                         "CL_NAME":"Name",
-                        "CL_FATHERSLASTNAME":"Fathers Lastname",
-                        "CL_MOTHERSLASTNAME":"Mothers Lastname",
+                        "cl_firstsurname":"Fathers Lastname",
+                        "cl_secondsurname":"Mothers Lastname",
                         "CL_STREET":"Street",
                         "CL_STREETNUMBER":"Street Number",
                         "CL_SUITENUMBER":"Suite Number",

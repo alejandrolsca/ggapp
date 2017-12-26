@@ -6,89 +6,138 @@ module.exports = (function (angular) {
     return ['$scope', 'shippingListFac', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
         function ($scope, shippingListFac, $location, i18nFilter, $stateParams, $filter, authService) {
 
-            $scope.export = function () {
+            $scope.exportPDF = async () => {
                 console.log('entro')
+                const margin = 36
                 var doc = new wijmo.pdf.PdfDocument({
                     pageSettings: {
                         layout: wijmo.pdf.PdfPageOrientation.Portrait,
                         size: wijmo.pdf.PdfPageSize.Letter,
-                        margins: {
-                            left: 36,
-                            top: 36,
-                            right: 36,
-                            bottom: 36
-                        }
+                        margins: { // margins are given in points
+                            left: margin,
+                            top: margin,
+                            right: margin,
+                            bottom: margin
+                        },
                     },
                     ended: function (sender, args) {
                         wijmo.pdf.saveBlob(args.blob, 'FlexGrid.pdf');
                     }
                 });
-                console.log('width',wijmo.pdf.pxToPt(150),'height',wijmo.pdf.pxToPt(79))
-                console.log('width',doc.width,'height',doc.height) // plus 72 points
-                doc.header.drawImage(img_gglogo,0,0,{
+                console.log('width', wijmo.pdf.pxToPt(150), 'height', wijmo.pdf.pxToPt(79))
+                console.log('width', doc.width, 'height', doc.height) // plus 72 points
+
+                doc.header.drawImage(img_gglogo, 0, 0, {
                     width: wijmo.pdf.pxToPt(150),
                     height: wijmo.pdf.pxToPt(79)
                 });
+                const exporter = dedent`Grupo Gráfico de México S.A. de C.V.
+                                    Calle Retorno El Saucito #1030, interior 10, Complejo Industrial El Saucito.
+                                    C.P. 31123 Chihuahua, Chih.
+                                    RFC:GGM020610Q54
+                                    Tel: (614) 4216260, 4216261
+                                    Fax: 4214353
+                                    Chihuahua, Chih.
+                                    info@grupografico.com.mx`
+                const { data: clientData } = await shippingListFac.getClient()
+                const [client] = clientData
+                const soldTo = dedent`SOLD TO / VENDIDO A:
+                                ${client.cl_corporatename}
+                                ${client.cl_street} ${client.cl_streetnumber} ${(client.cl_suitenumber || '')}
+                                ${(client.cl_neighborhood || '')}
+                                ${client.cl_city}, ${client.cl_state}. ${client.cl_country}
+                                ${client.cl_rfc}
+                                ${(client.cl_immex || '')}`
+
                 doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '500'));
-                doc.header.drawText("Grupo Gráfico de México S.A. de C.V.\n"+
-                    "Calle Retorno El Saucito #1030, interior 10, Complejo Industrial El Saucito.\n"+
-                    "C.P. 31123 Chihuahua, Chih.\n"+
-                    "RFC:GGM020610Q54\n" +
-                    "Tel: (614) 4216260, 4216261\n"+
-                    "Fax: 4214353\n" +
-                    "Chihuahua, Chih.\n"+
-                    "info@grupografico.com.mx"
-                ,36 + wijmo.pdf.pxToPt(150) + 5, 0, {
+                doc.header.drawText(exporter, margin + wijmo.pdf.pxToPt(150) + 5, 0, {
                     align: wijmo.pdf.PdfTextHorizontalAlign.Right,
-                    width: doc.width - wijmo.pdf.pxToPt(150) - 36
+                    width: doc.width - wijmo.pdf.pxToPt(150) - margin
                 });
-                
+
                 shippingListFac.getClient().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         var client = promise.data[0];
-                        doc.header.drawText(
-                                "SOLD TO / VENDIDO A:\n" +
-                                client.cl_jsonb.cl_corporatename + '\n' +
-                                client.cl_jsonb.cl_street + ' ' + client.cl_jsonb.cl_streetnumber + ' ' + client.cl_jsonb.cl_suitenumber + '\n' +
-                                client.cl_jsonb.cl_neighborhood + '\n' +
-                                client.cl_jsonb.cl_state + ' ' + client.cl_jsonb.cl_city + '\n' +
-                                client.cl_jsonb.cl_tin
-                            ,0, 100, {
+                        doc.header.drawText(soldTo, 0, 100, {
                             align: wijmo.pdf.PdfTextHorizontalAlign.Left,
                             width: 270
                         });
-                                        
+
                     }
-                }).then(function() {
-                    doc.footer.drawText("FIRMA Y SELLO DE RECIBIDO",null,null,{
+                }).then(function () {
+                    doc.footer.drawText("FIRMA Y SELLO DE RECIBIDO", null, null, {
                         align: wijmo.pdf.PdfTextHorizontalAlign.Center
                     });
-                    doc.addPage();
+                    //doc.addPage();
                     doc.end();
                 })
-                
-            }
+                const headers = ['ORDER NO', 'QUANTITY', 'DESCRIPTION', 'WEIGHT', 'P.O.', 'LINE', 'SHIPPED']
+                const headersSpanish = ['NO ORDEN', 'CANTIDAD', 'DESCRIPCION', 'PESO', 'O.C', 'RELEASE', 'ENVIADO']
+                const colWidth = 60
+                const rowHeight = doc.lineHeight() + 2
+                const widths = [colWidth, colWidth, colWidth * 3, colWidth, colWidth, colWidth, colWidth]
+                let x = 0
+                let y = 160
+                headers.map((value, index, data) => {
+                    console.log(x)
+                    doc.paths
+                        .rect(x, y, widths[index], rowHeight)
+                        .stroke();
+                    doc.drawText(data[index], x, y + 1, {
+                        height: rowHeight,
+                        width: widths[index],
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Center
+                    });
+                    x += (widths[index] / colWidth) * colWidth
+                })
+                x = 0
+                y += rowHeight
+                headersSpanish.map((value, index, data) => {
+                    console.log(x)
+                    doc.paths
+                        .rect(x, y, widths[index], rowHeight)
+                        .stroke();
+                    doc.drawText(data[index], x, y + 1, {
+                        height: rowHeight,
+                        width: widths[index],
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Center
+                    });
+                    x += (widths[index] / colWidth) * colWidth
+                })
+                x = 0
+                y += rowHeight
+                for (var i = 0; i < 40; i++) {
+                    headers.map((value, index, data) => {
+                        console.log(x)
+                        doc.paths
+                            .rect(x, y, widths[index], rowHeight)
+                            .stroke();
+                        doc.drawText(data[index], x, y + 1, {
+                            height: rowHeight,
+                            width: widths[index],
+                            align: wijmo.pdf.PdfTextHorizontalAlign.Center
+                        });
+                        x += (widths[index] / colWidth) * colWidth
+                    })
+                    x = 0
+                    y += rowHeight
+                }
 
-            var numberToText = require('./convertir-num-letras');
+            }
 
             $scope.fmData = {};
             $scope.fmData.wo_search = 'wo_release';
- 
-            $scope.save = function () {
-                
+
+            $scope.exportXLS = function () {
                 var flexSheet = $scope.flex,
                     fileName, timestamp;
-
-                wijmo.grid.pdf.FlexGridPdfConverter.draw(grid, doc);
-                wijmo.grid.pdf.FlexGridPdfConverter.drawToPosition(grid, doc, new wijmo.Point(0, 300));
-
-
                 if (flexSheet) {
+                    console.log('entro')
                     if (!!$scope.fileName) {
                         fileName = $scope.fileName;
                     } else {
-                        timestamp = moment().format();
-                        fileName = 'exportation_invoice_'+ timestamp +'.xlsx';
+                        timestamp = moment().tz('America/Chihuahua').format();
+                        fileName = 'shipping_list_' + timestamp + '.xlsx';
                     }
                     flexSheet.save(fileName);
                 }
@@ -157,12 +206,6 @@ module.exports = (function (angular) {
                     flexSheet.setCellData(7, 5, "SHIPPED TO / ENVIADO A:");
 
                     flexSheet.mergeRange(new wijmo.grid.CellRange(8, 5, 14, 9));
-                    flexSheet.setCellData(8, 5,
-                        "GILBERTO FERNANDEZ LEO\n" +
-                        "2632   AV. ZARCO  COL. ZARCO 31020\n" +
-                        "CHIHUAHUA CHIHUAHUA MEXICO\n" +
-                        "R.F.C. FELG5404291K2"
-                    );
 
                     flexSheet.setCellData(15, 0, "ORDER NO.");
                     flexSheet.setCellData(16, 0, "NO. ORDEN");
@@ -177,14 +220,9 @@ module.exports = (function (angular) {
                     flexSheet.mergeRange(new wijmo.grid.CellRange(15, 7, 16, 7));
                     flexSheet.setCellData(15, 7, "P.O.");
                     flexSheet.setCellData(15, 8, "LINE");
-                    flexSheet.setCellData(16, 8, "LINEA");
+                    flexSheet.setCellData(16, 8, "RELEASE");
                     flexSheet.setCellData(15, 9, "SHIPPED");
                     flexSheet.setCellData(16, 9, "ENVIADO");
-                    
-
-
-
-
                 }
 
             }
@@ -219,91 +257,64 @@ module.exports = (function (angular) {
             $scope.saveBtn = true;
             $scope.onSubmit = function () {
                 var searchFn = {
-                    "wo_release":"searchWoRelease",
-                    "wo_id":"searchWoId",
-                    "wo_po":"searchWoPo"
+                    "wo_release": "searchWoRelease",
+                    "wo_id": "searchWoId",
+                    "wo_po": "searchWoPo"
                 }
                 shippingListFac[searchFn[$scope.fmData.wo_search]]($scope.fmData[$scope.fmData.wo_search]).then(function (promise) {
                     $scope.saveBtn = !promise.data.length > 0;
-                    
-                        var flexSheet = $scope.flex,
-                            row = 17;
-                        if (flexSheet) {
-                            flexSheet.deleteRows(17,975);
-                            flexSheet.insertRows(17,975);
 
-                            var total = {
-                                qty:0,
-                                weight:0,
-                                gross_weight:0,
-                                usd:0
-                            }
-                        }
-                        if (angular.isArray(promise.data)) {
-                            promise.data.forEach(function (value) {
-                                
-                                total.qty += +value.wo_qty;
-                                total.weight += +value.total_weight;
-                                total.gross_weight += +value.total_weight;                                
-                                total.usd += +value.total_price;       
+                    var flexSheet = $scope.flex,
+                        row = 17;
+                    if (flexSheet) {
+                        flexSheet.deleteRows(17, 975);
+                        flexSheet.insertRows(17, 975);
+                    }
+                    if (angular.isArray(promise.data)) {
+                        promise.data.forEach(function (value) {
 
-                                flexSheet.setCellData(row, 0, value.wo_id);
-                                flexSheet.setCellData(row, 1, value.wo_qty);
-                                flexSheet.mergeRange(new wijmo.grid.CellRange(row, 2, row, 5));
-                                flexSheet.setCellData(row, 2, value.pr_description);
-                                flexSheet.setCellData(row, 6, value.total_weight);
-                                flexSheet.setCellData(row, 7, value.wo_po);                                
-                                flexSheet.setCellData(row, 8, value.wo_line + ' / ' + value.wo_linetotal);                                
-                                flexSheet.setCellData(row, 9, $filter('currency')(value.total_price, '$', 5));
-                                row += 1;
-                            })
-                            row += 2;
-                            flexSheet.setCellData(row, 0, "TOTAL");
-                            flexSheet.setCellData(row, 4, total.qty);
-                            flexSheet.setCellData(row, 5, "PIEZAS");
-                            flexSheet.setCellData(row, 6, $filter('number')(total.weight, 5));
-                            flexSheet.setCellData(row, 7, $filter('number')(total.gross_weight, 5));
-                            flexSheet.setCellData(row, 9, $filter('currency')(total.usd, '$', 2));
-                            flexSheet.applyCellsStyle({
-                                fontWeight: 'bold'
-                            }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
-                            row += 2;
-                            flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 9));
-                            flexSheet.setCellData(row, 0, numberToText(total.usd.toFixed(2)));
-                            flexSheet.applyCellsStyle({
-                                fontWeight: 'bold'
-                            }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
-                            flexSheet.applyCellsStyle({
-                                textAlign: 'right'
-                            }, [new wijmo.grid.CellRange(17, 6, row, 9)]);
-
-                        } 
-                        // var products = [];
-                        // angular.forEach(promise.data, function (value, key) {
-                        //     this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": key });
-                        // }, products);
+                            flexSheet.setCellData(row, 0, value.wo_id);
+                            flexSheet.setCellData(row, 1, value.wo_qty);
+                            flexSheet.mergeRange(new wijmo.grid.CellRange(row, 2, row, 5));
+                            flexSheet.setCellData(row, 2, value.pr_name);
+                            flexSheet.setCellData(row, 6, value.pr_weight);
+                            flexSheet.setCellData(row, 7, value.wo_po);
+                            flexSheet.setCellData(row, 8, value.wo_release);
+                            flexSheet.setCellData(row, 9, value.now);
+                            row += 1;
+                        })
+                    }
                 })
             }
 
             $scope.wo_searchoptions = i18nFilter("exportation-invoice-custom.fields.wo_searchoptions");
 
 
-            $scope.$on('$viewContentLoaded', function () {
+            $scope.$on('$viewContentLoaded', async () => {
                 $scope.loading = true;
                 var client = undefined;
                 var rows = undefined;
                 shippingListFac.getClient().then(function (promise) {
-                    if (angular.isArray(promise.data)) {
-                        client = promise.data[0];
+                    const { data } = promise
+                    if (angular.isArray(data)) {
+                        const [client] = data
+                        var flexSheet = $scope.flex;
+                        flexSheet.setCellData(8, 0,
+                            dedent`${client.cl_corporatename}
+                            ${client.cl_street} ${client.cl_streetnumber} ${(client.cl_suitenumber || '')}
+                            ${(client.cl_neighborhood || '')}
+                            ${client.cl_city}, ${client.cl_state}. ${client.cl_country}
+                            ${client.cl_rfc}`
+                        );
                     }
                 }).then(function () {
                     shippingListFac.getZone().then(function (promise) {
                         $scope.zo_idoptions = [];
-                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": "0" });
-                        if (angular.isArray(promise.data)) {
-                            rows = promise.data;
+                        const { data } = promise
+                        if (angular.isArray(data)) {
+                            rows = data;
                             angular.forEach(rows, function (value, key) {
-                                this.push({ "label": rows[key]['zo_jsonb']['zo_name'], "value": key });
+                                this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": key });
                             }, $scope.zo_idoptions);
                         }
                     });
@@ -314,25 +325,13 @@ module.exports = (function (angular) {
                     function zoChange(newValue, oldValue) {
                         var flexSheet = $scope.flex;
                         if (newValue !== undefined && flexSheet) {
-                                if (newValue === "0") {
-                                    flexSheet.setCellData(8, 0,
-                                        client.cl_jsonb.cl_corporatename + '\n' +
-                                        client.cl_jsonb.cl_street + ' ' + client.cl_jsonb.cl_streetnumber + ' ' + client.cl_jsonb.cl_suitenumber + '\n' +
-                                        client.cl_jsonb.cl_neighborhood + '\n' +
-                                        client.cl_jsonb.cl_state + ' ' + client.cl_jsonb.cl_city + '\n' +
-                                        client.cl_jsonb.cl_tin + '\n' +
-                                        client.cl_jsonb.cl_immex + '\n'
-
-                                    );
-                                    return;
-                                }
-                            flexSheet.setCellData(8, 0,
+                            flexSheet.setCellData(8, 5,
                                 rows[newValue].zo_corporatename + '\n' +
-                                rows[newValue].zo_street + ' ' + rows[newValue].zo_streetnumber + ' ' + rows[newValue].zo_suitenumber + '\n' +
-                                rows[newValue].zo_neighborhood + '\n' +
-                                rows[newValue].zo_state + ' ' + rows[newValue].zo_city + '\n' +
-                                rows[newValue].zo_tin + '\n' +
-                                rows[newValue].zo_immex + '\n'
+                                rows[newValue].zo_street + ' ' + rows[newValue].zo_streetnumber + ' ' + (rows[newValue].zo_suitenumber || '') + '\n' +
+                                (rows[newValue].zo_neighborhood || '') + '\n' +
+                                rows[newValue].zo_city + ', ' + rows[newValue].zo_state + '. ' + rows[newValue].zo_country + '\n' +
+                                rows[newValue].zo_rfc + '\n' +
+                                (rows[newValue].zo_immex || '') + '\n'
 
                             );
                         }

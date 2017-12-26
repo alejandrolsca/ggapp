@@ -1,0 +1,10 @@
+--create index altnameindex on alternatename (alternatename);
+--create index altnameidindex on alternatename (alternatenameid);
+create index geonameidindex on geoname (geonameid);
+create index geonamename on geoname (name);
+create index geonamecountryindex on geoname (country);
+create index countryindex on countryinfo (iso_alpha2);
+create index hpindex on hierarchy (parentid);
+create index hcindex on hierarchy (childid);
+--create index a1index on admin1codes (admin1);
+--create index a2index on admin2codes (admin2);

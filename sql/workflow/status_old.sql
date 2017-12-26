@@ -1,8 +1,8 @@
 select
 	cl.cl_jsonb->>'cl_corporatename' as cl_corporatename,
 	cl.cl_jsonb->>'cl_name' as cl_name,
-    cl.cl_jsonb->>'cl_fatherslastname' as cl_fatherslastname,
-    cl.cl_jsonb->>'cl_motherslastname' as cl_motherslastname,
+    cl.cl_jsonb->>'cl_firstsurname' as cl_firstsurname,
+    cl.cl_jsonb->>'cl_secondsurname' as cl_secondsurname,
 	*
 from (select 
     *
@@ -33,7 +33,7 @@ jsonb_to_record(wo_jsonb) as x (
         wo_price text, 
         wo_currency text, 
         wo_email text, 
-        wo_status text
+        wo_status int
 )
 where wo_jsonb->>'wo_status' = $1
 ) wo

@@ -6,7 +6,7 @@ module.exports = (function (angular) {
             $scope.fmData = {};
             $scope.fmData.pr_process = 'stamps';
             $scope.fmData.pr_type = 'general';
-            $scope.fmData.cl_id = $stateParams.cl_id;
+            $scope.fmData.cl_id = +$stateParams.cl_id;
 
             $scope.onSubmit = function () {
 
@@ -43,10 +43,10 @@ module.exports = (function (angular) {
                     if (angular.isObject(promise.data)) {
                         var client = promise.data[0].cl_jsonb;
                         var cl_type = client.cl_type
-                        $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_fatherslastname + ' ' + client.cl_motherslastname;                    }
+                        $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_firstsurname;                    }
                 });
 
-                productStampsGeneralAddFac.getInks().then(function (promise) {
+                productStampsGeneralAddFac.getInks($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.pr_inkoptions = [];
                         angular.forEach(promise.data, function (value, key) {
@@ -57,14 +57,24 @@ module.exports = (function (angular) {
                     }
                 });
 
-                productStampsGeneralAddFac.getMaterials().then(function (promise) {
+                productStampsGeneralAddFac.getMaterials($scope.fmData.pr_process).then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         $scope.mt_idoptions = [];
                         angular.forEach(promise.data, function (value, key) {
-                            this.push({ "label": value.mt_code, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
+                            this.push({ "label": `${value.mt_code} – ${value.mt_description}`, "value": value.mt_id, "width": value.mt_width, "height": value.mt_height, "measure": value.mt_measure });
                         }, $scope.mt_idoptions);
                     } else {
                         //$scope.updateFail = true;
+                    }
+                });
+
+                productStampsGeneralAddFac.getTariffCodes().then(function (promise) {
+                    $scope.tc_idoptions = [];
+                    const { data } = promise
+                    if (angular.isArray(data)) {
+                        angular.forEach(data, function (value, key) {
+                            this.push({ "label": `${value.tc_jsonb.tc_code} - ${value.tc_jsonb.tc_description}`, "value": value.tc_id });
+                        }, $scope.tc_idoptions);
                     }
                 });
 

@@ -2,18 +2,15 @@ var webpack = require("webpack"),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
-    UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
     path = require("path");
-
-var extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css"
-});
 
 module.exports = function (env) {
     return {
         devServer: {
             contentBase: path.join(path.resolve(), "dist"),
             compress: true,
+            host: '0.0.0.0',
+            disableHostCheck: true,
             port: 4000,
             proxy: {
                 "/api/*": {
@@ -99,8 +96,17 @@ module.exports = function (env) {
         module: {
             rules: [
                 {
+                    // JS LOADER
+                    // Reference: https://github.com/babel/babel-loader
+                    // Transpile .js files using babel-loader
+                    // Compiles ES6 and ES7 into ES5 code
+                    test: /\.js$/,
+                    loader: 'babel-loader',
+                    exclude: [/node_modules/,/bower_components/]
+                },              
+                {
                     test: /\.(scss|css)$/i,
-                    use: extractSass.extract({
+                    use: ExtractTextPlugin.extract({
                         use: [{
                             loader: "css-loader"
                         }, {
@@ -153,7 +159,9 @@ module.exports = function (env) {
                 // necessary to consistently work with multiple chunks via CommonsChunkPlugin
                 chunksSortMode: 'dependency'
             }),
-            extractSass
+            new ExtractTextPlugin({
+                filename: "[name].[contenthash].css"
+            })
         ]
     }
 }

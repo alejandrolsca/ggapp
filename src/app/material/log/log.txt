@@ -6,7 +6,7 @@ Query: select
                     from  public.material, 
                     jsonb_to_record(mt_jsonb, true) as x (
                         mt_corporatename text,
-                        mt_tin text,
+                        mt_rfc text,
                         mt_name text,
                         mt_fatherslastname text,
                         mt_motherslastname text,

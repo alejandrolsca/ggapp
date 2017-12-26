@@ -11,6 +11,11 @@ module.exports = {
                                 {"label":"Paginados","value":"paginated"},   
                                 {"label":"Talonario","value":"counterfoil"},   
                             ]},
+                            {"label":"Digital","value":"digital",types:[
+                                {"label":"General","value":"general"},   
+                                {"label":"Paginados","value":"paginated"},   
+                                {"label":"Talonario","value":"counterfoil"},   
+                            ]},
                             {"label":"Flexo","value":"flexo",types:[
                                 {"label":"Etiquetas","value":"labels"},   
                                 {"label":"Ribbons","value":"ribbons"}
@@ -31,6 +36,12 @@ module.exports = {
                                 {"label":"Banners","value":"banner"}
                             ]},
                             {"label":"Laser","value":"laser",types:[
+                                {"label":"General","value":"general"},     
+                            ]},
+                            {"label":"Suajado/Corte","value":"diecutting",types:[
+                                {"label":"General","value":"general"},     
+                            ]},
+                            {"label":"Venta Directa","value":"direct_sale",types:[
                                 {"label":"General","value":"general"},     
                             ]},
                         ]

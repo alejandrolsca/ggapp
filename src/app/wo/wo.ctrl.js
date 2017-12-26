@@ -35,14 +35,11 @@ module.exports = (function (angular) {
                 if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (e.col == 0)) {
                     wo_id = e.panel.getCellData(e.row, 1, false);
                     e.cell.style.overflow = 'visible';
-                    e.cell.innerHTML = '<div class="btn-group btn-group-justified" role="group" aria-label="...">\
-                                            <div class="btn-group" role="group">\
-                                                <a href="#/wo/update/' + $stateParams.cl_id + '/' + wo_id + '" class="btn btn-default btn-xs">' + i18nFilter("general.labels.edit") + '</a>\
-                                            </div>\
-                                            <div class="btn-group" role="group">\
-                                                <a href="#/wo/duplicate/' + $stateParams.cl_id + '/' + wo_id + '" class="btn btn-default btn-xs">' + i18nFilter("general.labels.duplicate") + '</a>\
-                                            </div>\
-                                       </div>';
+                    e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                            <div class="btn-group" role="group">
+                                                <a href="#/wo/update/${$stateParams.cl_id}/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.edit")}</a>
+                                            </div>
+                                       </div>`;
                 }
             }
         
@@ -51,7 +48,7 @@ module.exports = (function (angular) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i];
-                    col.header = i18nFilter("wo.labels." + $scope.labels[i]);
+                    col.header = i18nFilter("wo.labels." + $scope.columns[i].replace('_','-'));
                     s.columns.push(col);
                 }
             };

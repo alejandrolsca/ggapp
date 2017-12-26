@@ -3,9 +3,7 @@ module.exports = (function(angular){
     
     return angular.module('app.product',[
         require('./modules/productOffsetGeneral.add').name,
-        require('./modules/productOffsetGeneral.update').name,
         require('./modules/productOffsetPaginated.add').name,
-        //require('./modules/productOffsetPaginated.update').name
         require('./modules/productOffsetCounterfoil.add').name,
         require('./modules/productFlexoLabels.add').name,
         require('./modules/productFlexoRibbons.add').name,
@@ -18,7 +16,12 @@ module.exports = (function(angular){
         require('./modules/productSerigraphyBanner.add').name,
         require('./modules/productSerigraphyFlexibles.add').name,
         require('./modules/productSerigraphyRigid.add').name,
-        require('./modules/productLaserGeneral.add').name
+        require('./modules/productLaserGeneral.add').name,
+        require('./modules/productDigitalGeneral.add').name,
+        require('./modules/productDigitalPaginated.add').name,
+        require('./modules/productDigitalCounterfoil.add').name,
+        require('./modules/productDiecuttingGeneral.add').name,
+        require('./modules/productDirectSaleGeneral.add').name,
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

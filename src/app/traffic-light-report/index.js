@@ -7,7 +7,7 @@ module.exports = (function(angular){
     .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('tlr', {
-            url:'/tlr',
+            url:'/tlr/:cl_id',
             template: require('./traffic-light-report.view.html'),
             controller : 'tlrController',
             data: {

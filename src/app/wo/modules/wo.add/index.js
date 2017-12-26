@@ -6,7 +6,7 @@ module.exports = (function(angular){
     .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('woAdd', {
-            url:'/wo/add/:cl_id',
+            url:'/wo/add/:cl_id/:pr_id',
             template: require('./wo.add.view.html'),
             controller : 'woAddController',
             data: {

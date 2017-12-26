@@ -13,13 +13,15 @@ module.exports = {
                         "pr-description": "Descripcion",
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Largo",
-                        "pr-finalsizemeasure": "Medida",
-                        "pr-inkfront": "Frente",
-                        "pr-inkback": "Reverso",
-                        "pa-id": "ID material",
+                        "pr-finalsizemeasure": "Unidad de medida",
+                        "pr-inkfront": "# Tintas frente",
+                        "pr-inkback": "# Tintas reverso",
+                        "pr-inksfront": "Tintas frente",                        
+                        "pr-inksback": "Tintas reverso",
+                        "mt-id": "ID material",
                         "pr-materialsizewidth": "Ancho",
                         "pr-materialsizeheight": "Largo",
-                        "pr-materialsizemeasure": "Medida",
+                        "pr-materialsizemeasure": "Unidad de medida",
                         "pr-varnish": "Barniz",
                         "pr-varnishuv": "Barniz UV",
                         "pr-varnishfinished": "Acabado",
@@ -31,7 +33,9 @@ module.exports = {
                         "pr-precut": "Precorte",                      
                         "pr-transfer": "Transfer",                      
                         "pr-sheetqty": "Cantidad x Plantilla",                      
+                        "pr-drill": "Perforación",                      
                         "pr-blocks": "Blocks",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },
@@ -65,6 +69,7 @@ module.exports = {
                         "pr_precut",                        
                         "pr_transfer",                        
                         "pr_sheetqty",                        
+                        "pr_drill",                        
                         "pr_blocks",
                         "pr_status",
                         "pr_date",
@@ -134,6 +139,9 @@ module.exports = {
                             {"label":"Vertical","value":"vertical"},
                             {"label":"Ambas","value":"both"}
                         ],pr_transferoptions : [
+                            {"label":"Si","value":"yes"},
+                            {"label":"No","value":"no"}
+                        ],pr_drilloptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
                         ],pr_blocksoptions : [

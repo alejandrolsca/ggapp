@@ -15,9 +15,22 @@ module.exports = (function(angular){
             return promise;
         };
         factory.getSuppliers = function () {
-            var promise = $http.post('/api/supplier/', {
+            var promise = $http.post('/api/supplier/su_status', {
                 /* POST variables here */
-                procces_id: new Date().getMilliseconds()
+                procces_id: new Date().getMilliseconds(),
+                su_status: 'A'
+            }).success(function (data, status, headers, config) {
+                return data;
+            }).error(function (data, status, headers, config) {
+
+                return { "status": false };
+            });
+            return promise;
+        };
+        factory.getMaterialTypes = function () {
+            var promise = $http.post('/api/material/materialtype', {
+                /* POST variables here */
+                procces_id: new Date().getMilliseconds(),
             }).success(function (data, status, headers, config) {
                 return data;
             }).error(function (data, status, headers, config) {

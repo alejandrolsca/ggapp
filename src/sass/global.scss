@@ -1,14 +1,5 @@
-/*
-********************************************
-SASS VARIABLES
-********************************************
-*/
-$body-bg: #eee;
-$body-font: 'Open Sans', sans-serif;
+@import 'variables';
 
-$layout-bg: #fff;
-$layout-padding: 1em 0 1em 0;
-$layout-border: 1px solid #ddd;
 /*
 ********************************************
 LAYOUT
@@ -16,6 +7,7 @@ LAYOUT
 */
 body {
     background:$body-bg;
+    color: $body-color;
     font-family: $body-font;
     margin-left:auto;
 	margin-right:auto;
@@ -29,10 +21,7 @@ body {
 }
 .header-wrapper, .nav-wrapper, .content-wrapper, .aside-wrapper {
     background: $layout-bg;
-
-    /*box-shadow:.01em .01em 2em #ddd;*/
     display:block;
-    padding: $layout-padding;
 }
 
 .header-wrapper {
@@ -57,7 +46,12 @@ body {
     border-bottom:$layout-border;
     border-radius: .5em;
     margin: 0;
-    padding: 0;
+    padding: 0 0 1em 0;
+}
+@media (min-width: 768px) { 
+    .content-wrapper {
+        padding: 0;
+    }
 }
 .footer-wrapper {
     margin: 0;
@@ -128,28 +122,14 @@ CLASSES
     border-radius: 5px;
     padding: 15px;
 }
-input.ng-valid {
-    border: 1px solid green;
+.pr-info {
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
-input.ng-invalid {  
-    border: 1px solid red;
-}
-input.ng-pristine {
-
-}
-input.ng-dirty {
-    border: 1px solid yellow;
-}
-
-/* really specific css rules applied by angular */
-.ng-invalid-required 		{  }
-.ng-invalid-minlength 		{  }
-.ng-valid-max-length 		{  }
-input.ng-invalid {
-  border: 1px solid red;
-}
-input.ng-valid {
-  border: 1px solid green;
+.product-left-headers {
+    text-align: right;
 }
 /*
 ********************************************
@@ -166,15 +146,22 @@ VIEWS
 }
 /*
 ********************************************
-BOOTSTRAP OVERWRITES
+CHROME AUTOFILL COLOR FIX
 ********************************************
 */
-.navbar-collapse{  max-height: 100%;}
-span.glyphicon-user {font-size: 15px;}
-
-button[class*="col-"] {
-  margin-bottom: 15px;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
 }
+/*
+********************************************
+AUTH0 LOGO
+********************************************
+*/
 
-.red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
-.red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }
+.auth0-lock-header-logo {
+    width: 58px !important;
+    height: 58px !important;
+}

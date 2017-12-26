@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.getClient = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/offset/general/client', {
+                $http.post('/api/product/client', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id
                 }).success(function (data, status, headers, config) {
@@ -18,12 +18,13 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
-        factory.getMaterials = function () {
+        factory.getMaterials = function (mt_type) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/product/stamps/ink/material', {
+                $http.post('/api/product/material', {
                     /* POST variables here */
-                    procces_id: new Date().getMilliseconds()
+                    procces_id: new Date().getMilliseconds(),
+                    mt_type: mt_type
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
@@ -43,6 +44,21 @@ module.exports = (function (angular) {
                 return { "status": false };
             });
             return promise;
+        };
+        factory.getTariffCodes = function () {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/tariffcode', {
+                    /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
+                    tc_status: 'A'
+                }).success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
         };
         return factory;
     }];

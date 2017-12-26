@@ -6,10 +6,9 @@ module.exports = (function (angular) {
 
             var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
 
-
-
             $scope.labels = Object.keys(i18nFilter("tlr.labels"));
             $scope.columns = i18nFilter("tlr.columns");
+            $scope.workflow = i18nFilter("tlr.fields.wo_statusoptions");
 
             // formatter to add checkboxes to boolean columns
             $scope.onUpdate = function () {
@@ -27,34 +26,19 @@ module.exports = (function (angular) {
                 $scope.next_status = next_status;
             };
 
-            $scope.onSubmit = function () {
-                var flex = $scope.ggGrid;
-                var arr = []
-                arr.push('Please review the following Work Orders' + '\r\n\r\n')
-                for (var i = 0; i < flex.rows.length; i++) {
-                    if (flex.getCellData(i, flex.columns.getColumn('active').index) === true) {
-                        arr.push(
-                            "traffic light report status: " + flex.getCellData(i, flex.columns.getColumn('status').index) + '\r\n' +
-                            "wo_id: " + flex.getCellData(i, flex.columns.getColumn('wo_id').index) + '\r\n' +
-                            "cl_id: " + flex.getCellData(i, flex.columns.getColumn('cl_id').index) + '\r\n' +
-                            "cl_corporatename: " + flex.getCellData(i, flex.columns.getColumn('cl_corporatename').index) + '\r\n' +
-                            "cl_fatherslastname: " + flex.getCellData(i, flex.columns.getColumn('cl_fatherslastname').index) + '\r\n' +
-                            "cl_motherslastname: " + flex.getCellData(i, flex.columns.getColumn('cl_motherslastname').index) + '\r\n' +
-                            "wo_commitmentdate: " + flex.getCellData(i, flex.columns.getColumn('wo_commitmentdate').index) + '\r\n' +
-                            "wo_deliverydate: " + flex.getCellData(i, flex.columns.getColumn('wo_deliverydate').index) + '\r\n' +
-                            "wo_status: " + flex.getCellData(i, flex.columns.getColumn('wo_status').index) + '\r\n' +
-                            "wo_date: " + flex.getCellData(i, flex.columns.getColumn('wo_date').index) + '\r\n' +
-                            "-----------------------------------------------------------" + '\r\n'
-                        );
-                    }
+            $scope.exportXLS = function () {
+                const timestamp = moment().tz('America/Chihuahua').format();
+                const fileName = `tlr_clientid_${$stateParams.cl_id}_${timestamp}.xlsx`;
+                const flexGrid = $scope.ggGrid
+                try {
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                        includeColumnHeaders: true, 
+                        includeCellStyles: false
+                    }, fileName);
+                } catch (error) {
+                    throw new Error(error)
                 }
-
-                var subject = 'Work Orders Review';
-
-                var body = encodeURIComponent(arr.join('\r\n'));
-
-                window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
-                console.log(body);
+                
             }
 
             $scope.itemFormatter = function (panel, r, c, cell) {
@@ -63,45 +47,69 @@ module.exports = (function (angular) {
                     var flex = panel.grid;
                     var col = flex.columns[c];
                     var row = flex.rows[r];
+                    // fix prevent randomn coloring
                     cell.style.backgroundColor = '';
                     cell.style.color = '';
-                    if (col.header === 'Status') {
-                        var commitment_date = moment(panel.grid.getCellData(r, flex.columns.getColumn('wo_commitmentdate').index, false).substring(0, 10));
+                    // end fix
+                    if (col.binding === 'wo_status') {
+                        angular.forEach($scope.workflow, function (value, key) {
+                            if (value.value === panel.grid.getCellData(r, flex.columns.getColumn('wo_status').index)) {
+                                row.dataItem.wo_status = `(${value.value}) ${value.label}`;
+                                cell.innerHTML = `(${value.value}) ${value.label}`;
+                            }
+                        });
+                    }
+                    if (col.binding === 'wo_deliverydate') {
+                        if (row.dataItem.wo_deliverydate) {
+                            row.dataItem.wo_deliverydate = moment(row.dataItem.wo_deliverydate).tz('America/Chihuahua').format();
+                        }
+                    }
+                    if (col.binding === 'status') {
+                        var closing_time = 18;
+                        var commitment_date = moment(panel.grid.getCellData(r, flex.columns.getColumn('wo_commitmentdate').index, false)).set({
+                            hour: closing_time,
+                            minute: 0,
+                            second: 0
+                        });
                         var delivery_date = panel.grid.getCellData(r, flex.columns.getColumn('wo_deliverydate').index, false);
-                        var days = undefined;
+                        var hours = undefined;
                         var status = undefined;
-                        //console.log(delivery_date);
                         if (delivery_date === null) {
-                            days = commitment_date.diff(moment(), 'days');
+                            hours = moment.duration(commitment_date.diff(moment().tz('America/Chihuahua').format('YYYY-MM-DD HH:mm:ss'))).asHours();
                             // delayed, commitment_date is due                            
-                            if (days <= 0) {
-                                status = 'Delayed (' + Math.abs(days) + ')';
+                            if (hours < 0) {
+                                status = 'Atrasado (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)';
                                 cell.style.backgroundColor = 'OrangeRed';
                                 cell.style.color = 'yellow';
                             }
                             // 2 days before commitment_date is due                           
-                            if (days > 0 && days < 3) {
-                                status = Math.abs(days) + ' Day(s) left';
+                            if (hours >= 0 && hours <= 48) {
+                                status = 'Restan ' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas';
                                 cell.style.backgroundColor = 'Gold';
+                            }
+                            // mora than 2 days before commitment_date is due                           
+                            if (hours > 48) {
+                                status = 'Restan ' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas';
+                                cell.style.backgroundColor = 'LightYellow';
                             }
 
                         } else {
-                            days = commitment_date.diff(moment(delivery_date.substring(0, 10)), 'days')
-                            // delivered on commitment_date
-                            if (days === 0) {
-                                status = 'Delivered On Time';
+                            hours = moment.duration(commitment_date.diff(moment(delivery_date).tz('America/Chihuahua').format('YYYY-MM-DD HH:mm:ss'))).asHours();
+                            // delivered on commitment_date (same day)
+                            if (hours >= 0 && hours <= closing_time) {
+                                status = 'Entregado a tiempo';
                                 cell.style.backgroundColor = 'LimeGreen';
                                 cell.style.color = 'Black';
                             }
-                            // delivered after commitment_date
-                            if (days < 0) {
-                                status = 'Late Delivery (' + Math.abs(days) + ')';
+                            // delivered any time after commitment_date
+                            if (hours < 0) {
+                                status = 'Entrega a destiempo (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)';
                                 cell.style.backgroundColor = 'Grey';
                                 cell.style.color = 'Gainsboro';
                             }
-                            // delivered before commitment_date                            
-                            if (days > 0) {
-                                status = 'Efficient Delivery (' + Math.abs(days) + ')';
+                            // delivered a day before commitment_date                            
+                            if (hours > closing_time) {
+                                status = 'Entrega eficiente (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)'
                                 cell.style.backgroundColor = 'DodgerBlue';
                                 cell.style.color = 'White';
                             }
@@ -168,7 +176,7 @@ module.exports = (function (angular) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
-                    col.header = i18nFilter("tlr.labels." + $scope.labels[i]);
+                    col.header = i18nFilter("tlr.labels." + $scope.columns[i].binding.replace('_', '-'));
                     s.columns.push(col);
                 }
             };
@@ -213,25 +221,15 @@ module.exports = (function (angular) {
                 }
             });
 
-            $scope.pagesizeoptions = [
-                { "label": "25", "value": 25 },
-                { "label": "50", "value": 50 },
-                { "label": "100", "value": 100 },
-                { "label": "200", "value": 200 },
-                { "label": "500", "value": 500 },
-                { "label": "1000", "value": 1000 },
-            ]
-
             $scope.$on('$viewContentLoaded', function () {
 
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                tlrFactory.getData(0).then(function (promise) {
+                tlrFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data)) {
                         // expose data as a CollectionView to get events
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
-                        $scope.data.pageSize = 25;
                     }
                 });
             });

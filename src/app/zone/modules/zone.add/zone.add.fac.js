@@ -8,7 +8,8 @@ module.exports = (function (angular) {
             deferred.resolve(
                 $http.post('/api/client/cl_id', {
                     /* POST variables here */
-                    cl_id: $stateParams.cl_id
+                    cl_id: $stateParams.cl_id,
+                    cl_status: 'A'
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
@@ -30,33 +31,26 @@ module.exports = (function (angular) {
             return promise;
         };
         factory.getCountries = function () {
-            var promise = $http.jsonp('http://api.geonames.org/countryInfoJSON?username=alejandrolsca&callback=JSON_CALLBACK')
-                .success(function (data, status, headers, config) {
-                    return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
-                });
+            var promise = $http.post('/api/geonames/countries', {
+                /* POST variables here */
+            }).success(function (data, status, headers, config) {
+                return data;
+            }).error(function (data, status, headers, config) {
+
+                return { "status": false };
+            });
             return promise;
         };
-        factory.getStates = function (zo_country) {
-            var promise = $http.jsonp('http://api.geonames.org/childrenJSON?geonameId=' + zo_country + '&username=alejandrolsca&callback=JSON_CALLBACK')
-                .success(function (data, status, headers, config) {
-                    return data;
-                }).error(function (data, status, headers, config) {
-    
-                    return { "status": false };
-                });
-            return promise;
-        };
-        factory.getCityCounty = function (zo_state) {
-            var promise = $http.jsonp('http://api.geonames.org/childrenJSON?geonameId=' + zo_state + '&username=alejandrolsca&callback=JSON_CALLBACK')
-                .success(function (data, status, headers, config) {
-                    return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
-                });
+        factory.getChilds = function (geonameId) {
+            var promise = $http.post('/api/geonames/childs/geonameid', {
+                /* POST variables here */
+                geonameId: geonameId
+            }).success(function (data, status, headers, config) {
+                return data;
+            }).error(function (data, status, headers, config) {
+
+                return { "status": false };
+            });
             return promise;
         };
         return factory;

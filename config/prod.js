@@ -1,16 +1,18 @@
 var webpack = require("webpack"),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
     UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
-    path = require("path");
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
 
-var extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css"
-});
+    path = require("path");
 
 module.exports = function (env) {
     return {
+        stats: { 
+            children: false,
+            modules: false,
+            version: true
+        },
         entry: {
             vendor: ["./src/vendor.js"],
             app: ["./src/main.js"],
@@ -23,8 +25,17 @@ module.exports = function (env) {
         module: {
             rules: [
                 {
+                    // JS LOADER
+                    // Reference: https://github.com/babel/babel-loader
+                    // Transpile .js files using babel-loader
+                    // Compiles ES6 and ES7 into ES5 code
+                    test: /\.js$/,
+                    loader: 'babel-loader',
+                    exclude: [/node_modules/, /bower_components/]
+                },
+                {
                     test: /\.(scss|css)$/i,
-                    use: extractSass.extract({
+                    use: ExtractTextPlugin.extract({
                         use: [{
                             loader: "css-loader"
                         }, {
@@ -59,8 +70,6 @@ module.exports = function (env) {
             ]
         },
         plugins: [
-            new webpack.HotModuleReplacementPlugin(),
-            new webpack.NamedModulesPlugin(),
             new webpack.optimize.CommonsChunkPlugin({
                 names: ['app', 'vendor'], // Order matters: right to left.
                 minChunks: Infinity
@@ -73,10 +82,12 @@ module.exports = function (env) {
                 watch: true
             }),
             new UglifyJSPlugin({
-                comments: false,
-                compress: true,
-                sourceMap: true,
-                warnings: false
+                uglifyOptions: {
+                    ie8: false,
+                    ecma: 7,
+                    compress: false, //auth0 login modal fails on true
+                    warnings: false
+                }
             }),
             new HtmlWebpackPlugin({
                 template: 'src/index.html',
@@ -90,7 +101,9 @@ module.exports = function (env) {
                 // necessary to consistently work with multiple chunks via CommonsChunkPlugin
                 chunksSortMode: 'dependency'
             }),
-            extractSass
+            new ExtractTextPlugin({
+                filename: "[name].[contenthash].css"
+            })
         ]
     }
 }

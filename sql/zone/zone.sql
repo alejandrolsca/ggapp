@@ -2,14 +2,14 @@ select
     *
 from  public.zone, 
 jsonb_to_record(zo_jsonb) as x (
-    cl_id text,
+    cl_id int,
     zo_zone text,
     zo_corporatename text,
     zo_tin text,
     zo_immex text,
     zo_name text,
-    zo_fatherslastname text,
-    zo_motherslastname text,
+    zo_firstsurname text,
+    zo_secondsurname text,
     zo_street text,
     zo_streetnumber text,
     zo_suitenumber text,
@@ -22,6 +22,7 @@ jsonb_to_record(zo_jsonb) as x (
     zo_zipcode text,
     zo_email text,
     zo_phone text,
+    zo_phoneextension text,
     zo_mobile text,
     zo_status text
 );

@@ -5,18 +5,23 @@
 
         .constant('validTypes', {
             "singlespaces": /^([-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.](.[-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.])*)*$/,
+            "concept": /^([-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.](.[-,a-zA-Z0-9ÁáÉéÍíÓóÚú\.])*)*$/,
+            "receiptschedule": /^([-:,a-zA-Z0-9ÁáÉéÍíÓóÚú\.](.[-:,a-zA-Z0-9ÁáÉéÍíÓóÚú\.])*)*$/,
             "partno": /^([-,\.:a-zA-Z0-9](.[-,\.:a-zA-Z0-9])*)*$/,
-            "prcode": /^[-_\.,#:a-zA-Z0-9]{0,}$/,
-            "materialcode": /^[a-zA-Z0-9]{1,}$/,
-            "inkcode": /^[a-zA-Z0-9]{1,}$/,
+            "prcode": /^P|\d+|[_,a-z]+|[_,a-z]+|\d+$/,
+            "materialcode": /^M|\d+|[_,a-z]|[_,a-z]|\d+$/,
+            "inkcode": /^([a-zA-Z0-9](.[a-zA-Z0-9])*)*$/,
+            "time": /^(0[0-9]|1[0-9]|2[0-3]):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$/,
             "machinetotalinks": /^[1-8]{1}$/,
-            "rfc": /^[A-Za-z]{3,4}\-\d{6}(?:\-[A-Za-z\d]{3})?$/,
+            "rfc": /^[A-Za-z]{3,4}\d{6}(?:[A-Za-z\d]{3})?$/,
+            "ssntin": /^(?:\d{3}-\d{2}-\d{4}|\d{2}-\d{7})$/,
+            "immex": /^\d{1,}-20\d{2,2}$/,
             "email": /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i,
             "decimal": /^(\d+\.\d{2,5})$/,
             "discount": /^(0\.\d{2,2})$/,
             "integer": /^\d{1,}$/,
-            "zipcode": /^\d{5,5}$/,
-            "date": /^\d{4}-\d{2}-\d{2}$/,
+            "zipcode": /^([\-A-Z0-9](.[\-A-Z0-9])*)*$/,
+            "date": /^20[1-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/,
             "user": /^\w{4,16}$/,
             "password": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
             "phone": /^([+])?(\d{2,}-)*(\d{2,}-\d{2,})$/,
@@ -38,20 +43,26 @@
                     regexpMsg: '@',
                     ngChange: '&',
                     name: '@',
+                    maxLength: '@',
                     isDisabled: '=',
                     isRequired: '=ngRequired',
                     ngModel: '='
                 },
                 template: function (elem, attrs) {
-
                     return '<div class="form-group {{formGroupClass}}">\
                                 <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                 <div class="{{fldClass}}">\
-                                    <input id="'+ attrs.ngModel + '" class="form-control red-tooltip" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" ng-required="required" ng-disabled="isDisabled"/>\
+                                    <input id="{{unique_id}}" class="form-control red-tooltip" type="text" name="name" maxlength="{{maxLength}}" ng-model="ngModel" ng-change="ngChange()" ng-required="required" ng-disabled="isDisabled"/>\
                                 </div>\
                           </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+                    scope.unique_id = scope.$id;
+                    scope.$on('$destroy',
+                        function handleDestroyEvent() {
+                            ctrl.$setViewValue(undefined);
+                        }      
+                    );
 
                     var validator = function (value) {
 
@@ -73,19 +84,19 @@
                         //if valid value
                         if (invalid) {
                             //validate if tooltip is shown
-                            if (!($('[id="' + attrs.ngModel + '"]').data('bs.tooltip') && $('[id="' + attrs.ngModel + '"]').data('bs.tooltip').$tip.is(':visible'))) {
-                                $('[id="' + attrs.ngModel + '"]').tooltip({
+                            if (!($('[id="' + scope.unique_id + '"]').data('bs.tooltip') && $('[id="' + scope.unique_id + '"]').data('bs.tooltip').$tip.is(':visible'))) {
+                                $('[id="' + scope.unique_id + '"]').tooltip({
                                     placement: "bottom",
                                     title: attrs.regexpMsg,
                                     trigger: 'manual'
                                 });
-                                $('[id="' + attrs.ngModel + '"]').tooltip('show');
+                                $('[id="' + scope.unique_id + '"]').tooltip('show');
                             }
                         } else {
-                            $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
+                            $('[id="' + scope.unique_id + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -119,14 +130,20 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                 <label class="{{lblClass}} control-label">{{lbl}} \
                                     <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span>\
-                                    <span id="'+ attrs.ngModel + '.phones" class="glyphicon glyphicon-phone-alt" aria-hidden="true" ng-show="validPhone"></span>\
+                                    <span id="{{unique_id}}.phones" class="glyphicon glyphicon-phone-alt" aria-hidden="true" ng-show="validPhone"></span>\
                                 </label>\
                                 <div class="{{fldClass}}">\
-                                    <input id="'+ attrs.ngModel + '" class="form-control red-tooltip" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" ng-required="required" ng-disabled="isDisabled"/>\
+                                    <input id="{{unique_id}}" class="form-control red-tooltip" type="text" name="name" ng-model="ngModel" ng-change="ngChange()" ng-required="required" ng-disabled="isDisabled"/>\
                                 </div>\
                           </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+                    scope.unique_id = scope.$id;
+                    scope.$on('$destroy',
+                        function handleDestroyEvent() {
+                            ctrl.$setViewValue(undefined);
+                        }      
+                    );
 
                     var validator = function (value) {
 
@@ -148,16 +165,16 @@
                         //if valid value
                         if (invalid) {
                             //validate if tooltip is shown
-                            if (!($('[id="' + attrs.ngModel + '"]').data('bs.tooltip') && $('[id="' + attrs.ngModel + '"]').data('bs.tooltip').$tip.is(':visible'))) {
-                                $('[id="' + attrs.ngModel + '"]').tooltip({
+                            if (!($('[id="' + scope.unique_id + '"]').data('bs.tooltip') && $('[id="' + scope.unique_id + '"]').data('bs.tooltip').$tip.is(':visible'))) {
+                                $('[id="' + scope.unique_id + '"]').tooltip({
                                     placement: "bottom",
                                     title: attrs.regexpMsg,
                                     trigger: 'manual'
                                 });
-                                $('[id="' + attrs.ngModel + '"]').tooltip('show');
+                                $('[id="' + scope.unique_id + '"]').tooltip('show');
                             }
                         } else {
-                            $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
+                            $('[id="' + scope.unique_id + '"]').tooltip('destroy')
                         }
 
                         ctrl.$setValidity('valid', ((required || invalid) ? false : true))
@@ -183,7 +200,7 @@
                         }
 
                         if (validPhone) {
-                            $('[id="' + attrs.ngModel + '.phones"]').popover({
+                            $('[id="' + scope.unique_id  + '.phones"]').popover({
                                 placement: "top",
                                 trigger: "click",
                                 title: "Como marcar",
@@ -194,12 +211,12 @@
                                          <p>Original: <a href="tel:'+ scope.phone4 + '">' + scope.phone4 + '</a></p>'
 
                             });
-                            $('[id="' + attrs.ngModel + '.phones"]').popover('show');
+                            $('[id="' + scope.unique_id  + '.phones"]').popover('show');
                         } else {
-                            $('[id="' + attrs.ngModel + '.phones"]').popover('destroy')
+                            $('[id="' + scope.unique_id  + '.phones"]').popover('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -235,12 +252,18 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label disable when item.notAnOption for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
+                                        <select id="{{unique_id}}" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label disable when item.notAnOption for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
                                         </select>\
                                     </div>\
                               </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+                    scope.unique_id = scope.$id;
+                    scope.$on('$destroy',
+                        function handleDestroyEvent() {
+                            ctrl.$setViewValue(undefined);
+                        }      
+                    );
 
                     var validator = function (value) {
 
@@ -262,16 +285,16 @@
                         //if valid value
                         if (invalid) {
                             //validate if tooltip is shown
-                            if (!($('[id="' + attrs.ngModel + '"]').data('bs.tooltip') && $('[id="' + attrs.ngModel + '"]').data('bs.tooltip').$tip.is(':visible'))) {
-                                $('[id="' + attrs.ngModel + '"]').tooltip({
+                            if (!($('[id="' + scope.unique_id + '"]').data('bs.tooltip') && $('[id="' + scope.unique_id + '"]').data('bs.tooltip').$tip.is(':visible'))) {
+                                $('[id="' + scope.unique_id + '"]').tooltip({
                                     placement: "bottom",
                                     title: attrs.regexpMsg,
                                     trigger: 'manual'
                                 });
-                                $('[id="' + attrs.ngModel + '"]').tooltip('show');
+                                $('[id="' + scope.unique_id + '"]').tooltip('show');
                             }
                         } else {
-                            $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
+                            $('[id="' + scope.unique_id + '"]').tooltip('destroy')
                         }
 
                         return value;
@@ -310,12 +333,18 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.countryName for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
+                                        <select id="{{unique_id}}" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.countryName for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
                                         </select>\
                                     </div>\
                               </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+                    scope.unique_id = scope.$id;
+                    scope.$on('$destroy',
+                        function handleDestroyEvent() {
+                            ctrl.$setViewValue(undefined);
+                        }      
+                    );
 
                     var validator = function (value) {
 
@@ -335,20 +364,20 @@
                         //if valid value
                         if (invalid) {
                             //validate if tooltip is shown
-                            if (!($('[id="' + attrs.ngModel + '"]').data('bs.tooltip') && $('[id="' + attrs.ngModel + '"]').data('bs.tooltip').$tip.is(':visible'))) {
-                                $('[id="' + attrs.ngModel + '"]').tooltip({
+                            if (!($('[id="' + scope.unique_id + '"]').data('bs.tooltip') && $('[id="' + scope.unique_id + '"]').data('bs.tooltip').$tip.is(':visible'))) {
+                                $('[id="' + scope.unique_id + '"]').tooltip({
                                     placement: "bottom",
                                     title: attrs.regexpMsg,
                                     trigger: 'manual'
                                 });
-                                $('[id="' + attrs.ngModel + '"]').tooltip('show');
+                                $('[id="' + scope.unique_id + '"]').tooltip('show');
                             }
                         } else {
-                            $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
+                            $('[id="' + scope.unique_id + '"]').tooltip('destroy')
                         }
 
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -378,18 +407,24 @@
                     ngModel: '='
                 },
                 template: function (elem, attrs) {
-
+                    
                     var multiple = attrs.hasOwnProperty('multiple') ? 'multiple' : ''; //requires field
 
                     return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
+                                        <select id="{{unique_id}}" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
                                         </select>\
                                     </div>\
                               </div>';
                 },
                 link: function (scope, elem, attrs, ctrl, ggStatesCtrl) {
+                    scope.unique_id = scope.$id;
+                    scope.$on('$destroy',
+                        function handleDestroyEvent() {
+                            ctrl.$setViewValue(undefined);
+                        }      
+                    );
 
                     var validator = function (value) {
 
@@ -411,19 +446,19 @@
                         //if valid value
                         if (invalid) {
                             //validate if tooltip is shown
-                            if (!($('[id="' + attrs.ngModel + '"]').data('bs.tooltip') && $('[id="' + attrs.ngModel + '"]').data('bs.tooltip').$tip.is(':visible'))) {
-                                $('[id="' + attrs.ngModel + '"]').tooltip({
+                            if (!($('[id="' + scope.unique_id + '"]').data('bs.tooltip') && $('[id="' + scope.unique_id + '"]').data('bs.tooltip').$tip.is(':visible'))) {
+                                $('[id="' + scope.unique_id + '"]').tooltip({
                                     placement: "bottom",
                                     title: attrs.regexpMsg,
                                     trigger: 'manual'
                                 });
-                                $('[id="' + attrs.ngModel + '"]').tooltip('show');
+                                $('[id="' + scope.unique_id + '"]').tooltip('show');
                             }
                         } else {
-                            $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
+                            $('[id="' + scope.unique_id + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -459,12 +494,18 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
+                                        <select id="{{unique_id}}" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.geonameId as item.toponymName for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
                                         </select>\
                                     </div>\
                               </div>';
                 },
                 link: function (scope, elem, attrs, ctrl, ggStatesCtrl) {
+                    scope.unique_id = scope.$id;
+                    scope.$on('$destroy',
+                        function handleDestroyEvent() {
+                            ctrl.$setViewValue(undefined);
+                        }      
+                    );
 
                     var validator = function (value) {
 
@@ -486,19 +527,19 @@
                         //if valid value
                         if (invalid) {
                             //validate if tooltip is shown
-                            if (!($('[id="' + attrs.ngModel + '"]').data('bs.tooltip') && $('[id="' + attrs.ngModel + '"]').data('bs.tooltip').$tip.is(':visible'))) {
-                                $('[id="' + attrs.ngModel + '"]').tooltip({
+                            if (!($('[id="' + scope.unique_id + '"]').data('bs.tooltip') && $('[id="' + scope.unique_id + '"]').data('bs.tooltip').$tip.is(':visible'))) {
+                                $('[id="' + scope.unique_id + '"]').tooltip({
                                     placement: "bottom",
                                     title: attrs.regexpMsg,
                                     trigger: 'manual'
                                 });
-                                $('[id="' + attrs.ngModel + '"]').tooltip('show');
+                                $('[id="' + scope.unique_id + '"]').tooltip('show');
                             }
                         } else {
-                            $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
+                            $('[id="' + scope.unique_id + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);
@@ -533,12 +574,18 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}}  <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <textarea id="'+ attrs.ngModel + '" class="form-control red-tooltip" name="name" ng-model="ngModel" style="height:{{height}}px;" ng-required="required" ng-disabled="isDisabled">\
+                                        <textarea id="{{unique_id}}" class="form-control red-tooltip" name="name" ng-model="ngModel" style="height:{{height}}px;" ng-required="required" ng-disabled="isDisabled">\
                                         </textarea>\
                                     </div>\
                               </div>';
                 },
                 link: function (scope, elem, attrs, ctrl) {
+                    scope.unique_id = scope.$id;
+                    scope.$on('$destroy',
+                        function handleDestroyEvent() {
+                            ctrl.$setViewValue(undefined);
+                        }      
+                    );
 
                     var validator = function (value) {
 
@@ -560,19 +607,19 @@
                         //if valid value
                         if (invalid) {
                             //validate if tooltip is shown
-                            if (!($('[id="' + attrs.ngModel + '"]').data('bs.tooltip') && $('[id="' + attrs.ngModel + '"]').data('bs.tooltip').$tip.is(':visible'))) {
-                                $('[id="' + attrs.ngModel + '"]').tooltip({
+                            if (!($('[id="' + scope.unique_id + '"]').data('bs.tooltip') && $('[id="' + scope.unique_id + '"]').data('bs.tooltip').$tip.is(':visible'))) {
+                                $('[id="' + scope.unique_id + '"]').tooltip({
                                     placement: "bottom",
                                     title: attrs.regexpMsg,
                                     trigger: 'manual'
                                 });
-                                $('[id="' + attrs.ngModel + '"]').tooltip('show');
+                                $('[id="' + scope.unique_id + '"]').tooltip('show');
                             }
                         } else {
-                            $('[id="' + attrs.ngModel + '"]').tooltip('destroy')
+                            $('[id="' + scope.unique_id + '"]').tooltip('destroy')
                         }
 
-                        return value;
+                        return value || undefined;
                     }
                     //format text going to user (model to view)
                     ctrl.$formatters.unshift(validator);

@@ -42,15 +42,20 @@ module.exports = {
                     },
                     "regexp":{
                         "singlespaces": "sin espacios dobles ni caracteres especiales.",
+                        "concept": "max. 17 - sin espacios dobles ni caracteres especiales.",
+                        "receiptschedule": "sin espacios dobles ni caracteres especiales.",
                         "materialcode": "sin espacios ni caracteres especiales",
                         "inkcode": "sin espacios ni caracteres especiales",
                         "machinetotalinks": "minimo 1 maximo 8",
-                        "rfc": "XXXX-######[-XXX]",
+                        "time": "Tiempo 00:00:00",
+                        "rfc": "AAAA111111[AAA]",
+                        "ssntin": "11-1111111 ó 111-11-1111",
+                        "immex": "Numero IMMEX (1 o mas digitos)-Año IMMEX (20##)",
                         "email": "por favor introduzca un email valido.",
                         "decimal": "numero y de 2 a 5 decimales (#.##[###])",
                         "discount": "cero mas 2 decimales (0.##)",
                         "integer": "solo numeros enteros",
-                        "zipcode": "el codigo postal es de 5 numeros.",
+                        "zipcode": "Solo mayusculas, numeros enteros y guíon medio.",
                         "date": "aaaa-mm-dd",
                         "user": "de 4 a 16 caracteres sin espacios ni caracteres especiales.",
                         "password": "la contraseña debe contener de 8-16 caracteres, por lo menos una letra mayuscula, una letra minuscula y un digito.",
@@ -79,11 +84,7 @@ module.exports = {
                 ****************************************/
                 "product": require('./product/lang.es-MX'),
                 "productOffsetGeneral-add": require('./product/modules/productOffsetGeneral.add/lang.es-MX'),
-                "productOffsetGeneral-update": require('./product/modules/productOffsetGeneral.update/lang.es-MX'),
                 "productOffsetPaginated-add": require('./product/modules/productOffsetPaginated.add/lang.es-MX'),
-                "productOffsetPaginated-update":{
-                    "title" : "Actualizar producto",
-                },
                 "productOffsetCounterfoil-add": require('./product/modules/productOffsetCounterfoil.add/lang.es-MX'),
                 "productFlexoLabels-add": require('./product/modules/productFlexoLabels.add/lang.es-MX'),
                 "productFlexoRibbons-add": require('./product/modules/productFlexoRibbons.add/lang.es-MX'),
@@ -97,6 +98,12 @@ module.exports = {
                 "productSerigraphyFlexibles-add": require('./product/modules/productSerigraphyFlexibles.add/lang.es-MX'),                            
                 "productSerigraphyRigid-add": require('./product/modules/productSerigraphyRigid.add/lang.es-MX'),                            
                 "productLaserGeneral-add": require('./product/modules/productLaserGeneral.add/lang.es-MX'),                          
+                "productDigitalGeneral-add": require('./product/modules/productDigitalGeneral.add/lang.es-MX'),                          
+                "productDigitalPaginated-add": require('./product/modules/productDigitalPaginated.add/lang.es-MX'),                          
+                "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
+                "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
+                "productDiecuttingGeneral-add": require('./product/modules/productDiecuttingGeneral.add/lang.es-MX'),                          
+                "productDirectSaleGeneral-add": require('./product/modules/productDirectSaleGeneral.add/lang.es-MX'),                          
                 /****************************************
                 SUPPLIER 
                 ****************************************/
@@ -131,6 +138,7 @@ module.exports = {
                 ****************************************/
                 "wo": require('./wo/lang.es-MX'),
                 "wo-add": require('./wo/modules/wo.add/lang.es-MX'),
+                "wo-duplicate": require('./wo/modules/wo.duplicate/lang.es-MX'),
                 "wo-update": require('./wo/modules/wo.update/lang.es-MX'),
                 /****************************************
                 ZONE 
@@ -148,6 +156,11 @@ module.exports = {
                 ****************************************/
                 "tlr": require('./traffic-light-report/lang.es-MX'),
                 "tlr-custom": require('./traffic-light-report/lang.custom.es-MX'),
+                /****************************************
+                TRAFFIC LIGHT REPORT 
+                ****************************************/
+                "tlrAll": require('./traffic-light-report-all/lang.es-MX'),
+                "tlrAll-custom": require('./traffic-light-report-all/lang.custom.es-MX'),
                 /****************************************
                 EXPORTATION INVOICE
                 ****************************************/
