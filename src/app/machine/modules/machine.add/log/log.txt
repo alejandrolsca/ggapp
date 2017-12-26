@@ -1,6 +1,6 @@
 Query: insert into public.machine
                     (ma_jsonb)
-                    values ('{"ma_corporatename":"test","ma_tin":"sabg-899889","ma_name":"test","ma_fatherslastname":"test","ma_motherslastname":"test","ma_country":3723988,"ma_state":3731053,"ma_city":3717563,"ma_county":3717587,"ma_street":"test","ma_streetnumber":"tes","ma_suitenumber":"test","ma_neighborhood":"tes","ma_zipcode":"55556","ma_addressreference":"test","ma_email":"test@test.com","ma_phone":"3366998898","ma_mobile":"5544885566","ma_status":"A"}');
+                    values ('{"ma_corporatename":"test","ma_rfc":"sabg-899889","ma_name":"test","ma_fatherslastname":"test","ma_motherslastname":"test","ma_country":3723988,"ma_state":3731053,"ma_city":3717563,"ma_county":3717587,"ma_street":"test","ma_streetnumber":"tes","ma_suitenumber":"test","ma_neighborhood":"tes","ma_zipcode":"55556","ma_addressreference":"test","ma_email":"test@test.com","ma_phone":"3366998898","ma_mobile":"5544885566","ma_status":"A"}');
  | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.machine" does not exist
 LINE 1: insert into public.machine
                     ^

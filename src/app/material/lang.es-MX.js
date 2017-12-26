@@ -4,12 +4,15 @@ module.exports = {
                         "mt-id":"ID Material",
                         "su-id":"ID Proveedor",
                         "mt-code":"Codigo",
-                        "mt-type":"Tipo",
+                        "mt-type":"ID Tipo",
+                        "maty-label":"Tipo",
                         "mt-description":"Descripción",
                         "mt-weight":"Peso (kg)",
                         "mt-width":"Ancho",
                         "mt-height":"Largo",
-                        "mt-measure":"Medida",
+                        "mt-measure":"U. de medida",
+                        "mt-thickness":"Espesor",
+                        "mt-thicknessmeasure":"U. de medida",
                         "mt-status":"Estatus",
                         "mt-date":"Fecha",
                     },
@@ -18,6 +21,7 @@ module.exports = {
                         "su_id",
                         "mt_code",
                         "mt_type",
+                        "maty_label",
                         "mt_description",
                         "mt_weight",
                         "mt_width",
@@ -31,24 +35,16 @@ module.exports = {
                             {"label":"Activo","value":"A"},
                             {"label":"Inactivo","value":"I"}
                         ],
-                        mt_typeoptions : [
-                            {"label":"Papel","value":"paper"},
-                            {"label":"Cartulina","value":"poster_board"},
-                            {"label":"Papel Adhesivo","value":"adhesive_paper"},
-                            {"label":"Pelicula Adhesiva","value":"adhesive_film"},
-                            {"label":"Síntetico","value":"synthetic"},
-                            {"label":"Plasticos","value":"plastics"},
-                            {"label":"Termal Transfer","value":"termal_transfer"},
-                            {"label":"Direct Termal","value":"direct_termal"},
-                            {"label":"Ribbon","value":"ribbon"},
-                            {"label":"Sello","value":"stamp"},
-                            {"label":"Almohadilla de tinta","value":"ink_pad"},
-                            {"label":"Tinta para sello","value":"stamp_ink"},
-                            {"label":"Otros","value":"other"}
-                        ],
                         mt_measureoptions : [
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
+                        ],
+                        mt_thicknessmeasureoptions : [
+                            {"label":"cm","value":"cm"},
+                            {"label":"Milimetros","value":"mm"},
+                            {"label":"Milesimas","value":"mil"},
+                            {"label":"pulgadas","value":"in"},
+                            {"label":"puntos","value":"pt"}
                         ],
                     }
                 }

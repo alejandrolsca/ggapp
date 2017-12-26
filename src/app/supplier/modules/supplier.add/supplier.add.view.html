@@ -2,7 +2,7 @@
     <h3>{{'supplier-add.title' | i18n}}</h3>
     
 </div>
-<form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+<form class="col-md-8" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
   <gg-select err-class="error"
            lbl="{{'supplier.labels.su-type' | i18n}}" 
            form-group-class="col-sm-3" 
@@ -15,9 +15,9 @@
            is-required="true">
   </gg-select>
   <gg-input err-class="error"
-            lbl="{{'supplier.labels.su-tin' | i18n}}" 
+            lbl="{{'supplier.labels.su-rfc' | i18n}}" 
             form-group-class="col-sm-3" 
-            ng-model="fmData.su_tin"
+            ng-model="fmData.su_rfc"
             regexp="rfc"
             regexp-msg="{{'general.regexp.rfc' | i18n}}"
             req-msg="Required"
@@ -45,22 +45,22 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'supplier.labels.su-fatherslastname' | i18n}}"
+            lbl="{{'supplier.labels.su-firstsurname' | i18n}}"
             form-group-class="col-sm-4"
-            ng-model="fmData.su_fatherslastname"
+            ng-model="fmData.su_firstsurname"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'supplier.labels.su-motherslastname' | i18n}}"
+            lbl="{{'supplier.labels.su-secondsurname' | i18n}}"
             form-group-class="col-sm-4"
-            ng-model="fmData.su_motherslastname"
+            ng-model="fmData.su_secondsurname"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-countries err-class="error"
            lbl="{{'supplier.labels.su-country' | i18n}}" 
@@ -131,7 +131,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'supplier.labels.su-neighborhood' | i18n}}"
@@ -159,7 +159,7 @@
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'supplier.labels.su-email' | i18n}}"
@@ -197,6 +197,7 @@
             req-msg="Required"
             is-required="true">
   </gg-phone>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'supplier.labels.su-status' | i18n}}" 
            form-group-class="col-sm-4" 
@@ -207,6 +208,7 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset"></label>
   <gg-submit lbl="Submit"
             form-group-class="col-sm-12" 
             ng-disabled="ggform.$invalid"

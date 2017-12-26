@@ -20,13 +20,17 @@ jsonb_to_record(wo_jsonb) as x (
         wo_foliosfrom int, 
         wo_foliosto int, 
         wo_type text,
-        wo_commitmentdate timestamp, 
+        wo_commitmentdate timestamp,
+        wo_deliverydate timestamp, 
         wo_previousid int, 
         wo_previousdate timestamp, 
         wo_notes text, 
         wo_price text, 
         wo_currency text, 
         wo_email text, 
-        wo_status int
+        wo_status int,
+        wo_createdby text, 
+        wo_updatedby text,
+        wo_updatedate text
 )
 where wo_jsonb->>'cl_id' = $1;

@@ -26,10 +26,10 @@ module.exports = (function(angular){
         
         // bind columns when grid is initialized
         $scope.initGrid = function(s, e) {
-            for (var i = 0; i < $scope.labels.length; i++) {
+            for (var i = 0; i < $scope.columns.length; i++) {
                 var col = new wijmo.grid.Column();
                 col.binding = $scope.columns[i];
-                col.header = i18nFilter("user.labels." + $scope.labels[i]);
+                col.header = i18nFilter("user.labels." + $scope.columns[i].replace('_','-'));
                 s.columns.push(col);
             }
         };

@@ -17,9 +17,9 @@
            is-required="true">
   </gg-select>
   <gg-input err-class="error"
-            lbl="{{'zone.labels.zo-tin' | i18n}}" 
+            lbl="{{'zone.labels.zo-rfc' | i18n}}" 
             form-group-class="col-sm-3" 
-            ng-model="fmData.zo_tin"
+            ng-model="fmData.zo_rfc"
             regexp="rfc"
             regexp-msg="{{'general.regexp.rfc' | i18n}}"
             req-msg="Required"
@@ -67,22 +67,22 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'zone.labels.zo-fatherslastname' | i18n}}"
+            lbl="{{'zone.labels.zo-firstsurname' | i18n}}"
             form-group-class="col-sm-4"
-            ng-model="fmData.zo_fatherslastname"
+            ng-model="fmData.zo_firstsurname"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
-            lbl="{{'zone.labels.zo-motherslastname' | i18n}}"
+            lbl="{{'zone.labels.zo-secondsurname' | i18n}}"
             form-group-class="col-sm-4"
-            ng-model="fmData.zo_motherslastname"
+            ng-model="fmData.zo_secondsurname"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-countries err-class="error"
            lbl="{{'zone.labels.zo-country' | i18n}}" 
@@ -138,7 +138,7 @@
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'zone.labels.zo-streetnumber' | i18n}}"
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-2"
             ng-model="fmData.zo_streetnumber"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
@@ -147,8 +147,7 @@
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'zone.labels.zo-suitenumber' | i18n}}"
-            form-group-class="col-sm-4"
-
+            form-group-class="col-sm-2"
             ng-model="fmData.zo_suitenumber"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
@@ -184,8 +183,17 @@
             is-required="true">
   </gg-input>
   <gg-input err-class="error"
+  lbl="{{'zone.labels.zo-receiptschedule' | i18n}}"
+  form-group-class="col-sm-4"
+  ng-model="fmData.zo_receiptschedule"
+  regexp="receiptschedule"
+  regexp-msg="{{'general.regexp.receiptschedule' | i18n}}"
+  req-msg="Required"
+  is-required="false">
+</gg-input>
+  <gg-input err-class="error"
             lbl="{{'zone.labels.zo-email' | i18n}}"
-            form-group-class="col-sm-6"
+            form-group-class="col-sm-4"
             ng-model="fmData.zo_email"
             regexp="email"
             regexp-msg="{{'general.regexp.email' | i18n}}"
@@ -194,7 +202,7 @@
   </gg-input>
   <gg-phone err-class="error"
             lbl="{{'zone.labels.zo-phone' | i18n}}"
-            form-group-class="col-sm-5"
+            form-group-class="col-sm-3"
             ng-model="fmData.zo_phone"
             regexp="phone"
             regexp-msg="{{'general.regexp.phone' | i18n}}"
@@ -212,16 +220,17 @@
   </gg-input>
   <gg-phone err-class="error"
             lbl="{{'zone.labels.zo-mobile' | i18n}}"
-            form-group-class="col-sm-6"
+            form-group-class="col-sm-4"
             ng-model="fmData.zo_mobile"
             regexp="phone"
             regexp-msg="{{'general.regexp.phone' | i18n}}"
             req-msg="Required"
             is-required="true">
   </gg-phone>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'zone.labels.zo-status' | i18n}}" 
-           form-group-class="col-sm-6" 
+           form-group-class="col-sm-3" 
            options="zo_statusoptions" 
            ng-model="fmData.zo_status"
            regexp="singlespaces"
@@ -229,6 +238,7 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset"></label>
   <gg-submit lbl="Submit"
             form-group-class="col-sm-6" 
             ng-disabled="ggform.$invalid"

@@ -8,7 +8,8 @@ module.exports = (function (angular) {
             deferred.resolve(
                 $http.post('/api/client/', {
                     /* POST variables here */
-                    procces_id: new Date().getMilliseconds()
+                    procces_id: new Date().getMilliseconds(),
+                    cl_status: 'A,I'
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

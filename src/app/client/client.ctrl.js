@@ -7,6 +7,22 @@ module.exports = (function (angular) {
             $scope.labels = Object.keys(i18nFilter("client.labels"));
             $scope.columns = i18nFilter("client.columns");
 
+            // expport to xls
+            $scope.exportXLS = function () {
+                const timestamp = moment().tz('America/Chihuahua').format();
+                const fileName = `clients_${timestamp}.xlsx`;
+                const flexGrid = $scope.ggGrid
+                try {
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                        includeColumnHeaders: true, 
+                        includeCellStyles: false
+                    }, fileName);
+                } catch (error) {
+                    throw new Error(error)
+                }
+                
+            }
+
             // formatItem event handler
             var cl_id;
             $scope.formatItem = function (s, e, cell) {
@@ -30,7 +46,6 @@ module.exports = (function (angular) {
                                             '+ i18nFilter("general.labels.add") + ' <span class="caret"></span>\
                                           </button>\
                                           <ul class="dropdown-menu" role="menu">\
-                                            <li><a href="#/wo/add/'+ cl_id + '"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Orden</a></li>\
                                             <li><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" data-cl_id="'+ cl_id + '"><span class="glyphicon glyphicon-barcode" aria-hidden="true"></span> Producto</a></li>\
                                             <li><a href="#/zone/add/'+ cl_id + '"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Zona</a></li>\
                                             <li><a href="#/einvoice/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Factura de exportación</a></li>\
@@ -45,6 +60,7 @@ module.exports = (function (angular) {
                                             <li><a href="#/wo/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Ordenes</a></li>\
                                             <li><a href="#/product/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Productos</a></li>\
                                             <li><a href="#/zone/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Zonas</a></li>\
+                                            <li><a href="#/tlr/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Reporte Semaforo</a></li>\
                                           </ul>\
                                         </div>\
                                     </div>';
@@ -55,10 +71,10 @@ module.exports = (function (angular) {
 
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
-                for (var i = 0; i < $scope.labels.length; i++) {
+                for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i];
-                    col.header = i18nFilter("client.labels." + $scope.labels[i]);
+                    col.header = i18nFilter("client.labels." + $scope.columns[i].replace('_','-'));
                     col.wordWrap = false;
                     col.width = 150;
                     s.columns.push(col);

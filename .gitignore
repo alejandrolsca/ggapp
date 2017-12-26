@@ -1,6 +1,6 @@
 assets/
 bower_components/
+db_backups/geoname.sql
 node_modules/
-platforms/
 dist/
 .DS_Store

@@ -3,7 +3,7 @@
     <span ng-if="loading">Cargando...</span>
     
 </div>
-<form class="col-sm-7" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+<form class="col-md-8" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
   <gg-select err-class="error"
            lbl="{{'material.labels.su-id' | i18n}}" 
            form-group-class="col-sm-4" 
@@ -49,7 +49,7 @@
   </gg-textarea>
   <gg-input err-class="error"
             lbl="{{'material.labels.mt-width' | i18n}}"
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-2"
             ng-model="fmData.mt_width"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
@@ -59,7 +59,7 @@
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'material.labels.mt-height' | i18n}}"
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-2"
             ng-model="fmData.mt_height"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
@@ -68,26 +68,49 @@
             is-disabled="true">
   </gg-input>
   <gg-select err-class="error"
-           lbl="{{'material.labels.mt-measure' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="mt_measureoptions" 
-           ng-model="fmData.mt_measure"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true"
-           is-disabled="true">
+            lbl="{{'material.labels.mt-measure' | i18n}}" 
+            form-group-class="col-sm-4" 
+            options="mt_measureoptions" 
+            ng-model="fmData.mt_measure"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true"
+            is-disabled="true">
   </gg-select>
   <gg-input err-class="error"
             lbl="{{'material.labels.mt-weight' | i18n}}"
-            form-group-class="col-sm-4"
+            form-group-class="col-sm-2"
             ng-model="fmData.mt_weight"
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
-            is-required="true"
+            is-required="false"
             is-disabled="true">
   </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'material.labels.mt-thickness' | i18n}}"
+            form-group-class="col-sm-2"
+            ng-model="fmData.mt_thickness"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-required="false"
+            is-disabled="true">
+  </gg-input>
+  <span ng-if="fmData.mt_thickness">
+    <gg-select err-class="error"
+              lbl="{{'material.labels.mt-thicknessmeasure' | i18n}}" 
+              form-group-class="col-sm-4" 
+              options="mt_thicknessmeasureoptions" 
+              ng-model="fmData.mt_thicknessmeasure"
+              regexp="singlespaces"
+              regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+              req-msg="Required"
+              is-required="true"
+              is-disabled="true">
+    </gg-select>
+  </span>
   <gg-select err-class="error"
            lbl="{{'material.labels.mt-status' | i18n}}" 
            form-group-class="col-sm-4" 

@@ -6,7 +6,7 @@ Query: select
                     from  public.ink, 
                     jsonb_to_record(in_jsonb, true) as x (
                         in_corporatename text,
-                        in_tin text,
+                        in_rfc text,
                         in_name text,
                         in_fatherslastname text,
                         in_motherslastname text,

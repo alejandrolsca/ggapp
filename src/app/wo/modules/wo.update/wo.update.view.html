@@ -8,7 +8,7 @@
     {{'wo-update.labels.wo-id' | i18n}}: {{wo_id}}<br/>
     {{'wo-update.labels.wo-date' | i18n}}: {{wo_date}}<br/>
     </label>
-    <form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+    <form class="row col-sm-12" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
     <gg-select err-class="error"
            lbl="{{'wo-update.labels.zo-id' | i18n}}" 
            form-group-class="col-sm-6" 
@@ -17,8 +17,8 @@
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
-           is-required="true"
-           is-disabled="true">
+           is-required="false"
+           is-disabled="false">
   </gg-select>
   <gg-input err-class="error"
             lbl="{{'wo-update.labels.wo-orderedby' | i18n}}" 
@@ -76,7 +76,7 @@
   <label class="col-sm-12 fieldset">PRODUCTO</label>
   <gg-select err-class="error"
            lbl="{{'wo-update.labels.pr-id' | i18n}}" 
-           form-group-class="col-sm-12" 
+           form-group-class="col-sm-8 col-xs-10" 
            options="pr_idoptions" 
            ng-model="fmData.pr_id"
            regexp="singlespaces"
@@ -85,15 +85,74 @@
            is-required="true"
            is-disabled="true">
   </gg-select>
-  <div ng-show="prinfo" class="col-sm-12 bg-info">
-        Id: {{product['pr_id']}}<br/>
-        Name: {{product['pr_jsonb']['pr_name']}}<br/>
-        Part No: {{product['pr_jsonb']['pr_partno']}}<br/>
-        Code: {{product['pr_jsonb']['pr_code']}}<br/>
-        Proceso: {{product['pr_jsonb']['pr_process']}}<br/>
-        Type: {{product['pr_jsonb']['pr_type']}}<br/>   
-        Folios: {{product['pr_jsonb']['pr_folio']}}<br/><br/>
-    </div>
+  <div class="form-group col-sm-2 col-xs-2">
+        <label class="control-label">&nbsp</label>
+        <div>
+            <button type="button" class="btn btn-primary form-control" data-toggle="modal" data-target="#modal" data-code_data="${code_data}">Detalles</button>  
+        </div>
+  </div>
+  <gg-input err-class="error"
+            lbl="{{'wo-update.labels.wo-qty' | i18n}}" 
+            form-group-class="col-sm-2"
+            ng-model="fmData.wo_qty"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-required="true"
+            is-disabled="true">
+  </gg-input>
+  <span class="col-sm-12">
+        <div ng-show="prinfo" class="pr-info col-sm-12 bg-info">
+                <strong>Part No:</strong> {{product['pr_jsonb']['pr_partno']}}<br/> 
+                <strong>Folios:</strong> {{product['pr_jsonb']['pr_folio']}}<br/>
+                <strong>Material:</strong> <br>
+                <span ng-repeat="material in product['pr_material'].split(',')">{{material}}<br/></span>
+        </div>
+    </span>
+    <span ng-if="folio">
+        <label class="col-sm-12 fieldset">FOLIOS</label>
+        <gg-select err-class="error"
+                 lbl="{{'wo-update.labels.wo-foliosperformat' | i18n}}" 
+                 form-group-class="col-sm-3" 
+                 options="wo_foliosperformatoptions" 
+                 ng-model="fmData.wo_foliosperformat"
+                 regexp="singlespaces"
+                 regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                 req-msg="Required"
+                 is-required="true"
+                 is-disabled="true">
+        </gg-select>
+        <gg-input err-class="error"
+                  lbl="{{'wo-update.labels.wo-foliosseries' | i18n}}" 
+                  form-group-class="col-sm-3"
+                  ng-model="fmData.wo_foliosseries"
+                  regexp="uppercase"
+                  regexp-msg="{{'general.regexp.uppercase' | i18n}}"
+                  req-msg="Required"
+                  is-required="true"
+                  is-disabled="true">
+        </gg-input>
+        <gg-input err-class="error"
+                  lbl="{{'wo-update.labels.wo-foliosfrom' | i18n}}" 
+                  form-group-class="col-sm-3"
+                  ng-model="fmData.wo_foliosfrom"
+                  regexp="integer"
+                  regexp-msg="{{'general.regexp.integer' | i18n}}"
+                  req-msg="Required"
+                  is-required="true"
+                  is-disabled="true">
+        </gg-input>
+        <gg-input err-class="error"
+                  lbl="{{'wo-update.labels.wo-foliosto' | i18n}}" 
+                  form-group-class="col-sm-3"
+                  ng-model="fmData.wo_foliosto"
+                  regexp="integer"
+                  regexp-msg="{{'general.regexp.integer' | i18n}}"
+                  req-msg="Required"
+                  is-required="true"
+                  is-disabled="true">
+        </gg-input>
+  </span>
   <span ng-if="fmData.pr_id">
     <label class="col-sm-12 fieldset">MAQUINA</label>
       <gg-select err-class="error"
@@ -108,111 +167,51 @@
                   is-disabled="true">
       </gg-select>
     </span>
-    <label class="col-sm-12 fieldset">MATERIAL</label>
-  <gg-input err-class="error"
-            lbl="{{'wo-update.labels.wo-qty' | i18n}}" 
-            form-group-class="col-sm-2"
-            ng-model="fmData.wo_qty"
-            regexp="integer"
-            regexp-msg="{{'general.regexp.integer' | i18n}}"
-            req-msg="Required"
-            is-required="true"
-            is-disabled="true">
-  </gg-input>
-  <span ng-if="!paginatedExcedent">
-    <gg-input err-class="error"
-              lbl="{{'wo-update.labels.wo-materialqty' | i18n}}" 
-              form-group-class="col-sm-2"
-              ng-model="fmData.wo_materialqty"
-              regexp="integer"
-              regexp-msg="{{'general.regexp.integer' | i18n}}"
-              req-msg="Required"
-              is-required="true">
-    </gg-input>
-   </span>
-   <span ng-if="paginatedExcedent">
-    <gg-input err-class="error"
-              lbl="{{'wo-update.labels.wo-materialcoverqty' | i18n}}" 
-              form-group-class="col-sm-3"
-              ng-model="fmData.wo_materialcoverqty"
-              regexp="integer"
-              regexp-msg="{{'general.regexp.integer' | i18n}}"
-              req-msg="Required"
-              is-required="true">
-    </gg-input>
-    <gg-input err-class="error"
-              lbl="{{'wo-update.labels.wo-materialinteriorqty' | i18n}}" 
-              form-group-class="col-sm-3"
-              ng-model="fmData.wo_materialinteriorqty"
-              regexp="integer"
-              regexp-msg="{{'general.regexp.integer' | i18n}}"
-              req-msg="Required"
-              is-required="true">
-    </gg-input>
-   </span>
-  <gg-input err-class="error"
-            lbl="{{'wo-update.labels.wo-packageqty' | i18n}}" 
-            form-group-class="col-sm-2"
-            ng-model="fmData.wo_packageqty"
-            regexp="integer"
-            regexp-msg="{{'general.regexp.integer' | i18n}}"
-            req-msg="Required"
-            is-required="true"
-            is-disabled="true">
-  </gg-input>
-  <gg-input err-class="error"
+    <label class="col-sm-12 fieldset">MATERIAL ORDENADO</label>
+    <span ng-if="!components">
+        <gg-input err-class="error"
+                  lbl="{{'wo-add.labels.wo-materialqty' | i18n}}" 
+                  form-group-class="col-sm-3"
+                  ng-model="fmData.wo_materialqty"
+                  regexp="decimal"
+                  regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                  req-msg="Required"
+                  is-required="true">
+        </gg-input>
+       </span>
+       <span ng-if="components">
+               <span ng-repeat="material in componentsArray track by $index">
+                      <gg-input err-class="error"
+                              lbl="{{product['pr_jsonb']['pr_concept'][$index]}}" 
+                              form-group-class="col-sm-3"
+                              ng-model="fmData.wo_componentmaterialqty[$index]"
+                              regexp="decimal"
+                              regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                              req-msg="Required"
+                              is-required="true">
+                    </gg-input>
+               </span>
+       </span>
+   <label class="col-sm-12 fieldset">EMPAQUE</label>
+   <gg-input err-class="error"
+             lbl="{{'wo-update.labels.wo-packageqty' | i18n}}" 
+             form-group-class="col-sm-3"
+             ng-model="fmData.wo_packageqty"
+             regexp="integer"
+             regexp-msg="{{'general.regexp.integer' | i18n}}"
+             req-msg="Required"
+             is-required="true"
+             is-disabled="true">
+   </gg-input>
+   <gg-input err-class="error"
             lbl="{{'wo-update.labels.wo-boxqty' | i18n}}" 
-            form-group-class="col-sm-2"
+            form-group-class="col-sm-3"
             ng-model="fmData.wo_boxqty"
             regexp="integer"
             regexp-msg="{{'general.regexp.integer' | i18n}}"
             req-msg="Required"
             is-required="true">
-  </gg-input>
-  <span ng-if="folio">
-  <label class="col-sm-12 fieldset">FOLIOS</label>
-  <gg-select err-class="error"
-           lbl="{{'wo-update.labels.wo-foliosperformat' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="wo_foliosperformatoptions" 
-           ng-model="fmData.wo_foliosperformat"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true"
-           is-disabled="true">
-  </gg-select>
-  <gg-input err-class="error"
-            lbl="{{'wo-update.labels.wo-foliosseries' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.wo_foliosseries"
-            regexp="uppercase"
-            regexp-msg="{{'general.regexp.uppercase' | i18n}}"
-            req-msg="Required"
-            is-required="true"
-            is-disabled="true">
-  </gg-input>
-  <gg-input err-class="error"
-            lbl="{{'wo-update.labels.wo-foliosfrom' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.wo_foliosfrom"
-            regexp="integer"
-            regexp-msg="{{'general.regexp.integer' | i18n}}"
-            req-msg="Required"
-            is-required="true"
-            is-disabled="true">
-  </gg-input>
-  <gg-input err-class="error"
-            lbl="{{'wo-update.labels.wo-foliosto' | i18n}}" 
-            form-group-class="col-sm-3"
-            ng-model="fmData.wo_foliosto"
-            regexp="integer"
-            regexp-msg="{{'general.regexp.integer' | i18n}}"
-            req-msg="Required"
-            is-required="true"
-            is-disabled="true">
-  </gg-input>
-  </span>
+   </gg-input>
   <label class="col-sm-12 fieldset">ORDEN</label>
   <gg-textarea err-class="error"
             lbl="{{'wo-update.labels.wo-notes' | i18n}}" 
@@ -270,5 +269,35 @@
             ng-disabled="ggform.$invalid"
             btn-class="col-xs-12 col-sm-4 col-md-2">
   </gg-submit> 
-    </form>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalLabel">DETALLES DEL PRODUCTO</h4>
+                    </div>
+            <div class="modal-body">
+                    <div class="table-responsive">
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                    <th></th>
+                                    <th>General</th>
+                                    <th ng-repeat="c in components track by $index">{{'Componente '+($index+1)}}</th>
+                                </thead>
+                              <tr ng-repeat="row in prInfo">
+                                    <th class="product-left-headers">{{row.key}}</th>
+                                    <td>{{row.value}}</td>
+                                    <td ng-repeat="c in components track by $index">{{row['component'+($index+1)]}}</td>
+                              </tr>
+                            </table>
+                          </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
+            </div>
+            </div>
+        </div>
+    </div>
 </div>

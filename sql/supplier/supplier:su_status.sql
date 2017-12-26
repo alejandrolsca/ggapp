@@ -6,8 +6,8 @@ jsonb_to_record(su_jsonb) as x (
     su_corporatename text,
     su_tin text,
     su_name text,
-    su_fatherslastname text,
-    su_motherslastname text,
+    su_firstsurname text,
+    su_secondsurname text,
     su_street text,
     su_streetnumber text,
     su_suitenumber text,
@@ -20,6 +20,7 @@ jsonb_to_record(su_jsonb) as x (
     su_zipcode text,
     su_email text,
     su_phone text,
+    su_phoneextension text,
     su_mobile text,
     su_status text
 )

@@ -1,8 +1,118 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter','$location',
-        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location) {         
+    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter','$location', 'authService',
+        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location, authService) {
+            
+            const camelCase = (...args) => {
+                const camelCase = args.map(function (value, index) {
+                    if (index === 0) {
+                        return value.toLowerCase()
+                    }
+                    return value.charAt(0).toUpperCase() + value.substr(1);
+                });
+                return camelCase.join('')
+            }
+
+            // product modal
+            $('#modal').on('show.bs.modal', async (event) => {
+                //var button = $(event.relatedTarget); // Button that triggered the modal
+                //$scope.qrcodeString = button.data('code_data');// Extract info from data-* attributes
+                try {
+                    const { data } = await woUpdateFactory.getProductInfo($scope.fmData.pr_id)
+                    let hasComponents = false
+                    let componentsIndex = undefined
+                    let pr_process = undefined
+                    let pr_type = undefined
+                    data.map((value, index, data) => {
+                        if (value.key === 'pr_components') {
+                            hasComponents = true
+                            componentsIndex = index
+                        }
+                        if (value.key === 'pr_process') {
+                            pr_process = value.value
+                        }
+                        if (value.key === 'pr_type') {
+                            pr_type = value.value
+                        }
+                    })
+                    if (hasComponents) {
+                        const componentsData = data.map(async (value, index, data) => {
+                            if (typeof value.value === 'object') {
+                                value.value = null
+                            }
+                            if (value.key === 'mt_id') {
+                                for (let i = 1; i <= data[componentsIndex].value; i++) {
+                                    const { data } = await woUpdateFactory.getProductInfoMaterial(value['component' + i])
+                                    value['component' + i] = data[0].material
+                                }
+                            }
+                            if (value.key === 'pr_inksfront') {
+                                for (let i = 1; i <= data[componentsIndex].value; i++) {
+                                    if (value['component' + i]) {
+                                        const { data } = await woUpdateFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
+                                        value['component' + i] = data[0].inks
+                                    }
+                                }
+                            }
+                            if (value.key === 'pr_inksback') {
+                                for (let i = 1; i <= data[componentsIndex].value; i++) {
+                                    if (value['component' + i]) {
+                                        const { data } = await woUpdateFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
+                                        value['component' + i] = data[0].inks
+                                    }
+                                }
+                            }
+                            return value
+                        })
+                        componentsData.map(async (value, index, data) => {
+                            if (typeof value.value === 'object') {
+                                value.value = null
+                            }
+                            return value
+                        })
+                        Promise.all(componentsData).then((completed) => {
+                            completed.map((value) => {
+                                value.key = i18nFilter(`${camelCase('product', pr_process, pr_type)}-add.labels.${value.key.replace('_', '-')}`);
+                            })
+                            $scope.prInfo = completed
+                            $scope.components = new Array(completed[componentsIndex].value)
+                            $scope.$apply()
+                        })
+                    }
+                    if (!hasComponents) {
+                        const generalData = data.map(async (value, index, data) => {
+                            if (value.key === 'mt_id') {
+                                const { data } = await woUpdateFactory.getProductInfoMaterial(value.value)
+                                value.value = data[0].material
+                            }
+                            if (value.key === 'pr_inksfront') {
+                                if (value.value) {
+                                    const { data } = await woUpdateFactory.getProductInfoInks(Object.values(value.value).join(','))
+                                    value.value = data[0].inks
+                                }
+                            }
+                            if (value.key === 'pr_inksback') {
+                                if (value.value) {
+                                    const { data } = await woUpdateFactory.getProductInfoInks(Object.values(value.value).join(','))
+                                    value.value = data[0].inks
+                                }
+                            }
+                            return value
+                        })
+                        Promise.all(generalData).then((completed) => {
+                            completed.map((value) => {
+                                value.key = i18nFilter(`${camelCase('product', pr_process, pr_type)}-add.labels.${value.key.replace('_', '-')}`);
+                            })
+                            $scope.prInfo = completed
+                            $scope.components = new Array()
+                            $scope.$apply()
+                        })
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            })
             
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
@@ -22,7 +132,6 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                var client = undefined;
                 woUpdateFactory.getData().then(function(promise){
                     $scope.loading = false;
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
@@ -30,24 +139,48 @@ module.exports = (function (angular) {
                             $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
                             $scope.wo_id = promise.data[0].wo_id;
                             $scope.wo_date = promise.data[0].wo_date;
+                            $scope.fmData.wo_updatedby = authService.userProfile.username;
+                            
+                    }
+                    woUpdateFactory.getProduct($scope.fmData.pr_id).then(function (promise) {
+                        $scope.pr_idoptions = [];
+                        var rows = [];
+                        if (angular.isArray(promise.data)) {
+                            rows = promise.data;
+                            angular.forEach(rows, function (value, key) {
+                                this.push({ "label": rows[key]['pr_jsonb']['pr_code'] + ' - ' + rows[key]['pr_jsonb']['pr_name'], "value": rows[key]['pr_id'] });
+                            }, $scope.pr_idoptions);
+                        }
+                        $scope.$watch(
+                            "fmData.pr_id",
+                            function prChange(newValue, oldValue) {
+                                if (newValue !== undefined) {
+                                    var product = $filter('filter')(rows, { "pr_id": newValue }, true);
+                                    if (product.length !== 1) {
+                                        $scope.prinfo = false;
+                                        return;
+                                    } else {
+                                        $scope.prinfo = true;
+                                        $scope.product = product[0];
+                                        $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
+                                        var pr_type = product[0]['pr_jsonb']['pr_type'] 
+                                        $scope.components = (pr_type === 'paginated' || pr_type === 'counterfoil') ? true : false;
+                                        $scope.componentsArray = new Array(product[0]['pr_jsonb']['pr_components'])
+                                    }
+                                }
+                            }
+                        );
+                    })
+                });
+                woUpdateFactory.getZone().then(function (promise) {
+                    $scope.zo_idoptions = [];
+                    if (angular.isArray(promise.data)) {
+                        var rows = promise.data;
+                        angular.forEach(rows, function (value, key) {
+                            this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
+                        }, $scope.zo_idoptions);
                     }
                 });
-                woUpdateFactory.getClient().then(function (promise) {
-                    if (angular.isArray(promise.data)) {
-                        client = promise.data[0];
-                    }
-                }).then(function () {
-                    woUpdateFactory.getZone().then(function (promise) {
-                        $scope.zo_idoptions = [];
-                        $scope.zo_idoptions.push({ "label": client.cl_jsonb.cl_tin, "value": 0 });
-                        if (angular.isArray(promise.data)) {
-                            var rows = promise.data;
-                            angular.forEach(rows, function (value, key) {
-                                this.push({ "label": rows[key]['zo_jsonb']['zo_zone'], "value": rows[key]['zo_id'] });
-                            }, $scope.zo_idoptions);
-                        }
-                    });
-                })
                 woUpdateFactory.getMachine().then(function (promise) {
                     $scope.ma_idoptions = [];
                     if (angular.isArray(promise.data)) {
@@ -56,34 +189,6 @@ module.exports = (function (angular) {
                             this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
                         }, $scope.ma_idoptions);
                     }
-                });
-                woUpdateFactory.getProduct().then(function (promise) {
-                    $scope.pr_idoptions = [];
-                    var rows = [];
-                    if (angular.isArray(promise.data)) {
-                        rows = promise.data;
-                        angular.forEach(rows, function (value, key) {
-                            this.push({ "label": rows[key]['pr_id'] + '_' + rows[key]['pr_jsonb']['pr_name'] + '_' + rows[key]['pr_jsonb']['pr_code'], "value": rows[key]['pr_id'] });
-                        }, $scope.pr_idoptions);
-                    }
-                    
-                    $scope.$watch(
-                        "fmData.pr_id",
-                        function prChange(newValue, oldValue) {
-                            if (newValue !== undefined) {
-                                var product = $filter('filter')(rows, { "pr_id": newValue }, true);
-                                if (product.length !== 1) {
-                                    $scope.prinfo = false;
-                                    return;
-                                } else {
-                                    $scope.prinfo = true;
-                                    $scope.product = product[0];
-                                    $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
-                                    $scope.paginatedExcedent = (product[0]['pr_jsonb']['pr_process'] === 'offset' && product[0]['pr_jsonb']['pr_type'] === 'paginated') ? true : false;
-                                }
-                            }
-                        }
-                    );
                 });
                 $scope.loading = false;
             });

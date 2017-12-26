@@ -6,6 +6,21 @@ module.exports = (function (angular) {
 
             $scope.labels = Object.keys(i18nFilter("machine.labels"));
             $scope.columns = i18nFilter("machine.columns");
+
+            // export to xls
+            $scope.exportXLS = function () {
+                const timestamp = moment().tz('America/Chihuahua').format();
+                const fileName = `machines_${timestamp}.xlsx`;
+                const flexGrid = $scope.ggGrid
+                try {
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                        includeColumnHeaders: true, 
+                        includeCellStyles: false
+                    }, fileName);
+                } catch (error) {
+                    throw new Error(error)
+                }
+            }
         
             // formatItem event handler
             var ma_id;
@@ -31,10 +46,10 @@ module.exports = (function (angular) {
         
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
-                for (var i = 0; i < $scope.labels.length; i++) {
+                for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i];
-                    col.header = i18nFilter("machine.labels." + $scope.labels[i]);
+                    col.header = i18nFilter("machine.labels." + $scope.columns[i].replace('_','-'));
                     col.wordWrap = false;
                     col.width = 150;
                     s.columns.push(col);

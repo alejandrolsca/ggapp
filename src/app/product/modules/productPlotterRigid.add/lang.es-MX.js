@@ -13,13 +13,12 @@ module.exports = {
                         "pr-description": "Descripcion",
                         "pr-finalsizewidth": "Ancho",
                         "pr-finalsizeheight": "Largo",
-                        "pr-finalsizemeasure": "Medida",
-                        "pr-inkfront": "Frente",
-                        "pr-inkback": "Reverso",
-                        "pa-id": "ID material",
-                        "pr-materialsizewidth": "Ancho",
-                        "pr-materialsizeheight": "Largo",
-                        "pr-materialsizemeasure": "Medida",
+                        "pr-finalsizemeasure": "Unidad de medida",
+                        "pr-inkfront": "# Tintas frente",
+                        "pr-inkback": "# Tintas reverso",
+                        "pr-inksfront": "Tintas frente",                        
+                        "pr-inksback": "Tintas reverso",
+                        "mt-id": "ID material",
                         "pr-varnish": "Barniz",
                         "pr-varnishuv": "Barniz UV",
                         "pr-varnishfinished": "Acabado",
@@ -30,8 +29,11 @@ module.exports = {
                         "pr-folio": "Folio",
                         "pr-printedlabeled": "Impreso / Rotulado",                      
                         "pr-rivet": "Remaches",                      
-                        "pr-doublesided": "Doble Cara",                                          
+                        "pr-doublesided": "Doble Cara",                                        
+                        "pr-fold": "Doblez",                                        
+                        "pr-drill": "Perforación",                                        
                         "pr-blocks": "Blocks",
+                        "tc-id": "Fracción",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },
@@ -51,9 +53,6 @@ module.exports = {
                         "pr_inkfront",
                         "pr_inkback",
                         "mt_id",
-                        "pr_materialsizewidth",
-                        "pr_materialsizeheight",
-                        "pr_materialsizemeasure",
                         "pr_varnish",
                         "pr_varnishuv",
                         "pr_varnishfinished",
@@ -65,6 +64,8 @@ module.exports = {
                         "pr_printedlabeled",                        
                         "pr_rivet",                        
                         "pr_doublesided",                                              
+                        "pr_fold",                                              
+                        "pr_drill",                                              
                         "pr_blocks",
                         "pr_status",
                         "pr_date",
@@ -136,6 +137,12 @@ module.exports = {
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
                         ],pr_doublesidedoptions : [
+                            {"label":"Si","value":"yes"},
+                            {"label":"No","value":"no"}
+                        ],pr_foldoptions : [
+                            {"label":"Si","value":"yes"},
+                            {"label":"No","value":"no"}
+                        ],pr_drilloptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
                         ],pr_blocksoptions : [

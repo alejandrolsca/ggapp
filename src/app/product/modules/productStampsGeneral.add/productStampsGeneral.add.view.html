@@ -15,7 +15,7 @@
             regexp="partno"
             regexp-msg="{{'general.regexp.partno' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'productStampsGeneral-add.labels.pr-code' | i18n}}" 
@@ -32,7 +32,7 @@
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
     <gg-input err-class="error"
             lbl="{{'productStampsGeneral-add.labels.pr-name' | i18n}}" 
@@ -119,7 +119,7 @@
   </div>
   <label class="col-sm-12 fieldset">MATERIAL</label>
   <gg-select err-class="error"
-           lbl="{{'productStampsGeneral-add.labels.pa-id' | i18n}}" 
+           lbl="{{'productStampsGeneral-add.labels.mt-id' | i18n}}" 
            form-group-class="col-sm-6" 
            options="mt_idoptions"
            ng-model="fmData.mt_id"
@@ -129,12 +129,24 @@
            is-required="true">
   </gg-select>
   <span ng-if="fmData.mt_id">
-    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
+    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}:true">
         <p class="field-info bg-success">
             {{material.width}} x {{material.height}} {{material.measure}}
         </p>
     </div>
   </span>
+  <label class="col-sm-12 fieldset">FRACCION ARANCELARIA</label>
+  <gg-select err-class="error"
+           lbl="{{'productStampsGeneral-add.labels.tc-id' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="tc_idoptions" 
+           ng-model="fmData.tc_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="false">
+  </gg-select>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'productStampsGeneral-add.labels.pr-status' | i18n}}" 
            form-group-class="col-sm-4" 

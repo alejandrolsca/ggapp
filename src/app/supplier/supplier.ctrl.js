@@ -6,6 +6,21 @@ module.exports = (function (angular) {
 
             $scope.labels = Object.keys(i18nFilter("supplier.labels"));
             $scope.columns = i18nFilter("supplier.columns");
+
+            // export to xls
+            $scope.exportXLS = function () {
+                const timestamp = moment().tz('America/Chihuahua').format();
+                const fileName = `suppliers_${timestamp}.xlsx`;
+                const flexGrid = $scope.ggGrid
+                try {
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                        includeColumnHeaders: true, 
+                        includeCellStyles: false
+                    }, fileName);
+                } catch (error) {
+                    throw new Error(error)
+                }
+            }
         
             // formatItem event handler
             var su_id;
@@ -31,15 +46,38 @@ module.exports = (function (angular) {
         
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
-                for (var i = 0; i < $scope.labels.length; i++) {
+                for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i];
-                    col.header = i18nFilter("supplier.labels." + $scope.labels[i]);
+                    col.header = i18nFilter("supplier.labels." + $scope.columns[i].replace('_','-'));
                     col.wordWrap = false;
                     col.width = 150;
                     s.columns.push(col);
                 }
             };
+
+            $scope.itemFormatter = function (panel, r, c, cell) {
+                if ((panel.cellType == wijmo.grid.CellType.Cell)) {
+                    var flex = panel.grid;
+                    var col = flex.columns[c];
+                    var row = flex.rows[r];
+                    var su_name = panel.grid.getCellData(r, flex.columns.getColumn('su_name').index,false);
+                    var su_firstsurname = panel.grid.getCellData(r, flex.columns.getColumn('su_firstsurname').index,false);
+                    var su_secondsurname = panel.grid.getCellData(r, flex.columns.getColumn('su_secondsurname').index,false) || '';                    
+                    var su_type = panel.grid.getCellData(r, flex.columns.getColumn('su_type').index,false);
+                    var su_corporatename = su_name + ' ' + su_firstsurname + ' ' + su_secondsurname
+                    cell.style.backgroundColor = '';
+                    cell.style.color = '';
+                    if (col.binding === 'su_corporatename') {
+                        if (su_type === 'natural') {
+                            row.dataItem.su_corporatename = su_corporatename;
+                            cell.innerHTML = su_corporatename;
+                        }
+                        cell.style.overflow = 'visible';      
+                    }
+                }
+            }
+
             // create the tooltip object
             $scope.$watch('ggGrid', function () {
                 if ($scope.ggGrid) {

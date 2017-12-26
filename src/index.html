@@ -34,7 +34,7 @@
             <li class="dropdown">
               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">REPORTES <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a ui-sref="tlr">REPORTE SEMAFORO</a></li>
+                <li><a ui-sref="tlrAll">REPORTE SEMAFORO</a></li>
                 <li><a ui-sref="woGenerator">GENERADOR DE ORDENES</a></li>
               </ul>
             </li>
@@ -55,12 +55,10 @@
             <button type="submit" class="btn btn-default">Enviar</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0);" ng-bind="authService.userProfile.username"></a></li>
             <li class="dropdown">
               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a ui-sref="user">Usuarios</a></li>
-                <li><a ui-sref="userProfile">Ver perfil</a></li>
+                <li><a ui-sref="userProfile"ng-bind="authService.userProfile.username"></a></li>
                   <li class="divider"></li>
                 <li><a href="javascript:void(0);">Ayuda</a></li>
                 <li><a href="javascript:void(0);">Reportar un problema</a></li>

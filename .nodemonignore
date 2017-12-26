@@ -2,6 +2,7 @@ assets/
 bower_components/
 dist/
 config/
+db_backups/geoname.sql
 node_modules/
 sql/
 src/

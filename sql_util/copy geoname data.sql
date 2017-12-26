@@ -1,0 +1,4 @@
+--copy geoname (geonameid,name,asciiname,alternatenames,latitude,longitude,fclass,fcode,country,cc2,admin1,admin2,admin3,admin4,population,elevation,gtopo30,timezone,moddate) from '/Applications/MAMP/htdocs/ng1/ggapp/assets/zip/allCountries.txt' null as '';
+--copy countryinfo (iso_alpha2,iso_alpha3,iso_numeric,fips_code,name,capital,areainsqkm,population,continent,tld,currencycode,currencyname,phone,postalcode,postalcoderegex,languages,geonameid,neighbors,equivfipscode) from '/Applications/MAMP/htdocs/ng1/ggapp/assets/zip/countryInfo.txt' null as '';
+--copy alternatename  (alternatenameid,geonameid,isolanguage,alternatename,ispreferredname,isshortname,iscolloquial,ishistoric) from '/Applications/MAMP/htdocs/ng1/ggapp/assets/zip/alternateNames/alternateNames.txt'
+copy hierarchy (parentId,childId,type) from '/Applications/MAMP/htdocs/ng1/ggapp/assets/zip/hierarchy.txt' null as ''

@@ -6,7 +6,7 @@ Query: select
                     from  public.machine, 
                     jsonb_to_record(ma_jsonb, true) as x (
                         ma_corporatename text,
-                        ma_tin text,
+                        ma_rfc text,
                         ma_name text,
                         ma_fatherslastname text,
                         ma_motherslastname text,

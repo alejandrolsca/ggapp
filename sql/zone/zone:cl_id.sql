@@ -1,16 +1,70 @@
-select 
-    *
-from  public.zone, 
+select
+	zo.zo_id,
+	zo.zo_jsonb,
+    x.zo_type,
+    x.cl_id,
+    x.zo_zone,
+    case
+      when zo.zo_jsonb->>'zo_type' = 'natural' 
+        then ((zo.zo_jsonb->>'zo_name') || ' ' || (zo.zo_jsonb->>'zo_firstsurname') || ' ' || coalesce(zo.zo_jsonb->>'zo_secondsurname',''))
+      else zo_jsonb->>'zo_corporatename'
+    end as zo_corporatename,
+    x.zo_rfc,
+    x.zo_immex,
+    x.zo_name,
+    x.zo_firstsurname,
+    x.zo_secondsurname,
+    x.zo_street,
+    x.zo_streetnumber,
+    x.zo_suitenumber,
+    x.zo_neighborhood,
+    x.zo_addressreference,
+    (select name from countryinfo where geonameid = x.zo_country::int) as zo_country,
+    (
+		select
+			gn.name
+		from 
+			hierarchy hi
+		join geoname gn 
+		on gn.geonameid = hi.childid
+		where hi.parentid = x.zo_country::int and hi.childid = x.zo_state::int
+    ) as zo_state,
+    (
+		select
+			gn.name
+		from 
+			hierarchy hi
+		join geoname gn 
+		on gn.geonameid = hi.childid
+		where hi.parentid = x.zo_state::int and hi.childid = x.zo_city::int
+    ) as zo_city,
+    (
+		select
+			gn.name
+		from 
+			hierarchy hi
+		join geoname gn 
+		on gn.geonameid = hi.childid
+		where hi.parentid = x.zo_city::int and hi.childid = x.zo_county::int
+    ) as zo_county,
+    x.zo_zipcode,
+    x.zo_email,
+    x.zo_phone,
+    x.zo_phoneextension,
+    x.zo_mobile,
+    x.zo_status,
+	zo.zo_date
+from  public.zone zo, 
 jsonb_to_record(zo_jsonb) as x (
     zo_type text,
     cl_id int,
     zo_zone text,
     zo_corporatename text,
-    zo_tin text,
+    zo_rfc text,
     zo_immex text,
     zo_name text,
-    zo_fatherslastname text,
-    zo_motherslastname text,
+    zo_firstsurname text,
+    zo_secondsurname text,
     zo_street text,
     zo_streetnumber text,
     zo_suitenumber text,
@@ -27,4 +81,5 @@ jsonb_to_record(zo_jsonb) as x (
     zo_mobile text,
     zo_status text
 )
-where zo_jsonb->>'cl_id' = $1
+where zo.zo_jsonb->>'cl_id' = $1
+and zo.zo_jsonb->>'zo_status' = any(string_to_array($2,',')::text[])

@@ -15,7 +15,7 @@
             regexp="partno"
             regexp-msg="{{'general.regexp.partno' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
   <gg-input err-class="error"
             lbl="{{'productDigitalGeneral-add.labels.pr-code' | i18n}}" 
@@ -42,7 +42,7 @@
             regexp="decimal"
             regexp-msg="{{'general.regexp.decimal' | i18n}}"
             req-msg="Required"
-            is-required="true">
+            is-required="false">
   </gg-input>
     <gg-input err-class="error"
             lbl="{{'productDigitalGeneral-add.labels.pr-name' | i18n}}" 
@@ -143,7 +143,7 @@
   </div>
   <label class="col-sm-12 fieldset">MATERIAL</label>
   <gg-select err-class="error"
-           lbl="{{'productDigitalGeneral-add.labels.pa-id' | i18n}}" 
+           lbl="{{'productDigitalGeneral-add.labels.mt-id' | i18n}}" 
            form-group-class="col-sm-6" 
            options="mt_idoptions" 
            ng-model="fmData.mt_id"
@@ -153,7 +153,7 @@
            is-required="true">
   </gg-select>
   <span ng-if="fmData.mt_id">
-    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}">
+    <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id}:true">
         <p class="field-info bg-success">
             {{material.width}} x {{material.height}} {{material.measure}}
         </p>
@@ -208,16 +208,18 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productDigitalGeneral-add.labels.pr-varnishfinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_varnisfinishedoptions" 
-           ng-model="fmData.pr_varnishfinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <span ng-if="!(fmData.pr_varnish==='no')">
+        <gg-select err-class="error"
+                lbl="{{'productDigitalGeneral-add.labels.pr-varnishfinished' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_varnisfinishedoptions" 
+                ng-model="fmData.pr_varnishfinished"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+  </span>
   <label class="col-sm-12 fieldset">LAMINADO</label>
   <gg-select err-class="error"
            lbl="{{'productDigitalGeneral-add.labels.pr-laminate' | i18n}}" 
@@ -229,26 +231,28 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productDigitalGeneral-add.labels.pr-laminatefinished' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatefinishedoptions" 
-           ng-model="fmData.pr_laminatefinished"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
-  <gg-select err-class="error"
-           lbl="{{'productDigitalGeneral-add.labels.pr-laminatecaliber' | i18n}}" 
-           form-group-class="col-sm-4" 
-           options="pr_laminatecaliberoptions" 
-           ng-model="fmData.pr_laminatecaliber"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-select>
+  <span ng-if="!(fmData.pr_laminate==='no')">
+        <gg-select err-class="error"
+                lbl="{{'productDigitalGeneral-add.labels.pr-laminatefinished' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_laminatefinishedoptions" 
+                ng-model="fmData.pr_laminatefinished"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+        <gg-select err-class="error"
+                lbl="{{'productDigitalGeneral-add.labels.pr-laminatecaliber' | i18n}}" 
+                form-group-class="col-sm-4" 
+                options="pr_laminatecaliberoptions" 
+                ng-model="fmData.pr_laminatecaliber"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+  </span>
   <label class="col-sm-12 fieldset">DOBLEZ</label>
   <gg-select err-class="error"
            lbl="{{'productDigitalGeneral-add.labels.pr-foldunit1' | i18n}}" 
@@ -361,6 +365,18 @@
            req-msg="Required"
            is-required="true">
   </gg-select>
+  <label class="col-sm-12 fieldset">FRACCION ARANCELARIA</label>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalGeneral-add.labels.tc-id' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="tc_idoptions" 
+           ng-model="fmData.tc_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="false">
+  </gg-select>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
   <gg-select err-class="error"
            lbl="{{'productDigitalGeneral-add.labels.pr-status' | i18n}}" 
            form-group-class="col-sm-4" 

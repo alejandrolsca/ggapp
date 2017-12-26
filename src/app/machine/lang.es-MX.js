@@ -6,8 +6,8 @@ module.exports = {
                         "ma-maxsizewidth":"Tamaño max. ancho",
                         "ma-maxsizeheight":"Tamaño max. altura",
                         "ma-minsizewidth":"Tamaño min. ancho",
-                        "ma-minsizeheight":"Tamaño max. altura",
-                        "ma-sizemeasure":"Medida",
+                        "ma-minsizeheight":"Tamaño min. altura",
+                        "ma-sizemeasure":"Unidad de medida",
                         "ma-totalinks":"Tintas totales",
                         "ma-fullcolor":"Full color",
                         "ma-printbg":"Imprime fondos",
@@ -50,7 +50,8 @@ module.exports = {
                             {"label":"Plóter","value":"plotter"},
                             {"label":"Sellos","value":"stamps"},
                             {"label":"Serigrafía","value":"serigraphy"},
-                            {"label":"Laser","value":"laser"}
+                            {"label":"Laser","value":"laser"},
+                            {"label":"Suajado/corte","value":"diecutting"}
                         ],
                         ma_statusoptions : [
                             {"label":"Activo","value":"A"},

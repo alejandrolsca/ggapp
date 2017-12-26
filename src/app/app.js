@@ -25,6 +25,7 @@ module.exports = (function (angular) {
         require('./zone').name,
         require('./workflow').name,
         require('./traffic-light-report').name,
+        require('./traffic-light-report-all').name,
         require('./exportation-invoice').name,
         require('./shipping-list').name
     ])
@@ -55,9 +56,14 @@ module.exports = (function (angular) {
 
                     lock.getProfile(authResult.idToken, function (error, profile) {
                         if (error) {
-                            console.log(error);
+                            throw new Error(error)
                         }
-
+                        const { picture, username, us_group } = profile
+                        profile = {
+                            picture: picture,
+                            username: username,
+                            us_group: us_group
+                        }
                         localStorage.setItem('profile', JSON.stringify(profile));
                         $rootScope.$broadcast('userProfileSet', profile);
                     });
@@ -74,7 +80,7 @@ module.exports = (function (angular) {
         }])
         .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'lockProvider', 'jwtOptionsProvider', 'jwtInterceptorProvider',
             function ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, lockProvider, jwtOptionsProvider, jwtInterceptorProvider) {
-
+                var ggauthlogo = require('../static/img/ggauth-logo.png');
                 lockProvider.init({
                     clientID: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y',
                     domain: 'grupografico.auth0.com',
@@ -95,8 +101,8 @@ module.exports = (function (angular) {
                         },
                         theme: {
                             labeledSubmitButton: true,
-                            //logo: "img/ggauth-logo.png",
-                            primaryColor: "green"
+                            logo: ggauthlogo,
+                            primaryColor: "#0064b7"
                         }
                     }
                 });
@@ -160,7 +166,7 @@ module.exports = (function (angular) {
                 // Use the authManager from angular-jwt to check for
                 // the user's authentication state when the page is
                 // refreshed and maintain authentication
-                //authManager.checkAuthOnRefresh();
+                authManager.checkAuthOnRefresh();
 
                 // Listen for 401 unauthorized requests and redirect
                 // the user to the login page

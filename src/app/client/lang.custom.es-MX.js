@@ -38,6 +38,12 @@ module.exports = {
                             {"label":"Laser","value":"laser",types:[
                                 {"label":"General","value":"general"},     
                             ]},
+                            {"label":"Suajado/Corte","value":"diecutting",types:[
+                                {"label":"General","value":"general"},     
+                            ]},
+                            {"label":"Venta Directa","value":"direct_sale",types:[
+                                {"label":"General","value":"general"},     
+                            ]},
                         ]
                      }
                 }
