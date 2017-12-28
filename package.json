@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "api:dev": "NODE_ENV=development nodemon -V server.js",
-    "api:prod": "NODE_ENV=production nodemon -V server.js",
+    "api:prod": "NODE_ENV=production node server.js",
     "build:dev": "./node_modules/.bin/webpack -d --progress --colors --watch --env=dev",
     "build:prod": "./node_modules/.bin/webpack --progress --colors --env=prod",
     "server:dev": "./node_modules/.bin/webpack-dev-server -d --progress --profile --colors --open --env=dev",
