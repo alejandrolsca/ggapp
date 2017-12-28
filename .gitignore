@@ -4,3 +4,4 @@ db_backups/geoname.sql
 node_modules/
 dist/
 .DS_Store
+package-lock.json
