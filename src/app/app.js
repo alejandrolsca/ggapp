@@ -33,7 +33,7 @@ module.exports = (function (angular) {
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {
 
             function profile() {
-                const { picture, username, us_group } = angular.fromJson(localStorage.getItem('profile'))
+                const { picture, username, us_group } = angular.fromJson(localStorage.getItem('profile')) || {}
                 return {
                     picture: picture,
                     username: username,
