@@ -51,6 +51,7 @@ module.exports = (function (angular) {
                 localStorage.removeItem('id_token');
                 localStorage.removeItem('profile');
                 authManager.unauthenticate();
+                $rootScope.$broadcast('userProfileSet', false);
             }
 
             // Set up the logic for when a user authenticates
@@ -71,7 +72,7 @@ module.exports = (function (angular) {
                             us_group: us_group
                         }
                         localStorage.setItem('profile', JSON.stringify(profile));
-                        $rootScope.$broadcast('userProfileSet', profile);
+                        $rootScope.$broadcast('userProfileSet', true);
                     });
                     $location.path('/home');
                 });

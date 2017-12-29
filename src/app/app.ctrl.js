@@ -5,7 +5,12 @@ module.exports = (function (angular) {
         function ($scope, $rootScope, i18nFilter, $location, authService) {
 
             $scope.authService = authService;
-            $scope.profile = authService.profile()
+            $scope.$on('userProfileSet', function (event, data) {
+                $scope.profile = false
+                if(data) {
+                    $scope.profile = authService.profile()
+                }
+            });
             /*
             langFac.getLang().then(function (promise) {
                 if (promise.data.success) {
