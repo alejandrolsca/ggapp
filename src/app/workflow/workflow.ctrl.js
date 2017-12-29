@@ -106,10 +106,30 @@ module.exports = (function (angular) {
                 }
             }
 
+            $scope.formatItem = function (s, e, cell) {
+
+                if (e.panel.cellType == wijmo.grid.CellType.RowHeader) {
+                    e.cell.textContent = e.row + 1;
+                }
+
+                s.rows.defaultSize = 30;
+                var col = s.columns[e.col];
+                // add Bootstrap html
+                if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (col.binding === 'actions')) {
+                    const cl_id = e.panel.getCellData(e.row, s.columns.getColumn('cl_id').index, false);
+                    const wo_id = e.panel.getCellData(e.row, s.columns.getColumn('wo_id').index, false);
+                    e.cell.style.overflow = 'visible';
+                    e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                                <div class="btn-group" role="group">
+                                                    <a href="#/wo/view/${cl_id}/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.open")}</a>
+                                                </div>
+                                        </div>`;
+                }
+            }
 
             // autosize columns
             $scope.itemsSourceChanged = function (sender, args) {
-                sender.autoSizeColumns();
+                //sender.autoSizeColumns();
             };
 
             // bind columns when grid is initialized
@@ -172,15 +192,6 @@ module.exports = (function (angular) {
                 return value
             })
 
-            $scope.pagesizeoptions = [
-                { "label": "50", "value": 50 },
-                { "label": "100", "value": 100 },
-                { "label": "200", "value": 200 },
-                { "label": "300", "value": 300 },
-                { "label": "500", "value": 500 },
-                { "label": "1000", "value": 1000 },
-            ]
-
             $scope.$on('$viewContentLoaded', function () {
 
                 // this code is executed after the view is loaded
@@ -203,7 +214,6 @@ module.exports = (function (angular) {
                         if (angular.isArray(promise.data)) {
                             // expose data as a CollectionView to get events
                             $scope.data = new wijmo.collections.CollectionView(promise.data);
-                            $scope.data.pageSize = 50;
                         }
                     });
                 });

@@ -59,4 +59,4 @@ on wo.zo_id = zo.zo_id
 left join machine ma
 on wo.ma_id = ma.ma_id
 order by wo.wo_date desc
-limit 1000;
+limit 5000;
