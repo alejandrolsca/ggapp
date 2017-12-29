@@ -6,7 +6,7 @@ module.exports = (function (angular) {
 
             $scope.fmData = {};
 
-            var userProfile = authService.userProfile;
+            var userProfile = authService.profile();
 
             $scope.labels = Object.keys(i18nFilter("workflow.labels"));
             $scope.columns = i18nFilter("workflow.columns");

@@ -139,7 +139,8 @@ module.exports = (function (angular) {
                             $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
                             $scope.wo_id = promise.data[0].wo_id;
                             $scope.wo_date = promise.data[0].wo_date;
-                            $scope.fmData.wo_updatedby = authService.userProfile.username;
+                            const { username } = authService.profile()
+                            $scope.fmData.wo_updatedby = username;
                             
                     }
                     woUpdateFactory.getProduct($scope.fmData.pr_id).then(function (promise) {

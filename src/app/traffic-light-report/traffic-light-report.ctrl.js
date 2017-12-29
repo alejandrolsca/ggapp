@@ -4,8 +4,6 @@ module.exports = (function (angular) {
     return ['$scope', 'tlrFactory', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
         function ($scope, tlrFactory, $location, i18nFilter, $stateParams, $filter, authService) {
 
-            var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
-
             $scope.labels = Object.keys(i18nFilter("tlr.labels"));
             $scope.columns = i18nFilter("tlr.columns");
             $scope.workflow = i18nFilter("tlr.fields.wo_statusoptions");

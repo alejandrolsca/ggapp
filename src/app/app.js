@@ -32,7 +32,14 @@ module.exports = (function (angular) {
 
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {
 
-            var userProfile = angular.fromJson(localStorage.getItem('profile')) || {};
+            function profile() {
+                const { picture, username, us_group } = angular.fromJson(localStorage.getItem('profile'))
+                return {
+                    picture: picture,
+                    username: username,
+                    us_group: us_group
+                }
+            }
 
             function login() {
                 lock.show();
@@ -44,7 +51,6 @@ module.exports = (function (angular) {
                 localStorage.removeItem('id_token');
                 localStorage.removeItem('profile');
                 authManager.unauthenticate();
-                userProfile = {};
             }
 
             // Set up the logic for when a user authenticates
@@ -72,7 +78,7 @@ module.exports = (function (angular) {
             }
 
             return {
-                userProfile: userProfile,
+                profile: profile,
                 login: login,
                 logout: logout,
                 registerAuthenticationListener: registerAuthenticationListener,

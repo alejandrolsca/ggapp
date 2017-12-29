@@ -8,7 +8,8 @@ module.exports = (function (angular) {
             $scope.fmData.wo_status = 0; //0-Active
             $scope.fmData.cl_id = +$stateParams.cl_id;
             $scope.fmData.pr_id = +$stateParams.pr_id;
-            $scope.fmData.wo_createdby = authService.userProfile.username;
+            const { username } = authService.profile()
+            $scope.fmData.wo_createdby = username;
 
             const camelCase = (...args) => {
                 const camelCase = args.map(function (value, index) {
