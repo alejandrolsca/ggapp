@@ -44,6 +44,7 @@ module.exports = {
         "pr_process",
         "wo_id",
         "wo_commitmentdate",
+        "cl_id",
         "cl_corporatename",
         "pr_code",
         "pr_name",

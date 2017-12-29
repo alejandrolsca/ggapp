@@ -1,6 +1,5 @@
 <div class="col-sm-12">
         <h3>{{'wo-add.title' | i18n}}</h3>
-        <span>{{ fmData| json }}</span>
 </div>
     <span ng-if="loading">Cargando...</span>
     <form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
@@ -97,7 +96,7 @@
             <strong>Part No:</strong> {{product['pr_jsonb']['pr_partno']}}<br/>
             <strong>Folios:</strong> {{product['pr_jsonb']['pr_folio']}}<br/>
             <strong>Material:</strong> <br>
-            <span ng-repeat="material in product['pr_material'].split(',')">{{material}}<br/></span>
+            <span ng-repeat="material in product['pr_material'].split(',') track by $index">{{material}}<br/></span>
     </div>
   </span>
   <span ng-if="folio">

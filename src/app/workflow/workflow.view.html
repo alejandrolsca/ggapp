@@ -63,6 +63,7 @@
     items-source="data" 
     items-source-changed="itemsSourceChanged(s,e)"
     item-formatter="itemFormatter"
+    format-item="formatItem(s,e,cell)" 
     auto-generate-columns="false" 
     initialized="initGrid(s,e)"
     allow-sorting="true" 
@@ -74,23 +75,11 @@
         binding="active"
         data-type="Boolean">
         </wj-flex-grid-column>
+        <wj-flex-grid-column
+        header="Acciones" 
+        binding="actions" 
+        is-read-only="true" 
+        width="100">
+        </wj-flex-grid-column>
     </wj-flex-grid>
 </span>
-<div class="col-sm-12">
-    <div class="well well-sm col-sm-12 col-xs-12">
-      <div class="col-sm-6 col-md-4">
-        <wj-collection-view-pager cv="data"></wj-collection-view-pager>
-      </div>
-      <div class="col-sm-6 col-md-3">
-      <form class="form-horizontal">
-        <div class="form-group">
-          <label class="col-sm-3 col-md-6 control-label text-right" for="pageSize">Page size</label>
-          <div class="col-sm-3 col-md-6">
-            <select id="pageSize" class="form-control" ng-model="data.pageSize" ng-options="option.value as option.label disable when option.notAnOption for option in pagesizeoptions">
-            </select>
-          </div>
-        </div>
-      </form>
-      </div>
-    </div>
-</div>

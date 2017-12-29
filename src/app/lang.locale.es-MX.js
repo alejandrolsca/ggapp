@@ -36,6 +36,7 @@ module.exports = {
                         "edit":"editar",
                         "duplicate":"duplicar",
                         "show":"mostrar",
+                        "open":"Abrir",
                         "submit":"Enviar",
                         "continue":"Continuar",
                         "close":"Cerrar",
@@ -140,6 +141,7 @@ module.exports = {
                 "wo-add": require('./wo/modules/wo.add/lang.es-MX'),
                 "wo-duplicate": require('./wo/modules/wo.duplicate/lang.es-MX'),
                 "wo-update": require('./wo/modules/wo.update/lang.es-MX'),
+                "wo-view": require('./wo/modules/wo.view/lang.es-MX'),
                 /****************************************
                 ZONE 
                 ****************************************/

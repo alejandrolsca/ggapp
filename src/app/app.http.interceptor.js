@@ -6,9 +6,9 @@ module.exports = (function (angular) {
             return {
                 'request': function (config) {
                     // if user is athenticated, add the profile to the headers
-
-                    if (!!authService.userProfile) {
-                        config.headers.username = authService.userProfile.username;
+                    const { username } = authService.profile()
+                    if (!!username) {
+                        config.headers.username = username;
                     }
                     return config;
                 },

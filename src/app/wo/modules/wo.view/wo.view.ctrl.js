@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter','$location', 'authService',
-        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location, authService) {
+    return ['$scope', 'woViewFactory', '$stateParams', 'i18nFilter', '$filter','$location', 'authService',
+        function ($scope, woViewFactory, $stateParams, i18nFilter, $filter, $location, authService) {
             
             const camelCase = (...args) => {
                 const camelCase = args.map(function (value, index) {
@@ -19,7 +19,7 @@ module.exports = (function (angular) {
                 //var button = $(event.relatedTarget); // Button that triggered the modal
                 //$scope.qrcodeString = button.data('code_data');// Extract info from data-* attributes
                 try {
-                    const { data } = await woUpdateFactory.getProductInfo($scope.fmData.pr_id)
+                    const { data } = await woViewFactory.getProductInfo($scope.fmData.pr_id)
                     let hasComponents = false
                     let componentsIndex = undefined
                     let pr_process = undefined
@@ -43,14 +43,14 @@ module.exports = (function (angular) {
                             }
                             if (value.key === 'mt_id') {
                                 for (let i = 1; i <= data[componentsIndex].value; i++) {
-                                    const { data } = await woUpdateFactory.getProductInfoMaterial(value['component' + i])
+                                    const { data } = await woViewFactory.getProductInfoMaterial(value['component' + i])
                                     value['component' + i] = data[0].material
                                 }
                             }
                             if (value.key === 'pr_inksfront') {
                                 for (let i = 1; i <= data[componentsIndex].value; i++) {
                                     if (value['component' + i]) {
-                                        const { data } = await woUpdateFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
+                                        const { data } = await woViewFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
                                         value['component' + i] = data[0].inks
                                     }
                                 }
@@ -58,7 +58,7 @@ module.exports = (function (angular) {
                             if (value.key === 'pr_inksback') {
                                 for (let i = 1; i <= data[componentsIndex].value; i++) {
                                     if (value['component' + i]) {
-                                        const { data } = await woUpdateFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
+                                        const { data } = await woViewFactory.getProductInfoInks(Object.values(value['component' + i]).join(','))
                                         value['component' + i] = data[0].inks
                                     }
                                 }
@@ -83,18 +83,18 @@ module.exports = (function (angular) {
                     if (!hasComponents) {
                         const generalData = data.map(async (value, index, data) => {
                             if (value.key === 'mt_id') {
-                                const { data } = await woUpdateFactory.getProductInfoMaterial(value.value)
+                                const { data } = await woViewFactory.getProductInfoMaterial(value.value)
                                 value.value = data[0].material
                             }
                             if (value.key === 'pr_inksfront') {
                                 if (value.value) {
-                                    const { data } = await woUpdateFactory.getProductInfoInks(Object.values(value.value).join(','))
+                                    const { data } = await woViewFactory.getProductInfoInks(Object.values(value.value).join(','))
                                     value.value = data[0].inks
                                 }
                             }
                             if (value.key === 'pr_inksback') {
                                 if (value.value) {
-                                    const { data } = await woUpdateFactory.getProductInfoInks(Object.values(value.value).join(','))
+                                    const { data } = await woViewFactory.getProductInfoInks(Object.values(value.value).join(','))
                                     value.value = data[0].inks
                                 }
                             }
@@ -117,22 +117,11 @@ module.exports = (function (angular) {
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
             $scope.wo_emailoptions = i18nFilter("wo-add.fields.wo_emailoptions");
-            
-            $scope.onSubmit = function () {
-
-                woUpdateFactory.update($scope.fmData).then(function (promise) {
-                    if (promise.data.rowCount === 1) {
-                        $location.path('/wo/'+$stateParams.cl_id);
-                    } else {
-                        $scope.updateFail = true;
-                    }
-                });
-            };
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                woUpdateFactory.getData().then(function(promise){
+                woViewFactory.getData().then(function(promise){
                     $scope.loading = false;
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
                             $scope.fmData = promise.data[0].wo_jsonb;
@@ -143,7 +132,7 @@ module.exports = (function (angular) {
                             $scope.fmData.wo_updatedby = username;
                             
                     }
-                    woUpdateFactory.getProduct($scope.fmData.pr_id).then(function (promise) {
+                    woViewFactory.getProduct($scope.fmData.pr_id).then(function (promise) {
                         $scope.pr_idoptions = [];
                         var rows = [];
                         if (angular.isArray(promise.data)) {
@@ -173,7 +162,7 @@ module.exports = (function (angular) {
                         );
                     })
                 });
-                woUpdateFactory.getZone().then(function (promise) {
+                woViewFactory.getZone().then(function (promise) {
                     $scope.zo_idoptions = [];
                     if (angular.isArray(promise.data)) {
                         var rows = promise.data;
@@ -182,7 +171,7 @@ module.exports = (function (angular) {
                         }, $scope.zo_idoptions);
                     }
                 });
-                woUpdateFactory.getMachine().then(function (promise) {
+                woViewFactory.getMachine().then(function (promise) {
                     $scope.ma_idoptions = [];
                     if (angular.isArray(promise.data)) {
                         var rows = promise.data;
