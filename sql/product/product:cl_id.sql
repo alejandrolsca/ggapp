@@ -13,8 +13,8 @@ select
 						(
 									case 
 										when mt_jsonb->>'mt_measure' = 'in'
-										then round((((mt_jsonb->>'mt_width')::decimal*2.54)*((mt_jsonb->>'mt_height')::decimal*2.54))/100,2)
-										else round(((mt_jsonb->>'mt_width')::decimal*(mt_jsonb->>'mt_height')::decimal)/100,2)
+										then round((((mt_jsonb->>'mt_width')::decimal*2.54)*((mt_jsonb->>'mt_height')::decimal*2.54))/10000,2)
+										else round(((mt_jsonb->>'mt_width')::decimal*(mt_jsonb->>'mt_height')::decimal)/10000,2)
 									end
 						)  || 'm2'  || ' ' ||
 						(mt_jsonb->>'mt_description')
@@ -41,8 +41,8 @@ select
 				(
 							case 
 								when mt_jsonb->>'mt_measure' = 'in'
-								then round((((mt_jsonb->>'mt_width')::decimal*2.54)*((mt_jsonb->>'mt_height')::decimal*2.54))/100,2)
-								else round(((mt_jsonb->>'mt_width')::decimal*(mt_jsonb->>'mt_height')::decimal)/100,2)
+								then round((((mt_jsonb->>'mt_width')::decimal*2.54)*((mt_jsonb->>'mt_height')::decimal*2.54))/10000,2)
+								else round(((mt_jsonb->>'mt_width')::decimal*(mt_jsonb->>'mt_height')::decimal)/10000,2)
 							end
 				) || 'm2'  || ' ' ||
 				(mt_jsonb->>'mt_description')
