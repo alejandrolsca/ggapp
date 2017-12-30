@@ -1,6 +1,7 @@
 select
     mt.*,
-    maty.maty_jsonb->>'label' as maty_label
+    maty.maty_jsonb->>'label' as maty_label,
+    su.su_jsonb->>'su_name' as su_name
 from (
     select 
     *
@@ -8,7 +9,7 @@ from (
     jsonb_to_record(mt_jsonb) as x (
         su_id int,
         mt_code text,
-        mt_type text,
+        mt_type int,
         mt_description text,
         mt_weight text,
         mt_width text,
@@ -20,4 +21,6 @@ from (
     )
 ) mt
 left join materialtype maty
-on mt.mt_type = maty.maty_id::text
+on mt.mt_type = maty.maty_id
+left join supplier su
+on mt.su_id = su.su_id
