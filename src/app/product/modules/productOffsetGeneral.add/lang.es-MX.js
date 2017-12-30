@@ -142,8 +142,8 @@ module.exports = {
                             {"label":"Brillante","value":"bright"}
                         ],
                         pr_laminatecaliberoptions : [
-                            {"label":".2mm","value":"2mm"},
-                            {"label":".4mm","value":"4mm"}
+                            {"label":".24mic","value":"24mic"},
+                            {"label":".27mic","value":"27mic"}
                         ],pr_foliooptions : [
                             {"label":"Si","value":"yes"},
                             {"label":"No","value":"no"}
