@@ -14,6 +14,8 @@ from (
         mt_width text,
         mt_measure text,
         mt_height text,
+        mt_thickness decimal,
+        mt_thicknessmeasure text,
         mt_status text
     )
 ) mt

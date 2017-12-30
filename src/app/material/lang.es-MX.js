@@ -27,6 +27,8 @@ module.exports = {
                         "mt_width",
                         "mt_height",
                         "mt_measure",
+                        "mt_thickness",
+                        "mt_thicknessmeasure",
                         "mt_status",
                         "mt_date",
                      ],
