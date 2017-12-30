@@ -3,6 +3,7 @@ module.exports = {
                     "labels":{
                         "in-id": "ID tinta",
                         "su-id": "ID proveedor",
+                        "su-name": "proveedor",
                         "in-code": "Codigo (Referencia de Guía)",
                         "in-type": "Tipo",
                         "in-description": "Descripcion",
@@ -11,10 +12,10 @@ module.exports = {
                     },
                     "columns":[
                         "in_id",
-                        "su_id",
+                        "in_description",
+                        "su_name",
                         "in_code",
                         "in_type",
-                        "in_description",
                         "in_status",
                         "in_date"
                     ],

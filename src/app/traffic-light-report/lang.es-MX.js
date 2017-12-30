@@ -38,13 +38,13 @@ module.exports = {
         "wo-date": "Fecha"
     },
     "columns": [
+        { "binding": "wo_commitmentdate", "type": "Date" },
         { "binding": "wo_status", "type": "String" },    
         { "binding": "wo_id", "type": "Number" },
         { "binding": "cl_corporatename", "type": "String" },
         { "binding": "pr_id", "type": "Number" },
         { "binding": "pr_name", "type": "String" },
         { "binding": "wo_qty", "type": "Number" },
-        { "binding": "wo_commitmentdate", "type": "Date" },
         { "binding": "wo_deliverydate", "type": "Date" },    
         { "binding": "cl_id", "type": "Number" },
         { "binding": "cl_name", "type": "String" },
