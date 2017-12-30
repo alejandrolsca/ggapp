@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter','$location',
-        function ($scope, woDuplicateFactory, $stateParams, i18nFilter, $filter, $location) {
+    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter','$location', 'authService',
+        function ($scope, woDuplicateFactory, $stateParams, i18nFilter, $filter, $location, authService) {
 
             const camelCase = (...args) => {
                 const camelCase = args.map(function (value, index) {
