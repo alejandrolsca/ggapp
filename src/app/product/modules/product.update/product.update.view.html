@@ -1,0 +1,40 @@
+<div class="col-sm-12">
+    <h3>{{'product-update.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+    <span>
+      <strong>Cliente: </strong>{{fmData.cl_corporatename}}<br/>
+      <strong>Product ID: </strong>{{fmData.pr_id}}<br/>
+      <strong>Code: </strong>{{fmData.pr_code}}<br/>
+      <strong>Producto: </strong>{{fmData.pr_name}}<br/>
+      <strong>Descripción: </strong>{{fmData.pr_description}}<br/><br/>
+    </span>
+</div>
+<div class="col-sm-12">
+  <form class="row" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+    <gg-input err-class="error"
+              lbl="{{'product-update.labels.pr-weight' | i18n}}" 
+              form-group-class="col-sm-3"
+              ng-model="fmData.pr_weight"
+              regexp="decimal"
+              regexp-msg="{{'general.regexp.decimal' | i18n}}"
+              req-msg="Required"
+              is-required="true">
+    </gg-input>
+    <label class="col-sm-12 fieldset">ESTATUS</label>
+    <gg-select err-class="error"
+            lbl="{{'product-update.labels.pr-status' | i18n}}" 
+            form-group-class="col-sm-4" 
+            options="pr_statusoptions" 
+            ng-model="fmData.pr_status"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+    </gg-select>
+    <gg-submit lbl="Submit"
+              form-group-class="col-sm-12" 
+              ng-disabled="ggform.$invalid"
+              btn-class="col-xs-12 col-sm-4  col-md-2">
+    </gg-submit>
+  </form>
+</div>

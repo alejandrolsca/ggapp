@@ -58,7 +58,7 @@ module.exports = (function (angular) {
                     e.cell.style.overflow = 'visible';
                     e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
-                                                <a href="#/product/${pr_process}/${pr_type}/update/${cl_id}/${pr_id}" class="btn btn-default btn-xs">Editar</a>
+                                                <a href="#/product/update/${pr_id}" class="btn btn-default btn-xs">Editar</a>
                                             </div>
                                             <div class="btn-group">
                                             <button type="button" class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

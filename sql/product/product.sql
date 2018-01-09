@@ -22,6 +22,7 @@ jsonb_to_record(pr_jsonb) as x (
     pr_process text,
     pr_type text,
     pr_folio text,
+	pr_weight decimal,		
     pr_status text
 )
 left join client cl

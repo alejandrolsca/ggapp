@@ -11,6 +11,7 @@ module.exports = {
                         "pr-type": "Tipo",
                         "wo-previousid": "Orden Anterior",
                         "tc-id": "Fracción",
+                        "pr-weight": "Peso",
                         "pr-status": "Estatus",
                         "pr-date": "Fecha",
                     },
@@ -24,6 +25,7 @@ module.exports = {
                         {"binding":"pr_name","type":"String"},
                         {"binding":"pr_process","type":"String"},
                         {"binding":"pr_type","type":"String"},
+                        {"binding":"pr_weight","type":"Number"},
                         {"binding":"pr_status","type":"String"},
                         {"binding":"pr_date","type":"Date"}
                     ],
