@@ -2,6 +2,7 @@ module.exports = (function(angular){
     'use strict';
     
     return angular.module('app.product',[
+        require('./modules/product.update').name,
         require('./modules/productOffsetGeneral.add').name,
         require('./modules/productOffsetPaginated.add').name,
         require('./modules/productOffsetCounterfoil.add').name,
