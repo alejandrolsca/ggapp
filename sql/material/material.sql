@@ -1,7 +1,11 @@
 select
     mt.*,
     maty.maty_jsonb->>'label' as maty_label,
-    su.su_jsonb->>'su_name' as su_name
+    case
+		when su.su_jsonb->>'su_type' = 'natural' 
+			then ((su.su_jsonb->>'su_name') || ' ' || (su.su_jsonb->>'su_firstsurname') || ' ' || coalesce(su.su_jsonb->>'su_secondsurname',''))
+		else su_jsonb->>'su_corporatename'
+	end as su_corporatename
 from (
     select 
     *

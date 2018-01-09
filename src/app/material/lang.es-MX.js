@@ -3,7 +3,7 @@ module.exports = {
                     "labels":{
                         "mt-id":"ID Material",
                         "su-id":"ID Proveedor",
-                        "su-name":"Proveedor",
+                        "su-corporatename":"Proveedor",
                         "mt-code":"Codigo",
                         "mt-type":"ID Tipo",
                         "maty-label":"Tipo",
@@ -20,7 +20,7 @@ module.exports = {
                      "columns":[
                         "mt_id",
                         "mt_description",
-                        "su_name",
+                        "su_corporatename",
                         "mt_code",
                         "mt_type",
                         "maty_label",
