@@ -1,0 +1,360 @@
+<div class="col-sm-12">
+    <h4>{{'productDigitalCounterfoil-update.title' | i18n}}</h4>
+    <h4>Processo: {{fmData.pr_process}}</h4>
+    <h4>Tipo: {{fmData.pr_type}}</h4>
+    
+    <h4>Cliente: {{ client }}</h4>
+
+</div>
+<form class="row col-lg-9" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+    
+  <gg-input err-class="error"
+            lbl="{{'productDigitalCounterfoil-update.labels.pr-partno' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_partno"
+            regexp="partno"
+            regexp-msg="{{'general.regexp.partno' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="false">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'productDigitalCounterfoil-update.labels.pr-code' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_code"
+            regexp="prcode"
+            regexp-msg="{{'general.regexp.prcode' | i18n}}"
+            is-disabled="true"
+            >
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-language' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="pr_languageoptions" 
+           ng-model="fmData.pr_language"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <gg-input err-class="error"
+            lbl="{{'productDigitalCounterfoil-update.labels.pr-weight' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.pr_weight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-disabled="false"
+            is-required="false">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productDigitalCounterfoil-update.labels.pr-name' | i18n}}" 
+            form-group-class="col-sm-12"
+            ng-model="fmData.pr_name"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-textarea err-class="error"
+            lbl="{{'productDigitalCounterfoil-update.labels.pr-description' | i18n}}" 
+            form-group-class="col-sm-12"
+            ng-model="fmData.pr_description"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            height="106"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-textarea>
+  <label class="col-sm-12 fieldset">TAMAÑO FINAL</label>
+  <gg-input err-class="error"
+            lbl="{{'productDigitalCounterfoil-update.labels.pr-finalsizewidth' | i18n}}" 
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_finalsizewidth"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+    <gg-input err-class="error"
+            lbl="{{'productDigitalCounterfoil-update.labels.pr-finalsizeheight' | i18n}}" 
+            form-group-class="col-sm-4"
+            ng-model="fmData.pr_finalsizeheight"
+            regexp="decimal"
+            regexp-msg="{{'general.regexp.decimal' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-finalsizemeasure' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_finalsizemeasureoptions" 
+           ng-model="fmData.pr_finalsizemeasure"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-components' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_componentsoptions" 
+           ng-model="fmData.pr_components"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <div class="col-sm-12">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs row" role="tablist">
+            <li ng-repeat="c in components track by $index" role="presentation" ng-class="{'active': $index===0}"><a href="#component{{$index}}" target="_self" aria-controls="component{{$index}}" role="tab" data-toggle="tab">Comp. {{$index+1}}</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content row">
+            <div ng-repeat="c in components track by $index" ng-init="componentIndex = $index" role="tabpanel" class="tab-pane" ng-class="{'active': $index===0}" id="component{{$index}}">
+            <gg-input err-class="error"
+                    lbl="{{'productDigitalCounterfoil-update.labels.pr-concept' | i18n}}" 
+                    form-group-class="col-sm-6"
+                    ng-model="fmData.pr_concept[componentIndex]"
+                    regexp="concept"
+                    regexp-msg="{{'general.regexp.concept' | i18n}}"
+                    max-length="17"
+                    req-msg="Required"
+                    is-disabled="true"
+                    is-required="true">
+            </gg-input>
+            <label class="col-sm-12 fieldset">TINTAS {{componentIndex + 1}}</label>
+            <gg-select err-class="error"
+                    lbl="{{'productDigitalCounterfoil-update.labels.pr-inkfront' | i18n}}" 
+                    form-group-class="col-sm-3" 
+                    options="pr_inkfrontoptions" 
+                    ng-model="fmData.pr_inkfront[componentIndex]"
+                    regexp="singlespaces"
+                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                    req-msg="Required"
+                    is-disabled="true"
+                    is-required="true">
+            </gg-select>
+            
+            <div class="col-sm-12">
+                <span ng-repeat="t in frontInks[componentIndex] track by $index">
+                    <gg-select err-class="error"
+                            lbl="Tinta {{$index+1}}" 
+                            form-group-class="col-sm-3" 
+                            options="pr_inkoptions" 
+                            ng-model="fmData['pr_inksfront'][componentIndex][$index]"
+                            regexp="singlespaces"
+                            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                            req-msg="Required"
+                            is-disabled="true"
+                            is-required="true">
+                    </gg-select>
+                </span>
+            </div>
+            <gg-select err-class="error"
+                    lbl="{{'productDigitalCounterfoil-update.labels.pr-inkback' | i18n}}" 
+                    form-group-class="col-sm-3" 
+                    options="pr_inkbackoptions" 
+                    ng-model="fmData.pr_inkback[componentIndex]"
+                    regexp="singlespaces"
+                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                    req-msg="Required"
+                    is-disabled="true"
+                    is-required="true">
+            </gg-select>
+            <div class="col-sm-12">
+                <span ng-repeat="t in backInks[componentIndex] track by $index">
+                    <gg-select err-class="error"
+                            lbl="Tinta {{$index+1}}" 
+                            form-group-class="col-sm-3" 
+                            options="pr_inkoptions" 
+                            ng-model="fmData['pr_inksback'][componentIndex][$index]"
+                            regexp="singlespaces"
+                            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                            req-msg="Required"
+                            is-disabled="true"
+                            is-required="true">
+                    </gg-select>
+                </span>
+            </div>
+            <label class="col-sm-12 fieldset">MATERIAL {{componentIndex + 1}}</label>
+            <gg-select err-class="error"
+                    lbl="{{'productDigitalCounterfoil-update.labels.mt-id' | i18n}}" 
+                    form-group-class="col-sm-6" 
+                    options="mt_idoptions" 
+                    ng-model="fmData.mt_id[componentIndex]"
+                    regexp="singlespaces"
+                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                    req-msg="Required"
+                    is-disabled="true"
+                    is-required="true">
+            </gg-select>
+            <span ng-if="fmData.mt_id[componentIndex]">
+            <div class="col-sm-12" ng-repeat="material in mt_idoptions | filter:{'value':fmData.mt_id[componentIndex]}:true">
+                <p class="field-info bg-warning">
+                    {{material.width}} x {{material.height}} {{material.measure}}
+                </p>
+            </div>
+            </span>
+            <label class="col-sm-12 fieldset">MEDIDA DEL PLIEGO</label>
+            <gg-input err-class="error"
+                        lbl="{{'productDigitalCounterfoil-update.labels.pr-materialsizewidth' | i18n}}" 
+                        form-group-class="col-sm-3"
+                        ng-model="fmData.pr_materialsizewidth[componentIndex]"
+                        regexp="decimal"
+                        regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                        req-msg="Required"
+                        is-disabled="true"
+                        is-required="true">
+            </gg-input>
+                <gg-input err-class="error"
+                        lbl="{{'productDigitalCounterfoil-update.labels.pr-materialsizeheight' | i18n}}" 
+                        form-group-class="col-sm-3"
+                        ng-model="fmData.pr_materialsizeheight[componentIndex]"
+                        regexp="decimal"
+                        regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                        req-msg="Required"
+                        is-disabled="true"
+                        is-required="true">
+            </gg-input>
+            <gg-select err-class="error"
+                    lbl="{{'productDigitalCounterfoil-update.labels.pr-materialsizemeasure' | i18n}}" 
+                    form-group-class="col-sm-3" 
+                    options="pr_materialsizemeasureoptions" 
+                    ng-model="fmData.pr_materialsizemeasure[componentIndex]"
+                    regexp="singlespaces"
+                    regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                    req-msg="Required"
+                    is-disabled="true"
+                    is-required="true">
+            </gg-select>
+            <gg-input err-class="error"
+                        lbl="{{'productDigitalCounterfoil-update.labels.pr-materialformatsqty' | i18n}}" 
+                        form-group-class="col-sm-3"
+                        ng-model="fmData.pr_materialformatsqty[componentIndex]"
+                        regexp="integer"
+                        regexp-msg="{{'general.regexp.integer' | i18n}}"
+                        req-msg="Required"
+                        is-disabled="true"
+                        is-required="true">
+            </gg-input>
+        </div>
+    </div>
+</div>
+  <label class="col-sm-12 fieldset">ACABADOS GENERALES</label>
+   <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-precut' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_precutoptions" 
+           ng-model="fmData.pr_precut"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-reinforcement' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_reinforcementoptions" 
+           ng-model="fmData.pr_reinforcement"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-cord' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_cordoptions" 
+           ng-model="fmData.pr_cord"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-wire' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_wireoptions" 
+           ng-model="fmData.pr_wire"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-drill' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_drilloptions" 
+           ng-model="fmData.pr_drill"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset">NUMERACION Y BLOCKS</label>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-folio' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_foliooptions" 
+           ng-model="fmData.pr_folio"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-blocks' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_blocksoptions" 
+           ng-model="fmData.pr_blocks"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset">FRACCION ARANCELARIA</label>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.tc-id' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="tc_idoptions" 
+           ng-model="fmData.tc_id"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="false">
+  </gg-select>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
+  <gg-select err-class="error"
+           lbl="{{'productDigitalCounterfoil-update.labels.pr-status' | i18n}}" 
+           form-group-class="col-sm-4" 
+           options="pr_statusoptions" 
+           ng-model="fmData.pr_status"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="false"
+           is-required="true">
+  </gg-select>
+  <gg-submit lbl="Submit"
+            form-group-class="col-sm-12" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-4  col-md-2">
+  </gg-submit>
+</form>
