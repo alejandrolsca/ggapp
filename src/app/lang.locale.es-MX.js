@@ -105,6 +105,7 @@ module.exports = {
                 "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
                 "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
                 "productDiecuttingGeneral-add": require('./product/modules/productDiecuttingGeneral.add/lang.es-MX'),                          
+                "productDiecuttingGeneral-update": require('./product/modules/productDiecuttingGeneral.update/lang.es-MX'),                          
                 "productDirectSaleGeneral-add": require('./product/modules/productDirectSaleGeneral.add/lang.es-MX'),                          
                 /****************************************
                 SUPPLIER 
