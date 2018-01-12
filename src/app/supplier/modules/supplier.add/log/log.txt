@@ -1,7 +1,0 @@
-Query: insert into public.supplier
-                    (su_jsonb)
-                    values ('{"su_corporatename":"test","su_rfc":"sabg-899889","su_name":"test","su_firstsurname":"test","su_secondsurname":"test","su_country":3723988,"su_state":3731053,"su_city":3717563,"su_county":3717587,"su_street":"test","su_streetnumber":"tes","su_suitenumber":"test","su_neighborhood":"tes","su_zipcode":"55556","su_addressreference":"test","su_email":"test@test.com","su_phone":"3366998898","su_mobile":"5544885566","su_status":"A"}');
- | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.supplier" does not exist
-LINE 1: insert into public.supplier
-                    ^
- | Date: 2015-04-05 21:06:31

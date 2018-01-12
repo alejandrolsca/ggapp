@@ -6,6 +6,22 @@ module.exports = (function (angular) {
 
             $scope.labels = Object.keys(i18nFilter("product.labels"));
             $scope.columns = i18nFilter("product.columns");
+
+            // export to xls
+            $scope.exportXLS = function () {
+                const timestamp = moment().tz('America/Chihuahua').format();
+                const fileName = `products_${timestamp}.xlsx`;
+                const flexGrid = $scope.ggGrid
+                try {
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                        includeColumnHeaders: true, 
+                        includeCellStyles: false
+                    }, fileName);
+                } catch (error) {
+                    throw new Error(error)
+                }
+                
+            }
         
             //set QR Code data defaults
             $scope.qrcodeString = 'YOUR TEXT TO ENCODE';
@@ -58,7 +74,7 @@ module.exports = (function (angular) {
                     e.cell.style.overflow = 'visible';
                     e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
-                                                <a href="#/product/update/${pr_id}" class="btn btn-default btn-xs">Editar</a>
+                                                <a href="#/product/update/${pr_process}/${pr_type}/${cl_id}/${pr_id}" class="btn btn-default btn-xs">Editar</a>
                                             </div>
                                             <div class="btn-group">
                                             <button type="button" class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -88,7 +104,7 @@ module.exports = (function (angular) {
                     col.dataType = $scope.columns[i].type;
                     col.header = i18nFilter("product.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.wordWrap = false;
-                    col.width = 150;
+                    col.width = $scope.columns[i].width;
                     s.columns.push(col);
                     
                 }

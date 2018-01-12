@@ -1,7 +1,0 @@
-Query: insert into public.material
-                    (mt_jsonb)
-                    values ('{"mt_corporatename":"test","mt_rfc":"sabg-899889","mt_name":"test","mt_fatherslastname":"test","mt_motherslastname":"test","mt_country":3723988,"mt_state":3731053,"mt_city":3717563,"mt_county":3717587,"mt_street":"test","mt_streetnumber":"tes","mt_suitenumber":"test","mt_neighborhood":"tes","mt_zipcode":"55556","mt_addressreference":"test","mt_email":"test@test.com","mt_phone":"3366998898","mt_mobile":"5544885566","mt_status":"A"}');
- | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.material" does not exist
-LINE 1: insert into public.material
-                    ^
- | Date: 2015-04-05 21:06:31

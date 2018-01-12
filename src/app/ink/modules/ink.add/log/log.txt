@@ -1,7 +1,0 @@
-Query: insert into public.ink
-                    (in_jsonb)
-                    values ('{"in_corporatename":"test","in_rfc":"sabg-899889","in_name":"test","in_fatherslastname":"test","in_motherslastname":"test","in_country":3723988,"in_state":3731053,"in_city":3717563,"in_county":3717587,"in_street":"test","in_streetnumber":"tes","in_suitenumber":"test","in_neighborhood":"tes","in_zipcode":"55556","in_addressreference":"test","in_email":"test@test.com","in_phone":"3366998898","in_mobile":"5544885566","in_status":"A"}');
- | Error: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "public.ink" does not exist
-LINE 1: insert into public.ink
-                    ^
- | Date: 2015-04-05 21:06:31

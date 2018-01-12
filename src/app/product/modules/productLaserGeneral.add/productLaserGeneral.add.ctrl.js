@@ -20,6 +20,7 @@ module.exports = (function (angular) {
             };
       
             $scope.pr_finalsizemeasureoptions = i18nFilter("productLaserGeneral-add.fields.pr_finalsizemeasureoptions");
+            $scope.pr_engravingmeasureoptions = i18nFilter("productLaserGeneral-add.fields.pr_engravingmeasureoptions");
             $scope.pr_statusoptions = i18nFilter("productLaserGeneral-add.fields.pr_statusoptions");
 
              // create front ink fields

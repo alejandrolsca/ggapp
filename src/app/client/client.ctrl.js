@@ -7,7 +7,7 @@ module.exports = (function (angular) {
             $scope.labels = Object.keys(i18nFilter("client.labels"));
             $scope.columns = i18nFilter("client.columns");
 
-            // expport to xls
+            // export to xls
             $scope.exportXLS = function () {
                 const timestamp = moment().tz('America/Chihuahua').format();
                 const fileName = `clients_${timestamp}.xlsx`;
