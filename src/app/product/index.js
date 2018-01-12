@@ -20,6 +20,7 @@ module.exports = (function(angular){
         require('./modules/productPlotterBanner.add').name,
         require('./modules/productPlotterBanner.update').name,
         require('./modules/productStampsGeneral.add').name,
+        require('./modules/productStampsGeneral.update').name,
         require('./modules/productStampsInkPad.add').name,
         require('./modules/productStampsInk.add').name,
         require('./modules/productSerigraphyBanner.add').name,

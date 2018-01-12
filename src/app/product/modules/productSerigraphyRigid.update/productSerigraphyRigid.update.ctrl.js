@@ -69,6 +69,7 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
 
+                $scope.loading = true;
                 productSerigraphyRigidUpdateFac.data().then(function (promise) {
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
                         const [data] = promise.data

@@ -102,6 +102,7 @@ module.exports = {
                 "productPlotterBanner-add": require('./product/modules/productPlotterBanner.add/lang.es-MX'),            
                 "productPlotterBanner-update": require('./product/modules/productPlotterBanner.update/lang.es-MX'),            
                 "productStampsGeneral-add": require('./product/modules/productStampsGeneral.add/lang.es-MX'),                
+                "productStampsGeneral-update": require('./product/modules/productStampsGeneral.update/lang.es-MX'),                
                 "productStampsInkPad-add": require('./product/modules/productStampsInkPad.add/lang.es-MX'),               
                 "productStampsInk-add": require('./product/modules/productStampsInk.add/lang.es-MX'),
                 "productSerigraphyBanner-add": require('./product/modules/productSerigraphyBanner.add/lang.es-MX'),                            
