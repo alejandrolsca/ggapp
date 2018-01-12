@@ -79,7 +79,7 @@
     <div class="form-group col-sm-2 col-xs-2">
             <label class="control-label">&nbsp</label>
             <div>
-                <button type="button" class="btn btn-primary form-control" data-toggle="modal" data-target="#modal" data-code_data="${code_data}">Detalles</button>  
+                <a class="btn btn-primary form-control" href="{{productUpdateUrl}}" target="_blank">Detalles</a>  
             </div>
     </div>
   <gg-input err-class="error"
@@ -252,33 +252,3 @@
             btn-class="col-xs-12 col-sm-4 col-md-2">
   </gg-submit> 
 </form>
-<!-- Modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-                <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalLabel">DETALLES DEL PRODUCTO</h4>
-                </div>
-        <div class="modal-body">
-                <div class="table-responsive">
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                                <th></th>
-                                <th>General</th>
-                                <th ng-repeat="c in components track by $index">{{'Componente '+($index+1)}}</th>
-                            </thead>
-                          <tr ng-repeat="row in prInfo">
-                                <th class="product-left-headers">{{row.key}}</th>
-                                <td>{{row.value}}</td>
-                                <td ng-repeat="c in components track by $index">{{row['component'+($index+1)]}}</td>
-                          </tr>
-                        </table>
-                      </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
-        </div>
-        </div>
-    </div>
-</div>
