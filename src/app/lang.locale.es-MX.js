@@ -105,6 +105,7 @@ module.exports = {
                 "productStampsGeneral-update": require('./product/modules/productStampsGeneral.update/lang.es-MX'),                
                 "productStampsInkPad-add": require('./product/modules/productStampsInkPad.add/lang.es-MX'),               
                 "productStampsInk-add": require('./product/modules/productStampsInk.add/lang.es-MX'),
+                "productStampsInk-update": require('./product/modules/productStampsInk.update/lang.es-MX'),
                 "productSerigraphyBanner-add": require('./product/modules/productSerigraphyBanner.add/lang.es-MX'),                            
                 "productSerigraphyBanner-update": require('./product/modules/productSerigraphyBanner.update/lang.es-MX'),                            
                 "productSerigraphyFlexibles-add": require('./product/modules/productSerigraphyFlexibles.add/lang.es-MX'),                            

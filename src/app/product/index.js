@@ -23,6 +23,7 @@ module.exports = (function(angular){
         require('./modules/productStampsGeneral.update').name,
         require('./modules/productStampsInkPad.add').name,
         require('./modules/productStampsInk.add').name,
+        require('./modules/productStampsInk.update').name,
         require('./modules/productSerigraphyBanner.add').name,
         require('./modules/productSerigraphyBanner.update').name,
         require('./modules/productSerigraphyFlexibles.add').name,
