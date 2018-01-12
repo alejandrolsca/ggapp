@@ -20,6 +20,7 @@ module.exports = (function(angular){
         require('./modules/productSerigraphyFlexibles.add').name,
         require('./modules/productSerigraphyRigid.add').name,
         require('./modules/productLaserGeneral.add').name,
+        require('./modules/productLaserGeneral.update').name,
         require('./modules/productDigitalGeneral.add').name,
         require('./modules/productDigitalGeneral.update').name,
         require('./modules/productDigitalPaginated.add').name,
