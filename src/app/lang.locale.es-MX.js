@@ -109,6 +109,7 @@ module.exports = {
                 "productSerigraphyFlexibles-add": require('./product/modules/productSerigraphyFlexibles.add/lang.es-MX'),                            
                 "productSerigraphyFlexibles-update": require('./product/modules/productSerigraphyFlexibles.update/lang.es-MX'),                            
                 "productSerigraphyRigid-add": require('./product/modules/productSerigraphyRigid.add/lang.es-MX'),                            
+                "productSerigraphyRigid-update": require('./product/modules/productSerigraphyRigid.update/lang.es-MX'),                            
                 "productLaserGeneral-add": require('./product/modules/productLaserGeneral.add/lang.es-MX'),                          
                 "productLaserGeneral-update": require('./product/modules/productLaserGeneral.update/lang.es-MX'),                          
                 "productDigitalGeneral-add": require('./product/modules/productDigitalGeneral.add/lang.es-MX'),                          
