@@ -51,6 +51,10 @@ module.exports = {
                             {"label":"cm","value":"cm"},
                             {"label":"pulgadas","value":"in"}
                         ],
+                        pr_engravingmeasureoptions: [
+                            {"label":"cm","value":"cm"},
+                            {"label":"pulgadas","value":"in"}
+                        ],
                         pr_inkfrontoptions : [
                             {"label":"0 tintas","value":0},
                             {"label":"1 tinta","value":1},
