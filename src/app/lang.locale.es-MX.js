@@ -86,6 +86,7 @@ module.exports = {
                 "product": require('./product/lang.es-MX'),
                 "product-update": require('./product/modules/product.update/lang.es-MX'),
                 "productOffsetGeneral-add": require('./product/modules/productOffsetGeneral.add/lang.es-MX'),
+                "productOffsetGeneral-update": require('./product/modules/productOffsetGeneral.update/lang.es-MX'),
                 "productOffsetPaginated-add": require('./product/modules/productOffsetPaginated.add/lang.es-MX'),
                 "productOffsetCounterfoil-add": require('./product/modules/productOffsetCounterfoil.add/lang.es-MX'),
                 "productOffsetCounterfoil-update": require('./product/modules/productOffsetCounterfoil.update/lang.es-MX'),

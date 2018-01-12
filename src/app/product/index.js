@@ -4,6 +4,7 @@ module.exports = (function(angular){
     return angular.module('app.product',[
         require('./modules/product.update').name,
         require('./modules/productOffsetGeneral.add').name,
+        require('./modules/productOffsetGeneral.update').name,
         require('./modules/productOffsetPaginated.add').name,
         require('./modules/productOffsetCounterfoil.add').name,
         require('./modules/productOffsetCounterfoil.update').name,
