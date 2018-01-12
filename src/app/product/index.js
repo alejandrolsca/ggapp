@@ -7,6 +7,7 @@ module.exports = (function(angular){
         require('./modules/productOffsetPaginated.add').name,
         require('./modules/productOffsetCounterfoil.add').name,
         require('./modules/productFlexoLabels.add').name,
+        require('./modules/productFlexoLabels.update').name,
         require('./modules/productFlexoRibbons.add').name,
         require('./modules/productPlotterFlexibles.add').name,        
         require('./modules/productPlotterRigid.add').name,        

@@ -89,6 +89,7 @@ module.exports = {
                 "productOffsetPaginated-add": require('./product/modules/productOffsetPaginated.add/lang.es-MX'),
                 "productOffsetCounterfoil-add": require('./product/modules/productOffsetCounterfoil.add/lang.es-MX'),
                 "productFlexoLabels-add": require('./product/modules/productFlexoLabels.add/lang.es-MX'),
+                "productFlexoLabels-update": require('./product/modules/productFlexoLabels.update/lang.es-MX'),
                 "productFlexoRibbons-add": require('./product/modules/productFlexoRibbons.add/lang.es-MX'),
                 "productPlotterFlexibles-add": require('./product/modules/productPlotterFlexibles.add/lang.es-MX'),                
                 "productPlotterRigid-add": require('./product/modules/productPlotterRigid.add/lang.es-MX'),                
