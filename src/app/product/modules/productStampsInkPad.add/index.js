@@ -6,7 +6,7 @@ module.exports = (function(angular){
     .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('productStampsInkPadAdd', {
-            url:'/product/add/stamps/inkpad/:cl_id',
+            url:'/product/add/stamps/ink_pad/:cl_id',
             template: require('./productStampsInkPad.add.view.html'),
             controller : 'productStampsInkPadAddCtrl',
             data: {

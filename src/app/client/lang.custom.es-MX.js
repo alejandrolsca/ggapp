@@ -27,7 +27,7 @@ module.exports = {
                             ]},
                             {"label":"Sellos","value":"stamps",types:[
                                 {"label":"General","value":"general"}, 
-                                {"label":"Cojin","value":"inkpad"},  
+                                {"label":"Cojin","value":"ink_pad"},
                                 {"label":"Tinta","value":"ink"},   
                             ]},
                             {"label":"Serigrafía","value":"serigraphy",types:[
