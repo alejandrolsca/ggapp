@@ -27,6 +27,7 @@ module.exports = (function(angular){
         require('./modules/productDiecuttingGeneral.add').name,
         require('./modules/productDiecuttingGeneral.update').name,
         require('./modules/productDirectSaleGeneral.add').name,
+        require('./modules/productDirectSaleGeneral.update').name,
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

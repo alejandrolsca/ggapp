@@ -110,6 +110,7 @@ module.exports = {
                 "productDiecuttingGeneral-add": require('./product/modules/productDiecuttingGeneral.add/lang.es-MX'),                          
                 "productDiecuttingGeneral-update": require('./product/modules/productDiecuttingGeneral.update/lang.es-MX'),                          
                 "productDirectSaleGeneral-add": require('./product/modules/productDirectSaleGeneral.add/lang.es-MX'),                          
+                "productDirectSaleGeneral-update": require('./product/modules/productDirectSaleGeneral.update/lang.es-MX'),                          
                 /****************************************
                 SUPPLIER 
                 ****************************************/
