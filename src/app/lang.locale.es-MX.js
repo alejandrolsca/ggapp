@@ -98,6 +98,7 @@ module.exports = {
                 "productPlotterFlexibles-add": require('./product/modules/productPlotterFlexibles.add/lang.es-MX'),                
                 "productPlotterFlexibles-update": require('./product/modules/productPlotterFlexibles.update/lang.es-MX'),                
                 "productPlotterRigid-add": require('./product/modules/productPlotterRigid.add/lang.es-MX'),                
+                "productPlotterRigid-update": require('./product/modules/productPlotterRigid.update/lang.es-MX'),                
                 "productPlotterBanner-add": require('./product/modules/productPlotterBanner.add/lang.es-MX'),            
                 "productPlotterBanner-update": require('./product/modules/productPlotterBanner.update/lang.es-MX'),            
                 "productStampsGeneral-add": require('./product/modules/productStampsGeneral.add/lang.es-MX'),                

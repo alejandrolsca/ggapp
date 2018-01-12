@@ -16,6 +16,7 @@ module.exports = (function(angular){
         require('./modules/productPlotterFlexibles.add').name,        
         require('./modules/productPlotterFlexibles.update').name,        
         require('./modules/productPlotterRigid.add').name,        
+        require('./modules/productPlotterRigid.update').name,        
         require('./modules/productPlotterBanner.add').name,
         require('./modules/productPlotterBanner.update').name,
         require('./modules/productStampsGeneral.add').name,
