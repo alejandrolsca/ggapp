@@ -91,6 +91,7 @@ module.exports = {
                 "productFlexoLabels-add": require('./product/modules/productFlexoLabels.add/lang.es-MX'),
                 "productFlexoLabels-update": require('./product/modules/productFlexoLabels.update/lang.es-MX'),
                 "productFlexoRibbons-add": require('./product/modules/productFlexoRibbons.add/lang.es-MX'),
+                "productFlexoRibbons-update": require('./product/modules/productFlexoRibbons.update/lang.es-MX'),
                 "productPlotterFlexibles-add": require('./product/modules/productPlotterFlexibles.add/lang.es-MX'),                
                 "productPlotterRigid-add": require('./product/modules/productPlotterRigid.add/lang.es-MX'),                
                 "productPlotterBanner-add": require('./product/modules/productPlotterBanner.add/lang.es-MX'),            

@@ -9,6 +9,7 @@ module.exports = (function(angular){
         require('./modules/productFlexoLabels.add').name,
         require('./modules/productFlexoLabels.update').name,
         require('./modules/productFlexoRibbons.add').name,
+        require('./modules/productFlexoRibbons.update').name,
         require('./modules/productPlotterFlexibles.add').name,        
         require('./modules/productPlotterRigid.add').name,        
         require('./modules/productPlotterBanner.add').name,
