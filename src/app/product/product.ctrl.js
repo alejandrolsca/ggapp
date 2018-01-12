@@ -6,6 +6,22 @@ module.exports = (function (angular) {
 
             $scope.labels = Object.keys(i18nFilter("product.labels"));
             $scope.columns = i18nFilter("product.columns");
+
+            // export to xls
+            $scope.exportXLS = function () {
+                const timestamp = moment().tz('America/Chihuahua').format();
+                const fileName = `products_${timestamp}.xlsx`;
+                const flexGrid = $scope.ggGrid
+                try {
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                        includeColumnHeaders: true, 
+                        includeCellStyles: false
+                    }, fileName);
+                } catch (error) {
+                    throw new Error(error)
+                }
+                
+            }
         
             //set QR Code data defaults
             $scope.qrcodeString = 'YOUR TEXT TO ENCODE';

@@ -7,6 +7,22 @@ module.exports = (function (angular) {
             $scope.labels = Object.keys(i18nFilter("wo.labels"));
             $scope.columns = i18nFilter("wo.columns");
 
+            // export to xls
+            $scope.exportXLS = function () {
+                const timestamp = moment().tz('America/Chihuahua').format();
+                const fileName = `orders_${timestamp}.xlsx`;
+                const flexGrid = $scope.ggGrid
+                try {
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                        includeColumnHeaders: true, 
+                        includeCellStyles: false
+                    }, fileName);
+                } catch (error) {
+                    throw new Error(error)
+                }
+                
+            }
+
             $scope.edit = function (id) {
                 if (angular.isNumber(id)) {
                     var link = "#/wo/update/" + id;
