@@ -103,6 +103,7 @@ module.exports = {
                 "productDigitalGeneral-add": require('./product/modules/productDigitalGeneral.add/lang.es-MX'),                          
                 "productDigitalGeneral-update": require('./product/modules/productDigitalGeneral.update/lang.es-MX'),                          
                 "productDigitalPaginated-add": require('./product/modules/productDigitalPaginated.add/lang.es-MX'),                          
+                "productDigitalPaginated-update": require('./product/modules/productDigitalPaginated.update/lang.es-MX'),                          
                 "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
                 "productDigitalCounterfoil-add": require('./product/modules/productDigitalCounterfoil.add/lang.es-MX'),                          
                 "productDigitalCounterfoil-update": require('./product/modules/productDigitalCounterfoil.update/lang.es-MX'),                          

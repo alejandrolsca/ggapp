@@ -21,6 +21,7 @@ module.exports = (function(angular){
         require('./modules/productDigitalGeneral.add').name,
         require('./modules/productDigitalGeneral.update').name,
         require('./modules/productDigitalPaginated.add').name,
+        require('./modules/productDigitalPaginated.update').name,
         require('./modules/productDigitalCounterfoil.add').name,
         require('./modules/productDigitalCounterfoil.update').name,
         require('./modules/productDiecuttingGeneral.add').name,
