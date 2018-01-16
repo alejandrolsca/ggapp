@@ -46,7 +46,10 @@ from (
         wo_price text, 
         wo_currency text, 
         wo_email text, 
-        wo_status int
+        wo_status int,
+        wo_updatedby text,         
+        wo_updated text,         
+        wo_createdby text         
 	)
 where wo_jsonb->>'wo_status' = $1
 ) wo

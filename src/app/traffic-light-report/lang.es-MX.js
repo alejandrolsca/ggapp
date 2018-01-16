@@ -35,6 +35,9 @@ module.exports = {
         "wo-currency": "Moneda",
         "wo-email": "Enviar Correo",
         "wo-status": "Estatus del proceso",
+        "wo-updatedby": "Actualizado por",
+        "wo-updated": "Fecha de Actualización",
+        "wo-createdby": "Creado por",
         "wo-date": "Fecha"
     },
     "columns": [
@@ -72,6 +75,9 @@ module.exports = {
         { "binding": "wo_price", "type": "Number" },
         { "binding": "wo_currency", "type": "String" },
         { "binding": "wo_email", "type": "String" },
+        { "binding": "wo_updatedby", "type": "String" },
+        { "binding": "wo_updated", "type": "Date" },
+        { "binding": "wo_createdby", "type": "String" },
         { "binding": "wo_date", "type": "Date" }
     ],
     "fields": require('../workflow/lang.es-MX').fields

@@ -766,6 +766,28 @@ if (cluster.isMaster) {
             }
         })().catch(e => console.error(e.stack))
     });
+    app.post('/api/wo/history', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('wo/wo:history')
+                const parameters = [req.body.wo_id]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
     app.post('/api/wo/cl_id/wo_release', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
@@ -1151,10 +1173,10 @@ if (cluster.isMaster) {
             try {
                 await client.query('BEGIN')
                 const updateStatusQuery = file('workflow/workflow:update')
-                const updateStatusValues = [req.body.wo_status, req.body.wo_id]
+                const updateStatusValues = [req.body.wo_status, req.body.wo_updatedby, req.body.wo_id]
                 const updateDeliveryDateQuery = file('workflow/workflow:update:wo_deliverydate')
                 const updateDeliveryDateValues = [req.body.wo_id]
-                console.log(typeof req.body.wo_status)
+                console.log(req.body.wo_status, req.body.wo_updatedby, req.body.wo_id)
                 result = await client.query(updateStatusQuery, updateStatusValues)
                 if (req.body.wo_status === 17) {
                     result = await client.query(updateDeliveryDateQuery, updateDeliveryDateValues)
@@ -1163,7 +1185,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 await client.query('ROLLBACK')
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }

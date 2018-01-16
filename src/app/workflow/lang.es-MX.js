@@ -37,6 +37,9 @@ module.exports = {
         "wo-currency": "Moneda",
         "wo-email": "Enviar Correo",
         "wo-status": "Estatus",
+        "wo-updatedby": "Actualizado por",
+        "wo-updated": "Fecha de Actualización",
+        "wo-createdby": "Creado por",
         "wo-date": "Fecha"
     },
     "columns": [
@@ -62,6 +65,9 @@ module.exports = {
         "wo_previousid",
         "wo_previousdate",
         "wo_status",
+        "wo_updatedby",
+        "wo_updated",
+        "wo_createdby",
         "wo_date"
     ],
     "fields": {

@@ -40,6 +40,7 @@ module.exports = {
                         "submit":"Enviar",
                         "continue":"Continuar",
                         "close":"Cerrar",
+                        "history":"historial",
                     },
                     "regexp":{
                         "singlespaces": "sin espacios dobles ni caracteres especiales.",
@@ -163,6 +164,7 @@ module.exports = {
                 "wo-duplicate": require('./wo/modules/wo.duplicate/lang.es-MX'),
                 "wo-update": require('./wo/modules/wo.update/lang.es-MX'),
                 "wo-view": require('./wo/modules/wo.view/lang.es-MX'),
+                "wo-history": require('./wo/modules/wo.history/lang.es-MX'),
                 /****************************************
                 ZONE 
                 ****************************************/

@@ -1,16 +1,18 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woFactory', '$location', 'i18nFilter', '$stateParams',
-        function ($scope, woFactory, $location, i18nFilter, $stateParams) {
+    return ['$scope', 'woHistoryFactory', '$location', 'i18nFilter', '$stateParams',
+        function ($scope, woHistoryFactory, $location, i18nFilter, $stateParams) {
             
-            $scope.labels = Object.keys(i18nFilter("wo.labels"));
-            $scope.columns = i18nFilter("wo.columns");
+            $scope.labels = Object.keys(i18nFilter("wo-history.labels"));
+            $scope.columns = i18nFilter("wo-history.columns");
+            $scope.workflow = i18nFilter("tlr.fields.wo_statusoptions");
+            $scope.wo_id = $stateParams.wo_id
 
             // export to xls
             $scope.exportXLS = function () {
                 const timestamp = moment().tz('America/Chihuahua').format();
-                const fileName = `orders_${timestamp}.xlsx`;
+                const fileName = `order${$stateParams.wo_id}history_${timestamp}.xlsx`;
                 const flexGrid = $scope.ggGrid
                 try {
                     wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
@@ -37,37 +39,47 @@ module.exports = (function (angular) {
                 }
             };
             
-            // formatItem event handler
-            var wo_id;
-            $scope.formatItem = function (s, e, cell) {
+            $scope.itemFormatter = function (panel, r, c, cell) {
 
-                if (e.panel.cellType == wijmo.grid.CellType.RowHeader) {
-                    e.cell.textContent = e.row + 1;
+                if ((panel.cellType == wijmo.grid.CellType.Cell)) {
+                    var flex = panel.grid;
+                    var col = flex.columns[c];
+                    var row = flex.rows[r];
+                    // localize timezone America/Chihuahua                    
+                    if (col.binding === 'wo_updated') {
+                        if (row.dataItem.wo_updated) {
+                            row.dataItem.wo_updated = moment(row.dataItem.wo_updated).tz('America/Chihuahua').format();
+                        }
+                    }
+                    if (col.binding === 'old_status') {
+                        angular.forEach($scope.workflow, function (value, key) {
+                            if (value.value === panel.grid.getCellData(r, flex.columns.getColumn('old_status').index)) {
+                                row.dataItem.old_status = `(${value.value}) ${value.label}`;
+                                cell.innerHTML = `(${value.value}) ${value.label}`;
+                            }
+                        });
+                    }
+                    if (col.binding === 'new_status') {
+                        angular.forEach($scope.workflow, function (value, key) {
+                            if (value.value === panel.grid.getCellData(r, flex.columns.getColumn('new_status').index)) {
+                                row.dataItem.new_status = `(${value.value}) ${value.label}`;
+                                cell.innerHTML = `(${value.value}) ${value.label}`;
+                            }
+                        });
+                    }
                 }
-
-                s.rows.defaultSize = 30;
             
-                // add Bootstrap html
-                if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (e.col == 0)) {
-                    wo_id = e.panel.getCellData(e.row, 1, false);
-                    e.cell.style.overflow = 'visible';
-                    e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                            <div class="btn-group" role="group">
-                                                <a href="#/wo/update/${$stateParams.cl_id}/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.edit")}</a>
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <a href="#/wo/history/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.history")}</a>
-                                            </div>
-                                       </div>`;
-                }
             }
         
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
-                    col.binding = $scope.columns[i];
-                    col.header = i18nFilter("wo.labels." + $scope.columns[i].replace('_','-'));
+                    col.header = i18nFilter("wo-history.labels." + $scope.columns[i].binding.replace('_', '-'));                    
+                    col.binding = $scope.columns[i].binding;
+                    col.dataType = $scope.columns[i].type;
+                    col.width = $scope.columns[i].width
+                    col.align = 'left'
                     s.columns.push(col);
                 }
             };
@@ -116,7 +128,7 @@ module.exports = (function (angular) {
 
                 $scope.loading = true;
 
-                woFactory.getData().then(function (promise) {
+                woHistoryFactory.getData().then(function (promise) {
 
                     $scope.loading = false;
 

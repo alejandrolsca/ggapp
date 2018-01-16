@@ -49,7 +49,7 @@ module.exports = (function (angular) {
 
             $scope.onSubmit = function () {
                 console.log($scope.wo_id.join(','))
-                workflowFactory.update($scope.fmData.wo_nextstatus, $scope.wo_id.join(',')).then(function (promise) {
+                workflowFactory.update($scope.fmData.wo_nextstatus, userProfile.username, $scope.wo_id.join(',')).then(function (promise) {
                     console.log(promise.data)
                     if (promise.data.rowCount >= 1) {
                         $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
@@ -62,6 +62,18 @@ module.exports = (function (angular) {
             }
 
             $scope.itemFormatter = function (panel, r, c, cell) {
+
+                // localize timezone America/Chihuahua
+                if ((panel.cellType == wijmo.grid.CellType.Cell)) {
+                    var flex = panel.grid;
+                    var col = flex.columns[c];
+                    var row = flex.rows[r];
+                    if (col.binding === 'wo_updated') {
+                        if (row.dataItem.wo_updated) {
+                            row.dataItem.wo_updated = moment(row.dataItem.wo_updated).tz('America/Chihuahua').format();
+                        }
+                    }
+                }
 
                 // highlight rows that have 'active' set
                 if (panel.cellType == wijmo.grid.CellType.Cell) {

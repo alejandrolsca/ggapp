@@ -49,6 +49,13 @@ module.exports = (function (angular) {
                     cell.style.backgroundColor = '';
                     cell.style.color = '';
                     // end fix
+
+                    // localize timezone America/Chihuahua
+                    if (col.binding === 'wo_updated') {
+                        if (row.dataItem.wo_updated) {
+                            row.dataItem.wo_updated = moment(row.dataItem.wo_updated).tz('America/Chihuahua').format();
+                        }
+                    }
                     if (col.binding === 'wo_status') {
                         angular.forEach($scope.workflow, function (value, key) {
                             if (value.value === panel.grid.getCellData(r, flex.columns.getColumn('wo_status').index)) {

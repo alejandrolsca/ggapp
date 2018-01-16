@@ -5,7 +5,8 @@ module.exports = (function(angular){
         require('./modules/wo.add').name,
         require('./modules/wo.update').name,
         require('./modules/wo.duplicate').name,
-        require('./modules/wo.view').name
+        require('./modules/wo.view').name,
+        require('./modules/wo.history').name
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

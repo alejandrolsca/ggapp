@@ -40,7 +40,10 @@ from  wo,
 		wo_notes text, 
 		wo_price text, 
 		wo_currency text, 
-		wo_email text, 
+		wo_email text,
+		wo_createdby text, 
+		wo_updatedby text, 
+		wo_updated text, 
 		wo_status int
 	)
 ) wo
