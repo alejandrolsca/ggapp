@@ -31,6 +31,86 @@ module.exports = (function (angular) {
                 }
             }
 
+            // export to PDF
+            $scope.exportPDF = async () => {
+                $scope.onUpdate()
+                var img_gglogo = require('../../static/img/gg-logo.png');
+                const { data: orders } = await workflowFactory.getWoPrint($scope.wo_id.join(','))
+                console.log(orders)
+                let pdfDoc = null
+                const pdfTemplate = (pdfDoc, data) => {
+                    console.log('width', pdfDoc.width + 72, 'height', pdfDoc.height + 72) // plus 72 points
+                    const { pr_material } = data
+                    const { wo_jsonb } = data
+                    const { pr_jsonb } = data
+                    const materials = pr_material.split(',')
+                    const hasComponents = (pr_jsonb.pr_type === 'paginated' || pr_jsonb.pr_type === 'counterfoil') ? true : false;
+                    const componentsArray = new Array(pr_jsonb.pr_components)
+                    pdfDoc.header.drawImage(img_gglogo, 0, 0, {
+                        width: wijmo.pdf.pxToPt(150),
+                        height: wijmo.pdf.pxToPt(79)
+                    });
+                    pdfDoc.drawText(`Orden no: ${data.wo_id}`, 0, wijmo.pdf.pxToPt(79))
+                    pdfDoc.drawText(`Cliente: ${data.cl_corporatename}`)
+                    pdfDoc.drawText(`Order Type: ${wo_jsonb.wo_type}`)
+                    pdfDoc.drawText(`Zona: ${data.zo_zone}`)
+                    pdfDoc.drawText(`Release: ${wo_jsonb.wo_release}`)
+                    pdfDoc.drawText(`Orden de compra: ${wo_jsonb.wo_po}`)
+                    pdfDoc.drawText(`Linea ${wo_jsonb.wo_line} de ${wo_jsonb.wo_linetotal}`)
+                    pdfDoc.drawText(`Producto: ${pr_jsonb.pr_code} - ${pr_jsonb.pr_name}`)
+                    pdfDoc.drawText(`Cantidad: ${wo_jsonb.wo_qty}`)
+                    pdfDoc.drawText(`No. Part: ${data.pr_partno}`)
+                    pdfDoc.drawText(`Folio: ${data.pr_folio}`)
+                    pdfDoc.drawText(`Material:`)
+                    materials.map((value) => {
+                        pdfDoc.drawText(`${value}`)
+                    })
+                    if (hasComponents) {
+                        pdfDoc.drawText(`Material Ordenado:`)
+                        for (let i = 0; i < pr_jsonb.pr_components; i++) {
+                            pdfDoc.drawText(`${pr_jsonb.pr_concept[i]}: ${wo_jsonb.wo_componentmaterialqty[i]}`)
+                        }
+                    } else {
+                        pdfDoc.drawText(`Material Ordenado: ${wo_jsonb.wo_materialqty}`)
+                    }
+                    pdfDoc.drawText(`Maquina: ${data.ma_name}`)
+                    pdfDoc.drawText(`Cant. x paq/rollo: ${wo_jsonb.wo_packageqty}`)
+                    pdfDoc.drawText(`Cant. x caja: ${wo_jsonb.wo_boxqty}`)
+                    pdfDoc.drawText(`Notas: ${wo_jsonb.wo_notes}`)
+                    pdfDoc.drawText(`Fecha compromiso: ${wo_jsonb.wo_commitmentdate}`)
+
+
+                }
+                orders.map((value, index) => {
+                    if (index === 0) {
+                        const margin = 36
+                        pdfDoc = new wijmo.pdf.PdfDocument({
+                            pageSettings: {
+                                layout: wijmo.pdf.PdfPageOrientation.Portrait,
+                                size: wijmo.pdf.PdfPageSize.Letter,
+                                margins: { // margins are given in points
+                                    left: margin,
+                                    top: margin,
+                                    right: margin,
+                                    bottom: margin
+                                },
+                            },
+                            ended: function (sender, args) {
+                                const timestamp = moment().tz('America/Chihuahua').format();
+                                const fileName = `orders_${timestamp}.pdf`;
+                                wijmo.pdf.saveBlob(args.blob, `${fileName}.pdf`);
+                            }
+                        })
+                        pdfDoc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '500'))
+                        pdfTemplate(pdfDoc, value)
+                    } else {
+                        const pdfDocRef = pdfDoc.addPage()
+                        pdfTemplate(pdfDocRef, value)
+                    }
+                })
+                pdfDoc.end()
+            }
+
             // formatter to add checkboxes to boolean columns
             $scope.onUpdate = function () {
                 var flex = $scope.ggGrid;

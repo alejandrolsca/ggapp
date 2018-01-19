@@ -37,6 +37,22 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
+        factory.getWoPrint = function (wo_id) {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/wo/print', {
+                    /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
+                    wo_id: wo_id
+                }).success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
         return factory;
     }];
 
