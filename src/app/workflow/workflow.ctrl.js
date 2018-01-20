@@ -73,6 +73,10 @@ module.exports = (function (angular) {
                     } else {
                         pdfDoc.drawText(`Material Ordenado: ${wo_jsonb.wo_materialqty}`)
                     }
+                    pdfDoc.drawText(`# Tintas frente: ${data.inkfront}`)
+                    pdfDoc.drawText(`Tintas frente: ${data.inksfront}`)
+                    pdfDoc.drawText(`# Tintas reverso: ${data.inkback}`)
+                    pdfDoc.drawText(`Tintas reverso: ${data.inksback}`)
                     pdfDoc.drawText(`Maquina: ${data.ma_name}`)
                     pdfDoc.drawText(`Cant. x paq/rollo: ${wo_jsonb.wo_packageqty}`)
                     pdfDoc.drawText(`Cant. x caja: ${wo_jsonb.wo_boxqty}`)

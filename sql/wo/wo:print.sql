@@ -1,4 +1,78 @@
 select
+	case 
+		when jsonb_typeof(pr_inkfront) = 'object'
+		then (
+			select 
+				array_to_string(array_agg(value),',')
+			from (
+				select 
+					(jsonb_each(pr_inkfront)).value
+			) in_id
+		) 
+		else (
+			select pr_inkfront::text
+		)
+	end as inkfront,
+	case 
+		when pr_jsonb ? 'pr_components' 
+		then (
+			select 
+				array_to_string(array_agg((select array_to_string(array_agg(x.value),',') from (select (jsonb_each(in_id.value)).value) x)),',')
+			from (
+				select 
+					(jsonb_each(pr_inksfront)).value
+			) in_id
+		) 
+		when jsonb_typeof(pr_inksfront) = 'object'
+		then (
+			select 
+				array_to_string(array_agg(value),',')
+			from (
+				select 
+					(jsonb_each(pr_inksfront)).value
+			) in_id
+		)
+		else (
+			select pr_inksfront::text
+		)
+	end as inksfront,
+	case 
+		when jsonb_typeof(pr_inkback) = 'object'
+		then (
+			select 
+				array_to_string(array_agg(value),',')
+			from (
+				select 
+					(jsonb_each(pr_inkback)).value
+			) in_id
+		) 
+		else (
+			select pr_inkback::text
+		)
+	end as inkback,
+	case 
+		when pr_jsonb ? 'pr_components' 
+		then (
+			select 
+				array_to_string(array_agg((select array_to_string(array_agg(x.value),',') from (select (jsonb_each(in_id.value)).value) x)),',')
+			from (
+				select 
+					(jsonb_each(pr_inksback)).value
+			) in_id
+		) 
+		when jsonb_typeof(pr_inksback) = 'object'
+		then (
+			select 
+				array_to_string(array_agg(value),',')
+			from (
+				select 
+					(jsonb_each(pr_inksback)).value
+			) in_id
+		)
+		else (
+			select pr_inksback::text
+		)
+	end as inksback,
 	case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
 			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
@@ -81,7 +155,11 @@ from
 			pr_type text,
 			pr_concept text,
 			pr_folio text,
-			pr_status text
+			pr_status text,
+			pr_inkfront jsonb,
+			pr_inksfront jsonb,
+			pr_inkback jsonb,
+			pr_inksback jsonb
 		)
 	) pr,
 	(

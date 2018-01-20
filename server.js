@@ -801,8 +801,22 @@ if (cluster.isMaster) {
                 // execute query
                 const query = file('wo/wo:print')
                 const parameters = [req.body.wo_id]
+                const inksQuery = file('product/product:info:ink')
                 const { rows } = await client.query(query, parameters)
-                res.send(")]}',\n".concat(JSON.stringify(rows)));
+                console.log(rows)                
+                const data = rows.map(async (value) => {
+                    const { rows: inksfrontRows } = await client.query(inksQuery, [value.inksfront, 'A,I'])
+                    const { rows: inksbackRows } = await client.query(inksQuery, [value.inksback, 'A,I'])
+                    const [inksfront] = inksfrontRows
+                    const [inksback] = inksbackRows
+                    value.inksfront = inksfront.inks
+                    value.inksback = inksback.inks
+                    return value
+                })
+                Promise.all(data).then((completed) => {
+                    res.send(")]}',\n".concat(JSON.stringify(completed)));
+                })
+                
             } catch (e) {
                 console.log(e)
                 return res.status(500).send(JSON.stringify(e, null, 4));
