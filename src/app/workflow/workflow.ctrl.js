@@ -226,15 +226,21 @@ module.exports = (function (angular) {
             // autosize columns
             $scope.itemsSourceChanged = function (sender, args) {
                 //sender.autoSizeColumns();
+                sender.autoSizeRows()
             };
 
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
-                    col.binding = $scope.columns[i];
-                    col.header = i18nFilter("workflow.labels." + $scope.columns[i].replace('_', '-'));
+                    col.binding = $scope.columns[i].binding;
+                    col.dataType = $scope.columns[i].type;
+                    col.isContentHtml = $scope.columns[i].html;
+                    col.header = i18nFilter("workflow.labels." + $scope.columns[i].binding.replace('_', '-'));
+                    col.wordWrap = false;
+                    col.width = $scope.columns[i].width;
                     s.columns.push(col);
+
                 }
             };
 

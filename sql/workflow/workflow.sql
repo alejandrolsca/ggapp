@@ -12,6 +12,8 @@ select
 	pr_code,
     pr_name,
     pr.pr_material,
+	pr.pr_components,
+    pr.pr_concept,
 	ma.ma_name,
 	zo.zo_zone,
     wo_po,
@@ -164,7 +166,7 @@ from
 										end
 							)  || 'm2'  || ' ' ||
 							(mt_jsonb->>'mt_description')
-						),','
+						),'|'
 					) as material
 				from (
 					select *
@@ -204,6 +206,7 @@ from
 			pr_name text,
 			pr_process text,
 			pr_type text,
+			pr_components int,
 			pr_concept text,
 			pr_folio text,
 			pr_status text,

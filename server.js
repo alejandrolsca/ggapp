@@ -802,7 +802,7 @@ if (cluster.isMaster) {
                 const query = file('wo/wo:print')
                 const parameters = [req.body.wo_id]
                 const inksQuery = file('product/product:info:ink')
-                const { rows } = await client.query(query, parameters)             
+                const { rows } = await client.query(query, parameters)
                 const data = rows.map(async (value) => {
                     const { rows: inksfrontRows } = await client.query(inksQuery, [value.inksfront, 'A,I'])
                     const { rows: inksbackRows } = await client.query(inksQuery, [value.inksback, 'A,I'])
@@ -815,7 +815,7 @@ if (cluster.isMaster) {
                 Promise.all(data).then((completed) => {
                     res.send(")]}',\n".concat(JSON.stringify(completed)));
                 })
-                
+
             } catch (e) {
                 console.log(e)
                 return res.status(500).send(JSON.stringify(e, null, 4));
@@ -1191,7 +1191,7 @@ if (cluster.isMaster) {
                 const query = file('workflow/workflow')
                 const parameters = [req.body.wo_status]
                 const inksQuery = file('product/product:info:ink')
-                const { rows } = await client.query(query, parameters)             
+                const { rows } = await client.query(query, parameters)
                 const data = rows.map(async (value) => {
                     const { rows: inksfrontRows } = await client.query(inksQuery, [value.inksfront, 'A,I'])
                     const { rows: inksbackRows } = await client.query(inksQuery, [value.inksback, 'A,I'])
@@ -1199,6 +1199,46 @@ if (cluster.isMaster) {
                     const [inksback] = inksbackRows
                     value.inksfront = inksfront.inks
                     value.inksback = inksback.inks
+                    if (value.pr_components) {
+                        const inkfront = value.inkfront.split(',')
+                        const inksfrontArray = value.inksfront.split(',')
+                        const inkback = value.inkback.split(',')
+                        const inksbackArray = value.inksback.split(',')
+                        const material = value.pr_material.split('|')
+                        value.pr_concept = JSON.parse(value.pr_concept)
+                        let inksfrontConcept = []
+                        let inksbackConcept = []
+                        let counter1 = 0;                        
+                        let counter2 = 0;                        
+                        for (let i = 0; i < value.pr_components; i++) {
+                            let inkfrontRaw = parseInt(inkfront[i])
+                            let inkbackRaw = parseInt(inkback[i])
+                            inkfront[i] = `${value.pr_concept[i].toUpperCase()}: ${inkfront[i]}`
+                            inkback[i] = `${value.pr_concept[i].toUpperCase()}: ${inkback[i]}`
+                            material[i] = `${value.pr_concept[i].toUpperCase()}: ${material[i]}`
+
+                            let string1 = []
+                            for (let j = 0; j < inkfrontRaw; j++) {
+                                string1.push(inksfrontArray[counter1])
+                                counter1++
+                            }
+                            inksfrontConcept[i] = string1.join(',')
+                            inksfrontConcept[i] = `${value.pr_concept[i].toUpperCase()}: ${inksfrontConcept[i]}`
+
+                            let string2 = []
+                            for (let k = 0; k < inkbackRaw; k++) {
+                                string2.push(inksbackArray[counter2])
+                                counter2++
+                            }
+                            inksbackConcept[i] = string2.join(',')
+                            inksbackConcept[i] = `${value.pr_concept[i].toUpperCase()}: ${inksbackConcept[i]}`
+                        }
+                        value.inkfront = inkfront.join('<br>')
+                        value.inksfront = inksfrontConcept.join('<br>')
+                        value.inkback = inkback.join('<br>')
+                        value.inksback = inksbackConcept.join('<br>')                        
+                        value.pr_material = material.join('<br>')
+                    }
                     return value
                 })
                 Promise.all(data).then((completed) => {
