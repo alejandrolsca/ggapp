@@ -223,10 +223,15 @@ module.exports = (function (angular) {
                 }
             }
 
-            // autosize columns
+            // autoSizeRows on load
             $scope.itemsSourceChanged = function (sender, args) {
                 //sender.autoSizeColumns();
                 sender.autoSizeRows()
+            };
+
+            // autoSizeRows after filter applied
+            $scope.onFilterApplied = function (s, e) {
+                s.grid.autoSizeRows()
             };
 
             // bind columns when grid is initialized
