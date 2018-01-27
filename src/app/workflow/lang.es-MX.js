@@ -20,7 +20,9 @@ module.exports = {
         "pr-process":"Proceso",
         "pr-name": "Producto",
         "ma-name": "Maquina",
+        "mt-id": "ID Material",
         "pr-material": "Material",
+        "pr-materialqty": "Cantidad",
         "inkfront": "No. Tintas frente",
         "inksfront": "Tintas frente",
         "inkback": "No. Tintas reverso",
@@ -79,6 +81,11 @@ module.exports = {
         { "binding": "wo_updated", "type": "Date", "width": 150 ,"html": false},                        
         { "binding": "wo_createdby", "type": "String", "width": 100 ,"html": false},                                
         { "binding": "wo_date", "type": "Date", "width": 150 ,"html": false}                                 
+    ],
+    "materialColumns": [
+        { "binding": "mt_id", "type": "Number", "width": 80 ,"html": false},     
+        { "binding": "pr_material", "type": "String", "width": 500 ,"html": false},                                             
+        { "binding": "pr_materialqty", "type": "Date", "width": 150 ,"html": false}                                 
     ],
     "fields": {
         wo_statusoptions: [

@@ -26,6 +26,36 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="materialsModal" tabindex="-1" role="dialog" aria-labelledby="materialsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="materialsModalLabel">MATERIAL ORDENADO</h4>
+        </div>
+        <div class="modal-body">  
+          <div ng-click="exportMaterialsXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br><br> 
+          <wj-flex-grid 
+            control="materialsGrid" 
+            items-source="materials"
+            items-source-changed="itemsSourceChanged(s,e)"
+            item-formatter="materialsItemFormatter"
+            initialized="initMaterialsGrid(s,e)"
+            auto-generate-columns="false" 
+            allow-sorting="true" 
+            show-sort="true" 
+            style="height:390px;">
+          </wj-flex-grid>
+      </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
+        </div>
+      </span>
+      </div>
+    </div>
+  </div>
+
 <div class="col-sm-12">
   <div class="well well-sm col-sm-6 col-xs-12">
       <form role="form" name="ggform" ng-submit="onUpdate();" novalidate>
@@ -55,6 +85,12 @@
                 ng-disabled="ggform.$invalid"
                 btn-class="col-xs-12 col-sm-12">
       </gg-submit>
+      <gg-action-button lbl="Material Ordenado"
+                ng-click="materialsModal()"
+                form-group-class="col-xs-12 col-sm-6" 
+                ng-disabled="false"
+                btn-class="col-xs-12 col-sm-12">
+      </gg-action-button>
     </form>
   </div>
 </div>
@@ -83,4 +119,5 @@
         width="100">
         </wj-flex-grid-column>
     </wj-flex-grid>
+    
 </span>

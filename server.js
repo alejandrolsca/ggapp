@@ -1208,8 +1208,8 @@ if (cluster.isMaster) {
                         value.pr_concept = JSON.parse(value.pr_concept)
                         let inksfrontConcept = []
                         let inksbackConcept = []
-                        let counter1 = 0;                        
-                        let counter2 = 0;                        
+                        let counter1 = 0;
+                        let counter2 = 0;
                         for (let i = 0; i < value.pr_components; i++) {
                             let inkfrontRaw = parseInt(inkfront[i])
                             let inkbackRaw = parseInt(inkback[i])
@@ -1236,7 +1236,7 @@ if (cluster.isMaster) {
                         value.inkfront = inkfront.join('<br>')
                         value.inksfront = inksfrontConcept.join('<br>')
                         value.inkback = inkback.join('<br>')
-                        value.inksback = inksbackConcept.join('<br>')                        
+                        value.inksback = inksbackConcept.join('<br>')
                         value.pr_material = material.join('<br>')
                     }
                     return value

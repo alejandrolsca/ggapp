@@ -10,6 +10,7 @@ module.exports = (function (angular) {
 
             $scope.labels = Object.keys(i18nFilter("workflow.labels"));
             $scope.columns = i18nFilter("workflow.columns");
+            $scope.materialColumns = i18nFilter("workflow.materialColumns");
 
             // export to xls
             $scope.exportXLS = function () {
@@ -20,6 +21,26 @@ module.exports = (function (angular) {
                     const timestamp = moment().tz('America/Chihuahua').format();
                     const fileName = `workflow_${current_status}_${timestamp}.xlsx`;
                     const flexGrid = $scope.ggGrid
+                    try {
+                        wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
+                            includeColumnHeaders: true,
+                            includeCellStyles: false
+                        }, fileName);
+                    } catch (error) {
+                        throw new Error(error)
+                    }
+                }
+            }
+
+            // export to xls
+            $scope.exportMaterialsXLS = function () {
+                if ($scope.fmData.wo_status || $scope.fmData.wo_status === 0) {
+                    const { label: current_status } = $scope.wo_statusoptions.find((value) => {
+                        return value.value === $scope.fmData.wo_status
+                    })
+                    const timestamp = moment().tz('America/Chihuahua').format();
+                    const fileName = `requested_material_${current_status}_${timestamp}.xlsx`;
+                    const flexGrid = $scope.materialsGrid
                     try {
                         wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
                             includeColumnHeaders: true,
@@ -144,6 +165,10 @@ module.exports = (function (angular) {
                 $('#myModal').modal('hide');
                 console.log('submited')
             }
+            $scope.materialsModal = () => {
+                $('#materialsModal').modal('show');
+                $scope.materials = new wijmo.collections.CollectionView($scope.materialsRaw);
+            }
 
             $scope.itemFormatter = function (panel, r, c, cell) {
 
@@ -231,7 +256,45 @@ module.exports = (function (angular) {
 
             // autoSizeRows after filter applied
             $scope.onFilterApplied = function (s, e) {
+                setTimeout(function() {
+                const {items: rows } = $scope.data
+                const materials = []
+                const material_ids = []
+                rows.map(value => {
+                    if (value.pr_components) {
+                        const pr_materials = value.pr_materialraw.split('|')
+                        const mt_id = Object.keys(value.pr_jsonb.mt_id)
+                        mt_id.map((component_id, index) => {
+                            if (!material_ids.includes(value.pr_jsonb.mt_id[component_id])) {
+                                material_ids.push(value.pr_jsonb.mt_id[component_id])
+                                materials.push({ "mt_id": value.pr_jsonb.mt_id[component_id], "pr_material": pr_materials[index], "pr_materialqty": Number(value.wo_componentmaterialqty[index]) })
+                            } else {
+                                const material_index = materials.findIndex((elem) => {
+                                    //console.log(elem)
+                                    return elem.mt_id === value.pr_jsonb.mt_id[component_id]
+                                })
+                                materials[material_index].pr_materialqty += Number(value.wo_componentmaterialqty[index])
+                            }                         
+                        })
+                    } else {
+                        const mt_id = Object.keys(value.pr_jsonb.mt_id)
+                        if (!material_ids.includes(value.pr_jsonb.mt_id)) {
+                            material_ids.push(value.pr_jsonb.mt_id)
+                            materials.push({ "mt_id": value.pr_jsonb.mt_id, "pr_material": value.pr_material, "pr_materialqty": Number(value.wo_materialqty) })
+                        } else {
+                            const material_index = materials.findIndex((elem) => {
+                                //console.log(elem)
+                                return elem.mt_id === value.pr_jsonb.mt_id
+                            })
+                            materials[material_index].pr_materialqty += Number(value.wo_materialqty)
+                        } 
+
+                    }
+                })
+                $scope.materialsRaw = materials
                 s.grid.autoSizeRows()
+                }, 500);
+                
             };
 
             // bind columns when grid is initialized
@@ -248,6 +311,24 @@ module.exports = (function (angular) {
 
                 }
             };
+
+            $scope.initMaterialsGrid = function (s, e) {
+                for (var i = 0; i < $scope.materialColumns.length; i++) {
+                    var col = new wijmo.grid.Column();
+                    col.binding = $scope.materialColumns[i].binding;
+                    col.dataType = $scope.materialColumns[i].type;
+                    col.isContentHtml = $scope.materialColumns[i].html;
+                    col.header = i18nFilter("workflow.labels." + $scope.materialColumns[i].binding.replace('_', '-'));
+                    col.wordWrap = false;
+                    col.width = $scope.materialColumns[i].width;
+                    s.columns.push(col);
+
+                }
+            };
+
+            $scope.materialsItemFormatter = function (panel, r, c, cell) {
+
+            }
 
             // create the tooltip object
             $scope.$watch('ggGrid', function () {
