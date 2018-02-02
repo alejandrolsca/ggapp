@@ -123,7 +123,7 @@ from (
 		)
 	where wo_jsonb.pr_id = pr.pr_id
 	and wo_jsonb.ma_id = ma.ma_id
-	and wo_jsonb.wo_status in (3,4)
+	and wo_jsonb.wo_status in (0,3,4)
 	and pr_jsonb.pr_process in ('offset', 'digital', 'flexo')
 	and pr_jsonb.pr_type not in ('ribbons')
 ) printruns
