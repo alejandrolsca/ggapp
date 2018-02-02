@@ -27,7 +27,8 @@ module.exports = (function (angular) {
         require('./traffic-light-report').name,
         require('./traffic-light-report-all').name,
         require('./exportation-invoice').name,
-        require('./shipping-list').name
+        require('./shipping-list').name,
+        require('./printruns').name
     ])
 
         .service('authService', ['$rootScope', '$location', 'lock', 'authManager', function authService($rootScope, $location, lock, authManager) {

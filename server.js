@@ -1426,6 +1426,31 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
+    /* PRINT RUNS */
+
+    app.post('/api/printruns', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('printruns/printruns')
+                const parameters = []
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
     const server = app.listen(port, function () {
         const host = 'localhost';
         const port = server.address().port;
