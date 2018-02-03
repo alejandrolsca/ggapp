@@ -1195,10 +1195,16 @@ if (cluster.isMaster) {
                 const data = rows.map(async (value) => {
                     const { rows: inksfrontRows } = await client.query(inksQuery, [value.inksfront, 'A,I'])
                     const { rows: inksbackRows } = await client.query(inksQuery, [value.inksback, 'A,I'])
-                    const [inksfront] = inksfrontRows
-                    const [inksback] = inksbackRows
-                    value.inksfront = inksfront.inks
-                    value.inksback = inksback.inks
+                    const [inksfront = { inks: '' }] = inksfrontRows
+                    const [inksback = { inks: '' }] = inksbackRows
+                    const {inkfront = '' } = value
+                    const {inkback = '' } = value
+                    const {pr_material = '' } = value
+                    value.inkfront = inkfront  || ''
+                    value.inksfront = inksfront.inks  || ''
+                    value.inkback = inkback  || ''                  
+                    value.inksback = inksback.inks || ''
+                    value.pr_material = pr_material  || ''
                     if (value.pr_components) {
                         const inkfront = value.inkfront.split(',')
                         const inksfrontArray = value.inksfront.split(',')
