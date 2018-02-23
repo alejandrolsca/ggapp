@@ -36,9 +36,23 @@ module.exports = (function (angular) {
                     window.location = link;
                 }
             };
-            
+            $scope.itemFormatter = function (panel, r, c, cell) {
+                // display available files
+                if ((panel.cellType == wijmo.grid.CellType.Cell)) {
+                    var flex = panel.grid;
+                    var col = flex.columns[c];
+                    var row = flex.rows[r];
+                    if (col.binding === 'files') {
+                        if (row.dataItem.file1) {
+                            cell.innerHTML = `Archivo 1: <a href="/uploads/${row.dataItem.wo_id}_file1.pdf" download="${row.dataItem.file1}" target="_blank">${row.dataItem.file1}</a><br/>`
+                        }
+                        if (row.dataItem.file2) {
+                            cell.innerHTML += `Archivo 2: <a href="/uploads/${row.dataItem.wo_id}_file2.pdf" download="${row.dataItem.file2}" target="_blank">${row.dataItem.file2}</a><br/>`
+                        }
+                    }
+                }
+            }
             // formatItem event handler
-            var wo_id;
             $scope.formatItem = function (s, e, cell) {
 
                 if (e.panel.cellType == wijmo.grid.CellType.RowHeader) {
@@ -49,7 +63,7 @@ module.exports = (function (angular) {
             
                 // add Bootstrap html
                 if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (e.col == 0)) {
-                    wo_id = e.panel.getCellData(e.row, 1, false);
+                    const wo_id = e.panel.getCellData(e.row, s.columns.getColumn('wo_id').index, false);
                     e.cell.style.overflow = 'visible';
                     e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
@@ -57,6 +71,9 @@ module.exports = (function (angular) {
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <a href="#/wo/history/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.history")}</a>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <a href="#/wo/duplicate/${$stateParams.cl_id}/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.duplicate")}</a>
                                             </div>
                                        </div>`;
                 }
@@ -110,6 +127,20 @@ module.exports = (function (angular) {
                     });
                 }
             });
+
+            // autoSizeRows on load
+            $scope.itemsSourceChanged = function (sender, args) {
+                //sender.autoSizeColumns();
+                sender.autoSizeRows()
+            };
+
+            // autoSizeRows after filter applied
+            $scope.onFilterApplied = function (s, e) {
+                setTimeout(function() {
+                s.grid.autoSizeRows()
+                }, 500);
+                
+            };
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded

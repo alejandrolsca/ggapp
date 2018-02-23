@@ -1,7 +1,7 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$http', '$q',  '$stateParams', function ($http, $q, $stateParams) {
+    return ['$http', '$q', '$stateParams', function ($http, $q, $stateParams) {
         var factory = {};
         factory.getData = function () {
             var deferred = $q.defer();
@@ -14,13 +14,13 @@ module.exports = (function (angular) {
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    
+
                     return { "status": false };
                 })
             );
             return deferred.promise;
         };
-        factory.getClient = function() {
+        factory.getClient = function () {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('/api/client/cl_id', {
@@ -28,10 +28,10 @@ module.exports = (function (angular) {
                     procces_id: new Date().getMilliseconds(),
                     cl_id: $stateParams.cl_id,
                     cl_status: 'A'
-                }).success(function(data, status, headers, config) {
+                }).success(function (data, status, headers, config) {
                     return data;
-                }).error(function(data, status, headers, config) {
-                    
+                }).error(function (data, status, headers, config) {
+
                     return { "status": false };
                 })
             );
@@ -48,13 +48,13 @@ module.exports = (function (angular) {
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    
+
                     return { "status": false };
                 })
             );
             return deferred.promise;
         };
-        factory.getMachine = function(ma_process) {
+        factory.getMachine = function (ma_process) {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('/api/machine/process', {
@@ -62,10 +62,10 @@ module.exports = (function (angular) {
                     procces_id: new Date().getMilliseconds(),
                     ma_process: ma_process,
                     ma_status: 'A'
-                }).success(function(data, status, headers, config) {
+                }).success(function (data, status, headers, config) {
                     return data;
-                }).error(function(data, status, headers, config) {
-                    
+                }).error(function (data, status, headers, config) {
+
                     return { "status": false };
                 })
             );
@@ -82,16 +82,17 @@ module.exports = (function (angular) {
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
-                    
+
                     return { "status": false };
                 })
             );
             return deferred.promise;
         };
-        factory.add = function (wo_jsonb) {
-            var promise = $http.post('/api/wo/add', {
+        factory.duplicate = function (wo_jsonb) {
+            var promise = $http.post('/api/wo/duplicate', {
                 /* POST variables here */
-                wo_jsonb: wo_jsonb
+                wo_jsonb: wo_jsonb,
+                wo_id: $stateParams.wo_id
             }).success(function (data, status, headers, config) {
                 return data;
             }).error(function (data, status, headers, config) {

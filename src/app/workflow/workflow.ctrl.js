@@ -184,6 +184,21 @@ module.exports = (function (angular) {
                     }
                 }
 
+                // display available files
+                if ((panel.cellType == wijmo.grid.CellType.Cell)) {
+                    var flex = panel.grid;
+                    var col = flex.columns[c];
+                    var row = flex.rows[r];
+                    if (col.binding === 'files') {
+                        if (row.dataItem.file1) {
+                            cell.innerHTML = `Archivo 1: <a href="/uploads/${row.dataItem.wo_id}_file1.pdf" download="${row.dataItem.file1}" target="_blank">${row.dataItem.file1}</a><br/>`
+                        }
+                        if (row.dataItem.file2) {
+                            cell.innerHTML += `Archivo 2: <a href="/uploads/${row.dataItem.wo_id}_file2.pdf" download="${row.dataItem.file2}" target="_blank">${row.dataItem.file2}</a><br/>`
+                        }
+                    }
+                }
+
                 // highlight rows that have 'active' set
                 if (panel.cellType == wijmo.grid.CellType.Cell) {
                     var flex = panel.grid;

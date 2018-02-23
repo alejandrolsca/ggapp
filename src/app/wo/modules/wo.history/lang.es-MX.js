@@ -41,11 +41,11 @@ module.exports = {
     },
     "columns": [
         { "binding": "wo_id", "type": "Number", "width": 100 },
-        { "binding": "wo_createdby", "type": "Number", "width": 100 },
-        { "binding": "wo_created", "type": "Number", "width": 150 },
-        { "binding": "wo_updatedby", "type": "Number", "width": 100 },
-        { "binding": "wo_updated", "type": "Number", "width": 150 },
-        { "binding": "old_status", "type": "Number", "width": 150 },
-        { "binding": "new_status", "type": "Number", "width": 150 }
+        { "binding": "wo_createdby", "type": "String", "width": 100 },
+        { "binding": "wo_created", "type": "Date", "width": 175 },
+        { "binding": "wo_updatedby", "type": "String", "width": 100 },
+        { "binding": "wo_updated", "type": "Date", "width": 175 },
+        { "binding": "old_status", "type": "String", "width": 150 },
+        { "binding": "new_status", "type": "String", "width": 150 }
     ]
 }

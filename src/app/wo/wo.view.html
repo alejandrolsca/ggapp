@@ -6,19 +6,27 @@
 <div class="col-sm-12">
     <wj-flex-grid 
       control="ggGrid" 
-      items-source="data" 
+      items-source="data"
+      items-source-changed="itemsSourceChanged(s,e)"
       auto-generate-columns="false" 
-      initialized="initGrid(s,e)" 
+      initialized="initGrid(s,e)"
+      item-formatter="itemFormatter" 
       format-item="formatItem(s,e,cell)" 
       allow-sorting="true" 
       show-sort="true" 
       style="height:390px;">
-      <wj-flex-grid-filter></wj-flex-grid-filter>
+      <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
         <wj-flex-grid-column
         header="Acciones" 
         is-read-only="true" 
         width="200">
-
+        </wj-flex-grid-column>
+        <wj-flex-grid-column
+        header="Archivos" 
+        binding="files" 
+        is-read-only="true"
+        is-html="true" 
+        width="200">
         </wj-flex-grid-column>
     </wj-flex-grid>
 </div>

@@ -26,7 +26,7 @@ if (cluster.isMaster) {
         cluster.fork();
     });
 
-    // Code to run if we're in a worker process
+    // Code to run if we're in a worker process no
 } else {
     //LOAD NODE MODULES
     const express = require('express'),
@@ -35,14 +35,20 @@ if (cluster.isMaster) {
         cors = require('cors'),
         path = require('path'),
         fs = require('fs'),
+        fileUpload = require('express-fileupload'),
         port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000;
 
     const { Pool, types } = require('pg');
+
+    // CREATE REQUIRED FOLDERS
+    const uploadsFolder = path.join(__dirname, 'uploads')
+    if (!fs.existsSync(uploadsFolder)) fs.mkdirSync(uploadsFolder); 
 
     //SETUP APP
     const app = express();
     app.use(cors());
     app.use("/", express.static(path.join(__dirname, 'dist')));
+    app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
 
     //SETUP JWT
     const jwtCheck = jwt({
@@ -78,6 +84,12 @@ if (cluster.isMaster) {
     const file = function (file) {
         return fs.readFileSync(sqlPath + file + '.sql', "utf8");
     }
+
+    //SETUP FILE UPLOADER
+    app.use(fileUpload({
+        limits: { fileSize: 10 * 1024 * 1024 },
+        abortOnLimit: true
+    }));
 
     //SETUP ROUTES
 
@@ -937,6 +949,41 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
+    app.post('/api/wo/duplicate', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                await client.query('BEGIN')
+                const query = file('wo/wo:duplicate')
+                const parameters = [req.body.wo_jsonb]
+                const result = await client.query(query, parameters)
+                const { rows } = result
+                const [row] = rows
+                const { wo_id } = row
+                console.log(wo_id)
+                // duplicate uploaded files
+                const uploadsFolder = path.join(__dirname, 'uploads')
+                const file1 = `${uploadsFolder}/${req.body.wo_id}_file1.pdf`
+                const file2 = `${uploadsFolder}/${req.body.wo_id}_file2.pdf`
+                if (fs.existsSync(file1)) {
+                    fs.copyFileSync(file1, `${uploadsFolder}/${wo_id}_file1.pdf`);
+                }
+                if (fs.existsSync(file2)) {
+                    fs.copyFileSync(file2, `${uploadsFolder}/${wo_id}_file2.pdf`);
+                }
+                await client.query('COMMIT')
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            } catch (e) {
+                await client.query('ROLLBACK')
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
     app.post('/api/wo/update', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
@@ -1197,14 +1244,14 @@ if (cluster.isMaster) {
                     const { rows: inksbackRows } = await client.query(inksQuery, [value.inksback, 'A,I'])
                     const [inksfront = { inks: '' }] = inksfrontRows
                     const [inksback = { inks: '' }] = inksbackRows
-                    const {inkfront = '' } = value
-                    const {inkback = '' } = value
-                    const {pr_material = '' } = value
-                    value.inkfront = inkfront  || ''
-                    value.inksfront = inksfront.inks  || ''
-                    value.inkback = inkback  || ''                  
+                    const { inkfront = '' } = value
+                    const { inkback = '' } = value
+                    const { pr_material = '' } = value
+                    value.inkfront = inkfront || ''
+                    value.inksfront = inksfront.inks || ''
+                    value.inkback = inkback || ''
                     value.inksback = inksback.inks || ''
-                    value.pr_material = pr_material  || ''
+                    value.pr_material = pr_material || ''
                     if (value.pr_components) {
                         const inkfront = value.inkfront.split(',')
                         const inksfrontArray = value.inksfront.split(',')
@@ -1455,6 +1502,40 @@ if (cluster.isMaster) {
                 client.release()
             }
         })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/upload', function (req, res) {
+        if (!req.files)
+            return res.status(400).send('No files were uploaded.');
+
+        // The name of the input field (i.e. "file1") is used to retrieve the uploaded file
+        console.log(req.body)
+        const { file: fileObj } = req.files;
+
+        // Use the mv() method to place the file somewhere on your server
+        fileObj.mv(`${__dirname}/uploads/${fileObj.name}`, function (err) {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            (async () => {
+                // note: we don't try/catch this because if connecting throws an exception
+                // we don't need to dispose of the client (it will be undefined)
+                const client = await pool.connect()
+                try {
+                    // execute query
+                    const query = file('upload/wo:upload')
+                    console.log(req.body.alias)
+                    const parameters = [req.body.alias, req.body.originalName, req.body.wo_updatedby, req.body.wo_id]
+                    const { rows } = await client.query(query, parameters)
+                    res.send('File uploaded!');
+                } catch (e) {
+                    console.log(e)
+                    return res.status(500).send(JSON.stringify(e, null, 4));
+                } finally {
+                    client.release()
+                }
+            })().catch(e => console.error(e.stack))
+        });
     });
 
     const server = app.listen(port, function () {

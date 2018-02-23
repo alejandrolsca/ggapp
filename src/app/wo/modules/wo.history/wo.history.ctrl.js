@@ -3,7 +3,7 @@ module.exports = (function (angular) {
 
     return ['$scope', 'woHistoryFactory', '$location', 'i18nFilter', '$stateParams',
         function ($scope, woHistoryFactory, $location, i18nFilter, $stateParams) {
-            
+
             $scope.labels = Object.keys(i18nFilter("wo-history.labels"));
             $scope.columns = i18nFilter("wo-history.columns");
             $scope.workflow = i18nFilter("tlr.fields.wo_statusoptions");
@@ -16,13 +16,13 @@ module.exports = (function (angular) {
                 const flexGrid = $scope.ggGrid
                 try {
                     wijmo.grid.xlsx.FlexGridXlsxConverter.save(flexGrid, {
-                        includeColumnHeaders: true, 
+                        includeColumnHeaders: true,
                         includeCellStyles: false
                     }, fileName);
                 } catch (error) {
                     throw new Error(error)
                 }
-                
+
             }
 
             $scope.edit = function (id) {
@@ -38,7 +38,7 @@ module.exports = (function (angular) {
                     window.location = link;
                 }
             };
-            
+
             $scope.itemFormatter = function (panel, r, c, cell) {
 
                 if ((panel.cellType == wijmo.grid.CellType.Cell)) {
@@ -68,14 +68,28 @@ module.exports = (function (angular) {
                         });
                     }
                 }
-            
+
             }
-        
+
+            // autoSizeRows on load
+            $scope.itemsSourceChanged = function (sender, args) {
+                //sender.autoSizeColumns();
+                sender.autoSizeRows()
+            };
+
+            // autoSizeRows after filter applied
+            $scope.onFilterApplied = function (s, e) {
+                setTimeout(function () {
+                    s.grid.autoSizeRows()
+                }, 500);
+
+            };
+
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
-                    col.header = i18nFilter("wo-history.labels." + $scope.columns[i].binding.replace('_', '-'));                    
+                    col.header = i18nFilter("wo-history.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
                     col.width = $scope.columns[i].width
@@ -83,7 +97,7 @@ module.exports = (function (angular) {
                     s.columns.push(col);
                 }
             };
-        
+
             // create the tooltip object
             $scope.$watch('ggGrid', function () {
                 if ($scope.ggGrid) {
@@ -133,7 +147,7 @@ module.exports = (function (angular) {
                     $scope.loading = false;
 
                     if (angular.isArray(promise.data)) {
-                                            
+
                         // expose data as a CollectionView to get events
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
 

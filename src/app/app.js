@@ -11,6 +11,7 @@ module.exports = (function (angular) {
         'ja.qr',
         'auth0.lock',
         'angular-jwt',
+        'angularFileUpload',
         require('./404').name,
         require('./login').name,
         require('./client').name,

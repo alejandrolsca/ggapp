@@ -39,6 +39,8 @@ select
 	wo_updated,         
 	wo_createdby,
     wo.wo_date,
+    file1,
+    file2,
 	case 
 		when jsonb_typeof(pr_inkfront) = 'object'
 		then (
@@ -149,7 +151,9 @@ from
         wo_status int,
         wo_updatedby text,         
         wo_updated text,         
-        wo_createdby text
+        wo_createdby text,
+        file1 text,
+        file2 text
 	),
 	(
 		select 

@@ -20,7 +20,8 @@ module.exports = (function (angular) {
             
             $scope.onSubmit = function () {
 
-                woDuplicateFactory.add($scope.fmData).then(function (promise) {
+                woDuplicateFactory.duplicate($scope.fmData).then(function (promise) {
+                    console.log(promise.data)
                     if (promise.data.rowCount === 1) {
                         $location.path('/wo/' + $stateParams.cl_id);
                     } else {
@@ -38,6 +39,7 @@ module.exports = (function (angular) {
                             $scope.fmData = promise.data[0].wo_jsonb;
                             $scope.fmData.wo_type = "R"; //N-new, R-rep, C-change
                             $scope.fmData.wo_status = 0; //0-Active
+                            $scope.fmData.wo_id = promise.data[0].wo_id;
                             $scope.fmData.wo_previousid = promise.data[0].wo_id;
                             $scope.fmData.wo_previousdate = promise.data[0].wo_date.substring(0, 10);
                             const { username } = authService.profile()

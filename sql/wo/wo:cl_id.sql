@@ -43,7 +43,9 @@ from  (
             wo_status int,
             wo_createdby text, 
             wo_updatedby text,
-            wo_updatedate text
+            wo_updatedate text,
+            file1 text,
+            file2 text
     )
 ) wo
 left join client cl

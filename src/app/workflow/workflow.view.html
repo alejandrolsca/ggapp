@@ -51,7 +51,6 @@
         <div class="modal-footer">
           <button class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
         </div>
-      </span>
       </div>
     </div>
   </div>
@@ -117,6 +116,13 @@
         binding="actions" 
         is-read-only="true" 
         width="100">
+        </wj-flex-grid-column>
+        <wj-flex-grid-column
+        header="Archivos" 
+        binding="files" 
+        is-read-only="true"
+        is-html="true" 
+        width="200">
         </wj-flex-grid-column>
     </wj-flex-grid>
     

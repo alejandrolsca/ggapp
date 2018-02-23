@@ -26,8 +26,8 @@ module.exports = (function (angular) {
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
                             $scope.fmData = promise.data[0].wo_jsonb;
                             $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
-                            $scope.wo_id = promise.data[0].wo_id;
-                            $scope.wo_date = promise.data[0].wo_date;
+                            $scope.fmData.wo_id = promise.data[0].wo_id;
+                            $scope.fmData.wo_date = promise.data[0].wo_date;
                             const { username } = authService.profile()
                             $scope.fmData.wo_updatedby = username;
                             

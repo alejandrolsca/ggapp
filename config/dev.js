@@ -15,6 +15,9 @@ module.exports = function (env) {
             proxy: {
                 "/api/*": {
                     target: "http://localhost:8080"
+                },
+                "/uploads/*": {
+                    target: "http://localhost:8080/"
                 }
             },
             stats: {
