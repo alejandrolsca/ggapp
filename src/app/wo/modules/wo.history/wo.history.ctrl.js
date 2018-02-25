@@ -77,6 +77,12 @@ module.exports = (function (angular) {
                 sender.autoSizeRows()
             };
 
+            // autoSizeRows on sorted column
+            $scope.onSortedColumn = function (sender, args) {
+                console.log(sender)
+                sender.autoSizeRows()
+            };
+
             // autoSizeRows after filter applied
             $scope.onFilterApplied = function (s, e) {
                 setTimeout(function () {

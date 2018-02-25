@@ -175,6 +175,12 @@ module.exports = (function (angular) {
                 sender.autoSizeColumns();
             };
 
+            // autoSizeRows on sorted column
+            $scope.onSortedColumn = function (sender, args) {
+                console.log(sender)
+                sender.autoSizeRows()
+            };
+
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
                 for (var i = 0; i < $scope.columns.length; i++) {

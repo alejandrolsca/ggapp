@@ -191,10 +191,14 @@ module.exports = (function (angular) {
                     var row = flex.rows[r];
                     if (col.binding === 'files') {
                         if (row.dataItem.file1) {
-                            cell.innerHTML = `Archivo 1: <a href="/uploads/${row.dataItem.wo_id}_file1.pdf" download="${row.dataItem.file1}" target="_blank">${row.dataItem.file1}</a><br/>`
+                            cell.innerHTML = 
+                            `<a class="link" href="/uploads/${row.dataItem.wo_id}_file1.pdf" download="${row.dataItem.file1}" target="_blank">descargar</a> | 
+                            <a class="link" href="/uploads/${row.dataItem.wo_id}_file1.pdf" target="_blank">${row.dataItem.file1}</a><br/>`
                         }
                         if (row.dataItem.file2) {
-                            cell.innerHTML += `Archivo 2: <a href="/uploads/${row.dataItem.wo_id}_file2.pdf" download="${row.dataItem.file2}" target="_blank">${row.dataItem.file2}</a><br/>`
+                            cell.innerHTML += 
+                            `<a class="link" href="/uploads/${row.dataItem.wo_id}_file2.pdf" download="${row.dataItem.file2}" target="_blank">descargar</a> | 
+                            <a class="link" href="/uploads/${row.dataItem.wo_id}_file2.pdf" target="_blank">${row.dataItem.file2}</a>`
                         }
                     }
                 }
@@ -266,6 +270,12 @@ module.exports = (function (angular) {
             // autoSizeRows on load
             $scope.itemsSourceChanged = function (sender, args) {
                 //sender.autoSizeColumns();
+                sender.autoSizeRows()
+            };
+
+            // autoSizeRows on sorted column
+            $scope.onSortedColumn = function (sender, args) {
+                console.log(sender)
                 sender.autoSizeRows()
             };
 
