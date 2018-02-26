@@ -3,7 +3,6 @@ bower_components/
 db_backups/geoname.sql
 node_modules/
 dist/
-platforms/
 uploads/
 .DS_Store
 package-lock.json
