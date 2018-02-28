@@ -51,7 +51,8 @@ module.exports = {
                             {"label":"Sellos","value":"stamps"},
                             {"label":"Serigrafía","value":"serigraphy"},
                             {"label":"Laser","value":"laser"},
-                            {"label":"Suajado/corte","value":"diecutting"}
+                            {"label":"Suajado/corte","value":"diecutting"},
+                            {"label":"Venta Directa","value":"direct_sale"}
                         ],
                         ma_statusoptions : [
                             {"label":"Activo","value":"A"},

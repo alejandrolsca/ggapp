@@ -11,7 +11,7 @@
            regexp="singlespaces"
            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
            req-msg="Required"
-           is-required="false">
+           is-required="true">
   </gg-select>
   <gg-input err-class="error"
             lbl="{{'wo-add.labels.wo-orderedby' | i18n}}" 
@@ -139,8 +139,7 @@
                         is-required="true">
         </gg-input>
   </span>
-  <span ng-if="fmData.pr_id">
-        <span ng-if="(product['pr_jsonb']['pr_process'] !== 'direct_sale')">     
+  <span ng-if="fmData.pr_id">   
         <label class="col-sm-12 fieldset">MAQUINA</label>
         <gg-select err-class="error"
                         lbl="{{'wo-add.labels.ma-id' | i18n}}" 
@@ -152,7 +151,6 @@
                         req-msg="Required"
                         is-required="true">
         </gg-select>
-        </span>
   </span>
   <label class="col-sm-12 fieldset">MATERIAL ORDENADO</label> 
  <span ng-if="!components">
