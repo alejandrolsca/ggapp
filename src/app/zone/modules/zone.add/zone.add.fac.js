@@ -9,7 +9,7 @@ module.exports = (function (angular) {
                 $http.post('/api/client/cl_id', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id,
-                    cl_status: 'A'
+                    cl_status: 'A,I'
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

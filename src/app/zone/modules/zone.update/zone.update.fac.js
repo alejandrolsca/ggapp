@@ -18,6 +18,22 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
+        factory.getClient = function () {
+            var deferred = $q.defer();
+            deferred.resolve(
+                $http.post('/api/client/cl_id', {
+                    /* POST variables here */
+                    cl_id: $stateParams.cl_id,
+                    cl_status: 'A,I'
+                }).success(function (data, status, headers, config) {
+                    return data;
+                }).error(function (data, status, headers, config) {
+                    
+                    return { "status": false };
+                })
+            );
+            return deferred.promise;
+        };
         factory.update = function (zo_jsonb) {
             var deferred = $q.defer();
             deferred.resolve(

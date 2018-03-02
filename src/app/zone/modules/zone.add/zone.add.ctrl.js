@@ -62,23 +62,17 @@ module.exports = (function (angular) {
             $scope.zo_statusoptions = i18nFilter("zone.fields.zo_statusoptions");
             $scope.zo_typeoptions = i18nFilter("zone.fields.zo_typeoptions");
 
-            $scope.$on('$viewContentLoaded', function () {
+            $scope.$on('$viewContentLoaded', async function () {
                 // this code is executed after the view is loaded
-            
-                zoneAddFac.getClient().then(function (promise) {
-                    $scope.loading = false;
-                    if (angular.isArray(promise.data) && promise.data.length === 1) {
-                        $scope.client = promise.data[0].cl_jsonb;
-                    }
-                });
 
-                zoneAddFac.getCountries().then(function (promise) {
-                    if (angular.isArray(promise.data)) {
-                        $scope.zo_countryoptions = promise.data;
-                    } else {
-                        //$scope.updateFail = true;
-                    }
-                });
+                const { data: clients } = await zoneAddFac.getClient()
+                const [client] = clients
+                $scope.client = client.cl_corporatename
+
+                const { data: countries} = await zoneAddFac.getCountries()
+                $scope.zo_countryoptions = countries
+
+                $scope.loading = false;
 
             });
         }];

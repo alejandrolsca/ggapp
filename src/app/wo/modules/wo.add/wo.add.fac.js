@@ -3,23 +3,6 @@ module.exports = (function(angular) {
 
     return ['$http', '$q',  '$stateParams', function($http, $q, $stateParams) {
         var factory = {};
-        factory.getClient = function() {
-            var deferred = $q.defer();
-            deferred.resolve(
-                $http.post('/api/client/cl_id', {
-                    /* POST variables here */
-                    procces_id: new Date().getMilliseconds(),
-                    cl_id: $stateParams.cl_id,
-                    cl_status: 'A'
-                }).success(function(data, status, headers, config) {
-                    return data;
-                }).error(function(data, status, headers, config) {
-                    
-                    return { "status": false };
-                })
-            );
-            return deferred.promise;
-        };
         factory.getZone = function() {
             var deferred = $q.defer();
             deferred.resolve(

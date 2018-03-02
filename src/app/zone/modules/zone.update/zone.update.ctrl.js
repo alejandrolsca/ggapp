@@ -60,9 +60,14 @@ module.exports = (function (angular) {
             $scope.zo_statusoptions = i18nFilter("zone.fields.zo_statusoptions");
             $scope.zo_typeoptions = i18nFilter("zone.fields.zo_typeoptions");
 
-            $scope.$on('$viewContentLoaded', function () {
+            $scope.$on('$viewContentLoaded', async function () {
                 // this code is executed after the view is loaded
                 $scope.loading = true;
+
+                const { data: clients } = await zoneUpdateFac.getClient()
+                const [client] = clients
+                $scope.client = client.cl_corporatename
+
                 zoneUpdateFac.data().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {

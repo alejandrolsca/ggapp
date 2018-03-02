@@ -1,8 +1,7 @@
 <div class="col-sm-12">
     <h3>{{'zone-update.title' | i18n}}</h3>
+    <h3>Cliente: {{client}}</h3>
     <span ng-if="loading">Cargando...</span>
-    
-    {{ggform.zo_corporatename.$error.required | json}}
 </div>
 <form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
   <gg-select err-class="error"
