@@ -35,7 +35,7 @@ module.exports = {
         "wo-status": "Estatus",
         "wo-createdby":"Creado por",
         "wo-updatedby":"Actualizado por",
-        "wo-updatedate":"Fecha de Actualizacion",
+        "wo-updated":"Fecha de Actualizacion",
         "wo-date": "Fecha"
     },
     "columns": [
