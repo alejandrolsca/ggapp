@@ -69,7 +69,7 @@ module.exports = {
         "wo_status",
         "wo_createdby",
         "wo_updatedby",
-        "wo_updatedate",
+        "wo_updated",
         "wo_date"
     ]
 }
