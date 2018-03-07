@@ -63,7 +63,7 @@ module.exports = (function (angular) {
                     localStorage.setItem('id_token', authResult.idToken);
                     authManager.authenticate();
 
-                    lock.getProfile(authResult.idToken, function (error, profile) {
+                    lock.getProfile(authResult.accessToken, function (error, profile) {
                         if (error) {
                             throw new Error(error)
                         }
@@ -101,7 +101,6 @@ module.exports = (function (angular) {
                         rememberLastLogin: false,
                         auth: {
                             redirect: false,
-                            redirectUrl: "http://localhost:3000/www/#/home",
                             responseType: "token",
                             sso: false
                         },

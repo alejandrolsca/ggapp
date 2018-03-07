@@ -28,6 +28,8 @@
   "homepage": "https://github.com/alejandrolsca/ggapp",
   "dependencies": {
     "angular-file-upload": "^2.5.0",
+    "angular-lock": "^2.0.3",
+    "auth0-lock": "^11.3.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "body-parser": "^1.15.0",
