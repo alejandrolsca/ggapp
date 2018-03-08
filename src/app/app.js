@@ -196,11 +196,7 @@ module.exports = (function (angular) {
 
                 // Handle the authentication
                 // result in the hash
-                if (!window.location.hash && !authService.isAuthenticated()) {
-                    authService.login()
-                } else {
-                    authService.handleAuthentication();
-                }
+                authService.handleAuthentication();
 
                 // Use the authManager from angular-jwt to check for
                 // the user's authentication state when the page is
