@@ -34,6 +34,7 @@ if (cluster.isMaster) {
         jwksRsa = require('jwks-rsa'),
         jwtAuthz = require('express-jwt-authz'),
         bodyParser = require('body-parser'),
+        ConnectHistoryAPIFallback = require('connect-history-api-fallback'),
         cors = require('cors'),
         path = require('path'),
         fs = require('fs'),
@@ -48,6 +49,7 @@ if (cluster.isMaster) {
 
     //SETUP APP
     const app = express();
+    app.use(ConnectHistoryAPIFallback());
     app.use(cors());
     app.use("/", express.static(path.join(__dirname, 'dist')));
     app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
@@ -109,7 +111,7 @@ if (cluster.isMaster) {
         };
         res.send(")]}',\n".concat(JSON.stringify(jwt)));
     });
-
+    
     /* CLIENT */
     app.post('/api/client/cl_id', function (req, res, next) {
         (async () => {

@@ -136,7 +136,7 @@ module.exports = (function (angular) {
                     domain: 'grupografico.auth0.com',
                     responseType: 'token id_token',
                     audience: 'https://grupografico.auth0.com/userinfo',
-                    redirectUri: `${window.location.origin}/#/home`,
+                    redirectUri: `${window.location.origin}/home`,
                     scope: 'openid profile'
                 });
 
@@ -163,7 +163,13 @@ module.exports = (function (angular) {
                 // default routes
                 $urlRouterProvider.when('', '/home');
                 $urlRouterProvider.when('/', '/home');
-                $urlRouterProvider.otherwise("/404");
+                $urlRouterProvider.otherwise('/404');
+
+                $locationProvider.hashPrefix('');
+
+                /// Comment out the line below to run the app
+                // without HTML5 mode (will use hashes in routes)
+                $locationProvider.html5Mode(true);
 
             }])
 
@@ -190,7 +196,11 @@ module.exports = (function (angular) {
 
                 // Handle the authentication
                 // result in the hash
-                authService.handleAuthentication();
+                if (!window.location.hash && !authService.isAuthenticated()) {
+                    authService.login()
+                } else {
+                    authService.handleAuthentication();
+                }
 
                 // Use the authManager from angular-jwt to check for
                 // the user's authentication state when the page is

@@ -8,6 +8,7 @@ module.exports = function (env) {
     return {
         devServer: {
             contentBase: path.join(path.resolve(), "dist"),
+            historyApiFallback: true,
             compress: true,
             host: '0.0.0.0',
             disableHostCheck: true,
