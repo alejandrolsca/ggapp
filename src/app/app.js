@@ -196,12 +196,16 @@ module.exports = (function (angular) {
 
                 // Handle the authentication
                 // result in the hash
-                authService.handleAuthentication();
+                if (!window.location.hash && !authService.isAuthenticated()) {
+                    authService.login()
+                } else {
+                    authService.handleAuthentication();
+                }
 
                 // Use the authManager from angular-jwt to check for
                 // the user's authentication state when the page is
                 // refreshed and maintain authentication
-                authManager.checkAuthOnRefresh();
+                // authManager.checkAuthOnRefresh();
 
                 // Listen for 401 unauthorized requests and redirect
                 // the user to the login page
