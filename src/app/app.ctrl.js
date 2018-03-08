@@ -6,15 +6,6 @@ module.exports = (function (angular) {
 
             $scope.authService = authService;
             $scope.profile = authService.profile()
-            if(!$scope.profile.username){
-                $scope.profile = false
-            }
-            $scope.$on('userProfileSet', function (event, data) {
-                $scope.profile = false
-                if(data) {
-                    $scope.profile = authService.profile()
-                }
-            });
             /*
             langFac.getLang().then(function (promise) {
                 if (promise.data.success) {

@@ -3,7 +3,8 @@ module.exports = (function (angular) {
 
     return ['$scope', 'authService',
         function ($scope, authService) {
-            authService.login();
+            $scope.gglogo = require('../../static/img/gg-logo.png');
+            $scope.authService = authService;
         }]
 
 })(angular);

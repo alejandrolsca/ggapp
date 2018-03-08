@@ -72,7 +72,6 @@ module.exports = (function (angular) {
                     localStorage.removeItem('access_token');
                     localStorage.removeItem('id_token');
                     localStorage.removeItem('expires_at');
-                    $rootScope.$broadcast('userProfileSet', false);
                 }
 
                 function isAuthenticated() {
@@ -106,7 +105,6 @@ module.exports = (function (angular) {
 
                 function setUserProfile(profile) {
                     localStorage.setItem('profile', JSON.stringify(profile));
-                    $rootScope.$broadcast('userProfileSet', true);
                 }
 
                 function profile() {
@@ -197,10 +195,10 @@ module.exports = (function (angular) {
                 // Handle the authentication
                 // result in the hash
                 if (!window.location.hash && !authService.isAuthenticated()) {
-                    authService.login()
-                } else {
-                    authService.handleAuthentication();
-                }
+                    $state.go('login')
+                } 
+                authService.handleAuthentication();
+                
 
                 // Use the authManager from angular-jwt to check for
                 // the user's authentication state when the page is
