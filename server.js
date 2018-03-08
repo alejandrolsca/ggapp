@@ -31,6 +31,8 @@ if (cluster.isMaster) {
     //LOAD NODE MODULES
     const express = require('express'),
         jwt = require('express-jwt'),
+        jwksRsa = require('jwks-rsa'),
+        jwtAuthz = require('express-jwt-authz'),
         bodyParser = require('body-parser'),
         cors = require('cors'),
         path = require('path'),
@@ -42,7 +44,7 @@ if (cluster.isMaster) {
 
     // CREATE REQUIRED FOLDERS
     const uploadsFolder = path.join(__dirname, 'uploads')
-    if (!fs.existsSync(uploadsFolder)) fs.mkdirSync(uploadsFolder); 
+    if (!fs.existsSync(uploadsFolder)) fs.mkdirSync(uploadsFolder);
 
     //SETUP APP
     const app = express();
@@ -52,8 +54,15 @@ if (cluster.isMaster) {
 
     //SETUP JWT
     const jwtCheck = jwt({
-        secret: new Buffer('QZiEXho9vOLukcj0TaZAep0aisI1CQGARCj_Egk79ZN2xnvvcY5u37wuQqsT1ov_', 'base64'),
-        audience: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y'
+        secret: jwksRsa.expressJwtSecret({
+            cache: true,
+            rateLimit: true,
+            jwksRequestsPerMinute: 5,
+            jwksUri: `https://grupografico.auth0.com/.well-known/jwks.json`
+        }),
+        audience: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y',
+        issuer: 'https://grupografico.auth0.com/',
+        algorithms: ['RS256']
     });
 
     app.use('/api/', jwtCheck);

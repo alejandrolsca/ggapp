@@ -1,11 +1,12 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$q', '$injector', 'authService',
-        function ($q, $injector, authService) {
+    return ['$q', '$injector',
+        function ($q, $injector) {
             return {
                 'request': function (config) {
                     // if user is athenticated, add the profile to the headers
+                    const authService = $injector.get('authService')
                     const { username } = authService.profile()
                     if (!!username) {
                         config.headers.username = username;
