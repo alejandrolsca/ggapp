@@ -135,7 +135,7 @@ module.exports = (function (angular) {
                                     } else {
                                         $scope.prinfo = true;
                                         $scope.product = product[0];
-                                        $scope.productUpdateUrl = `#/product/update/${$scope.product['pr_jsonb']['pr_process']}/${$scope.product['pr_jsonb']['pr_type']}/${$scope.product['pr_jsonb']['cl_id']}/${$scope.product['pr_id']}`
+                                        $scope.productUpdateUrl = `/product/update/${$scope.product['pr_jsonb']['pr_process']}/${$scope.product['pr_jsonb']['pr_type']}/${$scope.product['pr_jsonb']['cl_id']}/${$scope.product['pr_id']}`
                                         $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
                                         var pr_type = product[0]['pr_jsonb']['pr_type']
                                         $scope.components = (pr_type === 'paginated' || pr_type === 'counterfoil') ? true : false;

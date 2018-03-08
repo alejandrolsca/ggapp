@@ -41,7 +41,7 @@ module.exports = (function (angular) {
                     e.cell.style.overflow = 'visible';
                     e.cell.innerHTML = '<div class="btn-group btn-group-justified" role="group" aria-label="...">\
                                         <div class="btn-group" role="group">\
-                                            <a href="#/zone/update/'+ cl_id + '/' + zo_id + '" class="btn btn-default btn-xs" ng-click="edit($item.cl_id)">Editar</a>\
+                                            <a href="/zone/update/'+ cl_id + '/' + zo_id + '" class="btn btn-default btn-xs" ng-click="edit($item.cl_id)">Editar</a>\
                                         </div>\
                                     </div>';
                 }

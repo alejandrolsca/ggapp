@@ -261,7 +261,7 @@ module.exports = (function (angular) {
                     e.cell.style.overflow = 'visible';
                     e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
                                                 <div class="btn-group" role="group">
-                                                    <a href="#/wo/view/${cl_id}/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.open")}</a>
+                                                    <a href="/wo/view/${cl_id}/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.open")}</a>
                                                 </div>
                                         </div>`;
                 }

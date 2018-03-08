@@ -10,7 +10,7 @@ module.exports = (function(angular){
         $scope.edit = function (id) {
             if (angular.isNumber(id)) {
                     //Embed the id to the link
-                    var link = "#/user/update/" + id;
+                    var link = "/user/update/" + id;
                     //Open the link
                     window.location = link;
             }
@@ -18,7 +18,7 @@ module.exports = (function(angular){
 
         $scope.duplicate = function (id) {
             if (angular.isNumber(id)) {
-                    var link = "#/user/duplicate/" + id;
+                    var link = "/user/duplicate/" + id;
                     //Open the link
                     window.location = link;
             }

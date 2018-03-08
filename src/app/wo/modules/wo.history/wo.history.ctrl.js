@@ -27,14 +27,14 @@ module.exports = (function (angular) {
 
             $scope.edit = function (id) {
                 if (angular.isNumber(id)) {
-                    var link = "#/wo/update/" + id;
+                    var link = "/wo/update/" + id;
                     window.location = link;
                 }
             };
 
             $scope.duplicate = function (id) {
                 if (angular.isNumber(id)) {
-                    var link = "#/wo/duplicate/" + id;
+                    var link = "/wo/duplicate/" + id;
                     window.location = link;
                 }
             };

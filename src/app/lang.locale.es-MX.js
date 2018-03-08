@@ -1,29 +1,29 @@
 module.exports = {
                 "general":{ 
                     "nav":[
-                        {"name":"inicio","url":"#/home"},
-                        {"name":"clientes","url":"#/client","submenu": 
+                        {"name":"inicio","url":"/home"},
+                        {"name":"clientes","url":"/client","submenu": 
                          [
-                             {"name": "Agregar","url": "#/client/add"}
+                             {"name": "Agregar","url": "/client/add"}
                          ]
                         },
-                        {"name":"productos","url":"#/product","submenu": 
+                        {"name":"productos","url":"/product","submenu": 
                          [
-                             {"name": "Agregar","url": "#/product/add"}
+                             {"name": "Agregar","url": "/product/add"}
                          ]
                         },
-                        {"name":"ordenes de trabajo","url":"#/wo","submenu": 
+                        {"name":"ordenes de trabajo","url":"/wo","submenu": 
                          [
-                             {"name": "Agregar","url": "#/wo/add"}
+                             {"name": "Agregar","url": "/wo/add"}
                          ]
                         },
-                        {"name":"usuarios","url":"#/user","submenu": 
+                        {"name":"usuarios","url":"/user","submenu": 
                          [
-                             {"name": "Agregar","url": "#/user/add"}
+                             {"name": "Agregar","url": "/user/add"}
                          ]
                         },
-                        {"name":"login","url":"#/"},
-                        {"name":"reportes","url":"#/reports","submenu": 
+                        {"name":"login","url":"/"},
+                        {"name":"reportes","url":"/reports","submenu": 
                          [
                              {"name": "sub1","url": "../login"},
                              {"name": "sub2","url": "../login"},

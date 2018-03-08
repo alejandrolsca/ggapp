@@ -1,29 +1,29 @@
 module.exports = {
                 "GENERAL":{
                     "NAV":[
-                        {"name":"Home","url":"#/home"},
-                        {"name":"Clientes","url":"#/client","subMenu": 
+                        {"name":"Home","url":"/home"},
+                        {"name":"Clientes","url":"/client","subMenu": 
                          [
-                             {"name": "Agregar","url": "#/client/add"}
+                             {"name": "Agregar","url": "/client/add"}
                          ]
                         },
-                        {"name":"Products","url":"#/product","subMenu": 
+                        {"name":"Products","url":"/product","subMenu": 
                          [
-                             {"name": "Add","url": "#/product/add"}
+                             {"name": "Add","url": "/product/add"}
                          ]
                         },
-                        {"name":"Work Orders","url":"#/wo","subMenu": 
+                        {"name":"Work Orders","url":"/wo","subMenu": 
                          [
-                             {"name": "Add","url": "#/wo/add"}
+                             {"name": "Add","url": "/wo/add"}
                          ]
                         },
-                        {"name":"Users","url":"#/user","subMenu": 
+                        {"name":"Users","url":"/user","subMenu": 
                          [
-                             {"name": "Add","url": "#/user/add"}
+                             {"name": "Add","url": "/user/add"}
                          ]
                         },
-                        {"name":"Login","url":"#/"},
-                        {"name":"Reports","url":"#/reports","subMenu": 
+                        {"name":"Login","url":"/"},
+                        {"name":"Reports","url":"/reports","subMenu": 
                          [
                             {"name": "sub1","url": "../login"},
                             {"name": "sub2","url": "../login"},
