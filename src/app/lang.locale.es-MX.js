@@ -191,6 +191,11 @@ module.exports = {
                 ****************************************/
                 "exportation-invoice": require('./exportation-invoice/lang.es-MX'),
                 "exportation-invoice-custom": require('./exportation-invoice/lang.custom.es-MX'),
+                 /****************************************
+                SHIPPING LIST
+                ****************************************/
+               "shipping-list": require('./shipping-list/lang.es-MX'),
+               "shipping-list-custom": require('./shipping-list/lang.custom.es-MX'),
                 /****************************************
                 PRINT RUNS
                 ****************************************/

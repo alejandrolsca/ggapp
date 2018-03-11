@@ -1,6 +1,6 @@
 module.exports = {
     "labels": {
-        "title": "FACTURAS DE EXPORTACIÓN",
+        "title": "LISTA DE EMBARQUE",
         "wo-search":"Buscar por:"
     },
     "fields": {

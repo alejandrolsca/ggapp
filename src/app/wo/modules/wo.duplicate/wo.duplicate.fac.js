@@ -61,7 +61,7 @@ module.exports = (function (angular) {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds(),
                     cl_id: $stateParams.cl_id,
-                    pr_status: 'A'
+                    pr_status: 'A,I'
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {

@@ -103,6 +103,7 @@ is-required="true">
 </gg-input>
 <span class="col-sm-12">
 <div ng-show="prinfo" class="pr-info col-sm-12 bg-info">
+        <div class="text-danger" ng-if="pr_inactive">El producto esta deshabilitado</div>
         <strong>Part No:</strong> {{product['pr_jsonb']['pr_partno']}}<br/>  
         <strong>Folios:</strong> {{product['pr_jsonb']['pr_folio']}}<br/>
         <strong>Material:</strong> <br>
@@ -278,7 +279,7 @@ is-required="true">
 </gg-select>
 <gg-submit lbl="Submit"
         form-group-class="col-sm-12" 
-        ng-disabled="ggform.$invalid"
+        ng-disabled="ggform.$invalid || pr_inactive"
         btn-class="col-xs-12 col-sm-4 col-md-2">
 </gg-submit> 
 </form>

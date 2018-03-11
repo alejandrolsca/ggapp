@@ -80,7 +80,8 @@ module.exports = (function (angular) {
                                     $scope.product = product[0];
                                     $scope.productUpdateUrl = `/product/update/${$scope.product['pr_jsonb']['pr_process']}/${$scope.product['pr_jsonb']['pr_type']}/${$scope.product['pr_jsonb']['cl_id']}/${$scope.product['pr_id']}`
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
-                                    var pr_type = product[0]['pr_jsonb']['pr_type'] 
+                                    var pr_type = product[0]['pr_jsonb']['pr_type']
+                                    $scope.pr_inactive =  product[0]['pr_jsonb']['pr_status'] === 'I' ? true: false;
                                     $scope.components = (pr_type === 'paginated' || pr_type === 'counterfoil') ? true : false;
                                     $scope.componentsArray = new Array(product[0]['pr_jsonb']['pr_components'])
                                     woDuplicateFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {

@@ -63,4 +63,4 @@ jsonb_to_record(pr_jsonb) as x (
     pr_status text
 )
 where pr_jsonb->>'cl_id' = $1
-and pr_jsonb->>'pr_status' = $2;
+and pr_jsonb->>'pr_status' = any(string_to_array($2,',')::text[])
