@@ -41,7 +41,7 @@ module.exports = (function (angular) {
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left
                     });
                     doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
-                    doc.drawText($scope.wo.pr_description, 144 - margin, 12, {
+                    doc.drawText($scope.wo.pr_name, 144 - margin, 12, {
                         height: 48,
                         width: 144 - margin,
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left

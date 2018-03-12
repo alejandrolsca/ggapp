@@ -7,7 +7,7 @@ select
 	end as cl_corporatename,
 	wo_qty,
     wo_packageqty,
-	pr.pr_jsonb->'pr_description' pr_description,
+	pr.pr_jsonb->'pr_name' pr_name,
 	pr.pr_jsonb->'pr_partno' pr_partno
 from  wo, jsonb_to_record(wo_jsonb) as wo_jsonb (
 	cl_id integer,
