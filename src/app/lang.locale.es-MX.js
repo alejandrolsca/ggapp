@@ -200,4 +200,9 @@ module.exports = {
                 PRINT RUNS
                 ****************************************/
                 "printruns": require('./printruns/lang.es-MX'),
+                /****************************************
+                PACKAGE LABELS
+                ****************************************/
+               "package-labels": require('./package-labels/lang.es-MX'),
+               "package-labels-custom": require('./package-labels/lang.custom.es-MX'),
             }

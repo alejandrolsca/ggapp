@@ -1,0 +1,44 @@
+<div class="col-sm-12">
+    <h3>{{'package-labels.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+<div class="col-md-6 col-xs-12">
+        <span class="col-sm-12">Por favor verifique que la <strong class="text-danger">{{'wo-add.labels.wo-packageqty' | i18n}}</strong> sea correcta.</span><br><br>
+
+        <gg-input err-class="error"
+            lbl="{{'wo-add.labels.wo-id' | i18n}}" 
+            form-group-class="col-sm-3"
+            ng-model="fmData.wo_id"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            is-required="true"
+            req-msg="Required">
+        </gg-input>
+        <gg-input err-class="error"
+            lbl="{{'wo-add.labels.wo-packageqty' | i18n}}" 
+            form-group-class="col-sm-4"
+            ng-model="fmData.wo_packageqty"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            is-required="false"
+            is-disabled="true"
+            req-msg="Required">
+        </gg-input>
+        <div class="form-group">
+                <label class="col-sm-3 control-label">&nbsp</label>
+                <gg-submit lbl="Buscar"
+                    form-group-class="col-sm-3" 
+                    ng-disabled="ggform.$invalid"
+                    btn-class="col-xs-12 col-sm-12 col-md-12">
+                </gg-submit>
+        </div>
+        <span class="col-sm-12 fieldset"></span>
+        <gg-action-button lbl="Crear Etiquetas"
+            form-group-class="col-sm-3"
+            ng-click="pdfDisabled || save()" 
+            ng-disabled="pdfDisabled"
+            btn-class="col-xs-12 col-sm-12 col-md-12">
+        </gg-action-button>
+</div>
+</form>

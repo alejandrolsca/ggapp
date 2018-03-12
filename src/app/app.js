@@ -29,7 +29,8 @@ module.exports = (function (angular) {
         require('./traffic-light-report-all').name,
         require('./exportation-invoice').name,
         require('./shipping-list').name,
-        require('./printruns').name
+        require('./printruns').name,
+        require('./package-labels').name
     ])
 
         .service('authService', ['$rootScope', '$state', 'angularAuth0', '$timeout', '$http',
