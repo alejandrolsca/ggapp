@@ -6,7 +6,7 @@ module.exports = (function (angular) {
         factory.getClient = function () {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/client/cl_id', {
+                $http.post('/api/shippinglist/client/cl_id', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id,
                     cl_status: 'A'
@@ -37,7 +37,7 @@ module.exports = (function (angular) {
         factory.searchWoRelease = function(wo_release) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/wo/cl_id/wo_release', {
+                $http.post('/api/shippinglist/cl_id/wo_release', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id,
                     wo_release: wo_release
@@ -69,7 +69,7 @@ module.exports = (function (angular) {
         factory.searchWoPo = function(wo_po) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/wo/cl_id/wo_po', {
+                $http.post('/api/shippinglist/cl_id/wo_po', {
                     /* POST variables here */
                     cl_id: $stateParams.cl_id,
                     wo_po: wo_po
