@@ -1,7 +1,7 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter','$location', 'authService',
+    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService',
         function ($scope, woDuplicateFactory, $stateParams, i18nFilter, $filter, $location, authService) {
 
             const camelCase = (...args) => {
@@ -17,7 +17,7 @@ module.exports = (function (angular) {
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
             $scope.wo_emailoptions = i18nFilter("wo-add.fields.wo_emailoptions");
-            
+
             $scope.onSubmit = function () {
 
                 woDuplicateFactory.duplicate($scope.fmData).then(function (promise) {
@@ -33,17 +33,21 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 $scope.loading = true;
-                woDuplicateFactory.getData().then(function(promise){
+                woDuplicateFactory.getData().then(function (promise) {
                     $scope.loading = false;
-                    if(angular.isArray(promise.data) && promise.data.length === 1) {
-                            $scope.fmData = promise.data[0].wo_jsonb;
-                            $scope.fmData.wo_type = "R"; //N-new, R-rep, C-change
-                            $scope.fmData.wo_status = 0; //0-Active
-                            $scope.fmData.wo_id = promise.data[0].wo_id;
-                            $scope.fmData.wo_previousid = promise.data[0].wo_id;
-                            $scope.fmData.wo_previousdate = promise.data[0].wo_date.substring(0, 10);
-                            const { username } = authService.profile()
-                            $scope.fmData.wo_createdby = username;
+                    if (angular.isArray(promise.data) && promise.data.length === 1) {
+                        $scope.fmData = promise.data[0].wo_jsonb;
+                        $scope.fmData.wo_release = undefined;
+                        $scope.fmData.wo_po = undefined;
+                        $scope.fmData.wo_line = undefined;
+                        $scope.fmData.wo_linetotal = undefined;
+                        $scope.fmData.wo_type = "R"; //N-new, R-rep, C-change
+                        $scope.fmData.wo_status = 0; //0-Active
+                        $scope.fmData.wo_id = promise.data[0].wo_id;
+                        $scope.fmData.wo_previousid = promise.data[0].wo_id;
+                        $scope.fmData.wo_previousdate = promise.data[0].wo_date.substring(0, 10);
+                        const { username } = authService.profile()
+                        $scope.fmData.wo_createdby = username;
 
                     }
                 });
@@ -81,7 +85,7 @@ module.exports = (function (angular) {
                                     $scope.productUpdateUrl = `/product/update/${$scope.product['pr_jsonb']['pr_process']}/${$scope.product['pr_jsonb']['pr_type']}/${$scope.product['pr_jsonb']['cl_id']}/${$scope.product['pr_id']}`
                                     $scope.folio = (product[0]['pr_jsonb']['pr_folio'] === 'yes') ? true : false;
                                     var pr_type = product[0]['pr_jsonb']['pr_type']
-                                    $scope.pr_inactive =  product[0]['pr_jsonb']['pr_status'] === 'I' ? true: false;
+                                    $scope.pr_inactive = product[0]['pr_jsonb']['pr_status'] === 'I' ? true : false;
                                     $scope.components = (pr_type === 'paginated' || pr_type === 'counterfoil') ? true : false;
                                     $scope.componentsArray = new Array(product[0]['pr_jsonb']['pr_components'])
                                     woDuplicateFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {
