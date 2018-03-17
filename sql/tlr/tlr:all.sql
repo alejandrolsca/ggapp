@@ -1,6 +1,7 @@
 select 
 	wo.*,
 	ma.ma_jsonb->>'ma_name' ma_name,
+	zo.zo_jsonb->>'zo_zone' zo_zone,
 	case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
 			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
@@ -10,7 +11,8 @@ select
     cl.cl_jsonb->>'cl_firstsurname' as cl_firstsurname,
     cl.cl_jsonb->>'cl_secondsurname' as cl_secondsurname,
     cl.cl_jsonb->>'cl_type' as cl_type,
-	pr.pr_jsonb->>'pr_name' as pr_name
+	pr.pr_jsonb->>'pr_name' as pr_name,
+	pr.pr_jsonb->>'pr_code' as pr_code
 from (
 select 
     *
@@ -54,6 +56,8 @@ left join product pr
 on wo.pr_id = pr.pr_id
 left join machine ma
 on wo.ma_id = ma.ma_id
+left join zone zo
+on wo.zo_id = zo.zo_id
 where (wo_jsonb->>'wo_status')::int in (0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
 order by wo.wo_commitmentdate asc
 limit 1000;

@@ -277,7 +277,7 @@ module.exports = (function (angular) {
                             flexSheet.setCellData(row, 1, value.wo_qty);
                             flexSheet.mergeRange(new wijmo.grid.CellRange(row, 2, row, 5));
                             flexSheet.setCellData(row, 2, value.pr_name);
-                            flexSheet.setCellData(row, 6, value.pr_weight);
+                            flexSheet.setCellData(row, 6, $filter('number')(value.pr_weight, 6));
                             flexSheet.setCellData(row, 7, value.wo_po);
                             flexSheet.setCellData(row, 8, value.wo_release);
                             flexSheet.setCellData(row, 9, value.now);

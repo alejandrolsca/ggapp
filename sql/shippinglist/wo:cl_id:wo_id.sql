@@ -2,7 +2,7 @@ select
     wo.wo_id,
 	wo_jsonb.wo_qty,
 	pr_jsonb.pr_name,
-	pr_jsonb.pr_weight,
+	(wo_jsonb.wo_qty * pr_jsonb.pr_weight) as pr_weight,
 	wo_jsonb.wo_po,
 	wo_jsonb.wo_release,
 	now()

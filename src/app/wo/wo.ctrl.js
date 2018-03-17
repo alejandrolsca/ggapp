@@ -6,6 +6,7 @@ module.exports = (function (angular) {
             
             $scope.labels = Object.keys(i18nFilter("wo.labels"));
             $scope.columns = i18nFilter("wo.columns");
+            $scope.workflow = i18nFilter("tlr.fields.wo_statusoptions");            
 
             // export to xls
             $scope.exportXLS = function () {
@@ -54,6 +55,15 @@ module.exports = (function (angular) {
                             <a class="link" href="/uploads/${row.dataItem.wo_id}_file2.pdf" target="_blank">${row.dataItem.file2}</a>`
                         }
                     }
+
+                    if (col.binding === 'wo_status') {
+                        angular.forEach($scope.workflow, function (value, key) {
+                            if (value.value === panel.grid.getCellData(r, flex.columns.getColumn('wo_status').index)) {
+                                row.dataItem.wo_status = `(${value.value}) ${value.label}`;
+                                cell.innerHTML = `(${value.value}) ${value.label}`;
+                            }
+                        });
+                    }
                 }
             }
             // formatItem event handler
@@ -87,8 +97,11 @@ module.exports = (function (angular) {
             $scope.initGrid = function (s, e) {
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
-                    col.binding = $scope.columns[i];
-                    col.header = i18nFilter("wo.labels." + $scope.columns[i].replace('_','-'));
+                    col.binding = $scope.columns[i].binding;
+                    col.dataType = $scope.columns[i].type;
+                    col.header = i18nFilter("wo.labels." + $scope.columns[i].binding.replace('_', '-'));
+                    col.wordWrap = false;
+                    col.width = $scope.columns[i].width;
                     s.columns.push(col);
                 }
             };

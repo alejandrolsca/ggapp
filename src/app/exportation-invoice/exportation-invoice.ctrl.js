@@ -238,18 +238,18 @@ module.exports = (function (angular) {
                             flexSheet.setCellData(row, 3, value.pr_language);
                             flexSheet.setCellData(row, 4, value.wo_qty);
                             flexSheet.setCellData(row, 5, "PIEZAS");
-                            flexSheet.setCellData(row, 6, $filter('number')(value.pr_weight, 5));
-                            flexSheet.setCellData(row, 7, $filter('number')(value.pr_grossweight, 5));
-                            flexSheet.setCellData(row, 8, $filter('currency')(value.wo_price, '$', 5));
-                            flexSheet.setCellData(row, 9, $filter('currency')(value.total_price, '$', 5));
+                            flexSheet.setCellData(row, 6, $filter('number')(value.pr_weight, 6));
+                            flexSheet.setCellData(row, 7, $filter('number')(value.pr_grossweight, 6));
+                            flexSheet.setCellData(row, 8, $filter('currency')(value.wo_price, '$', 6));
+                            flexSheet.setCellData(row, 9, $filter('currency')(value.total_price, '$', 6));
                             row += 1;
                         })
                         row += 2;
                         flexSheet.setCellData(row, 0, "TOTAL");
                         flexSheet.setCellData(row, 4, total.qty);
                         flexSheet.setCellData(row, 5, "PIEZAS");
-                        flexSheet.setCellData(row, 6, $filter('number')(total.weight, 5));
-                        flexSheet.setCellData(row, 7, $filter('number')(total.gross_weight, 5));
+                        flexSheet.setCellData(row, 6, $filter('number')(total.weight, 6));
+                        flexSheet.setCellData(row, 7, $filter('number')(total.gross_weight, 6));
                         flexSheet.setCellData(row, 9, $filter('currency')(total.usd, '$', 2));
                         flexSheet.applyCellsStyle({
                             fontWeight: 'bold'

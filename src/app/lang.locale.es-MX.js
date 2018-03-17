@@ -54,7 +54,7 @@ module.exports = {
                         "ssntin": "11-1111111 ó 111-11-1111",
                         "immex": "Numero IMMEX (1 o mas digitos)-Año IMMEX (20##)",
                         "email": "por favor introduzca un email valido.",
-                        "decimal": "numero y de 2 a 5 decimales (#.##[###])",
+                        "decimal": "numero y de 2 a 6 decimales (#.##[####])",
                         "discount": "cero mas 2 decimales (0.##)",
                         "integer": "solo numeros enteros",
                         "zipcode": "Solo mayusculas, numeros enteros y guíon medio.",
