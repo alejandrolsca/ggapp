@@ -271,7 +271,7 @@ module.exports = (function (angular) {
                         flexSheet.insertRows(17, 975);
                     }
                     if (angular.isArray(promise.data)) {
-                        promise.data.forEach(function (value) {
+                        promise.data.map(function (value, index, data) {
 
                             flexSheet.setCellData(row, 0, value.wo_id);
                             flexSheet.setCellData(row, 1, value.wo_qty);
@@ -280,7 +280,7 @@ module.exports = (function (angular) {
                             flexSheet.setCellData(row, 6, $filter('number')(value.pr_weight, 6));
                             flexSheet.setCellData(row, 7, value.wo_po);
                             flexSheet.setCellData(row, 8, value.wo_release);
-                            flexSheet.setCellData(row, 9, value.now);
+                            flexSheet.setCellData(row, 9, (++index < data.length) ? moment().tz('America/Chihuahua').format('YYYY-MM-DD') : null);
                             row += 1;
                         })
                     }
