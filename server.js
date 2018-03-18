@@ -1647,7 +1647,7 @@ if (cluster.isMaster) {
         console.log('Server running on worker %d listening at http://%s:%s', cluster.worker.id, host, port);
     });
 
-    server.keepAliveTimeout = 5000 * 5;
+    server.keepAliveTimeout = 5000 * 60;
 
     console.log('Worker %d running!', cluster.worker.id);
 }
