@@ -111,7 +111,7 @@ if (cluster.isMaster) {
         };
         res.send(")]}',\n".concat(JSON.stringify(jwt)));
     });
-    
+
     /* CLIENT */
     app.post('/api/client/cl_id', function (req, res, next) {
         (async () => {
@@ -129,7 +129,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -149,7 +149,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -169,7 +169,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -192,7 +192,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -217,7 +217,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -237,7 +237,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -257,7 +257,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -280,7 +280,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -303,7 +303,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -328,7 +328,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -351,7 +351,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -375,7 +375,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 await client.query('ROLLBACK')
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -395,7 +395,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -418,7 +418,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -443,7 +443,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -463,7 +463,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -483,7 +483,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -506,7 +506,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -530,7 +530,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -553,7 +553,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -577,7 +577,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -600,7 +600,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -623,7 +623,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -647,7 +647,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 await client.query('ROLLBACK')
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -667,7 +667,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -690,7 +690,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -713,7 +713,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -736,7 +736,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -759,7 +759,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -783,7 +783,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -805,7 +805,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -841,7 +841,7 @@ if (cluster.isMaster) {
 
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -864,7 +864,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -887,7 +887,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -910,7 +910,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -933,7 +933,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -953,7 +953,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1008,7 +1008,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1032,7 +1032,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1055,7 +1055,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1075,7 +1075,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1095,7 +1095,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1118,7 +1118,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1142,7 +1142,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1162,7 +1162,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1182,7 +1182,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1205,7 +1205,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1228,7 +1228,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1310,7 +1310,7 @@ if (cluster.isMaster) {
                 })
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1362,7 +1362,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1386,7 +1386,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1410,7 +1410,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1433,7 +1433,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1458,7 +1458,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1466,6 +1466,29 @@ if (cluster.isMaster) {
     });
 
     /* SHIPPING LIST */
+
+    app.post('/api/shippinglist', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('shippinglist/shippinglist:cl_id')
+                const parameters = [req.body.cl_id]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
 
     app.post('/api/shippinglist/client/cl_id', function (req, res, next) {
         (async () => {
@@ -1483,7 +1506,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1506,14 +1529,64 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
         })().catch(e => console.error(e.stack))
     });
 
-    app.post('/api/shippinglist/cl_id/wo_release', function (req, res, next) {
+    app.post('/api/shippinglist/add', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            let result = undefined;
+            try {
+                await client.query('BEGIN')
+                const result = await client.query(file('shippinglist/wo:update:wo_id'), [req.body.wo_id])
+                console.log(result)
+                console.log(req.body.cl_id, req.body.wo_id)
+                const { rows } = await client.query(file('shippinglist/shippinglist:add'), [req.body.cl_id, req.body.zo_id, req.body.wo_id, req.body.sl_createdby])
+                console.log(rows)                
+                const [shippinglist] = rows;
+                await client.query('COMMIT')
+                res.send(")]}',\n".concat(JSON.stringify(shippinglist)));
+            } catch (e) {
+                await client.query('ROLLBACK')
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/shippinglist/cancel', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            let result = undefined;
+            try {
+                await client.query('BEGIN')
+                const result = await client.query(file('shippinglist/shippinglist:cancel:wo_id'), [req.body.wo_id])
+                console.log(result)
+                console.log(req.body.wo_id, req.body.sl_id)
+                const { rows } = await client.query(file('shippinglist/shippinglist:cancel:sl_id'), [req.body.sl_id])
+                console.log(rows)                
+                const [shippinglist] = rows;
+                await client.query('COMMIT')
+                res.send(")]}',\n".concat(JSON.stringify(shippinglist)));
+            } catch (e) {
+                await client.query('ROLLBACK')
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/shippinglist/sl_id', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
             // we don't need to dispose of the client (it will be undefined)
@@ -1523,36 +1596,13 @@ if (cluster.isMaster) {
                 const timezone = req.body.timezone || defaultTimezone
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
-                const query = file('shippinglist/wo:cl_id:wo_release')
-                const parameters = [req.body.cl_id, req.body.wo_release]
+                const query = file('shippinglist/shippinglist:sl_id')
+                const parameters = [req.body.sl_id]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
-            } finally {
-                client.release()
-            }
-        })().catch(e => console.error(e.stack))
-    });
-
-    app.post('/api/shippinglist/cl_id/wo_po', function (req, res, next) {
-        (async () => {
-            // note: we don't try/catch this because if connecting throws an exception
-            // we don't need to dispose of the client (it will be undefined)
-            const client = await pool.connect()
-            try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
-                // execute query
-                const query = file('shippinglist/wo:cl_id:wo_po')
-                const parameters = [req.body.cl_id, req.body.wo_po]
-                const { rows } = await client.query(query, parameters)
-                res.send(")]}',\n".concat(JSON.stringify(rows)));
-            } catch (e) {
-                console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1577,7 +1627,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1600,7 +1650,7 @@ if (cluster.isMaster) {
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
                 console.log(e)
-                return res.status(500).send(JSON.stringify(e, null, 4));
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
             }
@@ -1633,7 +1683,7 @@ if (cluster.isMaster) {
                     res.send('File uploaded!');
                 } catch (e) {
                     console.log(e)
-                    return res.status(500).send(JSON.stringify(e, null, 4));
+                    return res.status(500).send(JSON.stringify(e.stack, null, 4));
                 } finally {
                     client.release()
                 }

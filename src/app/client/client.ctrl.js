@@ -61,6 +61,7 @@ module.exports = (function (angular) {
                                             <li><a href="/product/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Productos</a></li>\
                                             <li><a href="/zone/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Zonas</a></li>\
                                             <li><a href="/tlr/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Reporte Semaforo</a></li>\
+                                            <li><a href="/shippinglist/'+ cl_id + '"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> listas de Embarque</a></li>\
                                           </ul>\
                                         </div>\
                                     </div>';

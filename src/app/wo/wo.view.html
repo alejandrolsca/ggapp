@@ -1,6 +1,8 @@
 <div class="col-sm-12">
     <h3>{{'wo.title' | i18n}}</h3>
-    <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
+    <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div> 
+    <div ng-click="shippingList()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Lista de Embarque</div> 
+    <div ng-click="exportationInvoice()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Factura de Exportación</div><br/><br/>
     <span ng-if="loading">Cargando...</span>
 </div>
 <div class="col-sm-12">
@@ -17,17 +19,29 @@
       show-sort="true" 
       style="height:390px;">
       <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
-        <wj-flex-grid-column
+      <wj-flex-grid-column
+        header="No." 
+        binding="wo_id"        
+        is-read-only="true" 
+        width="60">
+      </wj-flex-grid-column>
+      <wj-flex-grid-column
         header="Acciones" 
+        binding="actions"        
         is-read-only="true" 
         width="200">
+      </wj-flex-grid-column>
+      <wj-flex-grid-column
+        header="Emb." 
+        binding="shipment"
+        data-type="Boolean"
+        width="80">
         </wj-flex-grid-column>
-        <wj-flex-grid-column
-        header="Archivos" 
-        binding="files" 
-        is-read-only="true"
-        is-html="true" 
-        width="200">
+      <wj-flex-grid-column
+        header="Fac." 
+        binding="invoice"
+        data-type="Boolean"
+        width="80">
         </wj-flex-grid-column>
     </wj-flex-grid>
 </div>

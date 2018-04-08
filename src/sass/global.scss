@@ -173,5 +173,13 @@ WIJMO
 */
 
 .wj-cell.wj-state-selected a.link {
-    color: #fff;
+    color: #000;
+}
+.wj-state-selected {
+    background-color: #E0E0E0;
+    color: #000;
+}
+.wj-state-multi-selected {
+    background-color: #E0E0E0;
+    color: #000;
 }

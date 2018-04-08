@@ -1,5 +1,7 @@
 select 
     wo.*,
+    wo_jsonb ? 'wo_einvoice' as wo_einvoice,
+    wo_jsonb ? 'wo_shippinglist' as wo_shippinglist,
     case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
 			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))

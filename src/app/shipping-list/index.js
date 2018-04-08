@@ -1,22 +1,25 @@
 module.exports = (function(angular){
     'use strict';
     
-    return angular.module('app.shippingList',[])
+    return angular.module('app.shippingList',[
+        require('./modules/shipping-list.add').name,
+        require('./modules/shipping-list.view').name
+    ])
 
     .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('shippingList', {
-            url:'/shipping-list/:cl_id',
-            template: require('./shipping-list.view.html'),
-            controller : 'shippingListCtrl',
+            url:'/shippinglist/:cl_id',
+            template: require('./shippingList.view.html'),
+            controller : 'shippingListController',
             data: {
                 requiresLogin: true
             }    
         });
     }])
 
-    .factory('shippingListFac',require('./shipping-list.fac'))
+    .factory('shippingListFactory',require('./shippingList.fac'))
 
-    .controller('shippingListCtrl',require('./shipping-list.ctrl'))
+    .controller('shippingListController',require('./shippingList.ctrl'))
 
 })(angular);

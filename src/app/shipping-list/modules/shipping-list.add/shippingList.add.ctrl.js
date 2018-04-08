@@ -1,10 +1,10 @@
-var img_gglogo = require('../../static/img/gg-logo.png');
+var img_gglogo = require('../../../../static/img/gg-logo.png');
 
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'shippingListFac', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
-        function ($scope, shippingListFac, $location, i18nFilter, $stateParams, $filter, authService) {
+    return ['$scope', 'shippingListAddFac', '$location', 'i18nFilter', '$stateParams', '$filter', 'authService',
+        function ($scope, shippingListAddFac, $location, i18nFilter, $stateParams, $filter, authService) {
 
             $scope.exportPDF = async () => {
                 console.log('entro')
@@ -39,7 +39,7 @@ module.exports = (function (angular) {
                                     Fax: 4214353
                                     Chihuahua, Chih.
                                     info@grupografico.com.mx`
-                const { data: clientData } = await shippingListFac.getClient()
+                const { data: clientData } = await shippingListAddFac.getClient()
                 const [client] = clientData
                 const soldTo = dedent`SOLD TO / VENDIDO A:
                                 ${client.cl_corporatename}
@@ -55,7 +55,7 @@ module.exports = (function (angular) {
                     width: doc.width - wijmo.pdf.pxToPt(150) - margin
                 });
 
-                shippingListFac.getClient().then(function (promise) {
+                shippingListAddFac.getClient().then(function (promise) {
                     if (angular.isArray(promise.data)) {
                         var client = promise.data[0];
                         doc.header.drawText(soldTo, 0, 100, {
@@ -126,21 +126,34 @@ module.exports = (function (angular) {
             }
 
             $scope.fmData = {};
-            $scope.fmData.wo_search = 'wo_release';
 
+            $scope.disableXLS = true;
             $scope.exportXLS = function () {
                 var flexSheet = $scope.flex,
                     fileName, timestamp;
                 if (flexSheet) {
-                    console.log('entro')
                     if (!!$scope.fileName) {
                         fileName = $scope.fileName;
                     } else {
                         timestamp = moment().tz('America/Chihuahua').format();
-                        fileName = 'shipping_list_' + timestamp + '.xlsx';
+                        fileName = `shipping_list_${$scope.sl_id}_${timestamp}.xlsx`;
                     }
                     flexSheet.save(fileName);
                 }
+            }
+            $scope.onSubmit = function() {
+                $('#myModal').modal('show');
+            }
+            $scope.add = function() {
+                $('#myModal').modal('hide');
+                const { username: sl_createdby } = authService.profile()
+                shippingListAddFac.add($scope.zo_id, $stateParams.wo_id, sl_createdby).then(function(promise){
+                    $scope.disableXLS = false
+                    $scope.disableAdd = true
+                    const {data: shippinglist } = promise
+                    $scope.sl_id = shippinglist.sl_id
+                    console.log($scope.sl_id)
+                })
             }
 
             $scope.initialized = function (flexSheet) {
@@ -254,47 +267,13 @@ module.exports = (function (angular) {
                     }
                 });
             }
-            $scope.saveBtn = true;
-            $scope.onSubmit = function () {
-                var searchFn = {
-                    "wo_release": "searchWoRelease",
-                    "wo_id": "searchWoId",
-                    "wo_po": "searchWoPo"
-                }
-                shippingListFac[searchFn[$scope.fmData.wo_search]]($scope.fmData[$scope.fmData.wo_search]).then(function (promise) {
-                    $scope.saveBtn = !promise.data.length > 0;
-
-                    var flexSheet = $scope.flex,
-                        row = 17;
-                    if (flexSheet) {
-                        flexSheet.deleteRows(17, 975);
-                        flexSheet.insertRows(17, 975);
-                    }
-                    if (angular.isArray(promise.data)) {
-                        promise.data.map(function (value, index, data) {
-
-                            flexSheet.setCellData(row, 0, value.wo_id);
-                            flexSheet.setCellData(row, 1, value.wo_qty);
-                            flexSheet.mergeRange(new wijmo.grid.CellRange(row, 2, row, 5));
-                            flexSheet.setCellData(row, 2, value.pr_name);
-                            flexSheet.setCellData(row, 6, $filter('number')(value.pr_weight, 6));
-                            flexSheet.setCellData(row, 7, value.wo_po);
-                            flexSheet.setCellData(row, 8, value.wo_release);
-                            flexSheet.setCellData(row, 9, (++index < data.length) ? moment().tz('America/Chihuahua').format('YYYY-MM-DD') : null);
-                            row += 1;
-                        })
-                    }
-                })
-            }
-
-            $scope.wo_searchoptions = i18nFilter("exportation-invoice-custom.fields.wo_searchoptions");
-
 
             $scope.$on('$viewContentLoaded', async () => {
                 $scope.loading = true;
                 var client = undefined;
                 var rows = undefined;
-                shippingListFac.getClient().then(function (promise) {
+                console.log($stateParams.wo_id)
+                shippingListAddFac.getClient().then(function (promise) {
                     const { data } = promise
                     if (angular.isArray(data)) {
                         const [client] = data
@@ -308,7 +287,7 @@ module.exports = (function (angular) {
                         );
                     }
                 }).then(function () {
-                    shippingListFac.getZone().then(function (promise) {
+                    shippingListAddFac.getZone().then(function (promise) {
                         $scope.zo_idoptions = [];
                         const { data } = promise
                         if (angular.isArray(data)) {
@@ -319,11 +298,41 @@ module.exports = (function (angular) {
                         }
                     });
                     $scope.loading = false;
+                }).then(function () {
+                    $scope.wo_id = $stateParams.wo_id
+                    shippingListAddFac.searchWoId($stateParams.wo_id).then(function (promise) {
+                        $scope.data = promise.data
+                        $scope.disableAdd =  ($scope.data.length === 1);
+
+                        console.log($scope.disableAdd)
+
+                        var flexSheet = $scope.flex,
+                            row = 17;
+                        if (flexSheet) {
+                            flexSheet.deleteRows(17, 975);
+                            flexSheet.insertRows(17, 975);
+                        }
+                        if (angular.isArray(promise.data)) {
+                            promise.data.map(function (value, index, data) {
+
+                                flexSheet.setCellData(row, 0, value.wo_id);
+                                flexSheet.setCellData(row, 1, value.wo_qty);
+                                flexSheet.mergeRange(new wijmo.grid.CellRange(row, 2, row, 5));
+                                flexSheet.setCellData(row, 2, value.pr_name);
+                                flexSheet.setCellData(row, 6, $filter('number')(value.pr_weight, 6));
+                                flexSheet.setCellData(row, 7, value.wo_po);
+                                flexSheet.setCellData(row, 8, value.wo_release);
+                                flexSheet.setCellData(row, 9, (++index < data.length) ? moment().tz('America/Chihuahua').format('YYYY-MM-DD') : null);
+                                row += 1;
+                            })
+                        }
+                    })
                 })
                 $scope.$watch(
                     "fmData.zo_id",
-                    function zoChange(newValue, oldValue) {
+                    function zoChange(newValue, oldValue) {                       
                         var flexSheet = $scope.flex;
+                        $scope.zo_id = rows[newValue].zo_id
                         if (newValue !== undefined && flexSheet) {
                             flexSheet.setCellData(8, 5,
                                 rows[newValue].zo_corporatename + '\n' +

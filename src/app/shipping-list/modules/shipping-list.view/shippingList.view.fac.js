@@ -1,15 +1,15 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$http', '$q', '$stateParams', function ($http, $q, $stateParams) {
+    return ['$http', '$q', '$stateParams', 'authService', function ($http, $q, $stateParams, authService) {
         var factory = {};
-        factory.getClient = function () {
+        factory.getClient = function (cl_id) {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('/api/shippinglist/client/cl_id', {
                     /* POST variables here */
-                    cl_id: $stateParams.cl_id,
-                    cl_status: 'A'
+                    cl_id: cl_id,
+                    cl_status: 'A,I'
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {              
@@ -18,13 +18,13 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
-        factory.getZone = function() {
+        factory.getZone = function(cl_id) {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('/api/zone/cl_id', {
                     /* POST variables here */
-                    cl_id: $stateParams.cl_id,
-                    zo_status: 'A'
+                    cl_id: cl_id,
+                    zo_status: 'A,I'
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {
@@ -34,45 +34,27 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
-        factory.searchWoRelease = function(wo_release) {
+        factory.getSL = function(wo_id) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/shippinglist/cl_id/wo_release', {
+                $http.post('/api/shippinglist/sl_id', {
                     /* POST variables here */
-                    cl_id: $stateParams.cl_id,
-                    wo_release: wo_release
+                    sl_id: $stateParams.sl_id
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {
-                    
                     return { "status": false };
                 })
             );
             return deferred.promise;
         };
-        factory.searchWoId = function(wo_id) {
+        factory.searchWoId = function(cl_id, wo_id) {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('/api/shippinglist/cl_id/wo_id', {
                     /* POST variables here */
-                    cl_id: $stateParams.cl_id,
+                    cl_id: cl_id,
                     wo_id: wo_id
-                }).success(function(data, status, headers, config) {
-                    return data;
-                }).error(function(data, status, headers, config) {
-                    
-                    return { "status": false };
-                })
-            );
-            return deferred.promise;
-        };
-        factory.searchWoPo = function(wo_po) {
-            var deferred = $q.defer();
-            deferred.resolve(
-                $http.post('/api/shippinglist/cl_id/wo_po', {
-                    /* POST variables here */
-                    cl_id: $stateParams.cl_id,
-                    wo_po: wo_po
                 }).success(function(data, status, headers, config) {
                     return data;
                 }).error(function(data, status, headers, config) {

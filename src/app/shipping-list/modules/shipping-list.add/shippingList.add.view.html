@@ -1,0 +1,56 @@
+<div class="col-sm-12">
+    <h3>{{'shippingList-add.title' | i18n}}</h3>
+    <form class="row" role="form" name="ggform" novalidate>
+        <gg-select err-class="error"
+            lbl="{{'wo-add.labels.zo-id' | i18n}}" 
+            form-group-class="col-sm-3" 
+            options="zo_idoptions" 
+            ng-model="fmData.zo_id"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+        </gg-select>
+        <div class="col-sm-12 fieldset">
+                <div class="btn btn-success btn-xs" ng-click="disableAdd || onSubmit()" ng-disabled="disableAdd"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> {{'general.labels.add' | i18n}}</div> 
+                <div class="btn btn-success btn-xs" ng-click="disableXLS || exportXLS()" ng-disabled="disableXLS"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
+        </div>
+    </form>
+    <div ng-if="sl_id" class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <strong>La Lista de Embarque #{{ sl_id }} fue creada con exito! <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></strong>
+    </div>
+    <span ng-if="loading">Cargando...</span>   
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+        <span ng-switch="ggform.$invalid">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">LISTA DE EMBARQUE</h4>
+            </div>
+            <div class="modal-body">
+                <span ng-switch-when="true">Por favor seleccione una zona.</span>
+                <span ng-switch-when="false">La(s) siguiente(s) orden(es) de trabajo <b>{{ wo_id }}</b> se marcara(n) como embarcada(s)</b>, desea continuar?</span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
+                <button class="btn btn-primary" ng-click="add()" ng-switch-when="false">{{'general.labels.submit' | i18n}}</button>
+            </div>
+        </span>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <wj-flex-sheet 
+        control="flex"
+        initialized="initialized(s)"
+        style="width:100%; height:480px;"
+        is-read-only="true">
+            <wj-sheet name="Lista de Embarque" row-count="1000" >
+    </wj-sheet>
+    </wj-flex-sheet>
+</div>

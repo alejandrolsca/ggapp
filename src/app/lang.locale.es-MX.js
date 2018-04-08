@@ -33,14 +33,15 @@ module.exports = {
                     ],
                     "labels":{
                         "add":"Agregar",
-                        "edit":"editar",
-                        "duplicate":"duplicar",
-                        "show":"mostrar",
+                        "edit":"Editar",
+                        "duplicate":"Duplicar",
+                        "show":"Mostrar",
                         "open":"Abrir",
                         "submit":"Enviar",
                         "continue":"Continuar",
                         "close":"Cerrar",
-                        "history":"historial",
+                        "history":"Historial",
+                        "cancel":"Cancelar",
                     },
                     "regexp":{
                         "singlespaces": "sin espacios dobles ni caracteres especiales.",
@@ -194,8 +195,8 @@ module.exports = {
                  /****************************************
                 SHIPPING LIST
                 ****************************************/
-               "shipping-list": require('./shipping-list/lang.es-MX'),
-               "shipping-list-custom": require('./shipping-list/lang.custom.es-MX'),
+               "shippingList": require('./shipping-list/lang.es-MX'),
+               "shippingList-add": require('./shipping-list/modules/shipping-list.add/lang.es-MX'),
                 /****************************************
                 PRINT RUNS
                 ****************************************/

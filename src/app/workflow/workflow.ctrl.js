@@ -173,6 +173,11 @@ module.exports = (function (angular) {
 
             $scope.itemFormatter = function (panel, r, c, cell) {
 
+                // fix prevent randomn coloring
+                cell.style.backgroundColor = '';
+                cell.style.color = '';
+                // end fix
+
                 // localize timezone America/Chihuahua
                 if ((panel.cellType == wijmo.grid.CellType.Cell)) {
                     var flex = panel.grid;
