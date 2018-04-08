@@ -848,75 +848,6 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
-    app.post('/api/wo/cl_id/wo_release', function (req, res, next) {
-        (async () => {
-            // note: we don't try/catch this because if connecting throws an exception
-            // we don't need to dispose of the client (it will be undefined)
-            const client = await pool.connect()
-            try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
-                // execute query
-                const query = file('wo/wo:cl_id:wo_release')
-                const parameters = [req.body.cl_id, req.body.wo_release]
-                const { rows } = await client.query(query, parameters)
-                res.send(")]}',\n".concat(JSON.stringify(rows)));
-            } catch (e) {
-                console.log(e)
-                return res.status(500).send(JSON.stringify(e.stack, null, 4));
-            } finally {
-                client.release()
-            }
-        })().catch(e => console.error(e.stack))
-    });
-
-    app.post('/api/wo/cl_id/wo_id', function (req, res, next) {
-        (async () => {
-            // note: we don't try/catch this because if connecting throws an exception
-            // we don't need to dispose of the client (it will be undefined)
-            const client = await pool.connect()
-            try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
-                // execute query
-                const query = file('wo/wo:cl_id:wo_id')
-                const parameters = [req.body.cl_id, req.body.wo_id]
-                const { rows } = await client.query(query, parameters)
-                res.send(")]}',\n".concat(JSON.stringify(rows)));
-            } catch (e) {
-                console.log(e)
-                return res.status(500).send(JSON.stringify(e.stack, null, 4));
-            } finally {
-                client.release()
-            }
-        })().catch(e => console.error(e.stack))
-    });
-
-    app.post('/api/wo/cl_id/wo_po', function (req, res, next) {
-        (async () => {
-            // note: we don't try/catch this because if connecting throws an exception
-            // we don't need to dispose of the client (it will be undefined)
-            const client = await pool.connect()
-            try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
-                // execute query
-                const query = file('wo/wo:cl_id:wo_po')
-                const parameters = [req.body.cl_id, req.body.wo_po]
-                const { rows } = await client.query(query, parameters)
-                res.send(")]}',\n".concat(JSON.stringify(rows)));
-            } catch (e) {
-                console.log(e)
-                return res.status(500).send(JSON.stringify(e.stack, null, 4));
-            } finally {
-                client.release()
-            }
-        })().catch(e => console.error(e.stack))
-    });
-
     app.post('/api/wo/wo_id', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
@@ -1598,6 +1529,150 @@ if (cluster.isMaster) {
                 // execute query
                 const query = file('shippinglist/shippinglist:sl_id')
                 const parameters = [req.body.sl_id]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+     /* SHIPPING LIST */
+
+     app.post('/api/exportationinvoice', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('exportationinvoice/exportationinvoice:cl_id')
+                const parameters = [req.body.cl_id]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/exportationinvoice/client/cl_id', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('exportationinvoice/client:cl_id')
+                const parameters = [req.body.cl_id, req.body.cl_status]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/exportationinvoice/cl_id/wo_id', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('exportationinvoice/wo:cl_id:wo_id')
+                const parameters = [req.body.cl_id, req.body.wo_id]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/exportationinvoice/add', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            let result = undefined;
+            try {
+                await client.query('BEGIN')
+                const result = await client.query(file('exportationinvoice/wo:update:wo_id'), [req.body.wo_id])
+                console.log(result)
+                console.log(req.body.cl_id, req.body.wo_id)
+                const { rows } = await client.query(file('exportationinvoice/exportationinvoice:add'), [req.body.cl_id, req.body.zo_id, req.body.wo_id, req.body.ei_createdby])
+                console.log(rows)                
+                const [exportationinvoice] = rows;
+                await client.query('COMMIT')
+                res.send(")]}',\n".concat(JSON.stringify(exportationinvoice)));
+            } catch (e) {
+                await client.query('ROLLBACK')
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/exportationinvoice/cancel', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            let result = undefined;
+            try {
+                await client.query('BEGIN')
+                const result = await client.query(file('exportationinvoice/exportationinvoice:cancel:wo_id'), [req.body.wo_id])
+                console.log(result)
+                console.log(req.body.wo_id, req.body.ei_id)
+                const { rows } = await client.query(file('exportationinvoice/exportationinvoice:cancel:ei_id'), [req.body.ei_id])
+                console.log(rows)                
+                const [exportationinvoice] = rows;
+                await client.query('COMMIT')
+                res.send(")]}',\n".concat(JSON.stringify(exportationinvoice)));
+            } catch (e) {
+                await client.query('ROLLBACK')
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/exportationinvoice/ei_id', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('exportationinvoice/exportationinvoice:ei_id')
+                const parameters = [req.body.ei_id]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {

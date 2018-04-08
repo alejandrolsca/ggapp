@@ -141,16 +141,16 @@ module.exports = (function (angular) {
                     flexSheet.save(fileName);
                 }
             }
-            $scope.onSubmit = function() {
+            $scope.onSubmit = function () {
                 $('#myModal').modal('show');
             }
-            $scope.add = function() {
+            $scope.add = function () {
                 $('#myModal').modal('hide');
                 const { username: sl_createdby } = authService.profile()
-                shippingListAddFac.add($scope.zo_id, $stateParams.wo_id, sl_createdby).then(function(promise){
+                shippingListAddFac.add($scope.zo_id, $stateParams.wo_id, sl_createdby).then(function (promise) {
                     $scope.disableXLS = false
                     $scope.disableAdd = true
-                    const {data: shippinglist } = promise
+                    const { data: shippinglist } = promise
                     $scope.sl_id = shippinglist.sl_id
                     console.log($scope.sl_id)
                 })
@@ -302,7 +302,7 @@ module.exports = (function (angular) {
                     $scope.wo_id = $stateParams.wo_id
                     shippingListAddFac.searchWoId($stateParams.wo_id).then(function (promise) {
                         $scope.data = promise.data
-                        $scope.disableAdd =  ($scope.data.length === 1);
+                        $scope.disableAdd = ($scope.data.length === 1);
 
                         console.log($scope.disableAdd)
 
@@ -330,10 +330,10 @@ module.exports = (function (angular) {
                 })
                 $scope.$watch(
                     "fmData.zo_id",
-                    function zoChange(newValue, oldValue) {                       
+                    function zoChange(newValue, oldValue) {
                         var flexSheet = $scope.flex;
-                        $scope.zo_id = rows[newValue].zo_id
                         if (newValue !== undefined && flexSheet) {
+                            $scope.zo_id = rows[newValue].zo_id
                             flexSheet.setCellData(8, 5,
                                 rows[newValue].zo_corporatename + '\n' +
                                 rows[newValue].zo_street + ' ' + rows[newValue].zo_streetnumber + ' ' + (rows[newValue].zo_suitenumber || '') + '\n' +

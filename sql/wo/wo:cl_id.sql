@@ -1,6 +1,6 @@
 select 
     wo.*,
-    wo_jsonb ? 'wo_einvoice' as wo_einvoice,
+    wo_jsonb ? 'wo_exportationinvoice' as wo_exportationinvoice,
     wo_jsonb ? 'wo_shippinglist' as wo_shippinglist,
     case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
@@ -9,7 +9,8 @@ select
 	end as cl_corporatename,
 	pr.pr_jsonb->>'pr_code' as pr_code,
 	pr.pr_jsonb->>'pr_name' as pr_name,
-	pr.pr_jsonb->>'pr_weight' as pr_weight,
+	pr.pr_jsonb->>'pr_name' as pr_name,
+	pr.pr_jsonb->>'pr_partno' as pr_partno,
     ma.ma_jsonb->>'ma_name' as ma_name,
 	zo.zo_jsonb->>'zo_zone' as zo_zone
 from  (

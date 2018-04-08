@@ -136,13 +136,10 @@ module.exports = (function (angular) {
                         fileName = $scope.fileName;
                     } else {
                         timestamp = moment().tz('America/Chihuahua').format();
-                        fileName = `shipping_list_${$scope.sl_id}_${timestamp}.xlsx`;
+                        fileName = `shipping_list_${$scope.fmData.sl_id}_${timestamp}.xlsx`;
                     }
                     flexSheet.save(fileName);
                 }
-            }
-            $scope.onSubmit = function () {
-                $('#myModal').modal('show');
             }
 
             $scope.initialized = function (flexSheet) {

@@ -66,7 +66,7 @@ module.exports = (function (angular) {
                 }
                 const selected = (wo_id.length > 0) ? true : false;
                 if(selected){
-                    $state.go('shippingList', {
+                    $state.go('exportationInvoiceAdd', {
                         cl_id: $stateParams.cl_id,
                         wo_id: wo_id.join(',')
                     })
@@ -90,7 +90,7 @@ module.exports = (function (angular) {
                     var col = flex.columns[c];
                     if (col.binding === 'invoice') {
                         var cb = cell.firstChild;
-                        if (row.dataItem.wo_einvoice === true || row.dataItem.wo_status < 13 || row.dataItem.wo_status === 18) {
+                        if (row.dataItem.wo_exportationinvoice === true || row.dataItem.wo_status < 13 || row.dataItem.wo_status === 18) {
                             cb.disabled = true
                         }
                         if (row.dataItem.invoice) {
@@ -134,7 +134,7 @@ module.exports = (function (angular) {
                         cb.addEventListener('click', function (e) {
                             flex.beginUpdate();
                             for (var i = 0; i < flex.rows.length; i++) {
-                                if (!flex.rows[i].dataItem.wo_einvoice && ((flex.rows[i].dataItem.wo_status > 12) && (flex.rows[i].dataItem.wo_status < 18))) {
+                                if (!flex.rows[i].dataItem.wo_exportationinvoice && ((flex.rows[i].dataItem.wo_status > 12) && (flex.rows[i].dataItem.wo_status < 18))) {
                                     flex.setCellData(i, c, cb.checked);
                                 }
                             }

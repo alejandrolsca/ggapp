@@ -1,22 +1,25 @@
 module.exports = (function(angular){
     'use strict';
     
-    return angular.module('app.exportationInvoice',[])
+    return angular.module('app.exportationInvoice',[
+        require('./modules/exportation-invoice.add').name,
+        require('./modules/exportation-invoice.view').name
+    ])
 
     .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('exportationInvoice', {
-            url:'/einvoice/:cl_id',
-            template: require('./exportation-invoice.view.html'),
-            controller : 'exportationInvoiceCtrl',
+            url:'/exportationinvoice/:cl_id',
+            template: require('./exportationInvoice.view.html'),
+            controller : 'exportationInvoiceController',
             data: {
                 requiresLogin: true
             }    
         });
     }])
 
-    .factory('exportationInvoiceFac',require('./exportation-invoice.fac'))
+    .factory('exportationInvoiceFactory',require('./exportationInvoice.fac'))
 
-    .controller('exportationInvoiceCtrl',require('./exportation-invoice.ctrl'))
+    .controller('exportationInvoiceController',require('./exportationInvoice.ctrl'))
 
 })(angular);

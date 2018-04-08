@@ -104,6 +104,7 @@ module.exports = (function (angular) {
                     pdfDoc.drawText(`Notas: ${wo_jsonb.wo_notes}`)
                     pdfDoc.drawText(`Fecha compromiso: ${wo_jsonb.wo_commitmentdate}`)
                     pdfDoc.drawText(`Precio: ${data.wo_price}`)
+                    pdfDoc.drawText(`Moneda: ${data.wo_currency}`)
 
 
                 }

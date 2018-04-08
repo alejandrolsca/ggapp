@@ -84,6 +84,7 @@ select
 	wo.wo_jsonb,
 	wo_date,
 	wo_price,
+	wo_currency,
 	pr.*
 from 
 	wo wo, 
@@ -92,7 +93,8 @@ from
 		zo_id int,
 		ma_id int,
 		pr_id int,
-		wo_price decimal
+		wo_price decimal,
+		wo_currency text
 	),
 	(
 		select 

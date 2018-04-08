@@ -8,8 +8,8 @@ select
 		else cl_jsonb->>'cl_corporatename'
 	end as cl_corporatename,
     x.cl_rfc,
-    x.cl_rfc,
     x.cl_ssntin,
+    x.cl_name,
     x.cl_firstsurname,
     x.cl_secondsurname,
     x.cl_street,
@@ -90,4 +90,5 @@ jsonb_to_record(cl_jsonb) as x (
     cl_receiptschedule text,
     cl_status text
 )
-where cl.cl_jsonb->>'cl_status' = any(string_to_array($1,',')::text[])
+where cl.cl_id = $1
+and cl.cl_jsonb->>'cl_status' = any(string_to_array($2,',')::text[])

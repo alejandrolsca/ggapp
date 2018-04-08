@@ -37,11 +37,25 @@
         data-type="Boolean"
         width="80">
         </wj-flex-grid-column>
+        <wj-flex-grid-column
+        header="{{'wo.labels.wo-shippinglist' | i18n}}" 
+        binding="wo_shippinglist"
+        data-type="Boolean"
+        width="80"
+        is-read-only="true">
+        </wj-flex-grid-column>
       <wj-flex-grid-column
         header="Fac." 
         binding="invoice"
         data-type="Boolean"
         width="80">
+        </wj-flex-grid-column>
+        <wj-flex-grid-column
+        header="{{'wo.labels.wo-exportationinvoice' | i18n}}" 
+        binding="wo_exportationinvoice"
+        data-type="Boolean"
+        width="80"
+        is-read-only="true">
         </wj-flex-grid-column>
     </wj-flex-grid>
 </div>
