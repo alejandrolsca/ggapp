@@ -262,6 +262,9 @@ module.exports = (function (angular) {
                     const { data } = promise
                     const [shippinglist] = data
                     $scope.fmData = shippinglist
+                    const flexSheet = $scope.flex;
+                    const sl_date = moment(shippinglist.sl_date).tz('America/Chihuahua').format('DD/MM/YYYY')
+                    flexSheet.setCellData(0, 0, `LISTA DE EMBARQUE #${shippinglist.sl_id} ${sl_date}`);
                 }).then(function () {
                     shippingListViewFac.getClient($scope.fmData.cl_id).then(function (promise) {
                         const { data } = promise

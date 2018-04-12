@@ -152,6 +152,9 @@ module.exports = (function (angular) {
                     $scope.disableAdd = true
                     const { data: shippinglist } = promise
                     $scope.sl_id = shippinglist.sl_id
+                    const flexSheet = $scope.flex;
+                    const sl_date = moment(shippinglist.sl_date).tz('America/Chihuahua').format('DD/MM/YYYY')
+                    flexSheet.setCellData(0, 0, `LISTA DE EMBARQUE #${shippinglist.sl_id} ${sl_date}`);                 
                     console.log($scope.sl_id)
                 })
             }

@@ -33,6 +33,9 @@ module.exports = (function (angular) {
                     $scope.disableAdd = true
                     const { data: exportationinvoice } = promise
                     $scope.ei_id = exportationinvoice.ei_id
+                    const flexSheet = $scope.flex;
+                    const ei_date = moment(exportationinvoice.ei_date).tz('America/Chihuahua').format('DD/MM/YYYY')
+                    flexSheet.setCellData(0, 0, `FACTURA DE EXPORTACION #${exportationinvoice.ei_id} ${ei_date}`);
                     console.log($scope.ei_id)
                 })
             }
