@@ -1,7 +1,35 @@
-select 
-    wo.*,
-    wo_jsonb ? 'wo_exportationinvoice' as wo_exportationinvoice,
-    wo_jsonb ? 'wo_shippinglist' as wo_shippinglist,
+select
+    wo.wo_id,
+	wo.wo_orderedby,
+	wo.wo_attention, 
+	wo.wo_release,
+	wo.wo_po, 
+	wo.wo_line,
+	wo.wo_linetotal,
+	wo.wo_qty, 
+	wo.wo_packageqty, 
+	wo.wo_excedentqty, 
+	wo.wo_foliosperformat, 
+	wo.wo_foliosseries, 
+	wo.wo_foliosfrom, 
+	wo.wo_foliosto, 
+	wo.wo_type,
+	wo.wo_commitmentdate,
+	wo.wo_deliverydate, 
+	wo.wo_previousid, 
+	wo.wo_previousdate, 
+	wo.wo_notes, 
+	wo.wo_price, 
+	wo.wo_currency, 
+	wo.wo_email, 
+	wo.wo_status,
+	wo.wo_createdby, 
+	wo.wo_updatedby,
+	wo.wo_updated,
+	wo.file1,
+	wo.file2,
+	wo.wo_exportationinvoice,
+	wo.wo_shippinglist,
     case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
 			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
@@ -9,13 +37,14 @@ select
 	end as cl_corporatename,
 	pr.pr_jsonb->>'pr_code' as pr_code,
 	pr.pr_jsonb->>'pr_name' as pr_name,
-	pr.pr_jsonb->>'pr_name' as pr_name,
 	pr.pr_jsonb->>'pr_partno' as pr_partno,
     ma.ma_jsonb->>'ma_name' as ma_name,
 	zo.zo_jsonb->>'zo_zone' as zo_zone
 from  (
-	select 
-		*
+	select
+		wo_id,
+		wo_jsonb.*,
+		wo_date
 	from  wo,  
     jsonb_to_record(wo_jsonb) as wo_jsonb (
             cl_id int,
@@ -49,7 +78,9 @@ from  (
             wo_updatedby text,
             wo_updated text,
             file1 text,
-            file2 text
+            file2 text,
+			wo_exportationinvoice boolean,
+			wo_shippinglist boolean
     )
 ) wo
 left join client cl

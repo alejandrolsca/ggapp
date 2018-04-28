@@ -3,6 +3,26 @@
     <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div> 
     <div ng-click="shippingList()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Lista de Embarque</div> 
     <div ng-click="exportationInvoice()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Factura de Exportación</div><br/><br/>
+    <!--<form class="row" role="form" name="ggform" novalidate>
+      <div class="form-group col-sm-3">
+          <label class="control-label">Zona <span class="glyphicon glyphicon-search" aria-hidden="true" ng-show="required"></span></label>
+          <div class="">
+              <input id="zo_zone" class="form-control red-tooltip" type="text" name="zo_zone"/>
+          </div>
+      </div>
+      <div class="form-group col-sm-3">
+          <label class="control-label">Release <span class="glyphicon glyphicon-search" aria-hidden="true" ng-show="required"></span></label>
+          <div class="">
+              <input id="wo_release" class="form-control red-tooltip" type="text" name="wo_release"/>
+          </div>
+      </div>
+      <div class="form-group col-sm-3">
+            <label class="control-label">Part No. <span class="glyphicon glyphicon-search" aria-hidden="true" ng-show="required"></span></label>
+            <div class="">
+                <input id="pr_partno" class="form-control red-tooltip" type="text" name="pr_partno"/>
+            </div>
+      </div>
+    </form>-->
     <span ng-if="loading">Cargando...</span>
 </div>
 <div class="col-sm-12">
@@ -10,19 +30,17 @@
       control="ggGrid" 
       items-source="data"
       items-source-changed="itemsSourceChanged(s,e)"
-      sorted-column="onSortedColumn(s,e)"
       auto-generate-columns="false" 
       initialized="initGrid(s,e)"
       item-formatter="itemFormatter" 
       format-item="formatItem(s,e,cell)" 
-      allow-sorting="true" 
-      show-sort="true" 
+      allow-sorting="false" 
       style="height:390px;">
-      <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
       <wj-flex-grid-column
         header="No." 
         binding="wo_id"        
-        is-read-only="true" 
+        is-read-only="true"
+        filter-type="0" 
         width="60">
       </wj-flex-grid-column>
       <wj-flex-grid-column

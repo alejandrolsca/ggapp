@@ -46,7 +46,7 @@ module.exports = (function (angular) {
                     if (flex.getCellData(i, flex.columns.getColumn('shipment').index) === true) wo_id.push(+flex.getCellData(i, flex.columns.getColumn('wo_id').index));
                 }
                 const selected = (wo_id.length > 0) ? true : false;
-                if(selected){
+                if (selected) {
                     $state.go('shippingListAdd', {
                         cl_id: $stateParams.cl_id,
                         wo_id: wo_id.join(',')
@@ -54,7 +54,7 @@ module.exports = (function (angular) {
                 } else {
                     alert('Debe seleccionar por lo menos una orden.')
                 }
-                
+
             };
 
             // generate exportationInvoice
@@ -65,7 +65,7 @@ module.exports = (function (angular) {
                     if (flex.getCellData(i, flex.columns.getColumn('invoice').index) === true) wo_id.push(+flex.getCellData(i, flex.columns.getColumn('wo_id').index));
                 }
                 const selected = (wo_id.length > 0) ? true : false;
-                if(selected){
+                if (selected) {
                     $state.go('exportationInvoiceAdd', {
                         cl_id: $stateParams.cl_id,
                         wo_id: wo_id.join(',')
@@ -73,7 +73,7 @@ module.exports = (function (angular) {
                 } else {
                     alert('Debe seleccionar por lo menos una orden.')
                 }
-                
+
             };
 
             $scope.itemFormatter = function (panel, r, c, cell) {
@@ -237,19 +237,25 @@ module.exports = (function (angular) {
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
                     col.isReadOnly = $scope.columns[i].isReadOnly;
+                    col.filterType = $scope.columns[i].filterType;
                     col.header = i18nFilter("wo.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.wordWrap = false;
                     col.width = $scope.columns[i].width;
                     s.columns.push(col);
                 }
+                setTimeout(() => {
+                    var flex = $scope.ggGrid;
+                    var filter = new wijmo.grid.filter.FlexGridFilter(flex);
+                    filter.defaultFilterType = wijmo.grid.filter.FilterType.None;
+                    var columns = flex.columns;
+                    angular.forEach(columns, function (value, key) {
+                        var col = flex.columns.getColumn(value.binding),
+                            cf = filter.getColumnFilter(key);
+                        cf.filterType = value.filterType;
+                    });
+                }, 1000);
             };
-            $scope.compact = () => {
-                const flex = $scope.ggGrid
-                flex.columns.map((value, index, data)=>{
-                    console.log(value)
-                    value.visible = true
-                })
-            }
+
 
             // create the tooltip object
             $scope.$watch('ggGrid', function () {
@@ -320,12 +326,55 @@ module.exports = (function (angular) {
                     $scope.loading = false;
 
                     if (angular.isArray(promise.data)) {
-
                         // expose data as a CollectionView to get events
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
-
                     }
                 });
+
+                const filter = () => {
+                    let flex = $scope.ggGrid;
+                    const fm = {
+                        zo_zone: $scope.zo_zone.toLowerCase(),
+                        wo_release: $scope.wo_release.toLowerCase(),
+                        pr_partno: $scope.pr_partno.toLowerCase()
+                    }
+                    flex.collectionView.filter = function (item) {
+                        const zo_zone = item.zo_zone || ''
+                        return filter.length == 0 || zo_zone.toLowerCase().indexOf(filter) > -1
+                    }
+                }
+
+                document.getElementById('zo_zone').onkeyup = (e) => {
+                    let flex = $scope.ggGrid;
+                    console.log(e.target.value)
+                    const { value } = e.target
+                    const filter = value.toLowerCase();
+                    flex.collectionView.filter = function (item) {
+                        const zo_zone = item.zo_zone || ''
+                        return filter.length == 0 || zo_zone.toLowerCase().indexOf(filter) > -1
+                    }
+                }
+
+                document.getElementById('wo_release').onkeyup = (e) => {
+                    let flex = $scope.ggGrid;
+                    console.log(e.target.value)
+                    const { value } = e.target
+                    const filter = value.toLowerCase();
+                    flex.collectionView.filter = function (item) {
+                        const wo_release = item.wo_release || ''
+                        return filter.length == 0 || wo_release.toLowerCase().indexOf(filter) > -1
+                    }
+                }
+                document.getElementById('pr_partno').onkeyup = (e) => {
+                    let flex = $scope.ggGrid;
+                    console.log(e.target.value)
+                    const { value } = e.target
+                    const filter = value.toLowerCase();
+                    flex.collectionView.filter = function (item) {
+                        const pr_partno = item.pr_partno || ''
+                        return filter.length == 0 || pr_partno.toLowerCase().indexOf(filter) > -1
+                    }
+                }
             });
         }];
 
