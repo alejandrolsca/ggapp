@@ -330,7 +330,7 @@ module.exports = (function (angular) {
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
                     }
                 });
-
+                /*
                 const filter = () => {
                     let flex = $scope.ggGrid;
                     const fm = {
@@ -375,6 +375,7 @@ module.exports = (function (angular) {
                         return filter.length == 0 || pr_partno.toLowerCase().indexOf(filter) > -1
                     }
                 }
+                */
             });
         }];
 

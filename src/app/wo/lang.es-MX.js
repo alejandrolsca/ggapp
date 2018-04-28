@@ -1,7 +1,7 @@
 module.exports = {
     "title": "Ordenes de Trabajo",
     "labels": {
-        //"wo-id": "No. orden",
+        "wo-id": "No.",
         "wo-shippinglist": "L. Emb.",
         "wo-exportationinvoice": "F. exp.",
         "cl-id": "ID cliente",
@@ -45,7 +45,7 @@ module.exports = {
         "wo-date": "Fecha"
     },
     "columns": [
-        //{ "binding": "wo_id", "type": "Number" , "width": 100 , "isReadOnly": true, "filterType": 0},
+        { "binding": "wo_id", "type": "Number" , "width": 80 , "isReadOnly": true, "filterType": 2},
         //{ "binding": "wo_shippinglist", "type": "Boolean" , "width": 80 , "isReadOnly": true, "filterType": 0},
         //{ "binding": "wo_exportationinvoice", "type": "Boolean" , "width": 80 , "isReadOnly": true, "filterType": 0},
         { "binding": "cl_corporatename", "type": "String" , "width": 200 , "isReadOnly": true, "filterType": 0},
