@@ -785,7 +785,6 @@ if (cluster.isMaster) {
                     req.body.pr_partno,
                     req.body.wo_date
                 ]
-                console.log(parameters)
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
