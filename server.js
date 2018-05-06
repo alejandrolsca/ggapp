@@ -778,7 +778,14 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('wo/wo:cl_id')
-                const parameters = [req.body.cl_id]
+                const parameters = [
+                    req.body.cl_id,
+                    req.body.zo_zone,
+                    req.body.wo_release,
+                    req.body.pr_partno,
+                    req.body.wo_date
+                ]
+                console.log(parameters)
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {

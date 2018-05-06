@@ -1,11 +1,15 @@
-select
-    wo.wo_id,
+ select 
+	wo.wo_id,
+	wo.cl_id,
+	wo.zo_id,
 	wo.wo_orderedby,
 	wo.wo_attention, 
+	wo.ma_id, 
 	wo.wo_release,
 	wo.wo_po, 
 	wo.wo_line,
 	wo.wo_linetotal,
+	wo.pr_id,
 	wo.wo_qty, 
 	wo.wo_packageqty, 
 	wo.wo_excedentqty, 
@@ -28,8 +32,9 @@ select
 	wo.wo_updated,
 	wo.file1,
 	wo.file2,
-	wo.wo_exportationinvoice,
-	wo.wo_shippinglist,
+	wo_exportationinvoice,
+	wo_shippinglist,
+	wo_date,
     case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
 			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
@@ -37,10 +42,11 @@ select
 	end as cl_corporatename,
 	pr.pr_jsonb->>'pr_code' as pr_code,
 	pr.pr_jsonb->>'pr_name' as pr_name,
+	pr.pr_jsonb->>'pr_weight' as pr_weight,
 	pr.pr_jsonb->>'pr_partno' as pr_partno,
     ma.ma_jsonb->>'ma_name' as ma_name,
 	zo.zo_jsonb->>'zo_zone' as zo_zone
-from  (
+    from  (
 	select
 		wo_id,
 		wo_jsonb.*,
@@ -91,6 +97,11 @@ left join zone zo
 on wo.zo_id = zo.zo_id
 left join machine ma
 on wo.ma_id = ma.ma_id
-where wo.cl_id = $1
-order by wo.wo_date desc
-limit 5000;
+where 
+	  wo.cl_id = $1 and
+	  wo.wo_date > (now()::date - $5::interval) and
+	  coalesce(zo.zo_jsonb->>'zo_zone','') ilike ('%' || $2 || '%') and
+      coalesce(wo.wo_release,'') ilike ('%' || $3 || '%') and
+      coalesce(pr.pr_jsonb->>'pr_partno','') ilike ('%' || $4 || '%')
+order by wo.wo_date desc;
+      

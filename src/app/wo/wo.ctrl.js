@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woFactory', '$location', 'i18nFilter', '$state', '$stateParams',
-        function ($scope, woFactory, $location, i18nFilter, $state, $stateParams) {
+    return ['$scope', 'woFactory', '$location', 'i18nFilter', '$state', '$stateParams', '$timeout',
+        function ($scope, woFactory, $location, i18nFilter, $state, $stateParams, $timeout) {
 
             $scope.labels = Object.keys(i18nFilter("wo.labels"));
             $scope.columns = i18nFilter("wo.columns");
@@ -243,6 +243,7 @@ module.exports = (function (angular) {
                     col.width = $scope.columns[i].width;
                     s.columns.push(col);
                 }
+                /*
                 setTimeout(() => {
                     var flex = $scope.ggGrid;
                     var filter = new wijmo.grid.filter.FlexGridFilter(flex);
@@ -253,7 +254,7 @@ module.exports = (function (angular) {
                             cf = filter.getColumnFilter(key);
                         cf.filterType = value.filterType;
                     });
-                }, 1000);
+                }, 3000);*/
             };
 
 
@@ -316,65 +317,46 @@ module.exports = (function (angular) {
 
             };
 
+            $scope.wo_dateoptions = i18nFilter("wo.fields.wo_dateoptions");
+            $scope.wo_date = '1 month'
+
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
 
-                $scope.loading = true;
+                let currentSearch,
+                    lastSearch,
+                    filterTextTimeout;
+                $scope.$watchGroup(['zo_zone', 'wo_release', 'pr_partno', 'wo_date'], function (newValues, oldValues, scope) {
+                    let [zo_zone, wo_release, pr_partno, wo_date] = newValues
+                    console.log(zo_zone, wo_release, pr_partno, wo_date)
+                    zo_zone = zo_zone || ''
+                    wo_release = wo_release || ''
+                    pr_partno = pr_partno || ''
+                    wo_date = wo_date || '1 month'
 
-                woFactory.getData().then(function (promise) {
+                    currentSearch = zo_zone.toLowerCase() + wo_release.toLowerCase() + pr_partno.toLowerCase() + wo_date.toLowerCase()
 
-                    $scope.loading = false;
+                    const sameSearch = (currentSearch === lastSearch)
 
-                    if (angular.isArray(promise.data)) {
-                        // expose data as a CollectionView to get events
-                        $scope.data = new wijmo.collections.CollectionView(promise.data);
+                    if (filterTextTimeout) {
+                        $scope.loading = false;
+                        $timeout.cancel(filterTextTimeout);
+                    }
+
+                    if (!sameSearch) {
+                        $scope.loading = true;
+                        filterTextTimeout = $timeout(function () {
+                            woFactory.getData(zo_zone, wo_release, pr_partno, wo_date).then(function (promise) {
+                                $scope.loading = false;
+                                lastSearch = zo_zone.toLowerCase() + wo_release.toLowerCase() + pr_partno.toLowerCase() + wo_date.toLowerCase()
+                                if (angular.isArray(promise.data)) {
+                                    // expose data as a CollectionView to get events
+                                    $scope.data = new wijmo.collections.CollectionView(promise.data);
+                                }
+                            });
+                        }, 1500);
                     }
                 });
-
-                const filter = () => {
-                    let flex = $scope.ggGrid;
-                    const fm = {
-                        zo_zone: $scope.zo_zone.toLowerCase(),
-                        wo_release: $scope.wo_release.toLowerCase(),
-                        pr_partno: $scope.pr_partno.toLowerCase()
-                    }
-                    flex.collectionView.filter = function (item) {
-                        const zo_zone = item.zo_zone || ''
-                        return filter.length == 0 || zo_zone.toLowerCase().indexOf(filter) > -1
-                    }
-                }
-
-                document.getElementById('zo_zone').onkeyup = (e) => {
-                    let flex = $scope.ggGrid;
-                    console.log(e.target.value)
-                    const { value } = e.target
-                    const filter = value.toLowerCase();
-                    flex.collectionView.filter = function (item) {
-                        const zo_zone = item.zo_zone || ''
-                        return filter.length == 0 || zo_zone.toLowerCase().indexOf(filter) > -1
-                    }
-                }
-
-                document.getElementById('wo_release').onkeyup = (e) => {
-                    let flex = $scope.ggGrid;
-                    console.log(e.target.value)
-                    const { value } = e.target
-                    const filter = value.toLowerCase();
-                    flex.collectionView.filter = function (item) {
-                        const wo_release = item.wo_release || ''
-                        return filter.length == 0 || wo_release.toLowerCase().indexOf(filter) > -1
-                    }
-                }
-                document.getElementById('pr_partno').onkeyup = (e) => {
-                    let flex = $scope.ggGrid;
-                    console.log(e.target.value)
-                    const { value } = e.target
-                    const filter = value.toLowerCase();
-                    flex.collectionView.filter = function (item) {
-                        const pr_partno = item.pr_partno || ''
-                        return filter.length == 0 || pr_partno.toLowerCase().indexOf(filter) > -1
-                    }
-                }
             });
         }];
 
