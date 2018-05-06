@@ -243,18 +243,6 @@ module.exports = (function (angular) {
                     col.width = $scope.columns[i].width;
                     s.columns.push(col);
                 }
-                /*
-                setTimeout(() => {
-                    var flex = $scope.ggGrid;
-                    var filter = new wijmo.grid.filter.FlexGridFilter(flex);
-                    filter.defaultFilterType = wijmo.grid.filter.FilterType.None;
-                    var columns = flex.columns;
-                    angular.forEach(columns, function (value, key) {
-                        var col = flex.columns.getColumn(value.binding),
-                            cf = filter.getColumnFilter(key);
-                        cf.filterType = value.filterType;
-                    });
-                }, 3000);*/
             };
 
 
@@ -352,6 +340,18 @@ module.exports = (function (angular) {
                                 if (angular.isArray(promise.data)) {
                                     // expose data as a CollectionView to get events
                                     $scope.data = new wijmo.collections.CollectionView(promise.data);
+                                    /*
+                                    setTimeout(() => {
+                                        var flex = $scope.ggGrid;
+                                        var filter = new wijmo.grid.filter.FlexGridFilter(flex);
+                                        filter.defaultFilterType = wijmo.grid.filter.FilterType.None;
+                                        var columns = flex.columns;
+                                        angular.forEach(columns, function (value, key) {
+                                            var col = flex.columns.getColumn(value.binding),
+                                                cf = filter.getColumnFilter(key);
+                                            cf.filterType = value.filterType;
+                                        });
+                                    }, 1500);*/
                                 }
                             });
                         }, 1500);
