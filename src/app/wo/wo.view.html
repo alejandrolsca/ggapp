@@ -4,27 +4,33 @@
     <div ng-click="shippingList()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Lista de Embarque</div> 
     <div ng-click="exportationInvoice()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Factura de Exportación</div><br/><br/>
     <form class="row" role="form" name="ggform" novalidate>
-      <div class="form-group col-sm-3">
+    <div class="form-group col-sm-2">
+            <label class="control-label">No. Orden <span class="glyphicon glyphicon-search" aria-hidden="true" ng-show="required"></span></label>
+            <div class="">
+                <input id="wo_id" ng-model="wo_id" class="form-control red-tooltip" type="text" name="wo_id"/>
+            </div>
+        </div>
+      <div class="form-group col-sm-2">
           <label class="control-label">Zona <span class="glyphicon glyphicon-search" aria-hidden="true" ng-show="required"></span></label>
           <div class="">
               <input id="zo_zone" ng-model="zo_zone" class="form-control red-tooltip" type="text" name="zo_zone"/>
           </div>
       </div>
-      <div class="form-group col-sm-3">
+      <div class="form-group col-sm-2">
           <label class="control-label">Release <span class="glyphicon glyphicon-search" aria-hidden="true" ng-show="required"></span></label>
           <div class="">
               <input id="wo_release" ng-model="wo_release" class="form-control red-tooltip" type="text" name="wo_release"/>
           </div>
       </div>
-      <div class="form-group col-sm-3">
-            <label class="control-label">Part No. <span class="glyphicon glyphicon-search" aria-hidden="true" ng-show="required"></span></label>
+      <div class="form-group col-sm-2">
+            <label class="control-label">Producto <span class="glyphicon glyphicon-search" aria-hidden="true" ng-show="required"></span></label>
             <div class="">
-                <input id="pr_partno" ng-model="pr_partno" class="form-control red-tooltip" type="text" name="pr_partno"/>
+                <input id="pr_name" ng-model="pr_name" class="form-control red-tooltip" type="text" name="pr_name"/>
             </div>
       </div>
       <gg-select err-class="error"
             lbl="{{'Mostrar' | i18n}}" 
-            form-group-class="col-sm-3" 
+            form-group-class="col-sm-2" 
             options="wo_dateoptions" 
             ng-model="wo_date"
             regexp="singlespaces"
