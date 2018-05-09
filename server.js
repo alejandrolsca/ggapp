@@ -1693,7 +1693,7 @@ if (cluster.isMaster) {
 
     /* PRINT RUNS */
 
-    app.post('/api/printruns', function (req, res, next) {
+    app.post('/api/printrunsbyuser', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
             // we don't need to dispose of the client (it will be undefined)
@@ -1703,8 +1703,8 @@ if (cluster.isMaster) {
                 const timezone = req.body.timezone || defaultTimezone
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
-                const query = file('printruns/printruns')
-                const parameters = []
+                const query = file('printrunsbyuser/printrunsbyuser')
+                const parameters = [req.body.fromDate, req.body.toDate]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {

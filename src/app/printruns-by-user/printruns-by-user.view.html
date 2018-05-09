@@ -1,0 +1,21 @@
+<div class="col-sm-12">
+    <h3>{{'printruns.title' | i18n}}</h3>
+    <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<div class="col-sm-12">
+    <p>Fecha:</p>
+    <div id="fromDate"></div> a 
+    <div id="toDate"></div><br><br>
+    <wj-flex-grid 
+      control="ggGrid" 
+      items-source="data" 
+      auto-generate-columns="false" 
+      initialized="initGrid(s,e)" 
+      item-formatter="itemFormatter"
+      allow-sorting="true" 
+      show-sort="true" 
+      style="height:390px;">
+      <wj-flex-grid-filter></wj-flex-grid-filter>
+    </wj-flex-grid>
+</div>

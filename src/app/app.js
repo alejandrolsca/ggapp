@@ -30,6 +30,7 @@ module.exports = (function (angular) {
         require('./exportation-invoice').name,
         require('./shipping-list').name,
         require('./printruns').name,
+        require('./printruns-by-user').name,
         require('./package-labels').name
     ])
 

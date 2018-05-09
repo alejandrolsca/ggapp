@@ -202,6 +202,10 @@ module.exports = {
                 ****************************************/
                 "printruns": require('./printruns/lang.es-MX'),
                 /****************************************
+                PRINT RUNS BY USER
+                ****************************************/
+               "printruns-by-user": require('./printruns-by-user/lang.es-MX'),
+                /****************************************
                 PACKAGE LABELS
                 ****************************************/
                "package-labels": require('./package-labels/lang.es-MX'),
