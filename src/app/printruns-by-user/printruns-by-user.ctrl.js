@@ -116,7 +116,7 @@ module.exports = (function (angular) {
                             var cv = $scope.data;
                             cv.groupDescriptions.clear(); // clear current groups
                             var groupDesc = new wijmo.collections.PropertyGroupDescription('wo_updatedby', function (item, prop) {
-                                ++item.print_runs //convert string to number
+                                item.print_runs = +item.print_runs //convert string to number
                                 return item.wo_updatedby
                             });
                             cv.groupDescriptions.push(groupDesc);
