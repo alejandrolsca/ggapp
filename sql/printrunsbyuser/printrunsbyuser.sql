@@ -27,7 +27,7 @@ select
 		end 
 	) print_runs,
 	wo_status,
-	wo_date
+	wohi.wohi_date
 from (
 	select
 		wo_id,
@@ -139,22 +139,35 @@ from (
 ) printruns
 join machine ma
 on printruns.ma_id = ma.ma_id
-join (select 
-			wo_id,
-			njb.wo_updatedby
-		from wohistory, 
-		jsonb_to_record(wohi_newjsonb) as njb (
-			wo_status int,
-			wo_updatedby text
-		),
-		jsonb_to_record(wohi_prevjsonb) as pjb (
-			wo_status int,
-			wo_updatedby text
+join (
+	select 
+		wohi.wo_id,
+		njb.wo_updatedby,
+		delivered.wohi_date
+	from wohistory wohi, 
+	jsonb_to_record(wohi_newjsonb) as njb (
+		wo_status int,
+		wo_updatedby text
+	),
+	jsonb_to_record(wohi_prevjsonb) as pjb (
+		wo_status int,
+		wo_updatedby text
+	),(
+		select 
+			distinct(wo_id),
+			max(wohi_date) as wohi_date
+		from wohistory, jsonb_to_record(wohi_newjsonb) as njb (
+			wo_status int
 		)
-		where 
-		pjb.wo_status = 3 and
-		njb.wo_status in (5,7)
+		where wohi_newjsonb ? 'wo_deliverydate'
+		group by wo_id
+		order by wo_id desc
+	) delivered
+	where 
+	pjb.wo_status = 3 and
+	njb.wo_status in (5,7) and
+	delivered.wo_id = wohi.wo_id
 ) wohi
 on printruns.wo_id = wohi.wo_id
-where wo_date between $1 and $2
+where wohi.wohi_date between $1 and $2
 order by wo_updatedby, wo_id desc

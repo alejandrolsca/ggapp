@@ -8,7 +8,7 @@ module.exports = {
         "ma-name": "Maquina",
         "wo-status": "Estatus",
         "print-runs": "Tirajes",
-        "wo-date": "Fecha",
+        "wohi-date": "Entregado",
     },
     "columns": [
         { "binding": "wo_updatedby", "type": "Number", "width": 120, "html": false, "format": "string", "aggregate": "None" },
@@ -18,7 +18,7 @@ module.exports = {
         { "binding": "ma_name", "type": "String", "width": 200, "html": false, "format": "string", "aggregate": "None" },
         { "binding": "wo_status", "type": "String", "width": 120, "html": false, "format": "string", "aggregate": "None" },
         { "binding": "print_runs", "type": "Number", "width": 100, "html": false, "format": "n2", "aggregate": "Sum" },
-        { "binding": "wo_date", "type": "Date", "width": 150, "html": false, "format": "string", "aggregate": "None" }
+        { "binding": "wohi_date", "type": "Date", "width": 200, "html": false, "format": "string", "aggregate": "None" }
     ],
     "fields": {
     }
