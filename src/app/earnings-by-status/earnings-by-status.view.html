@@ -1,5 +1,5 @@
 <div class="col-sm-12">
-    <h3>{{'printruns.title' | i18n}}</h3>
+    <h3>{{'earnings-by-status.title' | i18n}}</h3>
     <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
     <span ng-if="loading">Cargando...</span>
 </div>
@@ -13,6 +13,16 @@
             <label class=" control-label">A <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
             <div class=""><div class="datepicker form-control" id="toDate"></div></div>
         </div>
+        <gg-select err-class="error"
+            lbl="{{'earnings-by-status.labels.wo-currency' | i18n}}" 
+            form-group-class="col-sm-2" 
+            options="wo_currencyoptions" 
+            ng-model="wo_currency"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+        </gg-select>
     </div>
     <wj-flex-grid 
       control="ggGrid" 
@@ -24,5 +34,6 @@
       show-sort="true" 
       style="height:390px;">
       <wj-flex-grid-filter></wj-flex-grid-filter>
+      <wj-flex-grid-column binding="total" name="total" header="{{'earnings-by-status.labels.total' | i18n}}" data-type="Number" format="n2" align="right" is-read-only="true"></wj-flex-grid-column>
     </wj-flex-grid>
 </div>

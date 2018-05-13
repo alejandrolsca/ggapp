@@ -205,6 +205,10 @@ module.exports = {
                 PRINT RUNS BY USER
                 ****************************************/
                "printruns-by-user": require('./printruns-by-user/lang.es-MX'),
+               /****************************************
+                EARNINGS BY STATUS
+                ****************************************/
+               "earnings-by-status": require('./earnings-by-status/lang.es-MX'),
                 /****************************************
                 PACKAGE LABELS
                 ****************************************/
