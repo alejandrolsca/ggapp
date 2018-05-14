@@ -19,10 +19,10 @@ module.exports = (function (angular) {
             }
 
             const getData = () => {
-                console.log(moment($scope.fromDate.value).startOf('month').format('YYYY-MM-DD'))
-                console.log(moment($scope.toDate.value).endOf('month').format('YYYY-MM-DD'))
-                const fromDate = moment($scope.fromDate.value).startOf('month').format('YYYY-MM-DD')
-                const toDate = moment($scope.toDate.value).endOf('month').format('YYYY-MM-DD')
+                console.log(moment($scope.fromDate.value).format('YYYY-MM-DD'))
+                console.log(moment($scope.toDate.value).format('YYYY-MM-DD'))
+                const fromDate = moment($scope.fromDate.value).format('YYYY-MM-DD')
+                const toDate = moment($scope.toDate.value).format('YYYY-MM-DD')
                 $scope.loading = true;
                 homeFac.getDelivered(fromDate, toDate).then((promise) => {
                     $scope.loading = false;
