@@ -3,11 +3,14 @@ module.exports = (function (angular) {
 
     return ['$http', '$q',  function ($http, $q) {
         var factory = {};
-        factory.getLogin = function (user) {
+        factory.getDelivered = function (fromDate, toDate) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('modules/home/homeModel.php', {
+                $http.post('/api/dashboard/deliveredwo', {
                     /* POST variables here */
+                    procces_id: new Date().getMilliseconds(),
+                    fromDate: fromDate,
+                    toDate: toDate
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
