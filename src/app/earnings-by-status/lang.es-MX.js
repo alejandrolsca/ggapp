@@ -26,7 +26,7 @@ module.exports = {
         "wo-currency": "moneda"
     },
     "columns": [
-        { "binding": "cl_corporatename", "type": "String", "width": 120, "html": false, "format": "string", "aggregate": "None" },           
+        { "binding": "cl_corporatename", "type": "String", "width": 300, "html": false, "format": "string", "aggregate": "None" },           
         { "binding": "0", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "1", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "2", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },

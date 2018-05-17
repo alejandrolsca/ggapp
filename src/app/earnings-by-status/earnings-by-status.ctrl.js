@@ -54,7 +54,7 @@ module.exports = (function (angular) {
 
                     if (col.binding === 'total') {
                         let total = 0
-                        for (let i = 0; i <= 18; i++) {
+                        for (let i = 0; i <= 17; i++) {
                             total += +row.dataItem[i];
                         }
                         cell.innerHTML = wijmo.Globalize.format(total, 'n02');
