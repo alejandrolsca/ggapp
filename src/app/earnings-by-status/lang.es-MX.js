@@ -39,6 +39,7 @@ module.exports = {
         { "binding": "8", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "9", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "10", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
+        { "binding": "11", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "12", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "13", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "14", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
