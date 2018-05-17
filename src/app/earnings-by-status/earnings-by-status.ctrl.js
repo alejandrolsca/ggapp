@@ -55,24 +55,24 @@ module.exports = (function (angular) {
                     if (col.binding === 'total') {
                         let total = 0
                         
-                        total += +row.dataItem['0'];
-                        total += +row.dataItem['1'];
-                        total += +row.dataItem['2'];
-                        total += +row.dataItem['3'];
-                        total += +row.dataItem['4'];
-                        total += +row.dataItem['5'];
-                        total += +row.dataItem['6'];
-                        total += +row.dataItem['7'];
-                        total += +row.dataItem['8'];
-                        total += +row.dataItem['9'];
-                        total += +row.dataItem['10'];
-                        total += +row.dataItem['11'];
-                        total += +row.dataItem['12'];
-                        total += +row.dataItem['13'];
-                        total += +row.dataItem['14'];
-                        total += +row.dataItem['15'];
-                        total += +row.dataItem['16'];
-                        total += +row.dataItem['17'];
+                        total += parseFloat(row.dataItem['0']);
+                        total += parseFloat(row.dataItem['1']);
+                        total += parseFloat(row.dataItem['2']);
+                        total += parseFloat(row.dataItem['3']);
+                        total += parseFloat(row.dataItem['4']);
+                        total += parseFloat(row.dataItem['5']);
+                        total += parseFloat(row.dataItem['6']);
+                        total += parseFloat(row.dataItem['7']);
+                        total += parseFloat(row.dataItem['8']);
+                        total += parseFloat(row.dataItem['9']);
+                        total += parseFloat(row.dataItem['10']);
+                        total += parseFloat(row.dataItem['11']);
+                        total += parseFloat(row.dataItem['12']);
+                        total += parseFloat(row.dataItem['13']);
+                        total += parseFloat(row.dataItem['14']);
+                        total += parseFloat(row.dataItem['15']);
+                        total += parseFloat(row.dataItem['16']);
+                        total += parseFloat(row.dataItem['17']);
 
                         cell.innerHTML = wijmo.Globalize.format(total, 'n02');
                         row.dataItem.total = total;
@@ -136,25 +136,25 @@ module.exports = (function (angular) {
                             cv.groupDescriptions.clear(); // clear current groups
                             var groupDesc = new wijmo.collections.PropertyGroupDescription('cl_corporatename', function (item, prop) {
                                 //convert string to number
-                                item['0'] = +item['0']
-                                item['1'] = +item['1']
-                                item['2'] = +item['2']
-                                item['3'] = +item['3']
-                                item['4'] = +item['4']
-                                item['5'] = +item['5']
-                                item['6'] = +item['6']
-                                item['7'] = +item['7']
-                                item['8'] = +item['8']
-                                item['9'] = +item['9']
-                                item['10'] = +item['10']
-                                item['11'] = +item['11']
-                                item['12'] = +item['12']
-                                item['13'] = +item['13']
-                                item['14'] = +item['14']
-                                item['15'] = +item['15']
-                                item['16'] = +item['16']
-                                item['17'] = +item['17']
-                                item['18'] = +item['18']
+                                item['0'] = parseFloat(item['0'])
+                                item['1'] = parseFloat(item['1'])
+                                item['2'] = parseFloat(item['2'])
+                                item['3'] = parseFloat(item['3'])
+                                item['4'] = parseFloat(item['4'])
+                                item['5'] = parseFloat(item['5'])
+                                item['6'] = parseFloat(item['6'])
+                                item['7'] = parseFloat(item['7'])
+                                item['8'] = parseFloat(item['8'])
+                                item['9'] = parseFloat(item['9'])
+                                item['10'] = parseFloat(item['10'])
+                                item['11'] = parseFloat(item['11'])
+                                item['12'] = parseFloat(item['12'])
+                                item['13'] = parseFloat(item['13'])
+                                item['14'] = parseFloat(item['14'])
+                                item['15'] = parseFloat(item['15'])
+                                item['16'] = parseFloat(item['16'])
+                                item['17'] = parseFloat(item['17'])
+                                item['18'] = parseFloat(item['18'])
                                 return item.wo_updatedby
                             });
                             cv.groupDescriptions.push(groupDesc);
