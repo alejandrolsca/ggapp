@@ -73,6 +73,7 @@ module.exports = (function (angular) {
                         total += Number(row.dataItem['15']);
                         total += Number(row.dataItem['16']);
                         total += Number(row.dataItem['17']);
+                        console.log(total)
 
                         cell.innerHTML = wijmo.Globalize.format(total, 'n02');
                         row.dataItem.total = total;
