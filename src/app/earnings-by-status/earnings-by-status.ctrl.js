@@ -54,9 +54,26 @@ module.exports = (function (angular) {
 
                     if (col.binding === 'total') {
                         let total = 0
-                        for (let i = 0; i <= 17; i++) {
-                            total += +row.dataItem[i];
-                        }
+                        
+                        total += +row.dataItem['0'];
+                        total += +row.dataItem['1'];
+                        total += +row.dataItem['2'];
+                        total += +row.dataItem['3'];
+                        total += +row.dataItem['4'];
+                        total += +row.dataItem['5'];
+                        total += +row.dataItem['6'];
+                        total += +row.dataItem['7'];
+                        total += +row.dataItem['8'];
+                        total += +row.dataItem['9'];
+                        total += +row.dataItem['10'];
+                        total += +row.dataItem['11'];
+                        total += +row.dataItem['12'];
+                        total += +row.dataItem['13'];
+                        total += +row.dataItem['14'];
+                        total += +row.dataItem['15'];
+                        total += +row.dataItem['16'];
+                        total += +row.dataItem['17'];
+
                         cell.innerHTML = wijmo.Globalize.format(total, 'n02');
                         row.dataItem.total = total;
                     }
