@@ -38,7 +38,7 @@ module.exports = (function (angular) {
                     col.width = $scope.columns[i].width;
                     s.columns.push(col);
                 }
-                s.columns.moveElement(0, 1)
+                //s.columns.moveElement(0, 1)
             };
 
             $scope.itemFormatter = function (panel, r, c, cell) {
@@ -51,33 +51,6 @@ module.exports = (function (angular) {
                     cell.style.backgroundColor = '';
                     cell.style.color = '';
                     // end fix
-
-                    if (col.binding === 'total') {
-                        let total = 0
-                        
-                        total += Number(row.dataItem['0']);
-                        total += Number(row.dataItem['1']);
-                        total += Number(row.dataItem['2']);
-                        total += Number(row.dataItem['3']);
-                        total += Number(row.dataItem['4']);
-                        total += Number(row.dataItem['5']);
-                        total += Number(row.dataItem['6']);
-                        total += Number(row.dataItem['7']);
-                        total += Number(row.dataItem['8']);
-                        total += Number(row.dataItem['9']);
-                        total += Number(row.dataItem['10']);
-                        total += Number(row.dataItem['11']);
-                        total += Number(row.dataItem['12']);
-                        total += Number(row.dataItem['13']);
-                        total += Number(row.dataItem['14']);
-                        total += Number(row.dataItem['15']);
-                        total += Number(row.dataItem['16']);
-                        total += Number(row.dataItem['17']);
-                        console.log(total)
-
-                        cell.innerHTML = wijmo.Globalize.format(total, 'n02');
-                        row.dataItem.total = total;
-                    }
                 }
             }
 
@@ -137,6 +110,7 @@ module.exports = (function (angular) {
                             cv.groupDescriptions.clear(); // clear current groups
                             var groupDesc = new wijmo.collections.PropertyGroupDescription('cl_corporatename', function (item, prop) {
                                 //convert string to number
+                                item['total'] = Number(item['total'])
                                 item['0'] = Number(item['0'])
                                 item['1'] = Number(item['1'])
                                 item['2'] = Number(item['2'])

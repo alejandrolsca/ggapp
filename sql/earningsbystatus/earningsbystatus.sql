@@ -1,4 +1,24 @@
-SELECT *
+SELECT *,
+(
+coalesce("0",0) + 
+coalesce("1",0) +
+coalesce("2",0) + 
+coalesce("3",0) + 
+coalesce("4",0) + 
+coalesce("5",0) + 
+coalesce("6",0) + 
+coalesce("7",0) + 
+coalesce("8",0) + 
+coalesce("9",0) + 
+coalesce("10",0) + 
+coalesce("11",0) + 
+coalesce("12",0) + 
+coalesce("13",0) + 
+coalesce("14",0) + 
+coalesce("15",0) + 
+coalesce("16",0) +
+coalesce("17",0)    
+) as total
 FROM crosstab($$
 	select
 		case
