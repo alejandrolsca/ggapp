@@ -35,6 +35,22 @@ module.exports = (function (angular) {
 
                 })
             }
+            $scope.gauges = {}
+            $scope.getText = function (gauge, part, value, text) {
+                switch (part) {
+                  case 'value':
+                  if (value === 0) return 'Deficiente';
+                  if (value <= (gauge.max/3)) return 'Bajo...';
+                  if (value <= (gauge.max/3)*2) return 'Bien';
+                  if (value < gauge.max) return 'Muy bien!';
+                  if (value === gauge.max) return 'Excelente!';
+                  case 'min':
+                    return `Deficiente`;
+                  case 'max':
+                    return `Excelente!`;
+                }
+                return text;
+              }
 
             $scope.$on('$viewContentLoaded', function () {
                 // create InputDate control

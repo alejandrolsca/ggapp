@@ -1,6 +1,7 @@
 <div class="homeView">
     <div class="col-sm-12">
         <h3>Dashboard</h3>
+        <h5>Filtrar por fecha compromiso</h5>        
         <div class="row">
             <div class="form-group col-sm-2">
                 <label class=" control-label">de <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
@@ -13,9 +14,12 @@
         </div>
     </div>
     <div class="col-sm-12">
-        <div ng-repeat="row in data track by row.pr_process" class="col-sm-3">
-                <h3>{{row.pr_process}}</h3>
-                <wj-radial-gauge       
+        <div ng-repeat="row in data track by row.pr_process" class="col-sm-3 widget">
+                <div class="tile">
+                <h3>{{ row.pr_process| uppercase }}</h3>
+                <center><h2 ng-class="{'bad': row.percentage <= 33.33, 'good': row.percentage > 33.33 && row.percentage <= 66.66, 'very-good': row.percentage > 66.66 && row.percentage <= 99.99, 'excellent': row.percentage == 100.00 }">{{ row.percentage }}%</h2></center>
+                <wj-radial-gauge
+                    id="{{row.pr_process}}"       
                     auto-scale="true"
                     value="row.delivered"
                     min="{{0}}"
@@ -27,13 +31,15 @@
                     sweep-angle="180"
                     is-animated="true"
                     has-shadow="true"
+                    get-text="getText"
                     >
                     <wj-range wj-property="pointer" thickness="0.5"></wj-range>
                     <wj-range min="0" max="{{(row.total/3)}}" color="rgba(255,100,100,.5)"></wj-range>
                     <wj-range min="{{(row.total/3)}}" max="{{(row.total/3)*2}}" color="rgba(255,255,100,.5)"></wj-range>
                     <wj-range min="{{(row.total/3)*2}}" max="{{row.total}}" color="rgba(100,255,100,.5)"></wj-range>
                 </wj-radial-gauge>
-            
+                <center><h4>Ordenes entregadas: {{row.delivered}} de {{row.total}}</h4></center>
+            </div>
         </div>
     </div>
 </div>
