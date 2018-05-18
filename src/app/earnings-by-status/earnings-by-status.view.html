@@ -1,0 +1,48 @@
+<div class="col-sm-12">
+    <h3>{{'earnings-by-status.title' | i18n}}</h3>
+    <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<div class="col-sm-12">
+    <div class="row">
+        <gg-select err-class="error"
+            lbl="{{'earnings-by-status.labels.target-date' | i18n}}" 
+            form-group-class="col-sm-2" 
+            options="target_dateoptions" 
+            ng-model="target_date"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+        </gg-select>
+        <div class="form-group col-sm-2">
+            <label class=" control-label">de <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
+            <div class=""><div class="datepicker form-control" id="fromDate"></div></div>
+        </div>
+        <div class="form-group col-sm-2">
+            <label class=" control-label">A <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
+            <div class=""><div class="datepicker form-control" id="toDate"></div></div>
+        </div>
+        <gg-select err-class="error"
+            lbl="{{'earnings-by-status.labels.wo-currency' | i18n}}" 
+            form-group-class="col-sm-2" 
+            options="wo_currencyoptions" 
+            ng-model="wo_currency"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+        </gg-select>
+    </div>
+    <wj-flex-grid 
+      control="ggGrid" 
+      items-source="data" 
+      auto-generate-columns="false" 
+      initialized="initGrid(s,e)" 
+      item-formatter="itemFormatter"
+      allow-sorting="true" 
+      show-sort="true" 
+      style="height:390px;">
+      <wj-flex-grid-filter></wj-flex-grid-filter>
+    </wj-flex-grid>
+</div>

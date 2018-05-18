@@ -30,7 +30,9 @@ module.exports = (function (angular) {
         require('./exportation-invoice').name,
         require('./shipping-list').name,
         require('./printruns').name,
-        require('./package-labels').name
+        require('./printruns-by-user').name,
+        require('./package-labels').name,
+        require('./earnings-by-status').name
     ])
 
         .service('authService', ['$rootScope', '$state', 'angularAuth0', '$timeout', '$http',

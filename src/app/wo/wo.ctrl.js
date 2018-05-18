@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woFactory', '$location', 'i18nFilter', '$state', '$stateParams',
-        function ($scope, woFactory, $location, i18nFilter, $state, $stateParams) {
+    return ['$scope', 'woFactory', '$location', 'i18nFilter', '$state', '$stateParams', '$timeout',
+        function ($scope, woFactory, $location, i18nFilter, $state, $stateParams, $timeout) {
 
             $scope.labels = Object.keys(i18nFilter("wo.labels"));
             $scope.columns = i18nFilter("wo.columns");
@@ -46,7 +46,7 @@ module.exports = (function (angular) {
                     if (flex.getCellData(i, flex.columns.getColumn('shipment').index) === true) wo_id.push(+flex.getCellData(i, flex.columns.getColumn('wo_id').index));
                 }
                 const selected = (wo_id.length > 0) ? true : false;
-                if(selected){
+                if (selected) {
                     $state.go('shippingListAdd', {
                         cl_id: $stateParams.cl_id,
                         wo_id: wo_id.join(',')
@@ -54,7 +54,7 @@ module.exports = (function (angular) {
                 } else {
                     alert('Debe seleccionar por lo menos una orden.')
                 }
-                
+
             };
 
             // generate exportationInvoice
@@ -65,7 +65,7 @@ module.exports = (function (angular) {
                     if (flex.getCellData(i, flex.columns.getColumn('invoice').index) === true) wo_id.push(+flex.getCellData(i, flex.columns.getColumn('wo_id').index));
                 }
                 const selected = (wo_id.length > 0) ? true : false;
-                if(selected){
+                if (selected) {
                     $state.go('exportationInvoiceAdd', {
                         cl_id: $stateParams.cl_id,
                         wo_id: wo_id.join(',')
@@ -73,7 +73,7 @@ module.exports = (function (angular) {
                 } else {
                     alert('Debe seleccionar por lo menos una orden.')
                 }
-                
+
             };
 
             $scope.itemFormatter = function (panel, r, c, cell) {
@@ -237,19 +237,14 @@ module.exports = (function (angular) {
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
                     col.isReadOnly = $scope.columns[i].isReadOnly;
+                    col.filterType = $scope.columns[i].filterType;
                     col.header = i18nFilter("wo.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.wordWrap = false;
                     col.width = $scope.columns[i].width;
                     s.columns.push(col);
                 }
             };
-            $scope.compact = () => {
-                const flex = $scope.ggGrid
-                flex.columns.map((value, index, data)=>{
-                    console.log(value)
-                    value.visible = true
-                })
-            }
+
 
             // create the tooltip object
             $scope.$watch('ggGrid', function () {
@@ -310,20 +305,57 @@ module.exports = (function (angular) {
 
             };
 
+            $scope.wo_dateoptions = i18nFilter("wo.fields.wo_dateoptions");
+            $scope.wo_date = '1 month'
+
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
 
-                $scope.loading = true;
+                let currentSearch,
+                    lastSearch,
+                    filterTextTimeout;
+                $scope.$watchGroup(['wo_id','zo_zone', 'wo_release', 'pr_name', 'wo_date'], function (newValues, oldValues, scope) {
+                    let [wo_id, zo_zone, wo_release, pr_name, wo_date] = newValues
+                    console.log(wo_id, zo_zone, wo_release, pr_name, wo_date)
+                    wo_id = wo_id || ''
+                    zo_zone = zo_zone || ''
+                    wo_release = wo_release || ''
+                    pr_name = pr_name || ''
+                    wo_date = wo_date || '1 month'
 
-                woFactory.getData().then(function (promise) {
+                    currentSearch = wo_id.toLowerCase() + zo_zone.toLowerCase() + wo_release.toLowerCase() + pr_name.toLowerCase() + wo_date.toLowerCase()
 
-                    $scope.loading = false;
+                    const sameSearch = (currentSearch === lastSearch)
 
-                    if (angular.isArray(promise.data)) {
+                    if (filterTextTimeout) {
+                        $scope.loading = false;
+                        $timeout.cancel(filterTextTimeout);
+                    }
 
-                        // expose data as a CollectionView to get events
-                        $scope.data = new wijmo.collections.CollectionView(promise.data);
-
+                    if (!sameSearch) {
+                        $scope.loading = true;
+                        filterTextTimeout = $timeout(function () {
+                            woFactory.getData(wo_id, zo_zone, wo_release, pr_name, wo_date).then(function (promise) {
+                                $scope.loading = false;
+                                lastSearch = wo_id.toLowerCase() + zo_zone.toLowerCase() + wo_release.toLowerCase() + pr_name.toLowerCase() + wo_date.toLowerCase()
+                                if (angular.isArray(promise.data)) {
+                                    // expose data as a CollectionView to get events
+                                    $scope.data = new wijmo.collections.CollectionView(promise.data);
+                                    /*
+                                    setTimeout(() => {
+                                        var flex = $scope.ggGrid;
+                                        var filter = new wijmo.grid.filter.FlexGridFilter(flex);
+                                        filter.defaultFilterType = wijmo.grid.filter.FilterType.None;
+                                        var columns = flex.columns;
+                                        angular.forEach(columns, function (value, key) {
+                                            var col = flex.columns.getColumn(value.binding),
+                                                cf = filter.getColumnFilter(key);
+                                            cf.filterType = value.filterType;
+                                        });
+                                    }, 1500);*/
+                                }
+                            });
+                        }, 1500);
                     }
                 });
             });
