@@ -5,6 +5,16 @@
 </div>
 <div class="col-sm-12">
     <div class="row">
+        <gg-select err-class="error"
+            lbl="{{'earnings-by-status.labels.target-date' | i18n}}" 
+            form-group-class="col-sm-2" 
+            options="target_dateoptions" 
+            ng-model="target_date"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+        </gg-select>
         <div class="form-group col-sm-2">
             <label class=" control-label">de <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
             <div class=""><div class="datepicker form-control" id="fromDate"></div></div>

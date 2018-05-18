@@ -94,13 +94,21 @@ module.exports = (function (angular) {
             });
 
             const getData = () => {
-                console.log(moment($scope.fromDate.value).tz('UTC').format())
-                console.log(moment($scope.toDate.value).endOf('day').tz('UTC').format())
-                const fromDate = moment($scope.fromDate.value).tz('UTC').format()
-                const toDate = moment($scope.toDate.value).endOf('day').tz('UTC').format()
+                const target_date = $scope.target_date
+                let fromDate
+                let toDate
+                if (target_date === 'wo_date') {
+                    fromDate = moment($scope.fromDate.value).tz('UTC').format()
+                    toDate = moment($scope.toDate.value).endOf('day').tz('UTC').format()
+                }
+                if (target_date === 'wo_commitmentdate') {
+                    fromDate = moment($scope.fromDate.value).format('YYYY-MM-DD')
+                    toDate = moment($scope.toDate.value).format('YYYY-MM-DD')
+                }
+                console.log(fromDate, toDate)
                 const wo_currency = $scope.wo_currency
                 $scope.loading = true;
-                earningsByStatusFac.data(wo_currency, fromDate, toDate).then(function (promise) {
+                earningsByStatusFac.data(target_date, wo_currency, fromDate, toDate).then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data)) {
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
@@ -138,8 +146,10 @@ module.exports = (function (angular) {
                 });
             }
 
+            $scope.target_date = 'wo_commitmentdate'
             $scope.wo_currency = 'DLLS'
             $scope.wo_currencyoptions = i18nFilter("earnings-by-status.fields.wo_currencyoptions");
+            $scope.target_dateoptions = i18nFilter("earnings-by-status.fields.target_dateoptions");
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded              
@@ -172,7 +182,7 @@ module.exports = (function (angular) {
                     getData()
                 }
 
-                $scope.$watch('wo_currency', function (newValue, oldValue) {
+                $scope.$watchGroup(['wo_currency', 'target_date'], function (newValues, oldValues, scope) {
                     console.log('entro')
                     getData()
                 })

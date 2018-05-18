@@ -23,7 +23,8 @@ module.exports = {
         "16": labels[16].label,
         "17": labels[17].label,
         "18": labels[18].label,
-        "wo-currency": "moneda"
+        "wo-currency": "moneda",
+        "target-date": "Fecha"
     },
     "columns": [
         { "binding": "cl_corporatename", "type": "String", "width": 300, "html": false, "format": "string", "aggregate": "None" },           
@@ -52,6 +53,10 @@ module.exports = {
         wo_currencyoptions: [
             { "label": "MXN", "value": "MXN" },
             { "label": "DLLS", "value": "DLLS" }
+        ],
+        target_dateoptions: [
+            { "label": "Creación", "value": "wo_date" },
+            { "label": "Compromiso", "value": "wo_commitmentdate" }
         ],
     }
 }

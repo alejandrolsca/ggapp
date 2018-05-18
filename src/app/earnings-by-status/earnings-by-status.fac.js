@@ -3,10 +3,10 @@ module.exports = (function (angular) {
 
     return ['$http', '$q',  function ($http, $q) {
         var factory = {};
-        factory.data = function (wo_currency, fromDate, toDate) {
+        factory.data = function (target_date, wo_currency, fromDate, toDate) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/earningsbystatus', {
+                $http.post(`/api/earningsbystatus/${target_date}`, {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds(),
                     wo_currency: wo_currency,

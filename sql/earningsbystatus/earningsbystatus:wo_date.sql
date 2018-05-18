@@ -36,8 +36,7 @@ FROM crosstab($$
 			wo_currency text,
 			wo_price decimal,
 			wo_qty int,
-			wo_status int,
-			wo_date timestamptz
+			wo_status int
 		)
 		join client cl
 		on wo_jsonb.cl_id = cl.cl_id
@@ -45,10 +44,8 @@ FROM crosstab($$
 		and wo.wo_date between '$$ || cast($2 as text) || $$' and '$$ || cast($3 as text) || $$'
 		group by 1,2,3
 		order by 1,2,3
-	--group by wo_jsonb.cl_id, wo_jsonb.wo_status
 $$,
 $$
-    --select distinct wo_jsonb->>'wo_status' from wo 
 	select status from generate_series(0,18) status
 $$)
 as ct(
