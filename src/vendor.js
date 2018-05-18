@@ -16,6 +16,7 @@ window.QRCode = require('../bower_components/qrcode/lib/qrcode.js');
 require('../bower_components/angular-qr/src/angular-qr.js');
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.js');
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.chart.js');
+require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.gauge.js');
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.grid.js');
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.grid.filter.js');
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.grid.sheet.js');

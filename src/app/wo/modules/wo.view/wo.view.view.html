@@ -3,14 +3,14 @@
 </div>
 <span ng-if="loading">Cargando...</span>
 <label class="col-sm-12 fieldset">
-{{'wo-view.labels.wo-id' | i18n}}: {{fmData.wo_id}}<br/>
-{{'wo-view.labels.wo-date' | i18n}}: {{fmData.wo_date}}<br/>
+{{'wo-view.labels.wo-id' | i18n}}: {{wo_id}}<br/>
+{{'wo-view.labels.wo-date' | i18n}}: {{wo_date}}<br/>
 <span ng-if="fmData.file1">
         <span ng-if="fmData.file1">
-                Archivo 1: <a href="/uploads/{{fmData.wo_id}}_file1.pdf" download="{{ fmData.file1 }}" target="_blank">Descargar</a> | <a href="/uploads/{{fmData.wo_id}}_file1.pdf" target="_blank">{{fmData.file1}}</a><br/>
+                Archivo 1: <a href="/uploads/{{wo_id}}_file1.pdf" download="{{ fmData.file1 }}" target="_blank">Descargar</a> | <a href="/uploads/{{wo_id}}_file1.pdf" target="_blank">{{fmData.file1}}</a><br/>
             </span>
             <span ng-if="fmData.file2">
-                Archivo 2: <a href="/uploads/{{fmData.wo_id}}_file2.pdf" download="{{ fmData.file2 }}" target="_blank">Descargar</a> | <a href="/uploads/{{fmData.wo_id}}_file2.pdf" target="_blank">{{fmData.file2}}</a><br/>
+                Archivo 2: <a href="/uploads/{{wo_id}}_file2.pdf" download="{{ fmData.file2 }}" target="_blank">Descargar</a> | <a href="/uploads/{{wo_id}}_file2.pdf" target="_blank">{{fmData.file2}}</a><br/>
             </span>
 </label>
 <form class="row col-sm-12" role="form" name="ggform" ng-submit="onSubmit();" novalidate>

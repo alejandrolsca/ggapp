@@ -1,4 +1,39 @@
 <div class="homeView">
     <div class="col-sm-12">
-    <h3>Welcome!</h3>
+        <h3>Dashboard</h3>
+        <div class="row">
+            <div class="form-group col-sm-2">
+                <label class=" control-label">de <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
+                <div class=""><div class="datepicker form-control" id="fromDate"></div></div>
+            </div>
+            <div class="form-group col-sm-2">
+                <label class=" control-label">A <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
+                <div class=""><div class="datepicker form-control" id="toDate"></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div ng-repeat="row in data track by row.pr_process" class="col-sm-3">
+                <h3>{{row.pr_process}}</h3>
+                <wj-radial-gauge       
+                    auto-scale="true"
+                    value="row.delivered"
+                    min="{{0}}"
+                    max="{{row.total}}"
+                    format="n"
+                    show-text="All"
+                    show-ranges="true"
+                    start-angle="0"
+                    sweep-angle="180"
+                    is-animated="true"
+                    has-shadow="true"
+                    >
+                    <wj-range wj-property="pointer" thickness="0.5"></wj-range>
+                    <wj-range min="0" max="{{(row.total/3)}}" color="rgba(255,100,100,.5)"></wj-range>
+                    <wj-range min="{{(row.total/3)}}" max="{{(row.total/3)*2}}" color="rgba(255,255,100,.5)"></wj-range>
+                    <wj-range min="{{(row.total/3)*2}}" max="{{row.total}}" color="rgba(100,255,100,.5)"></wj-range>
+                </wj-radial-gauge>
+            
+        </div>
+    </div>
 </div>

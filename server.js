@@ -778,7 +778,14 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('wo/wo:cl_id')
-                const parameters = [req.body.cl_id]
+                const parameters = [
+                    req.body.cl_id,
+                    req.body.zo_zone,
+                    req.body.wo_release,
+                    req.body.pr_name,
+                    req.body.wo_date,
+                    req.body.wo_id
+                ]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
@@ -1698,6 +1705,104 @@ if (cluster.isMaster) {
                 // execute query
                 const query = file('printruns/printruns')
                 const parameters = []
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/printrunsbyuser', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('printrunsbyuser/printrunsbyuser')
+                const parameters = [req.body.fromDate, req.body.toDate]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    /* EARNINGS BY STATUS */
+
+    app.post('/api/earningsbystatus/wo_date', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('earningsbystatus/earningsbystatus:wo_date')
+                console.log(req.body.wo_currency, req.body.fromDate, req.body.toDate)
+                const parameters = [req.body.wo_currency, req.body.fromDate, req.body.toDate]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/earningsbystatus/wo_commitmentdate', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('earningsbystatus/earningsbystatus:wo_commitmentdate')
+                console.log(req.body.wo_currency, req.body.fromDate, req.body.toDate)
+                const parameters = [req.body.wo_currency, req.body.fromDate, req.body.toDate]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    /* DASHBOARD */
+
+    app.post('/api/dashboard/deliveredwo', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('dashboard/dashboard:deliveredwo')
+                const parameters = [req.body.fromDate, req.body.toDate]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {

@@ -1,7 +1,40 @@
-select 
-    wo.*,
-    wo_jsonb ? 'wo_exportationinvoice' as wo_exportationinvoice,
-    wo_jsonb ? 'wo_shippinglist' as wo_shippinglist,
+ select 
+	wo.wo_id,
+	wo.cl_id,
+	wo.zo_id,
+	wo.wo_orderedby,
+	wo.wo_attention, 
+	wo.ma_id, 
+	wo.wo_release,
+	wo.wo_po, 
+	wo.wo_line,
+	wo.wo_linetotal,
+	wo.pr_id,
+	wo.wo_qty, 
+	wo.wo_packageqty, 
+	wo.wo_excedentqty, 
+	wo.wo_foliosperformat, 
+	wo.wo_foliosseries, 
+	wo.wo_foliosfrom, 
+	wo.wo_foliosto, 
+	wo.wo_type,
+	wo.wo_commitmentdate,
+	wo.wo_deliverydate, 
+	wo.wo_previousid, 
+	wo.wo_previousdate, 
+	wo.wo_notes, 
+	wo.wo_price, 
+	wo.wo_currency, 
+	wo.wo_email, 
+	wo.wo_status,
+	wo.wo_createdby, 
+	wo.wo_updatedby,
+	wo.wo_updated,
+	wo.file1,
+	wo.file2,
+	wo_exportationinvoice,
+	wo_shippinglist,
+	wo_date,
     case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
 			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
@@ -13,9 +46,11 @@ select
 	pr.pr_jsonb->>'pr_partno' as pr_partno,
     ma.ma_jsonb->>'ma_name' as ma_name,
 	zo.zo_jsonb->>'zo_zone' as zo_zone
-from  (
-	select 
-		*
+    from  (
+	select
+		wo_id,
+		wo_jsonb.*,
+		wo_date
 	from  wo,  
     jsonb_to_record(wo_jsonb) as wo_jsonb (
             cl_id int,
@@ -49,7 +84,9 @@ from  (
             wo_updatedby text,
             wo_updated text,
             file1 text,
-            file2 text
+            file2 text,
+			wo_exportationinvoice boolean,
+			wo_shippinglist boolean
     )
 ) wo
 left join client cl
@@ -60,6 +97,12 @@ left join zone zo
 on wo.zo_id = zo.zo_id
 left join machine ma
 on wo.ma_id = ma.ma_id
-where wo.cl_id = $1
-order by wo.wo_date desc
-limit 5000;
+where 
+	  wo.cl_id = $1 and
+	  wo.wo_date > (now()::date - $5::interval) and
+	  coalesce(zo.zo_jsonb->>'zo_zone','') ilike ('%' || $2 || '%') and
+      coalesce(wo.wo_release,'') ilike ('%' || $3 || '%') and
+      coalesce(pr.pr_jsonb->>'pr_name','') ilike ('%' || $4 || '%') and
+	  wo.wo_id::text ilike ('%' || $6 || '%')
+order by wo.wo_date desc;
+      
