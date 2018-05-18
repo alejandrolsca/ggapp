@@ -135,12 +135,27 @@ CLASSES
 .tile {
     flex-grow: 1;
     overflow: hidden;
-    padding: 6px;
+    padding: 0 2em 0 2em;
     border: 2px solid transparent;
     background: white;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     page-break-inside: avoid;
     transition: all 250ms;
+}
+.widget {
+    margin-bottom: 2em;
+}
+.bad {
+    color: red
+}
+.good {
+    color: yellow
+}
+.very-good {
+    color: green
+}
+.excellent {
+    color: #0d84c1
 }
 /*
 ********************************************
@@ -215,4 +230,8 @@ WIJMO
 .datepicker {
     padding: 0;
     border: 1px solid #455a64;
+}
+
+.wj-radialgauge .wj-value {
+    font-size: 100%;
 }
