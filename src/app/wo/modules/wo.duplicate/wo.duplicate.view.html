@@ -1,5 +1,6 @@
 <div class="col-sm-12">
     <h3>{{'wo-duplicate.title' | i18n}}</h3>
+    {{fmData | json}}
 </div>
 <span ng-if="loading">Cargando...</span>
 <label class="col-sm-12 fieldset">
@@ -239,15 +240,10 @@ is-required="true">
         regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
         req-msg="Required">
 </gg-textarea>
-<gg-input err-class="error"
-        lbl="{{'wo-duplicate.labels.wo-commitmentdate' | i18n}}" 
-        form-group-class="col-sm-6"
-        ng-model="fmData.wo_commitmentdate"
-        regexp="date"
-        regexp-msg="{{'general.regexp.date' | i18n}}"
-        req-msg="Required"
-        is-required="true">
-</gg-input>
+<div class="form-group col-sm-6">
+        <label class="control-label">{{'wo-duplicate.labels.wo-commitmentdate' | i18n}}<span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
+        <div class=""><div ng-required="true" class="datepicker form-control" id="wo_commitmentdate"></div></div>
+</div>
 <gg-input err-class="error"
         lbl="{{'wo-duplicate.labels.wo-price' | i18n}}" 
         form-group-class="col-sm-3"

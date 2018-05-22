@@ -38,6 +38,31 @@ module.exports = (function (angular) {
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
+
+                // create InputDate control
+                $scope.wo_commitmentdate = new wijmo.input.InputDate('#wo_commitmentdate', {
+                    format: 'yyyy-MM-dd',
+                    mask: '9999-99-99',
+                    isRequired: true
+                });
+
+                // wo_commitmentdate validator                
+                $scope.wo_commitmentdate.itemValidator = function (date) {
+                    return !moment(date).isBefore(moment(), 'day');
+                }
+
+                // wo_commitmentdate changed handler                
+                $scope.wo_commitmentdate.valueChanged.addHandler(wo_commitmentdateChanged)
+
+                // wo_commitmentdate default value
+                $scope.fmData.wo_commitmentdate = moment($scope.wo_commitmentdate.value).format('YYYY-MM-DD')
+
+                // wo_commitmentdate changed function
+                function wo_commitmentdateChanged(s, e) {
+                    $scope.fmData.wo_commitmentdate = moment(s.value).format('YYYY-MM-DD')
+                    $scope.$apply()
+                }
+
                 $scope.loading = true;
                 woAddFactory.getZone().then(function (promise) {
                     $scope.zo_idoptions = [];

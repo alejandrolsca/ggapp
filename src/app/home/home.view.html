@@ -4,11 +4,11 @@
         <h5>Filtrar por fecha compromiso</h5>        
         <div class="row">
             <div class="form-group col-sm-2">
-                <label class=" control-label">de <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
+                <label class="control-label">de <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
                 <div class=""><div class="datepicker form-control" id="fromDate"></div></div>
             </div>
             <div class="form-group col-sm-2">
-                <label class=" control-label">A <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
+                <label class="control-label">A <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
                 <div class=""><div class="datepicker form-control" id="toDate"></div></div>
             </div>
         </div>
@@ -38,7 +38,7 @@
                     <wj-range min="{{(row.total/3)}}" max="{{(row.total/3)*2}}" color="rgba(255,255,100,.5)"></wj-range>
                     <wj-range min="{{(row.total/3)*2}}" max="{{row.total}}" color="rgba(100,255,100,.5)"></wj-range>
                 </wj-radial-gauge>
-                <center><h4>Ordenes entregadas: {{row.delivered}} de {{row.total}}</h4></center>
+                <center><h4>Entregado: {{row.delivered}} de {{row.total}}</h4></center>
             </div>
         </div>
     </div>
