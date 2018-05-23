@@ -30,7 +30,7 @@
                     start-angle="0"
                     sweep-angle="180"
                     is-animated="true"
-                    has-shadow="true"
+                    has-shadow="false" 
                     get-text="getText"
                     >
                     <wj-range wj-property="pointer" thickness="0.5"></wj-range>
@@ -38,7 +38,7 @@
                     <wj-range min="{{(row.total/3)}}" max="{{(row.total/3)*2}}" color="rgba(255,255,100,.5)"></wj-range>
                     <wj-range min="{{(row.total/3)*2}}" max="{{row.total}}" color="rgba(100,255,100,.5)"></wj-range>
                 </wj-radial-gauge>
-                <center><h4>Entregado: {{row.delivered}} de {{row.total}}</h4></center>
+                <center><h6>Entregado:<br>{{row.delivered}} de {{row.total}}</h6></center>
             </div>
         </div>
     </div>

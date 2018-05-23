@@ -130,8 +130,9 @@ module.exports = (function (angular) {
 
                 // create InputDate control
                 $scope.fromDate = new wijmo.input.InputDate('#fromDate', {
-                    format: 'MM/dd/yyyy',
-                    value: new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'))
+                    format: 'yyyy-MM-dd',
+                    mask: '9999-99-99',
+                    value: new Date(moment().startOf('month'))
                 });
 
                 $scope.fromDate.valueChanged.addHandler(fromDateChanged)
@@ -139,8 +140,9 @@ module.exports = (function (angular) {
                 // create InputDate control
                 $scope.toDate = new wijmo.input.InputDate('#toDate', {
                     min: $scope.fromDate.value,
-                    format: 'MM/dd/yyyy',
-                    value: new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss'))
+                    format: 'yyyy-MM-dd',
+                    mask: '9999-99-99',
+                    value: new Date(moment().endOf('month'))
                 });
 
                 $scope.toDate.valueChanged.addHandler(toDateChanged)
