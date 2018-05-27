@@ -3,7 +3,8 @@ module.exports = (function(angular){
     
     return angular.module('app.shippingList',[
         require('./modules/shipping-list.add').name,
-        require('./modules/shipping-list.view').name
+        require('./modules/shipping-list.view').name,
+        require('./modules/shipping-list.invoice').name
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',
