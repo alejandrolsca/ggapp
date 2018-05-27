@@ -197,6 +197,7 @@ module.exports = {
                 ****************************************/
                "shippingList": require('./shipping-list/lang.es-MX'),
                "shippingList-add": require('./shipping-list/modules/shipping-list.add/lang.es-MX'),
+               "shippingList-invoice": require('./shipping-list/modules/shipping-list.invoice/lang.es-MX'),
                 /****************************************
                 PRINT RUNS
                 ****************************************/

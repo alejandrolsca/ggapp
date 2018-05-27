@@ -1,0 +1,21 @@
+<div class="col-sm-12">
+    <h3>{{'shippingList-invoice.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>   
+</div>
+
+<div class="col-sm-12">
+    <div ng-repeat="(label, release) in releases track by $index">
+            <div class="col-sm-12 fieldset">
+                <h4 ng-if="($index >= 0)">Factura {{ ($index+1) }} de {{ releaseLabels.length }}, Release: {{ releaseLabels[$index] }}</h4> 
+                <div class="btn btn-success btn-xs" ng-click="disableXLS || exportXLS(($index+1), releaseLabels.length, releaseLabels[$index])" ng-disabled="disableXLS"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
+            </div>
+            <wj-flex-grid 
+                id="{{ releaseLabels[$index] }}"
+                auto-generate-columns="false"
+                initialized="initGrid(s,e)"
+                items-source="release"
+                allow-sorting="false" 
+                style="height:195px;">
+            </wj-flex-grid>
+    </div>
+</div>

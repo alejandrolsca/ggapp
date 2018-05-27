@@ -7,7 +7,8 @@ module.exports = {
         "wo-id": "Ordenes",        
         "sl-cancelled": "Cancelada",
         "sl-createdby": "Creado por",
-        "sl-date": "Fecha"
+        "sl-date": "Fecha",
+        "release-invoice": "Facturar"
     },
     "columns": [
         // { "binding": "sl_id", "type": "Number" , "width": 60 , "isReadOnly": true},

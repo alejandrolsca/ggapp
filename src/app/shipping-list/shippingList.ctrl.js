@@ -23,11 +23,12 @@ module.exports = (function (angular) {
 
             }
 
-            $scope.open = function($item) {
-                $state.go('shippingListView', {
+            $scope.open = function(view, $item) {
+                $state.go(view, {
                     sl_id: $item.sl_id
                 })
             }
+
             $scope.cancelModal = function($item) {
                 $scope.shippingList = $item
                 $('#cancelModal').modal('show');
