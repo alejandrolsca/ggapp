@@ -69,6 +69,5 @@ jsonb_to_record(zo_jsonb) as zjb (
 		zo_country int
 )
 where wjb.cl_id = $1
-and wjb.wo_status between 13 and 17
 and wo_id = any(string_to_array($2,',')::integer[])
 order by 1 asc
