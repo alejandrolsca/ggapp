@@ -6,7 +6,10 @@
 <div class="col-sm-12">
     <div ng-repeat="(label, release) in releases track by $index">
             <div class="col-sm-12 fieldset">
-                <h4 ng-if="($index >= 0)">Factura {{ ($index+1) }} de {{ releaseLabels.length }}, Release: {{ releaseLabels[$index] }}</h4> 
+                <h6 ng-if="($index >= 0)">
+                    <strong>Factura:</strong> {{ ($index+1) }} de {{ releaseLabels.length }}<br>
+                    <strong>Release:</strong> {{ releaseLabels[$index] }}<br>
+                    <strong>Ordenes:</strong> {{ release.length }}</h6> 
                 <div class="btn btn-success btn-xs" ng-click="disableXLS || exportXLS(($index+1), releaseLabels.length, releaseLabels[$index])" ng-disabled="disableXLS"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
             </div>
             <wj-flex-grid 
