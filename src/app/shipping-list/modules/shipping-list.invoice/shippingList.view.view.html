@@ -6,11 +6,12 @@
 <div class="col-sm-12">
     <div ng-repeat="(label, release) in releases track by $index">
             <div class="col-sm-12 fieldset">
-                <h6 ng-if="($index >= 0)">
-                    <strong>Factura:</strong> {{ ($index+1) }} de {{ releaseLabels.length }}<br>
-                    <strong>Release:</strong> {{ releaseLabels[$index] }}<br>
-                    <strong>Ordenes:</strong> {{ release.length }}</h6> 
-                <div class="btn btn-success btn-xs" ng-click="disableXLS || exportXLS(($index+1), releaseLabels.length, releaseLabels[$index])" ng-disabled="disableXLS"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
+                <div class="btn btn-success btn-xs" ng-click="disableXLS || exportXLS(($index+1), releaseLabels.length, releaseLabels[$index])" ng-disabled="disableXLS"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div>
+                <span ng-if="($index >= 0)">
+                    <strong>Factura:</strong> {{ ($index+1) }} de {{ releaseLabels.length }}, 
+                    <strong>Release:</strong> {{ releaseLabels[$index] }}, 
+                    <strong>Ordenes:</strong> {{ release.length }}
+                </span><br/><br/>  
             </div>
             <wj-flex-grid 
                 id="{{ releaseLabels[$index] }}"
@@ -19,6 +20,6 @@
                 items-source="release"
                 allow-sorting="false" 
                 style="height:195px;">
-            </wj-flex-grid>
+            </wj-flex-grid><br/><br/>
     </div>
 </div>
