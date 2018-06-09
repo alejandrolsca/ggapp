@@ -8,7 +8,7 @@ module.exports = {
         "ma-name": "Maquina",
         "wo-status": "Estatus",
         "print-runs": "Tirajes",
-        "wohi-date": "Entregado",
+        "wo-deliverydate": "Entregado",
     },
     "columns": [
         { "binding": "wo_updatedby", "type": "Number", "width": 120, "html": false, "format": "string", "aggregate": "None" },
