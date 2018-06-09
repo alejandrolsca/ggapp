@@ -26,8 +26,8 @@ select
 		)
 		end 
 	) print_runs,
-	wo_status,
-	wohi.wohi_date
+	printruns.wo_status,
+	printruns.wo_deliverydate
 from (
 	select
 		wo_id,
@@ -108,6 +108,7 @@ from (
 		pr_process,
 		pr_type,
 		wo_status,
+		wo_jsonb.wo_deliverydate,
 		wo_date
 	from 
 		wo wo,
@@ -117,7 +118,8 @@ from (
 			wo_status int,
 			wo_qty numeric,
 			wo_materialqty numeric,
-			wo_componentmaterialqty jsonb
+			wo_componentmaterialqty jsonb,
+			wo_deliverydate timestamptz
 		), 
 		product pr, 
 		jsonb_to_record(pr_jsonb) as pr_jsonb (
@@ -142,8 +144,7 @@ on printruns.ma_id = ma.ma_id
 join (
 	select 
 		wohi.wo_id,
-		njb.wo_updatedby,
-		delivered.wohi_date
+		njb.wo_updatedby
 	from wohistory wohi, 
 	jsonb_to_record(wohi_newjsonb) as njb (
 		wo_status int,
@@ -154,8 +155,7 @@ join (
 		wo_updatedby text
 	),(
 		select 
-			distinct(wo_id),
-			max(wohi_date) as wohi_date
+			distinct(wo_id)
 		from wohistory, jsonb_to_record(wohi_newjsonb) as njb (
 			wo_status int
 		)
@@ -169,5 +169,5 @@ join (
 	delivered.wo_id = wohi.wo_id
 ) wohi
 on printruns.wo_id = wohi.wo_id
-where wohi.wohi_date between $1 and $2
+where printruns.wo_deliverydate between $1 and $2
 order by wo_updatedby, wo_id desc
