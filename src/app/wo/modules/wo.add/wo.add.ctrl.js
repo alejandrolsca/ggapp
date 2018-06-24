@@ -108,6 +108,20 @@ module.exports = (function (angular) {
                                     var pr_type = product[0]['pr_jsonb']['pr_type']
                                     $scope.components = (pr_type === 'paginated' || pr_type === 'counterfoil') ? true : false;
                                     $scope.componentsArray = new Array(product[0]['pr_jsonb']['pr_components'])
+                                    const rawMaterials = $scope.product['pr_material'].split(',')
+                                    $scope.mt_inactive = false
+                                    const materials = rawMaterials.map((value, index, data) => {
+                                        const mtArray = value.split('|')
+                                        value = {
+                                            "description": mtArray[0],
+                                            "status": mtArray[1]
+                                        }
+                                        if (mtArray[1] === 'I') {
+                                            $scope.mt_inactive = true
+                                        }
+                                        return value
+                                    })
+                                    $scope.materials = materials
                                     woAddFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {
                                         $scope.ma_idoptions = [];
                                         if (angular.isArray(promise.data)) {

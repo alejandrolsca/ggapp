@@ -107,7 +107,9 @@ is-required="true">
         <strong>Part No:</strong> {{product['pr_jsonb']['pr_partno']}}<br/>  
         <strong>Folios:</strong> {{product['pr_jsonb']['pr_folio']}}<br/>
         <strong>Material:</strong> <br>
-        <span ng-repeat="material in product['pr_material'].split(',') track by $index">{{material}}<br/></span>
+        <span ng-repeat="material in materials track by $index">{{material.description}} 
+                <span class="text-danger" ng-if="material.status === 'I'"> - Deshabilitado</span><br/>
+        </span>
 </div>
 </span>
 <span ng-if="folio">
@@ -274,7 +276,7 @@ is-required="true">
 </gg-select>
 <gg-submit lbl="Submit"
         form-group-class="col-sm-12" 
-        ng-disabled="ggform.$invalid || pr_inactive"
+        ng-disabled="ggform.$invalid || pr_inactive || mt_inactive"
         btn-class="col-xs-12 col-sm-4 col-md-2">
 </gg-submit> 
 </form>
