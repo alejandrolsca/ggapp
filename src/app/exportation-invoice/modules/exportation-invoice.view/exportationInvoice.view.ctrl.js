@@ -160,7 +160,6 @@ module.exports = (function (angular) {
                 $scope.loading = true;
                 var client = undefined;
                 var rows = undefined;
-                console.log($stateParams.wo_id)
                 exportationInvoiceViewFac.getEI().then(function (promise) {
                     const { data } = promise
                     const [exportationinvoice] = data
@@ -184,21 +183,22 @@ module.exports = (function (angular) {
                             );
                         }
                     }).then(function () {
-                        exportationInvoiceViewFac.getZone($scope.fmData.cl_id).then(function (promise) {
+                        exportationInvoiceViewFac.getZone($scope.fmData.zo_id).then(function (promise) {
                             $scope.zo_idoptions = [];
+                            console.log(promise)
                             const { data } = promise
                             if (angular.isArray(data)) {
                                 rows = data;
                                 angular.forEach(rows, function (value, key) {
-                                    this.push({ "label": value.zo_zone, "value": value.zo_id });
+                                    this.push({ "label": value.zo_jsonb.zo_zone, "value": value.zo_id });
                                 }, $scope.zo_idoptions);
                                 $scope.$watch(
                                     "fmData.zo_id",
                                     function zoChange(newValue, oldValue) {
-                                        const zone = rows.find(function (zone) {
+                                        const { zo_jsonb: zone } = rows.find(function (zone) {
+                                            console.log(zone.zo_id)
                                             return zone.zo_id = newValue
                                         })
-                                        console.log(zone)
                                         var flexSheet = $scope.flex;
                                         if (newValue !== undefined && flexSheet) {
                                             flexSheet.setCellData(8, 0,
@@ -222,14 +222,11 @@ module.exports = (function (angular) {
                             $scope.data = promise.data
                             $scope.disableXLS = ($scope.data.length < 1);
 
-                            console.log($scope.disableXLS)
-
                             var flexSheet = $scope.flex,
                                 row = 24;
                             if (flexSheet) {
                                 flexSheet.deleteRows(24, 975);
                                 flexSheet.insertRows(24, 975);
-                                console.log('entro')
                                 var total = {
                                     qty: 0,
                                     weight: 0,
@@ -250,7 +247,6 @@ module.exports = (function (angular) {
                                             fontWeight: 'bold'
                                         }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
                                     }
-                                    console.log(tariffCodeHeaders)
 
                                     flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 2));
                                     flexSheet.setCellData(row, 0, value.pr_partno);

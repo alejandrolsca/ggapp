@@ -18,12 +18,12 @@ module.exports = (function (angular) {
             );
             return deferred.promise;
         };
-        factory.getZone = function(cl_id) {
+        factory.getZone = function(zo_id) {
             var deferred = $q.defer();
             deferred.resolve(
-                $http.post('/api/zone/cl_id', {
+                $http.post('/api/zone/zo_id', {
                     /* POST variables here */
-                    cl_id: cl_id,
+                    zo_id: zo_id,
                     zo_status: 'A'
                 }).success(function(data, status, headers, config) {
                     return data;
