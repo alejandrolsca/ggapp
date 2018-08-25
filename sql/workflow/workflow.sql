@@ -240,7 +240,7 @@ from
 		)
 	) ma
 where wo_status = $1
-and wo_date > (now()::date - '3 month'::interval)
+and wo_date > (now()::date - '2 month'::interval)
 and wo_jsonb.pr_id = pr.pr_id
 and wo_jsonb.cl_id = cl.cl_id
 and wo_jsonb.zo_id = zo.zo_id
