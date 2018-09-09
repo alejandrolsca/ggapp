@@ -1185,7 +1185,7 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('workflow/workflow')
-                const parameters = [req.body.wo_status]
+                const parameters = [req.body.wo_status, req.body.interval]
                 const inksQuery = file('product/product:info:ink')
                 const { rows } = await client.query(query, parameters)
                 const data = rows.map(async (value) => {

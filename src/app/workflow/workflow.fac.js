@@ -3,13 +3,14 @@ module.exports = (function (angular) {
 
     return ['$http', '$q',  '$stateParams', function ($http, $q, $stateParams) {
         var factory = {};
-        factory.getData = function (wo_status) {
+        factory.getData = function (wo_status, interval) {
             var deferred = $q.defer();
             deferred.resolve(
                 $http.post('/api/workflow', {
                     /* POST variables here */
                     procces_id: new Date().getMilliseconds(),
-                    wo_status: wo_status
+                    wo_status: wo_status,
+                    interval: interval
                 }).success(function (data, status, headers, config) {
                     return data;
                 }).error(function (data, status, headers, config) {
