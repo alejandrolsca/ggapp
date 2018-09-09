@@ -198,13 +198,13 @@ module.exports = (function (angular) {
                     var row = flex.rows[r];
                     if (col.binding === 'files') {
                         if (row.dataItem.file1) {
-                            cell.innerHTML = 
-                            `<a class="link" href="/uploads/${row.dataItem.wo_id}_file1.pdf" download="${row.dataItem.file1}" target="_blank">descargar</a> | 
+                            cell.innerHTML =
+                                `<a class="link" href="/uploads/${row.dataItem.wo_id}_file1.pdf" download="${row.dataItem.file1}" target="_blank">descargar</a> | 
                             <a class="link" href="/uploads/${row.dataItem.wo_id}_file1.pdf" target="_blank">${row.dataItem.file1}</a><br/>`
                         }
                         if (row.dataItem.file2) {
-                            cell.innerHTML += 
-                            `<a class="link" href="/uploads/${row.dataItem.wo_id}_file2.pdf" download="${row.dataItem.file2}" target="_blank">descargar</a> | 
+                            cell.innerHTML +=
+                                `<a class="link" href="/uploads/${row.dataItem.wo_id}_file2.pdf" download="${row.dataItem.file2}" target="_blank">descargar</a> | 
                             <a class="link" href="/uploads/${row.dataItem.wo_id}_file2.pdf" target="_blank">${row.dataItem.file2}</a>`
                         }
                     }
@@ -288,45 +288,45 @@ module.exports = (function (angular) {
 
             // autoSizeRows after filter applied
             $scope.onFilterApplied = function (s, e) {
-                setTimeout(function() {
-                const {items: rows } = $scope.data
-                const materials = []
-                const material_ids = []
-                rows.map(value => {
-                    if (value.pr_components) {
-                        const pr_materials = value.pr_materialraw.split('|')
-                        const mt_id = Object.keys(value.pr_jsonb.mt_id)
-                        mt_id.map((component_id, index) => {
-                            if (!material_ids.includes(value.pr_jsonb.mt_id[component_id])) {
-                                material_ids.push(value.pr_jsonb.mt_id[component_id])
-                                materials.push({ "mt_id": value.pr_jsonb.mt_id[component_id], "pr_material": pr_materials[index], "pr_materialqty": Number(value.wo_componentmaterialqty[index]) })
+                setTimeout(function () {
+                    const { items: rows } = $scope.data
+                    const materials = []
+                    const material_ids = []
+                    rows.map(value => {
+                        if (value.pr_components) {
+                            const pr_materials = value.pr_materialraw.split('|')
+                            const mt_id = Object.keys(value.pr_jsonb.mt_id)
+                            mt_id.map((component_id, index) => {
+                                if (!material_ids.includes(value.pr_jsonb.mt_id[component_id])) {
+                                    material_ids.push(value.pr_jsonb.mt_id[component_id])
+                                    materials.push({ "mt_id": value.pr_jsonb.mt_id[component_id], "pr_material": pr_materials[index], "pr_materialqty": Number(value.wo_componentmaterialqty[index]) })
+                                } else {
+                                    const material_index = materials.findIndex((elem) => {
+                                        //console.log(elem)
+                                        return elem.mt_id === value.pr_jsonb.mt_id[component_id]
+                                    })
+                                    materials[material_index].pr_materialqty += Number(value.wo_componentmaterialqty[index])
+                                }
+                            })
+                        } else {
+                            const mt_id = Object.keys(value.pr_jsonb.mt_id)
+                            if (!material_ids.includes(value.pr_jsonb.mt_id)) {
+                                material_ids.push(value.pr_jsonb.mt_id)
+                                materials.push({ "mt_id": value.pr_jsonb.mt_id, "pr_material": value.pr_material, "pr_materialqty": Number(value.wo_materialqty) })
                             } else {
                                 const material_index = materials.findIndex((elem) => {
                                     //console.log(elem)
-                                    return elem.mt_id === value.pr_jsonb.mt_id[component_id]
+                                    return elem.mt_id === value.pr_jsonb.mt_id
                                 })
-                                materials[material_index].pr_materialqty += Number(value.wo_componentmaterialqty[index])
-                            }                         
-                        })
-                    } else {
-                        const mt_id = Object.keys(value.pr_jsonb.mt_id)
-                        if (!material_ids.includes(value.pr_jsonb.mt_id)) {
-                            material_ids.push(value.pr_jsonb.mt_id)
-                            materials.push({ "mt_id": value.pr_jsonb.mt_id, "pr_material": value.pr_material, "pr_materialqty": Number(value.wo_materialqty) })
-                        } else {
-                            const material_index = materials.findIndex((elem) => {
-                                //console.log(elem)
-                                return elem.mt_id === value.pr_jsonb.mt_id
-                            })
-                            materials[material_index].pr_materialqty += Number(value.wo_materialqty)
-                        } 
+                                materials[material_index].pr_materialqty += Number(value.wo_materialqty)
+                            }
 
-                    }
-                })
-                $scope.materialsRaw = materials
-                s.grid.autoSizeRows()
+                        }
+                    })
+                    $scope.materialsRaw = materials
+                    s.grid.autoSizeRows()
                 }, 500);
-                
+
             };
 
             // bind columns when grid is initialized
@@ -420,6 +420,9 @@ module.exports = (function (angular) {
                     $scope.loading = true;
                     $scope.actions = [];
                     const actions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions"))) // clone array
+                    const current_status = actions.find((value) => {
+                        return newValue === value.value
+                    }) || '1 year'
                     actions.map((value) => {
                         if (value.wo_prevstatus.includes(newValue)) {
                             value.notAnOption = false;
@@ -429,7 +432,7 @@ module.exports = (function (angular) {
                             $scope.actions.push(value)
                         }
                     })
-                    workflowFactory.getData(newValue).then(function (promise) {
+                    workflowFactory.getData(newValue, current_status.interval).then(function (promise) {
                         $scope.loading = false;
                         if (angular.isArray(promise.data)) {
                             // expose data as a CollectionView to get events
