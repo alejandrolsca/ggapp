@@ -10,7 +10,8 @@ module.exports = (function(angular){
             template: require('./home.view.html'),
             controller : 'homeCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: ['warehouse']
             }    
         });
     }])

@@ -11,7 +11,8 @@ module.exports = (function(angular){
             template: require('./workflow.view.html'),
             controller : 'workflowController',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: ['warehouse']
             }    
         });
     }])
