@@ -14,7 +14,13 @@ module.exports = (function(angular){
             template: require('./client.view.html'),
             controller : 'clientCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'quality_assurance',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

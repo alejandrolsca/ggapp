@@ -11,7 +11,13 @@ module.exports = (function(angular){
             template: require('./traffic-light-report.view.html'),
             controller : 'tlrController',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'quality_assurance',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

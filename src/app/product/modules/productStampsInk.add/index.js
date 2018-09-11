@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productStampsInk.add.view.html'),
             controller : 'productStampsInkAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

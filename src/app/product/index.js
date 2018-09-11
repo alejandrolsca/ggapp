@@ -52,7 +52,12 @@ module.exports = (function(angular){
             template: require('./product.view.html'),
             controller : 'productCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

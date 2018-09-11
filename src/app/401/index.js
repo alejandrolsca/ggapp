@@ -1,20 +1,20 @@
 module.exports = (function(angular){
     'use strict';
     
-    return angular.module('app.404',[])
+    return angular.module('app.401',[])
 
     .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('404', {
-            url:'/404',
-            template: require('./404.view.html'),
-            controller : '404Ctrl',
+        $stateProvider.state('401', {
+            url:'/401',
+            template: require('./401.view.html'),
+            controller : '401Ctrl',
             data: {
                 requiresLogin: false
             }    
         });
     }])
 
-    .controller('404Ctrl',require('./404.ctrl'))
+    .controller('401Ctrl',require('./401.ctrl'))
 
 })(angular);

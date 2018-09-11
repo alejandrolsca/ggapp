@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productStampsGeneral.update.view.html'),
             controller : 'productStampsGeneralUpdateCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

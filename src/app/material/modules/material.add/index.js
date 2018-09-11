@@ -10,7 +10,12 @@ module.exports = (function(angular){
             template: require('./material.add.view.html'),
             controller : 'materialAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

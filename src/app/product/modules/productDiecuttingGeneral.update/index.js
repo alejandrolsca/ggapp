@@ -10,7 +10,16 @@ module.exports = (function(angular){
             template: require('./productDiecuttingGeneral.update.view.html'),
             controller : 'productDiecuttingGeneralUpdateCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'finishing',
+                    'packaging',
+                    'production',
+                    'quality_assurance',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

@@ -13,7 +13,12 @@ module.exports = (function(angular){
             template: require('./material.view.html'),
             controller : 'materialCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

@@ -13,7 +13,11 @@ module.exports = (function(angular){
                 wo_id: null // avoids sending parameters through URL
             },
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'warehouse'
+                ]
             }    
         });
     }])

@@ -13,7 +13,11 @@ module.exports = (function(angular){
             template: require('./machine.view.html'),
             controller : 'machineCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productDigitalGeneral.add.view.html'),
             controller : 'productDigitalGeneralAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

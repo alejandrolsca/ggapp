@@ -13,6 +13,7 @@ module.exports = (function (angular) {
         'angular-jwt',
         'angularFileUpload',
         require('./404').name,
+        require('./401').name,
         require('./login').name,
         require('./client').name,
         require('./user').name,
@@ -119,12 +120,19 @@ module.exports = (function (angular) {
                     }
                 }
 
+                function userHasRole(roles) {
+                    const { us_group } = profile()
+                    roles = roles || []
+                    return roles.includes(us_group)
+                }
+
                 return {
                     login: login,
                     handleAuthentication: handleAuthentication,
                     logout: logout,
                     isAuthenticated: isAuthenticated,
-                    profile: profile
+                    profile: profile,
+                    userHasRole: userHasRole
                 }
             }])
         .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', 'angularAuth0Provider', '$httpProvider', 'jwtOptionsProvider', 'jwtInterceptorProvider',
@@ -194,14 +202,26 @@ module.exports = (function (angular) {
                         }
                     }
                 });*/
+                $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+                    // Check if current user has group access
+                    if (authService.isAuthenticated()) {
+                        if (!!toState.data.requiresLogin) {
+                            if (!authService.userHasRole(toState.data.roles)) {
+                                console.log(!!toState.data.requiresLogin, toState, authService.userHasRole(toStateParams.roles))
+                                $state.go('401');
+                                event.preventDefault();
+                            }
+                        }
+                    }
+                })
 
                 // Handle the authentication
                 // result in the hash
                 if (!window.location.hash && !authService.isAuthenticated()) {
                     $state.go('login')
-                } 
+                }
                 authService.handleAuthentication();
-                
+
 
                 // Use the authManager from angular-jwt to check for
                 // the user's authentication state when the page is

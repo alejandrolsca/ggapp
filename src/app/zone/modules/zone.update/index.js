@@ -10,7 +10,12 @@ module.exports = (function(angular){
             template: require('./zone.update.view.html'),
             controller : 'zoneUpdateCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

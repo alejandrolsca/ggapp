@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productDirectSaleGeneral.add.view.html'),
             controller : 'productDirectSaleGeneralAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

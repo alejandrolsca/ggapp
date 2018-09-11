@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./wo.duplicate.view.html'),
             controller : 'woDuplicateController',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])
