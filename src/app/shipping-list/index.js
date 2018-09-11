@@ -14,7 +14,12 @@ module.exports = (function(angular){
             template: require('./shippingList.view.html'),
             controller : 'shippingListController',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

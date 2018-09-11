@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productFlexoRibbons.add.view.html'),
             controller : 'productFlexoRibbonsAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

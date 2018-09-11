@@ -10,7 +10,16 @@ module.exports = (function(angular){
             template: require('./productLaserGeneral.update.view.html'),
             controller : 'productLaserGeneralUpdateCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'finishing',
+                    'packaging',
+                    'production',
+                    'quality_assurance',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

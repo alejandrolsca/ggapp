@@ -19,7 +19,11 @@ module.exports = (function(angular){
                 sl_date: null 
             },
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'warehouse'
+                ]
             }    
         });
     }])

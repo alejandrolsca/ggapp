@@ -13,7 +13,11 @@ module.exports = (function(angular){
             template: require('./exportationInvoice.view.html'),
             controller : 'exportationInvoiceController',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'warehouse'
+                ]
             }    
         });
     }])

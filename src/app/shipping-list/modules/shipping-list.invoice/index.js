@@ -19,7 +19,11 @@ module.exports = (function(angular){
             },
             controller : 'shippingListReleaseInvoiceCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'warehouse'
+                ]
             }    
         });
     }])

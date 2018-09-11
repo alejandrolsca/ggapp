@@ -10,7 +10,12 @@ module.exports = (function(angular){
             template: require('./supplier.add.view.html'),
             controller : 'supplierAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

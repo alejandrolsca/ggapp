@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productOffsetCounterfoil.add.view.html'),
             controller : 'productOffsetCounterfoilAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

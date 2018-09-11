@@ -13,7 +13,13 @@ module.exports = (function(angular){
             template: require('./zone.view.html'),
             controller : 'zoneCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'quality_assurance',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

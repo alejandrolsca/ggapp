@@ -10,7 +10,10 @@ module.exports = (function(angular){
             template: require('./machine.add.view.html'),
             controller : 'machineAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin'
+                ]
             }    
         });
     }])

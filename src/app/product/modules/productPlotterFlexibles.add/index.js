@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productPlotterFlexibles.add.view.html'),
             controller : 'productPlotterFlexiblesAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

@@ -11,7 +11,10 @@ module.exports = (function(angular){
             template: require('./printruns-by-user.view.html'),
             controller : 'printrunsByUserCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin'
+                ]
             }    
         });
     }])

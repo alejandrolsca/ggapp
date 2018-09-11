@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./product.update.view.html'),
             controller : 'productUpdateCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

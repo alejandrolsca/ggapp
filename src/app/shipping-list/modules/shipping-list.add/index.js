@@ -13,7 +13,12 @@ module.exports = (function(angular){
             },
             controller : 'shippingListAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

@@ -10,7 +10,12 @@ module.exports = (function(angular){
             template: require('./package-labels.view.html'),
             controller : 'packageLabelsCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'finishing',
+                    'packaging'
+                ]
             }    
         });
     }])

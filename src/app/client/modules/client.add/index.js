@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./client.add.view.html'),
             controller : 'clientAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

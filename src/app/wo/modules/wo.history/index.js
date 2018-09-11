@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./wo.history.view.html'),
             controller : 'woHistoryController',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'quality_assurance'
+                ]
             }    
         });
     }])

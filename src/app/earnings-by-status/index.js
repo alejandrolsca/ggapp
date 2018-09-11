@@ -11,7 +11,10 @@ module.exports = (function(angular){
             template: require('./earnings-by-status.view.html'),
             controller : 'earningsByStatusCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin'
+                ]
             }    
         });
     }])

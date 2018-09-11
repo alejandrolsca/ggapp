@@ -11,7 +11,15 @@ module.exports = (function(angular){
             controller : 'homeCtrl',
             data: {
                 requiresLogin: true,
-                roles: ['warehouse']
+                roles: [
+                    'admin',
+                    'finishing',
+                    'packaging',
+                    'production',
+                    'quality_assurance',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

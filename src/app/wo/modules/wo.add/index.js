@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./wo.add.view.html'),
             controller : 'woAddController',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

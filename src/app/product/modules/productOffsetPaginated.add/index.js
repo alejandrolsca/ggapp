@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productOffsetPaginated.add.view.html'),
             controller : 'productOffsetPaginatedAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

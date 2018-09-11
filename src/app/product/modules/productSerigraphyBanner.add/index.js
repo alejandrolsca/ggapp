@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productSerigraphyBanner.add.view.html'),
             controller : 'productSerigraphyBannerAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

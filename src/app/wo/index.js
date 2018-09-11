@@ -16,7 +16,13 @@ module.exports = (function(angular){
             template: require('./wo.view.html'),
             controller : 'woController',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'quality_assurance',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

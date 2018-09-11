@@ -10,7 +10,12 @@ module.exports = (function(angular){
             template: require('./ink.update.view.html'),
             controller : 'inkUpdateCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])

@@ -10,7 +10,11 @@ module.exports = (function(angular){
             template: require('./productOffsetGeneral.add.view.html'),
             controller : 'productOffsetGeneralAddCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales'
+                ]
             }    
         });
     }])

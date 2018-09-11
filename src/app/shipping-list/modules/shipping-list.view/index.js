@@ -19,7 +19,12 @@ module.exports = (function(angular){
             },
             controller : 'shippingListViewCtrl',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                roles: [
+                    'admin',
+                    'sales',
+                    'warehouse'
+                ]
             }    
         });
     }])
