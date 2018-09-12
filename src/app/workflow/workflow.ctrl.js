@@ -406,7 +406,7 @@ module.exports = (function (angular) {
             $scope.wo_statusoptions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions"))) // clone array
             $scope.wo_statusoptions.map((value) => {
                 value.notAnOption = true;
-                if (value.us_group === userProfile.us_group || userProfile.us_group === 'admin') {
+                if ( userProfile.us_group.includes(value.us_group) || userProfile.us_group.includes('admin')) {
                     value.notAnOption = false;
                 }
                 return value
@@ -422,11 +422,12 @@ module.exports = (function (angular) {
                     const actions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions"))) // clone array
                     const current_status = actions.find((value) => {
                         return newValue === value.value
-                    }) || '1 year'
+                    }) || {"interval": "1 year"}
+                    console.log(current_status)
                     actions.map((value) => {
                         if (value.wo_prevstatus.includes(newValue)) {
                             value.notAnOption = false;
-                            if ((value.value == 18) && (userProfile.us_group !== 'admin')) {
+                            if ((value.value == 18) && !userProfile.us_group.includes('admin')) {
                                 value.notAnOption = true;
                             }
                             $scope.actions.push(value)

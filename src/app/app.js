@@ -123,7 +123,10 @@ module.exports = (function (angular) {
                 function userHasRole(roles) {
                     const { us_group } = profile()
                     roles = roles || []
-                    return roles.includes(us_group)
+                    let hasRole = us_group.some((value)=>{
+                        return roles.includes(value)
+                    })
+                    return hasRole
                 }
 
                 return {
@@ -184,31 +187,15 @@ module.exports = (function (angular) {
 
         .run(['$rootScope', 'authService', 'authManager', '$location', 'jwtHelper', '$state', 'appFac',
             function ($rootScope, authService, authManager, $location, jwtHelper, $state, appFac) {
-                /*
-                $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, options) {
-                    $rootScope.currentState = toState;
-                    if (!!toState.data.requiresLogin) {
-                        var token = localStorage.getItem('id_token');
-                        if (token) {
-                            if (!jwtHelper.isTokenExpired(token)) {
-                                if (!authManager.isAuthenticated) {
-                                    authManager.authenticate();
-                                }
-                            } else {
-                                $location.path('/login');
-                            }
-                        } else {
-                            $location.path('/login');
-                        }
-                    }
-                });*/
+
                 $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
                     // Check if current user has group access
                     if (authService.isAuthenticated()) {
                         if (!!toState.data.requiresLogin) {
                             if (!authService.userHasRole(toState.data.roles)) {
-                                console.log(!!toState.data.requiresLogin, toState, authService.userHasRole(toStateParams.roles))
-                                $state.go('401');
+                                $state.go('401',{
+                                    toState: toState
+                                });
                                 event.preventDefault();
                             }
                         }

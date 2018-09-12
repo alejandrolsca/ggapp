@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', function ($scope) {
-        //ASD
+    return ['$scope','$stateParams', function ($scope, $stateParams) {
+        $scope.toState = $stateParams.toState
     }];
 
 })(angular);

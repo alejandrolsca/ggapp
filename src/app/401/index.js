@@ -9,6 +9,9 @@ module.exports = (function(angular){
             url:'/401',
             template: require('./401.view.html'),
             controller : '401Ctrl',
+            params: {
+                toState: null  // avoids sending parameters through URL
+            },
             data: {
                 requiresLogin: false
             }    
