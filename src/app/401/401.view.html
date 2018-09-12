@@ -1,6 +1,11 @@
 <div class="401View">
 <div class="col-sm-12">
-    <h3>{{'401.title' | i18n}}</h3>
-    <p>{{'401.subtitle' | i18n}}</p>
+    <br>
+    <div class="alert alert-warning" role="alert">
+        <h3>{{'401.title' | i18n}}</h3>
+        <p>No está autorizado para usar esta página<span ng-if="toState.url"> (<strong>{{toState.url}}</strong>)</span>. <br/>
+            Pongase en contacto con el <strong><a href="mailto:alejandrolsca@gmail.com?subject=Asignación de Rol">Administrator</a></strong> si desea obtener los privilegios requeridos.</p>
+
+    </div>
 </div>
 </div>
