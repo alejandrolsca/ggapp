@@ -35,7 +35,6 @@ module.exports = (function (angular) {
                     if (i === iterations && (residue > 0)) {
                         qty = residue
                     }
-                    console.log('iterations', iterations)
                     doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
                     doc.drawText("Producto:", 144 - margin, 0, {
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left
@@ -105,7 +104,6 @@ module.exports = (function (angular) {
                         $scope.wo = wo
                         $scope.fmData.wo_packageqty = wo.wo_packageqty
                         $scope.pdfDisabled = false
-                        console.log(data)
                     })
                 } catch (error) {
                     throw new Error(error)

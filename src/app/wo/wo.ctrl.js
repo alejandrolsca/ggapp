@@ -293,7 +293,6 @@ module.exports = (function (angular) {
 
             // autoSizeRows on sorted column
             $scope.onSortedColumn = function (sender, args) {
-                console.log(sender)
                 sender.autoSizeRows()
             };
 
@@ -316,7 +315,6 @@ module.exports = (function (angular) {
                     filterTextTimeout;
                 $scope.$watchGroup(['wo_id', 'zo_zone', 'wo_release', 'wo_po', 'pr_name', 'wo_date'], function (newValues, oldValues, scope) {
                     let [wo_id, zo_zone, wo_release, wo_po, pr_name, wo_date] = newValues
-                    console.log(wo_id, zo_zone, wo_release, wo_po, pr_name, wo_date)
                     wo_id = wo_id || ''
                     zo_zone = zo_zone || ''
                     wo_release = wo_release || ''

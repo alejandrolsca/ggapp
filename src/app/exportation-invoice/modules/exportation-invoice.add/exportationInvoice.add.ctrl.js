@@ -36,7 +36,6 @@ module.exports = (function (angular) {
                     const flexSheet = $scope.flex;
                     const ei_date = moment(exportationinvoice.ei_date).tz('America/Chihuahua').format('DD/MM/YYYY')
                     flexSheet.setCellData(0, 0, `FACTURA DE EXPORTACION #${exportationinvoice.ei_id} ${ei_date}`);
-                    console.log($scope.ei_id)
                 })
             }
 
@@ -177,7 +176,6 @@ module.exports = (function (angular) {
                 $scope.loading = true;
                 var client = undefined;
                 var rows = undefined;
-                console.log($stateParams.wo_id)
                 exportationInvoiceAddFac.getClient().then(function (promise) {
                     const { data } = promise
                     if (angular.isArray(data)) {
@@ -210,14 +208,12 @@ module.exports = (function (angular) {
                         $scope.data = promise.data
                         $scope.disableAdd = ($scope.data.length < 1);
 
-                        console.log($scope.disableAdd)
 
                         var flexSheet = $scope.flex,
                             row = 24;
                         if (flexSheet) {
                             flexSheet.deleteRows(24, 975);
                             flexSheet.insertRows(24, 975);
-                            console.log('entro')
                             var total = {
                                 qty: 0,
                                 weight: 0,
@@ -238,7 +234,6 @@ module.exports = (function (angular) {
                                         fontWeight: 'bold'
                                     }, [new wijmo.grid.CellRange(row, 0, row, 9)]);
                                 }
-                                console.log(tariffCodeHeaders)
 
                                 flexSheet.mergeRange(new wijmo.grid.CellRange(row, 0, row, 2));
                                 flexSheet.setCellData(row, 0, value.pr_partno);

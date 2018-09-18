@@ -19,8 +19,6 @@ module.exports = (function (angular) {
             }
 
             const getData = () => {
-                console.log(moment($scope.fromDate.value).format('YYYY-MM-DD'))
-                console.log(moment($scope.toDate.value).format('YYYY-MM-DD'))
                 const fromDate = moment($scope.fromDate.value).format('YYYY-MM-DD')
                 const toDate = moment($scope.toDate.value).format('YYYY-MM-DD')
                 $scope.loading = true;

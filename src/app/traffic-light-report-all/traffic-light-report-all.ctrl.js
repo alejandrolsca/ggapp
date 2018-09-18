@@ -175,7 +175,6 @@ module.exports = (function (angular) {
 
             // autoSizeRows on sorted column
             $scope.onSortedColumn = function (sender, args) {
-                console.log(sender)
                 sender.autoSizeRows()
             };
 

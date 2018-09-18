@@ -7,7 +7,6 @@ module.exports = (function (angular) {
         function ($scope, shippingListAddFac, $location, i18nFilter, $stateParams, $filter, authService) {
 
             $scope.exportPDF = async () => {
-                console.log('entro')
                 const margin = 36
                 var doc = new wijmo.pdf.PdfDocument({
                     pageSettings: {
@@ -24,8 +23,6 @@ module.exports = (function (angular) {
                         wijmo.pdf.saveBlob(args.blob, 'FlexGrid.pdf');
                     }
                 });
-                console.log('width', wijmo.pdf.pxToPt(150), 'height', wijmo.pdf.pxToPt(79))
-                console.log('width', doc.width, 'height', doc.height) // plus 72 points
 
                 doc.header.drawImage(img_gglogo, 0, 0, {
                     width: wijmo.pdf.pxToPt(150),
@@ -79,7 +76,6 @@ module.exports = (function (angular) {
                 let x = 0
                 let y = 160
                 headers.map((value, index, data) => {
-                    console.log(x)
                     doc.paths
                         .rect(x, y, widths[index], rowHeight)
                         .stroke();
@@ -93,7 +89,6 @@ module.exports = (function (angular) {
                 x = 0
                 y += rowHeight
                 headersSpanish.map((value, index, data) => {
-                    console.log(x)
                     doc.paths
                         .rect(x, y, widths[index], rowHeight)
                         .stroke();
@@ -108,7 +103,6 @@ module.exports = (function (angular) {
                 y += rowHeight
                 for (var i = 0; i < 40; i++) {
                     headers.map((value, index, data) => {
-                        console.log(x)
                         doc.paths
                             .rect(x, y, widths[index], rowHeight)
                             .stroke();
@@ -155,7 +149,6 @@ module.exports = (function (angular) {
                     const flexSheet = $scope.flex;
                     const sl_date = moment(shippinglist.sl_date).tz('America/Chihuahua').format('DD/MM/YYYY')
                     flexSheet.setCellData(0, 0, `LISTA DE EMBARQUE #${shippinglist.sl_id} ${sl_date}`);                 
-                    console.log($scope.sl_id)
                 })
             }
 
@@ -275,7 +268,6 @@ module.exports = (function (angular) {
                 $scope.loading = true;
                 var client = undefined;
                 var rows = undefined;
-                console.log($stateParams.wo_id)
                 shippingListAddFac.getClient().then(function (promise) {
                     const { data } = promise
                     if (angular.isArray(data)) {
@@ -307,7 +299,6 @@ module.exports = (function (angular) {
                         $scope.data = promise.data
                         $scope.disableAdd = ($scope.data.length === 1);
 
-                        console.log($scope.disableAdd)
 
                         var flexSheet = $scope.flex,
                             row = 17;

@@ -57,10 +57,8 @@ module.exports = (function (angular) {
                 $scope.onUpdate()
                 var img_gglogo = require('../../static/img/gg-logo.png');
                 const { data: orders } = await workflowFactory.getWoPrint($scope.wo_id.join(','))
-                console.log(orders)
                 let pdfDoc = null
                 const pdfTemplate = (pdfDoc, data) => {
-                    console.log('width', pdfDoc.width + 72, 'height', pdfDoc.height + 72) // plus 72 points
                     const { pr_material } = data
                     const { wo_jsonb } = data
                     const { pr_jsonb } = data
@@ -155,9 +153,7 @@ module.exports = (function (angular) {
             };
 
             $scope.onSubmit = function () {
-                console.log($scope.wo_id.join(','))
                 workflowFactory.update($scope.fmData.wo_nextstatus, userProfile.username, $scope.wo_id.join(',')).then(function (promise) {
-                    console.log(promise.data)
                     if (promise.data.rowCount >= 1) {
                         $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
                     } else {
@@ -165,7 +161,6 @@ module.exports = (function (angular) {
                     }
                 });
                 $('#myModal').modal('hide');
-                console.log('submited')
             }
             $scope.materialsModal = () => {
                 $('#materialsModal').modal('show');
@@ -282,7 +277,6 @@ module.exports = (function (angular) {
 
             // autoSizeRows on sorted column
             $scope.onSortedColumn = function (sender, args) {
-                console.log(sender)
                 sender.autoSizeRows()
             };
 
@@ -302,7 +296,6 @@ module.exports = (function (angular) {
                                     materials.push({ "mt_id": value.pr_jsonb.mt_id[component_id], "pr_material": pr_materials[index], "pr_materialqty": Number(value.wo_componentmaterialqty[index]) })
                                 } else {
                                     const material_index = materials.findIndex((elem) => {
-                                        //console.log(elem)
                                         return elem.mt_id === value.pr_jsonb.mt_id[component_id]
                                     })
                                     materials[material_index].pr_materialqty += Number(value.wo_componentmaterialqty[index])
@@ -315,7 +308,6 @@ module.exports = (function (angular) {
                                 materials.push({ "mt_id": value.pr_jsonb.mt_id, "pr_material": value.pr_material, "pr_materialqty": Number(value.wo_materialqty) })
                             } else {
                                 const material_index = materials.findIndex((elem) => {
-                                    //console.log(elem)
                                     return elem.mt_id === value.pr_jsonb.mt_id
                                 })
                                 materials[material_index].pr_materialqty += Number(value.wo_materialqty)
@@ -340,7 +332,6 @@ module.exports = (function (angular) {
                     col.wordWrap = false;
                     col.width = $scope.columns[i].width;
                     if(['wo_price', 'wo_currency'].includes($scope.columns[i].binding) ){
-                        console.log($scope.columns[i].binding)
                         col.visible = authService.userHasRole(['admin','warehouse','sales'])
                     }
                     s.columns.push(col);
@@ -427,7 +418,6 @@ module.exports = (function (angular) {
                     const current_status = actions.find((value) => {
                         return newValue === value.value
                     }) || {"interval": "1 year"}
-                    console.log(current_status)
                     actions.map((value) => {
                         if (value.wo_prevstatus.includes(newValue)) {
                             value.notAnOption = false;

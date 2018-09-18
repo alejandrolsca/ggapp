@@ -21,7 +21,6 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
 
                 woDuplicateFactory.duplicate($scope.fmData).then(function (promise) {
-                    console.log(promise.data)
                     if (promise.data.rowCount === 1) {
                         $location.path('/wo/' + $stateParams.cl_id);
                     } else {
