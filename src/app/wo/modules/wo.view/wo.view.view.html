@@ -245,27 +245,29 @@
         is-required="true"
         is-disabled="true">
 </gg-input>
-<gg-input err-class="error"
-        lbl="{{'wo-view.labels.wo-price' | i18n}}" 
-        form-group-class="col-sm-3"
-        ng-model="fmData.wo_price"
-        regexp="decimal"
-        regexp-msg="{{'general.regexp.decimal' | i18n}}"
-        req-msg="Required"
-        is-required="true"
-        is-disabled="true">
-</gg-input>
-<gg-select err-class="error"
-        lbl="{{'wo-view.labels.wo-currency' | i18n}}" 
-        form-group-class="col-sm-3" 
-        options="wo_currencyoptions" 
-        ng-model="fmData.wo_currency"
-        regexp="singlespaces"
-        regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-        req-msg="Required"
-        is-required="true"
-        is-disabled="true">
-</gg-select>
+<span ng-if="displayPrice">
+        <gg-input err-class="error"
+                lbl="{{'wo-view.labels.wo-price' | i18n}}" 
+                form-group-class="col-sm-3"
+                ng-model="fmData.wo_price"
+                regexp="decimal"
+                regexp-msg="{{'general.regexp.decimal' | i18n}}"
+                req-msg="Required"
+                is-required="true"
+                is-disabled="true">
+        </gg-input>
+        <gg-select err-class="error"
+                lbl="{{'wo-view.labels.wo-currency' | i18n}}" 
+                form-group-class="col-sm-3" 
+                options="wo_currencyoptions" 
+                ng-model="fmData.wo_currency"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true"
+                is-disabled="true">
+        </gg-select>
+</span>
 <gg-select err-class="error"
         lbl="{{'wo-view.labels.wo-email' | i18n}}" 
         form-group-class="col-sm-6" 

@@ -172,7 +172,7 @@ module.exports = (function (angular) {
 
             // autosize columns
             $scope.itemsSourceChanged = function (sender, args) {
-                sender.autoSizeColumns();
+                sender.autoSizeColumns(2);
             };
 
             // autoSizeRows on sorted column

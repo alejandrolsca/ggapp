@@ -33,6 +33,7 @@ select
 	wo_deliverydate,  
 	wo_previousid, 
 	wo_previousdate, 
+	wo_price, 
 	wo_notes,
 	wo_status,
 	wo_updatedby,         
