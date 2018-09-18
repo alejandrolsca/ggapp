@@ -571,7 +571,6 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('product/product:info:ink')
-                console.log(req.body.in_id, req.body.in_status)
                 const parameters = [req.body.in_id, req.body.in_status]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
@@ -912,7 +911,6 @@ if (cluster.isMaster) {
                 const { rows } = result
                 const [row] = rows
                 const { wo_id } = row
-                console.log(wo_id)
                 // duplicate uploaded files
                 const uploadsFolder = path.join(__dirname, 'uploads')
                 const file1 = `${uploadsFolder}/${req.body.wo_id}_file1.pdf`
@@ -1268,7 +1266,6 @@ if (cluster.isMaster) {
                 const updateStatusValues = [req.body.wo_status, req.body.wo_updatedby, req.body.wo_id]
                 const updateDeliveryDateQuery = file('workflow/workflow:update:wo_deliverydate')
                 const updateDeliveryDateValues = [req.body.wo_id]
-                console.log(req.body.wo_status, req.body.wo_updatedby, req.body.wo_id)
                 result = await client.query(updateStatusQuery, updateStatusValues)
                 if (req.body.wo_status === 17) {
                     result = await client.query(updateDeliveryDateQuery, updateDeliveryDateValues)
@@ -1507,10 +1504,7 @@ if (cluster.isMaster) {
             try {
                 await client.query('BEGIN')
                 const result = await client.query(file('shippinglist/wo:update:wo_id'), [req.body.wo_id])
-                console.log(result)
-                console.log(req.body.cl_id, req.body.wo_id)
                 const { rows } = await client.query(file('shippinglist/shippinglist:add'), [req.body.cl_id, req.body.zo_id, req.body.wo_id, req.body.sl_createdby])
-                console.log(rows)                
                 const [shippinglist] = rows;
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(shippinglist)));
@@ -1532,10 +1526,7 @@ if (cluster.isMaster) {
             try {
                 await client.query('BEGIN')
                 const result = await client.query(file('shippinglist/shippinglist:cancel:wo_id'), [req.body.wo_id])
-                console.log(result)
-                console.log(req.body.wo_id, req.body.sl_id)
                 const { rows } = await client.query(file('shippinglist/shippinglist:cancel:sl_id'), [req.body.sl_id])
-                console.log(rows)                
                 const [shippinglist] = rows;
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(shippinglist)));
@@ -1651,10 +1642,7 @@ if (cluster.isMaster) {
             try {
                 await client.query('BEGIN')
                 const result = await client.query(file('exportationinvoice/wo:update:wo_id'), [req.body.wo_id])
-                console.log(result)
-                console.log(req.body.cl_id, req.body.wo_id)
                 const { rows } = await client.query(file('exportationinvoice/exportationinvoice:add'), [req.body.cl_id, req.body.zo_id, req.body.wo_id, req.body.ei_createdby])
-                console.log(rows)                
                 const [exportationinvoice] = rows;
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(exportationinvoice)));
@@ -1676,10 +1664,7 @@ if (cluster.isMaster) {
             try {
                 await client.query('BEGIN')
                 const result = await client.query(file('exportationinvoice/exportationinvoice:cancel:wo_id'), [req.body.wo_id])
-                console.log(result)
-                console.log(req.body.wo_id, req.body.ei_id)
                 const { rows } = await client.query(file('exportationinvoice/exportationinvoice:cancel:ei_id'), [req.body.ei_id])
-                console.log(rows)                
                 const [exportationinvoice] = rows;
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(exportationinvoice)));
@@ -1776,7 +1761,6 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('earningsbystatus/earningsbystatus:wo_date')
-                console.log(req.body.wo_currency, req.body.fromDate, req.body.toDate)
                 const parameters = [req.body.wo_currency, req.body.fromDate, req.body.toDate]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
@@ -1800,7 +1784,6 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('earningsbystatus/earningsbystatus:wo_commitmentdate')
-                console.log(req.body.wo_currency, req.body.fromDate, req.body.toDate)
                 const parameters = [req.body.wo_currency, req.body.fromDate, req.body.toDate]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
@@ -1866,7 +1849,6 @@ if (cluster.isMaster) {
             return res.status(400).send('No files were uploaded.');
 
         // The name of the input field (i.e. "file1") is used to retrieve the uploaded file
-        console.log(req.body)
         const { file: fileObj } = req.files;
 
         // Use the mv() method to place the file somewhere on your server
@@ -1881,7 +1863,6 @@ if (cluster.isMaster) {
                 try {
                     // execute query
                     const query = file('upload/wo:upload')
-                    console.log(req.body.alias)
                     const parameters = [req.body.alias, req.body.originalName, req.body.wo_updatedby, req.body.wo_id]
                     const { rows } = await client.query(query, parameters)
                     res.send('File uploaded!');
