@@ -784,7 +784,8 @@ if (cluster.isMaster) {
                     req.body.wo_release,
                     req.body.pr_name,
                     req.body.wo_date,
-                    req.body.wo_id
+                    req.body.wo_id,
+                    req.body.wo_po
                 ]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
