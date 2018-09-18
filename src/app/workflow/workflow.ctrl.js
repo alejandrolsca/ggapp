@@ -339,8 +339,8 @@ module.exports = (function (angular) {
                     col.header = i18nFilter("workflow.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.wordWrap = false;
                     col.width = $scope.columns[i].width;
-                    if($scope.columns[i].binding === 'wo_price'){
-                        console.log(authService.userHasRole(['admin','warehouse','sales']))
+                    if(['wo_price', 'wo_currency'].includes($scope.columns[i].binding) ){
+                        console.log($scope.columns[i].binding)
                         col.visible = authService.userHasRole(['admin','warehouse','sales'])
                     }
                     s.columns.push(col);

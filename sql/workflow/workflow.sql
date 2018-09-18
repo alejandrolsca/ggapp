@@ -34,6 +34,7 @@ select
 	wo_previousid, 
 	wo_previousdate, 
 	wo_price, 
+	wo_currency, 
 	wo_notes,
 	wo_status,
 	wo_updatedby,         
