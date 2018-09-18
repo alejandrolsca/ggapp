@@ -16,11 +16,9 @@ module.exports = (function (angular) {
 
                 'requestError': function (rejection) {
                     // do something on error
-                    console.log('requestError: ',rejection)
                     return $q.reject(rejection);
                 },
                 'responseError': function (rejection) {
-                    console.log('responseError: ',rejection)
                     // do something on error
                     var alerts = $injector.get('$alerts');
                     if(rejection.status !== 401) {

@@ -102,8 +102,6 @@ module.exports = (function (angular) {
             });
 
             const getData = () => {
-                console.log(moment($scope.fromDate.value).tz('UTC').format())
-                console.log(moment($scope.toDate.value).endOf('day').tz('UTC').format())
                 const fromDate = moment($scope.fromDate.value).tz('UTC').format()
                 const toDate = moment($scope.toDate.value).endOf('day').tz('UTC').format()
                 $scope.loading = true;

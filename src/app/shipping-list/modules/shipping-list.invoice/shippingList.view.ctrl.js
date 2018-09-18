@@ -31,7 +31,6 @@ module.exports = (function (angular) {
             $scope.disableXLS = false;
             // export to xls
             $scope.exportXLS = function (current, total, release) {
-                console.log($scope.flex[release])
                 const timestamp = moment().tz('America/Chihuahua').format();
                 const fileName = `release_invoice_${$stateParams.sl_id}_${current}of${total}_${release}_${timestamp}.xlsx`;
                 const flexGrid = $scope.flex[release]

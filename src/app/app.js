@@ -52,14 +52,12 @@ module.exports = (function (angular) {
                             $timeout(function () {
                                 $state.go('login');
                             });
-                            console.log(err);
                         }
                     });
                 }
 
                 function setSession(authResult) {
                     // Set the time that the Access Token will expire at
-                    console.log(authResult)
                     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
                     localStorage.setItem('access_token', authResult.accessToken);
                     localStorage.setItem('id_token', authResult.idToken);
@@ -93,7 +91,6 @@ module.exports = (function (angular) {
                         throw new Error('Access Token must exist to fetch profile');
                     }
                     angularAuth0.client.userInfo(accessToken, async function (err, profile) {
-                        console.log(profile)
                         if (profile) {
                             const { picture, nickname } = profile
                             profile = {

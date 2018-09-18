@@ -11,7 +11,6 @@ module.exports = (function (angular) {
             $scope.onSubmit = function () {
                 
                 productDiecuttingGeneralUpdateFac.update($scope.fmData).then(function (promise) {
-                    console.log(promise.data)
                     if (promise.data.rowCount === 1) {
                         $location.path('/product/'+$stateParams.cl_id);
                     } else {

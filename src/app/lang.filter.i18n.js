@@ -24,7 +24,6 @@ module.exports = (function (angular) {
                     }
                 }
                 catch (e) {
-                    console.log(e.description);
                     return input;
                 }
 

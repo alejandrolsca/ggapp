@@ -105,7 +105,6 @@ module.exports = (function (angular) {
                     fromDate = moment($scope.fromDate.value).format('YYYY-MM-DD')
                     toDate = moment($scope.toDate.value).format('YYYY-MM-DD')
                 }
-                console.log(fromDate, toDate)
                 const wo_currency = $scope.wo_currency
                 $scope.loading = true;
                 earningsByStatusFac.data(target_date, wo_currency, fromDate, toDate).then(function (promise) {
@@ -185,7 +184,6 @@ module.exports = (function (angular) {
                 }
 
                 $scope.$watchGroup(['wo_currency', 'target_date'], function (newValues, oldValues, scope) {
-                    console.log('entro')
                     getData()
                 })
 

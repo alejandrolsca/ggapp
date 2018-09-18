@@ -185,7 +185,6 @@ module.exports = (function (angular) {
                     }).then(function () {
                         exportationInvoiceViewFac.getZone($scope.fmData.zo_id).then(function (promise) {
                             $scope.zo_idoptions = [];
-                            console.log(promise)
                             const { data } = promise
                             if (angular.isArray(data)) {
                                 rows = data;
@@ -196,7 +195,6 @@ module.exports = (function (angular) {
                                     "fmData.zo_id",
                                     function zoChange(newValue, oldValue) {
                                         const { zo_jsonb: zone } = rows.find(function (zone) {
-                                            console.log(zone.zo_id)
                                             return zone.zo_id = newValue
                                         })
                                         var flexSheet = $scope.flex;

@@ -7,7 +7,6 @@ module.exports = (function (angular) {
         function ($scope, shippingListViewFac, $location, i18nFilter, $stateParams, $filter, authService) {
 
             $scope.exportPDF = async () => {
-                console.log('entro')
                 const margin = 36
                 var doc = new wijmo.pdf.PdfDocument({
                     pageSettings: {
@@ -24,8 +23,6 @@ module.exports = (function (angular) {
                         wijmo.pdf.saveBlob(args.blob, 'FlexGrid.pdf');
                     }
                 });
-                console.log('width', wijmo.pdf.pxToPt(150), 'height', wijmo.pdf.pxToPt(79))
-                console.log('width', doc.width, 'height', doc.height) // plus 72 points
 
                 doc.header.drawImage(img_gglogo, 0, 0, {
                     width: wijmo.pdf.pxToPt(150),
@@ -79,7 +76,6 @@ module.exports = (function (angular) {
                 let x = 0
                 let y = 160
                 headers.map((value, index, data) => {
-                    console.log(x)
                     doc.paths
                         .rect(x, y, widths[index], rowHeight)
                         .stroke();
@@ -93,7 +89,6 @@ module.exports = (function (angular) {
                 x = 0
                 y += rowHeight
                 headersSpanish.map((value, index, data) => {
-                    console.log(x)
                     doc.paths
                         .rect(x, y, widths[index], rowHeight)
                         .stroke();
@@ -108,7 +103,6 @@ module.exports = (function (angular) {
                 y += rowHeight
                 for (var i = 0; i < 40; i++) {
                     headers.map((value, index, data) => {
-                        console.log(x)
                         doc.paths
                             .rect(x, y, widths[index], rowHeight)
                             .stroke();
@@ -294,7 +288,6 @@ module.exports = (function (angular) {
                                         const zone = rows.find(function (zone) {
                                             return zone.zo_id = newValue
                                         })
-                                        console.log(zone)
                                         var flexSheet = $scope.flex;
                                         if (newValue !== undefined && flexSheet) {
                                             flexSheet.setCellData(8, 5,
@@ -318,7 +311,6 @@ module.exports = (function (angular) {
                                 $scope.data = promise.data
                                 $scope.disableXLS = ($scope.data.length === 1);
 
-                                console.log($scope.disableXLS)
 
                                 var flexSheet = $scope.flex,
                                     row = 17;
