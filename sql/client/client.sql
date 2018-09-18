@@ -8,7 +8,7 @@ select
 		else cl_jsonb->>'cl_corporatename'
 	end as cl_corporatename,
     x.cl_rfc,
-    x.cl_rfc,
+    x.cl_name,
     x.cl_ssntin,
     x.cl_firstsurname,
     x.cl_secondsurname,
