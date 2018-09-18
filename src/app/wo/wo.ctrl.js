@@ -314,16 +314,17 @@ module.exports = (function (angular) {
                 let currentSearch,
                     lastSearch,
                     filterTextTimeout;
-                $scope.$watchGroup(['wo_id','zo_zone', 'wo_release', 'pr_name', 'wo_date'], function (newValues, oldValues, scope) {
-                    let [wo_id, zo_zone, wo_release, pr_name, wo_date] = newValues
-                    console.log(wo_id, zo_zone, wo_release, pr_name, wo_date)
+                $scope.$watchGroup(['wo_id', 'zo_zone', 'wo_release', 'wo_po', 'pr_name', 'wo_date'], function (newValues, oldValues, scope) {
+                    let [wo_id, zo_zone, wo_release, wo_po, pr_name, wo_date] = newValues
+                    console.log(wo_id, zo_zone, wo_release, wo_po, pr_name, wo_date)
                     wo_id = wo_id || ''
                     zo_zone = zo_zone || ''
                     wo_release = wo_release || ''
+                    wo_po = wo_po || ''
                     pr_name = pr_name || ''
                     wo_date = wo_date || '1 month'
 
-                    currentSearch = wo_id.toLowerCase() + zo_zone.toLowerCase() + wo_release.toLowerCase() + pr_name.toLowerCase() + wo_date.toLowerCase()
+                    currentSearch = wo_id.toLowerCase() + zo_zone.toLowerCase() + wo_release.toLowerCase() + wo_po.toLowerCase() + pr_name.toLowerCase() + wo_date.toLowerCase()
 
                     const sameSearch = (currentSearch === lastSearch)
 
@@ -335,9 +336,9 @@ module.exports = (function (angular) {
                     if (!sameSearch) {
                         $scope.loading = true;
                         filterTextTimeout = $timeout(function () {
-                            woFactory.getData(wo_id, zo_zone, wo_release, pr_name, wo_date).then(function (promise) {
+                            woFactory.getData(wo_id, zo_zone, wo_release, wo_po, pr_name, wo_date).then(function (promise) {
                                 $scope.loading = false;
-                                lastSearch = wo_id.toLowerCase() + zo_zone.toLowerCase() + wo_release.toLowerCase() + pr_name.toLowerCase() + wo_date.toLowerCase()
+                                lastSearch = wo_id.toLowerCase() + zo_zone.toLowerCase() + wo_release.toLowerCase() + wo_po.toLowerCase() + pr_name.toLowerCase() + wo_date.toLowerCase()
                                 if (angular.isArray(promise.data)) {
                                     // expose data as a CollectionView to get events
                                     $scope.data = new wijmo.collections.CollectionView(promise.data);

@@ -103,6 +103,7 @@ where
 	  coalesce(zo.zo_jsonb->>'zo_zone','') ilike ('%' || $2 || '%') and
       coalesce(wo.wo_release,'') ilike ('%' || $3 || '%') and
       coalesce(pr.pr_jsonb->>'pr_name','') ilike ('%' || $4 || '%') and
-	  wo.wo_id::text ilike ('%' || $6 || '%')
+	  wo.wo_po::text ilike ('%' || $7 || '%') and 
+	  wo.wo_id::text ilike ('%' || $6 || '%') 
 order by wo.wo_date desc;
       
