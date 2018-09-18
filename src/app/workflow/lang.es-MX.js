@@ -73,6 +73,7 @@ module.exports = {
         { "binding": "wo_foliosseries", "type": "String", "width": 100, "html": false },
         { "binding": "wo_foliosfrom", "type": "Number", "width": 100, "html": false },
         { "binding": "wo_foliosto", "type": "Number", "width": 100, "html": false },
+        { "binding": "wo_price", "type": "Number", "width": 100, "html": false },
         { "binding": "wo_notes", "type": "String", "width": 100, "html": false },
         { "binding": "wo_previousid", "type": "Number", "width": 100, "html": false },
         { "binding": "wo_previousdate", "type": "Date", "width": 150, "html": false },

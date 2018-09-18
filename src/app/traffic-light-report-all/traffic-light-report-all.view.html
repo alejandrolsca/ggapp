@@ -18,10 +18,25 @@
     style="height:390px;">
         <wj-flex-grid-filter></wj-flex-grid-filter>
         <wj-flex-grid-column
-        header="Active" 
-        binding="active"
-        data-type="Boolean">
-        </wj-flex-grid-column>
+            header="Active" 
+            binding="active"
+            data-type="Boolean">
+            </wj-flex-grid-column>
+            <wj-flex-grid-column
+                header="Acciones"       
+                binding="actions"        
+                is-read-only="true"
+                allow-resizing="false" 
+                width="100">
+                <wj-flex-grid-cell-template 
+                    cell-type="Cell">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                                <a href="/wo/view/{{$item.cl_id}}/{{$item.wo_id}}" target="_blank" class="btn btn-default btn-xs">{{'general.labels.open' | i18n}}</a>
+                            </div>
+                    </div>
+                </wj-flex-grid-cell-template>
+            </wj-flex-grid-column>
         <wj-flex-grid-column
         header="Estatus de entrega"
         binding="status"

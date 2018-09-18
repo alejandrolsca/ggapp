@@ -13,6 +13,8 @@ module.exports = (function (angular) {
                 });
                 return camelCase.join('')
             }
+
+            $scope.displayPrice = authService.userHasRole(['admin','warehouse','sales'])
             
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
