@@ -6,6 +6,7 @@ module.exports = (function (angular) {
 
             $scope.authService = authService;
             $scope.profile = authService.profile()
+            $scope.copyright = i18nFilter("general.copyright");
             /*
             langFac.getLang().then(function (promise) {
                 if (promise.data.success) {
