@@ -39,7 +39,7 @@
                     <wj-range min="{{(row.total/3)*2}}" max="{{row.total}}" color="rgba(100,255,100,.5)"></wj-range>
                 </wj-radial-gauge>
                 <center><h6>Entregado:<br>{{row.delivered}} de {{row.total}}</h6></center>
-                <center><h6 ng-class="{'bad': row.latepercentage > 0, 'excellent': row.latepercentage == 0.00 }">Entregado a destiempo:<br>{{row.latedelivered}} de {{row.total}}</h6></center>
+                <center><h6 ng-class="{'bad': row.latepercentage > 0, 'excellent': row.latepercentage == 0.00 }">Entregado a destiempo:<br>{{row.latedelivered}} de {{row.delivered}}</h6></center>
                 <center><h2 ng-class="{'bad': row.latepercentage > 0, 'excellent': row.latepercentage == 0.00 }">{{ row.latepercentage }}%</h2></center>
             </div>
         </div>
