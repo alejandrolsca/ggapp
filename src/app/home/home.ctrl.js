@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'homeFac', 'authService',
-        function ($scope, homeFac, authService) {
+    return ['$scope', 'homeFac', 'authService', '$timeout',
+        function ($scope, homeFac, authService, $timeout) {
             $scope.init = function (s, e) {
                 s.getText = function (gauge, part, value, text) {
                     switch (part) {
@@ -78,9 +78,9 @@ module.exports = (function (angular) {
                 function toDateChanged(s, e) {
                     getData()
                 }
-
-                getData()
-
+                $timeout(function () {
+                    getData()
+                },500);
             });
         }];
 

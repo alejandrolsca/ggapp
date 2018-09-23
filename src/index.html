@@ -13,7 +13,7 @@
 
 <body ng-app="app" ng-controller="appCtrl">
     
-    <nav class="navbar-default nav-wrapper navbar-fixed-top">
+    <nav ng-if="authService.isAuthenticated()" class="navbar-default nav-wrapper navbar-fixed-top" ng-cloak>
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -69,7 +69,7 @@
       </div><!-- /.container-fluid -->
     </nav>
     
-    <div class="container-fluid page-wrapper">
+    <div ng-class="{'is-authenticated': authService.isAuthenticated()}" class="container-fluid page-wrapper">
         <!--<header class="row header-wrapper">
             <div class="col-sm-12">
                <a ng-click="lang('es-MX')">es-MX</a> | <a ng-click="lang('en-US')">en-US</a>
@@ -83,7 +83,7 @@
         </section>
         <footer class="row footer-wrapper">
             <div>
-                <span>{{ 'general.copyright' | i18n }}</span>
+                <span ng-bind="copyright"></span>
             </div>
         </footer>
     </div>
