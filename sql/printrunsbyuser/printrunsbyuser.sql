@@ -1,7 +1,11 @@
 select
 	printruns.wo_id,
+	printruns.wo_qty,
+	printruns.wo_price,
+	(printruns.wo_qty * printruns.wo_price) as wo_total,
 	printruns.ma_id,
 	printruns.pr_name,
+	printruns.pr_partno,
 	printruns.pr_code,
 	wohi.wo_updatedby,
 	ma.ma_jsonb->>'ma_name' ma_name,
@@ -103,7 +107,9 @@ from (
 		(wo_componentmaterialqty->>'7')::numeric materialc8,
 		(wo_componentmaterialqty->>'8')::numeric materialc9,
 		wo_qty,
+		wo_price,
 		pr_name,
+		pr_partno,
 		pr_code,
 		pr_process,
 		pr_type,
@@ -117,6 +123,7 @@ from (
 			ma_id int,
 			wo_status int,
 			wo_qty numeric,
+			wo_price numeric,
 			wo_materialqty numeric,
 			wo_componentmaterialqty jsonb,
 			wo_deliverydate timestamptz
@@ -124,6 +131,7 @@ from (
 		product pr, 
 		jsonb_to_record(pr_jsonb) as pr_jsonb (
 			pr_name text,
+			pr_partno text,
 			pr_code text,
 			pr_inkfront jsonb,
 			pr_inkback jsonb,
