@@ -115,6 +115,9 @@ module.exports = (function (angular) {
                             cv.groupDescriptions.clear(); // clear current groups
                             var groupDesc = new wijmo.collections.PropertyGroupDescription('wo_updatedby', function (item, prop) {
                                 item.print_runs = +item.print_runs //convert string to number
+                                item.wo_qty = +item.wo_qty //convert string to number
+                                item.wo_price = +item.wo_price //convert string to number
+                                item.wo_total = +item.wo_total //convert string to number
                                 return item.wo_updatedby
                             });
                             cv.groupDescriptions.push(groupDesc);
