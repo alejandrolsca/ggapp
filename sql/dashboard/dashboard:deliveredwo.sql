@@ -45,4 +45,5 @@ jsonb_to_record(pr_jsonb) as pjb (
 	pr_process text
 )
 where wjb.wo_commitmentdate between $1 and $2
+and wjb.wo_status not in(18)
 group by pjb.pr_process
