@@ -35,7 +35,7 @@ select
 from wo wo,
 jsonb_to_record(wo_jsonb) as wjb (
 	pr_id int,
-	wo_status text,
+	wo_status int,
 	wo_commitmentdate date,
 	wo_deliverydate date
 )
