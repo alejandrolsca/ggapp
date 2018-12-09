@@ -63,10 +63,17 @@
                 <li><a href="javascript:void(0);">Reportar un problema</a></li>
                 <li class="divider"></li>
                 <li ng-if="!authService.isAuthenticated()"><a href="javascript:void(0);" ng-click="authService.login()">Iniciar sesión</a></li>
-                <li ng-if="authService.isAuthenticated()"><a ui-sref="login" ng-click="authService.logout()">Cerrar sesión</a></li>
+                <li ng-if="authService.isAuthenticated()"><a href="javascript:void(0);" ng-click="authService.logout()">Cerrar sesión</a></li>
               </ul>
             </li>
           </ul>
+          <span class="nav navbar-nav navbar-right">
+              <li>
+                <a href="javascript:void(0);" class="expiration-time">
+                  <timer end-time="authService.getExpiration()">{{hhours}}:{{mminutes}}:{{sseconds}}</timer>                
+                </a>
+            </li>
+          </span>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>

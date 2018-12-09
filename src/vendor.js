@@ -36,6 +36,8 @@ require('../bower_components/bootstrap/js/tab.js');
 require('script-loader!../node_modules/auth0-js/build/auth0.js');
 require('angular-auth0');
 require('../bower_components/angular-jwt/dist/angular-jwt.js');
+window.humanizeDuration = require('../bower_components/humanize-duration/humanize-duration.js');
+require('../bower_components/angular-timer/dist/angular-timer.js');
 require('angular-file-upload');
 window.moment = require('./scripts/moment-timezone-with-data.js');
 //require('../bower_components/moment-timezone/moment-timezone.js');
