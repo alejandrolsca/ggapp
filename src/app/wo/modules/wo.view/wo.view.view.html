@@ -16,7 +16,7 @@
 <form class="row col-sm-12" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
 <gg-select err-class="error"
         lbl="{{'wo-view.labels.zo-id' | i18n}}" 
-        form-group-class="col-sm-6" 
+        form-group-class="col-sm-5 col-xs-10" 
         options="zo_idoptions" 
         ng-model="fmData.zo_id"
         regexp="singlespaces"
@@ -25,9 +25,15 @@
         is-required="true"
         is-disabled="true">
 </gg-select>
+<div class="form-group col-sm-2 col-xs-2">
+        <label class="control-label">&nbsp</label>
+        <div>
+                <a class="btn btn-primary form-control" href="{{zoneViewUrl}}" target="_blank">Ver Zona</a>  
+        </div>
+</div>
 <gg-input err-class="error"
         lbl="{{'wo-view.labels.wo-orderedby' | i18n}}" 
-        form-group-class="col-sm-6"
+        form-group-class="col-sm-5"
         ng-model="fmData.wo_orderedby"
         regexp="singlespaces"
         regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
@@ -63,7 +69,7 @@
         req-msg="Required"
         is-disabled="true">
 </gg-input>
-<label class="col-sm-12 fieldset">LINEA</label>
+<label class="col-sm-12 col-xs-12 fieldset">LINEA</label>
 <gg-input err-class="error"
         lbl="{{'wo-view.labels.wo-line' | i18n}}" 
         form-group-class="col-sm-3"
@@ -82,7 +88,7 @@
         req-msg="Required"
         is-disabled="true">
 </gg-input>
-<label class="col-sm-12 fieldset">PRODUCTO</label>
+<label class="col-sm-12 col-xs-12 fieldset">PRODUCTO</label>
 <gg-select err-class="error"
         lbl="{{'wo-view.labels.pr-id' | i18n}}" 
         form-group-class="col-sm-8 col-xs-10" 
@@ -97,7 +103,7 @@
 <div class="form-group col-sm-2 col-xs-2">
     <label class="control-label">&nbsp</label>
     <div>
-        <a class="btn btn-primary form-control" href="{{productUpdateUrl}}" target="_blank">Detalles</a>  
+        <a class="btn btn-primary form-control" href="{{productUpdateUrl}}" target="_blank">Ver Producto</a>  
     </div>
 </div>
 <gg-input err-class="error"
@@ -163,7 +169,7 @@
     </gg-input>
 </span>
 <span ng-if="fmData.pr_id">
-<label class="col-sm-12 fieldset">MAQUINA</label>
+<label class="col-sm-12 col-xs-12 fieldset">MAQUINA</label>
     <gg-select err-class="error"
                 lbl="{{'wo-view.labels.ma-id' | i18n}}" 
                 form-group-class="col-sm-6"
@@ -176,7 +182,7 @@
                 is-disabled="true">
     </gg-select>
 </span>
-<label class="col-sm-12 fieldset">MATERIAL ORDENADO</label>
+<label class="col-sm-12 col-xs-12 fieldset">MATERIAL ORDENADO</label>
 <span ng-if="!components">
     <gg-input err-class="error"
                 lbl="{{'wo-add.labels.wo-materialqty' | i18n}}" 
@@ -203,7 +209,7 @@
                 </gg-input>
             </span>
     </span>
-<label class="col-sm-12 fieldset">EMPAQUE</label>
+<label class="col-sm-12 col-xs-12 fieldset">EMPAQUE</label>
 <gg-input err-class="error"
             lbl="{{'wo-view.labels.wo-packageqty' | i18n}}" 
             form-group-class="col-sm-3"
@@ -224,7 +230,7 @@
         is-required="true"
         is-disabled="true">
 </gg-input>
-<label class="col-sm-12 fieldset">ORDEN</label>
+<label class="col-sm-12 col-xs-12 fieldset">ORDEN</label>
 <gg-textarea err-class="error"
         lbl="{{'wo-view.labels.wo-notes' | i18n}}" 
         form-group-class="col-sm-6"

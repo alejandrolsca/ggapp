@@ -176,6 +176,7 @@ module.exports = {
                 "zone": require('./zone/lang.es-MX'),
                 "zone-add": require('./zone/modules/zone.add/lang.es-MX'),
                 "zone-update": require('./zone/modules/zone.update/lang.es-MX'),
+                "zone-view": require('./zone/modules/zone.view/lang.es-MX'),
                 /****************************************
                 WORKFLOW 
                 ****************************************/
