@@ -3,7 +3,8 @@ module.exports = (function(angular){
     
     return angular.module('app.zone',[
         require('./modules/zone.add').name,
-        require('./modules/zone.update').name
+        require('./modules/zone.update').name,
+        require('./modules/zone.view').name
     ])
 
     .config(['$stateProvider', '$urlRouterProvider',

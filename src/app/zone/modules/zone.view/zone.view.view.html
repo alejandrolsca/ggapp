@@ -1,0 +1,262 @@
+<div class="col-sm-12">
+    <h3>{{'zone-view.title' | i18n}}</h3>
+    <h3>Cliente: {{client}}</h3>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<form role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+  <gg-select err-class="error"
+           lbl="{{'zone.labels.zo-type' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="zo_typeoptions" 
+           ng-model="fmData.zo_type"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-rfc' | i18n}}" 
+            form-group-class="col-sm-3" 
+            ng-model="fmData.zo_rfc"
+            regexp="rfc"
+            regexp-msg="{{'general.regexp.rfc' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+    <span ng-if="(fmData.zo_type=='legal')">
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-corporatename' | i18n}}" 
+            form-group-class="col-sm-6"
+            ng-model="fmData.zo_corporatename"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  </span>
+  <label class="col-sm-12 fieldset"></label>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-zone' | i18n}}" 
+            form-group-class="col-sm-9"
+            ng-model="fmData.zo_zone"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-immex' | i18n}}" 
+            form-group-class="col-sm-3" 
+            ng-model="fmData.zo_immex"
+            regexp="immex"
+            regexp-msg="{{'general.regexp.immex' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="false">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-name' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.zo_name"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-firstsurname' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.zo_firstsurname"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-secondsurname' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.zo_secondsurname"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="false">
+  </gg-input>
+  <gg-countries err-class="error"
+           lbl="{{'zone.labels.zo-country' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="zo_countryoptions" 
+           ng-model="fmData.zo_country"
+           ng-change="getStates()"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-countries>
+  <gg-states err-class="error"
+           lbl="{{'zone.labels.zo-state' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="zo_stateoptions" 
+           ng-model="fmData.zo_state"
+           ng-change="getCity()"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-states>
+  <gg-city-county err-class="error"
+            lbl="{{'zone.labels.zo-city' | i18n}}"
+            form-group-class="col-sm-3"
+            options="zo_cityoptions"
+            ng-model="fmData.zo_city"
+            ng-change="getCounty()"           
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-city-county>
+  <gg-city-county err-class="error"
+            lbl="{{'zone.labels.zo-county' | i18n}}"
+            form-group-class="col-sm-3"
+            options="zo_countyoptions"
+            ng-model="fmData.zo_county"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="false">
+  </gg-city-county>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-street' | i18n}}"
+            form-group-class="col-sm-4" 
+            ng-model="fmData.zo_street"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-streetnumber' | i18n}}"
+            form-group-class="col-sm-2"
+            ng-model="fmData.zo_streetnumber"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-suitenumber' | i18n}}"
+            form-group-class="col-sm-2"
+            ng-model="fmData.zo_suitenumber"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="false">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-neighborhood' | i18n}}"
+            form-group-class="col-sm-4"
+
+            ng-model="fmData.zo_neighborhood"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+          <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-zipcode' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.zo_zipcode"
+            regexp="zipcode"
+            regexp-msg="{{'general.regexp.zipcode' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-addressreference' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.zo_addressreference"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-receiptschedule' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.zo_receiptschedule"
+            regexp="receiptschedule"
+            regexp-msg="{{'general.regexp.receiptschedule' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="false">
+</gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-email' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.zo_email"
+            regexp="email"
+            regexp-msg="{{'general.regexp.email' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-input>
+  <gg-phone err-class="error"
+            lbl="{{'zone.labels.zo-phone' | i18n}}"
+            form-group-class="col-sm-3"
+            ng-model="fmData.zo_phone"
+            regexp="phone"
+            regexp-msg="{{'general.regexp.phone' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-phone>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-phoneextension' | i18n}}"
+            form-group-class="col-sm-1"
+            ng-model="fmData.zo_phoneextension"
+            regexp="integer"
+            regexp-msg="{{'general.regexp.integer' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="false">
+  </gg-input>
+  <gg-phone err-class="error"
+            lbl="{{'zone.labels.zo-mobile' | i18n}}"
+            form-group-class="col-sm-4"
+            ng-model="fmData.zo_mobile"
+            regexp="phone"
+            regexp-msg="{{'general.regexp.phone' | i18n}}"
+            req-msg="Required"
+            is-disabled="true"
+            is-required="true">
+  </gg-phone>
+  <label class="col-sm-12 fieldset">ESTATUS</label>
+  <gg-select err-class="error"
+           lbl="{{'zone.labels.zo-status' | i18n}}" 
+           form-group-class="col-sm-3" 
+           options="zo_statusoptions" 
+           ng-model="fmData.zo_status"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-disabled="true"
+           is-required="true">
+  </gg-select>
+  <label class="col-sm-12 fieldset"></label>
+</form>

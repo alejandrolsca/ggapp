@@ -30,6 +30,7 @@ module.exports = (function (angular) {
                             $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
                             $scope.wo_id = promise.data[0].wo_id;
                             $scope.wo_date = promise.data[0].wo_date;
+                            $scope.zoneViewUrl = `/zone/view/${$scope.fmData.cl_id}/${$scope.fmData.zo_id}`;
                             const { username } = authService.profile()
                             $scope.fmData.wo_updatedby = username;
                             
