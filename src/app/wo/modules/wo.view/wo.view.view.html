@@ -16,7 +16,7 @@
 <form class="row col-sm-12" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
 <gg-select err-class="error"
         lbl="{{'wo-view.labels.zo-id' | i18n}}" 
-        form-group-class="col-sm-5 col-xs-10" 
+        form-group-class="col-sm-5 col-xs-9" 
         options="zo_idoptions" 
         ng-model="fmData.zo_id"
         regexp="singlespaces"
@@ -25,10 +25,10 @@
         is-required="true"
         is-disabled="true">
 </gg-select>
-<div class="form-group col-sm-2 col-xs-2">
+<div class="form-group col-sm-2 col-xs-3">
         <label class="control-label">&nbsp</label>
         <div>
-                <a class="btn btn-primary custom form-control" href="{{zoneViewUrl}}" target="_blank">Ver Zona</a>  
+                <a class="btn btn-primary custom form-control" href="{{zoneViewUrl}}" target="_blank">Zona</a>  
         </div>
 </div>
 <gg-input err-class="error"
@@ -91,7 +91,7 @@
 <label class="col-sm-12 col-xs-12 fieldset">PRODUCTO</label>
 <gg-select err-class="error"
         lbl="{{'wo-view.labels.pr-id' | i18n}}" 
-        form-group-class="col-sm-8 col-xs-10" 
+        form-group-class="col-sm-8 col-xs-8" 
         options="pr_idoptions" 
         ng-model="fmData.pr_id"
         regexp="singlespaces"
@@ -100,10 +100,10 @@
         is-required="true"
         is-disabled="true">
 </gg-select>
-<div class="form-group col-sm-2 col-xs-2">
+<div class="form-group col-sm-2 col-xs-4">
     <label class="control-label">&nbsp</label>
     <div>
-        <a class="btn btn-primary custom form-control" href="{{productUpdateUrl}}" target="_blank">Ver Producto</a>  
+        <a class="btn btn-primary custom form-control" href="{{productUpdateUrl}}" target="_blank">Producto</a>  
     </div>
 </div>
 <gg-input err-class="error"
