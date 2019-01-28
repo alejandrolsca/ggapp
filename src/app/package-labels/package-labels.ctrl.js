@@ -98,12 +98,14 @@ module.exports = (function (angular) {
                         if (!data.length > 0) {
                             $scope.pdfDisabled = true
                             $scope.fmData.wo_packageqty = undefined
+                            $scope.warning = true
                             return;
                         }
                         const [wo] = data
                         $scope.wo = wo
                         $scope.fmData.wo_packageqty = wo.wo_packageqty
                         $scope.pdfDisabled = false
+                        $scope.warning = false
                     })
                 } catch (error) {
                     throw new Error(error)
