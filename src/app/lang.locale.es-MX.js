@@ -212,6 +212,10 @@ module.exports = {
                 ****************************************/
                "printruns-by-user": require('./printruns-by-user/lang.es-MX'),
                /****************************************
+                PRINT RUNS BY USER2
+                ****************************************/
+               "printruns-by-user2": require('./printruns-by-user2/lang.es-MX'),
+               /****************************************
                 EARNINGS BY STATUS
                 ****************************************/
                "earnings-by-status": require('./earnings-by-status/lang.es-MX'),

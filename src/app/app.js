@@ -34,6 +34,7 @@ module.exports = (function(angular) {
       require("./shipping-list").name,
       require("./printruns").name,
       require("./printruns-by-user").name,
+      require("./printruns-by-user2").name,
       require("./package-labels").name,
       require("./earnings-by-status").name
     ])
