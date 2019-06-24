@@ -10,16 +10,35 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">UPDATE ORDERS</h4>
+        <h4 class="modal-title" id="myModalLabel">ACTUALIZAR ESTATUS</h4>
       </div>
-      <span ng-switch="selected">
+      <span ng-switch="selected" ng-form name="updateForm">
       <div class="modal-body">
-          <span ng-switch-when="true">Se van a actualizar las siguientes ordenes de trabajo <b>{{ wo_id }}</b> al status <b>"{{ next_status }}"</b>, desea continuar?</span>
+          <span ng-switch-when="true">
+            <p><b>El estatus de las siguientes ordenes de trabajo será actualizado:</b></p>
+            <p>{{ wo_id.join(', ') }}</p>
+            <p><b>Estatus nuevo: </b>"{{ next_status }}"</p>
+            <span ng-switch="fmData.wo_nextstatus">
+                <p class="row" ng-switch-when="18">
+                    <gg-textarea err-class="error"
+                              lbl="Nota de cancelación" 
+                              form-group-class="col-sm-12"
+                              ng-model="fmData.wo_cancellationnotes"
+                              height="176"
+                              regexp="singlespaces"
+                              regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                              req-msg="Required"
+                              is-required="true">
+                    </gg-textarea>
+                </p>
+            </span>
+            <p><h4>Desea continuar?</h4></p>
+          </span>
           <span ng-switch-when="false">Debe seleccionar por lo menos una orden de trabajo.</span>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
-        <button class="btn btn-primary" ng-click="onSubmit()" ng-switch-when="true">{{'general.labels.submit' | i18n}}</button>
+        <button class="btn btn-default" data-dismiss="modal">{{'general.labels.cancel' | i18n}}</button>
+        <button class="btn btn-primary" ng-click="onSubmit()" ng-switch-when="true" ng-disabled="updateForm.$invalid">{{'general.labels.submit' | i18n}}</button>
       </div>
     </span>
     </div>

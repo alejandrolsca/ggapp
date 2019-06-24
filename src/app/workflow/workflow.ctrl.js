@@ -153,13 +153,24 @@ module.exports = (function (angular) {
             };
 
             $scope.onSubmit = function () {
-                workflowFactory.update($scope.fmData.wo_nextstatus, userProfile.username, $scope.wo_id.join(',')).then(function (promise) {
-                    if (promise.data.rowCount >= 1) {
-                        $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
-                    } else {
-                        $scope.updateFail = true;
-                    }
-                });
+                console.log($scope.fmData.wo_nextstatus, userProfile.username, $scope.wo_id.join(','), $scope.fmData.wo_cancellationnotes)
+                if ($scope.fmData.wo_nextstatus === 18) {
+                    workflowFactory.updatecancellation($scope.fmData.wo_nextstatus, userProfile.username, $scope.fmData.wo_cancellationnotes, $scope.wo_id.join(',')).then(function (promise) {
+                        if (promise.data.rowCount >= 1) {
+                            $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
+                        } else {
+                            $scope.updateFail = true;
+                        }
+                    });
+                } else {
+                    workflowFactory.update($scope.fmData.wo_nextstatus, userProfile.username, $scope.wo_id.join(',')).then(function (promise) {
+                        if (promise.data.rowCount >= 1) {
+                            $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
+                        } else {
+                            $scope.updateFail = true;
+                        }
+                    });
+                }
                 $('#myModal').modal('hide');
             }
             $scope.materialsModal = () => {
@@ -421,7 +432,7 @@ module.exports = (function (angular) {
                     actions.map((value) => {
                         if (value.wo_prevstatus.includes(newValue)) {
                             value.notAnOption = false;
-                            if ((value.value == 18) && !userProfile.us_group.includes('admin')) {
+                            if ((value.value === 18) && !userProfile.us_group.includes('admin')) {
                                 value.notAnOption = true;
                             }
                             $scope.actions.push(value)

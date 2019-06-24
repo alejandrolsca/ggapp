@@ -40,6 +40,7 @@ module.exports = {
         "wo-previousid": "ID anterior",
         "wo-previousdate": "Fecha anterior",
         "wo-notes": "Notas",
+        "wo-cancellationnotes": "Notas Cancelación",
         "wo-price": "Precio",
         "wo-currency": "Moneda",
         "wo-email": "Enviar Correo",
@@ -76,6 +77,7 @@ module.exports = {
         { "binding": "wo_price", "type": "Number", "width": 100, "html": false },
         { "binding": "wo_currency", "type": "String", "width": 100, "html": false },
         { "binding": "wo_notes", "type": "String", "width": 100, "html": false },
+        { "binding": "wo_cancellationnotes", "type": "String", "width": 100, "html": false },
         { "binding": "wo_previousid", "type": "Number", "width": 100, "html": false },
         { "binding": "wo_previousdate", "type": "Date", "width": 150, "html": false },
         { "binding": "wo_status", "type": "Number", "width": 100, "html": false },
@@ -109,7 +111,7 @@ module.exports = {
             { "label": "No se pudo entregar", "value": 15, "desc": "El producto no se pudo entregar", "us_group": "warehouse", "wo_prevstatus": [14], "interval": "1 year" },
             { "label": "Rechazado por el cliente", "value": 16, "desc": "El producto fue rechazado por el cliente", "us_group": "warehouse", "wo_prevstatus": [14, 15], "interval": "1 year" },
             { "label": "Entregado", "value": 17, "desc": "El producto se entrego al cliente con éxito", "us_group": "warehouse", "wo_prevstatus": [14, 15], "interval": "6 week" },
-            { "label": "Cancelada", "value": 18, "desc": "La orden de trabajo fue cancelada", "us_group": "admin", "wo_prevstatus": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], "interval": "1 year" }
+            { "label": "Cancelada", "value": 18, "desc": "La orden de trabajo fue cancelada", "us_group": "admin", "wo_prevstatus": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], "interval": "1 year" }
         ]
     }
 }
