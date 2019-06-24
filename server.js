@@ -1281,6 +1281,28 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
+    app.post('/api/workflow/updatecancellation', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            let result = undefined;
+            try {
+                await client.query('BEGIN')
+                const updateStatusQuery = file('workflow/workflow:updatecancellation')
+                const updateStatusValues = [req.body.wo_status, req.body.wo_updatedby, req.body.wo_cancellationnotes, req.body.wo_id]
+                result = await client.query(updateStatusQuery, updateStatusValues)
+                await client.query('COMMIT')
+                res.send(")]}',\n".concat(JSON.stringify(result)));
+            } catch (e) {
+                await client.query('ROLLBACK')
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
     /* TRAFFIC LIGHT REPORT */
     app.post('/api/tlr', function (req, res, next) {
         (async () => {
