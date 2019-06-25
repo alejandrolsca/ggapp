@@ -2,6 +2,7 @@
 require('../node_modules/bootstrap/dist/css/bootstrap.css');
 require('../bower_components/animate.css/animate.css');
 require('../bower_components/wijmo/Dist/styles/wijmo.css');
+require('../node_modules/notyf/notyf.min.css');
 
 // vendor libraries
 window._ = require('lodash');
@@ -40,4 +41,5 @@ window.humanizeDuration = require('../bower_components/humanize-duration/humaniz
 require('../bower_components/angular-timer/dist/angular-timer.js');
 require('angular-file-upload');
 window.moment = require('./scripts/moment-timezone-with-data.js');
+window.Notyf = require('../node_modules/notyf/notyf.js').Notyf;
 //require('../bower_components/moment-timezone/moment-timezone.js');

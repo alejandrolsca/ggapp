@@ -153,7 +153,31 @@ module.exports = (function (angular) {
             };
 
             $scope.onSubmit = function () {
-                console.log($scope.fmData.wo_nextstatus, userProfile.username, $scope.wo_id.join(','), $scope.fmData.wo_cancellationnotes)
+                var notyf = new Notyf({
+                    duration: 5000,
+                    types: [
+                      {
+                        type: "error",
+                        duration: 5000,
+                        className: "notyf-error"
+                      }
+                    ]
+                  });
+
+                const { us_group: status_group } = $scope.wo_statusoptions.find((value) => {
+                    return value.value === $scope.fmData.wo_status
+                })
+
+                const statusChangeAllowed = userProfile.us_group.includes(status_group) || userProfile.us_group.includes('admin')
+
+                if(!statusChangeAllowed) {
+                    // Display an error notification
+                    notyf.error({
+                        type: "error",
+                        message: "Necesita privilegios adicionales para realizar esta acción."
+                    });
+                    return;
+                }
                 if ($scope.fmData.wo_nextstatus === 18) {
                     workflowFactory.updatecancellation($scope.fmData.wo_nextstatus, userProfile.username, $scope.fmData.wo_cancellationnotes, $scope.wo_id.join(',')).then(function (promise) {
                         if (promise.data.rowCount >= 1) {
