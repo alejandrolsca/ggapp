@@ -1,12 +1,13 @@
 // vendor styles
-require('../bower_components/bootstrap/dist/css/bootstrap.css');
+require('../node_modules/bootstrap/dist/css/bootstrap.css');
 require('../bower_components/animate.css/animate.css');
 require('../bower_components/wijmo/Dist/styles/wijmo.css');
+require('../node_modules/notyf/notyf.min.css');
 
 // vendor libraries
 window._ = require('lodash');
-window.jQuery = require('../bower_components/jquery/dist/jquery.js');
-window.$ = require('../bower_components/jquery/dist/jquery.js');
+window.jQuery = require('../node_modules/jquery/dist/jquery.js');
+window.$ = require('../node_modules/jquery/dist/jquery.js');
 window.JSZip = require("jszip");
 require('../bower_components/angular/angular.js');
 require('../bower_components/angular-ui-router/release/angular-ui-router.js');
@@ -27,12 +28,12 @@ require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.grid.pdf.js
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.grid.grouppanel.js');
 require('script-loader!../bower_components/wijmo/Dist/controls/wijmo.input.js');
 require('script-loader!../bower_components/wijmo/Dist/interop/angular/wijmo.angular.js'); // order matters
-require('../bower_components/bootstrap/js/dropdown.js');
-require('../bower_components/bootstrap/js/collapse.js');
-require('../bower_components/bootstrap/js/tooltip.js');
-require('../bower_components/bootstrap/js/popover.js');
-require('../bower_components/bootstrap/js/modal.js');
-require('../bower_components/bootstrap/js/tab.js');
+require('../node_modules/bootstrap/js/dropdown.js');
+require('../node_modules/bootstrap/js/collapse.js');
+require('../node_modules/bootstrap/js/tooltip.js');
+require('../node_modules/bootstrap/js/popover.js');
+require('../node_modules/bootstrap/js/modal.js');
+require('../node_modules/bootstrap/js/tab.js');
 require('script-loader!../node_modules/auth0-js/build/auth0.js');
 require('angular-auth0');
 require('../bower_components/angular-jwt/dist/angular-jwt.js');
@@ -40,4 +41,5 @@ window.humanizeDuration = require('../bower_components/humanize-duration/humaniz
 require('../bower_components/angular-timer/dist/angular-timer.js');
 require('angular-file-upload');
 window.moment = require('./scripts/moment-timezone-with-data.js');
+window.Notyf = require('../node_modules/notyf/notyf.js').Notyf;
 //require('../bower_components/moment-timezone/moment-timezone.js');

@@ -27,8 +27,6 @@
     "angular-ui-router": "^0.3.1",
     "angular": "1.5.8",
     "angular-qr": "~0.2.0",
-    "jquery": ">= 1.9.0",
-    "bootstrap": "~3.1.1",
     "auth0-lock": "^10.2.1",
     "animate.css": "^3.5.2",
     "angular-sanitize": "^1.6.2",
