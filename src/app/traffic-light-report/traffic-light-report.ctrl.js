@@ -50,88 +50,29 @@ module.exports = (function (angular) {
                     cell.style.color = '';
                     // end fix
 
-                    // localize timezone America/Chihuahua
-                    if (col.binding === 'wo_updated') {
-                        if (row.dataItem.wo_updated) {
-                            row.dataItem.wo_updated = moment(row.dataItem.wo_updated).tz('America/Chihuahua').format();
+                    if (col.binding === 'delivery_status') {
+                        // delayed, commitment_date is due                            
+                        if (row.dataItem.delivery_status === 'Retrasado') {
+                            cell.style.backgroundColor = 'OrangeRed';
+                            cell.style.color = 'yellow';
                         }
-                    }
-                    if (col.binding === 'wo_status') {
-                        angular.forEach($scope.workflow, function (value, key) {
-                            if (value.value === panel.grid.getCellData(r, flex.columns.getColumn('wo_status').index)) {
-                                row.dataItem.wo_status = `(${value.value}) ${value.label}`;
-                                cell.innerHTML = `(${value.value}) ${value.label}`;
-                            }
-                        });
-                    }
-                    if (col.binding === 'wo_deliverydate') {
-                        if (row.dataItem.wo_deliverydate) {
-                            row.dataItem.wo_deliverydate = moment(row.dataItem.wo_deliverydate).tz('America/Chihuahua').format();
+                        // 2 days before commitment_date is due                           
+                        if (row.dataItem.delivery_status === 'Por vencer') {
+                            cell.style.backgroundColor = 'Gold';
                         }
-                    }
-                    if (col.binding === 'status') {
-                        var closing_time = 18;
-                        var commitment_date = moment(panel.grid.getCellData(r, flex.columns.getColumn('wo_commitmentdate').index, false)).set({
-                            hour: closing_time,
-                            minute: 0,
-                            second: 0
-                        });
-                        var delivery_date = panel.grid.getCellData(r, flex.columns.getColumn('wo_deliverydate').index, false);
-                        var hours = undefined;
-                        var status = undefined;
-                        if (delivery_date === null) {
-                            hours = moment.duration(commitment_date.diff(moment().tz('America/Chihuahua').format('YYYY-MM-DD HH:mm:ss'))).asHours();
-                            // delayed, commitment_date is due                            
-                            if (hours < 0) {
-                                status = 'Atrasado (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)';
-                                cell.style.backgroundColor = 'OrangeRed';
-                                cell.style.color = 'yellow';
-                            }
-                            // 2 days before commitment_date is due                           
-                            if (hours >= 0 && hours <= 48) {
-                                status = 'Restan ' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas';
-                                cell.style.backgroundColor = 'Gold';
-                            }
-                            // mora than 2 days before commitment_date is due                           
-                            if (hours > 48) {
-                                status = 'Restan ' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas';
-                                cell.style.backgroundColor = 'LightYellow';
-                            }
-
-                        } else {
-                            hours = moment.duration(commitment_date.diff(moment(delivery_date).tz('America/Chihuahua').format('YYYY-MM-DD HH:mm:ss'))).asHours();
-                            // delivered on commitment_date (same day)
-                            if (hours >= 0 && hours <= closing_time) {
-                                status = 'Entregado a tiempo';
-                                cell.style.backgroundColor = 'LimeGreen';
-                                cell.style.color = 'Black';
-                            }
-                            // delivered any time after commitment_date
-                            if (hours < 0) {
-                                status = 'Entrega a destiempo (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)';
-                                cell.style.backgroundColor = 'Grey';
-                                cell.style.color = 'Gainsboro';
-                            }
-                            // delivered a day before commitment_date                            
-                            if (hours > closing_time) {
-                                status = 'Entrega eficiente (' + Math.floor(Math.abs(hours) / 24) + ' Dia(s) ' + Math.floor(Math.abs(hours) % 24) + ' horas)'
-                                cell.style.backgroundColor = 'DodgerBlue';
-                                cell.style.color = 'White';
-                            }
+                        // mora than 2 days before commitment_date is due                           
+                        if (row.dataItem.delivery_status === 'Normal') {
+                            cell.style.backgroundColor = 'White';
                         }
                         cell.style.overflow = 'visible';
-                        row.dataItem.status = status;
-                        cell.innerHTML = status;
                     }
                 }
-
-
 
                 // highlight rows that have 'active' set
                 if (panel.cellType == wijmo.grid.CellType.Cell) {
                     var flex = panel.grid;
                     var row = flex.rows[r];
-                    if (row.dataItem.active && col.header !== 'Status') {
+                    if (row.dataItem.active && col.header !== 'Estatus') {
                         cell.style.backgroundColor = 'gold';
                     }
                 }
@@ -170,14 +111,12 @@ module.exports = (function (angular) {
                 }
             }
 
-            // autosize columns
-            $scope.itemsSourceChanged = function (sender, args) {
-                sender.autoSizeColumns(2);
-            };
-
-            // autoSizeRows on sorted column
-            $scope.onSortedColumn = function (sender, args) {
-                sender.autoSizeRows()
+            // autoSizeRows after filter applied
+            $scope.onFilterApplied = function (s, e) {
+                setTimeout(function () {
+                    s.grid.autoSizeRows()
+                }, 0);
+                
             };
 
             // bind columns when grid is initialized
@@ -187,6 +126,8 @@ module.exports = (function (angular) {
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
                     col.header = i18nFilter("tlr.labels." + $scope.columns[i].binding.replace('_', '-'));
+                    col.wordWrap = $scope.columns[i].wordWrap;
+                    col.width = $scope.columns[i].width;
                     s.columns.push(col);
                 }
             };

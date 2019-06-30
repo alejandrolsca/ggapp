@@ -1310,9 +1310,6 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('tlr/tlr')
                 const parameters = [req.body.cl_id]

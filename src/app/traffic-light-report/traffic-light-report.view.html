@@ -8,15 +8,13 @@
     control="ggGrid"
     allow-editing="false"
     items-source="data" 
-    items-source-changed="itemsSourceChanged(s,e)"
-    sorted-column="onSortedColumn(s,e)"
     item-formatter="itemFormatter"
     auto-generate-columns="false" 
     initialized="initGrid(s,e)"
     allow-sorting="true" 
     show-sort="true"
     style="height:390px;">
-        <wj-flex-grid-filter></wj-flex-grid-filter>
+        <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
         <wj-flex-grid-column
         header="Active" 
         binding="active"
@@ -36,12 +34,6 @@
                         </div>
                 </div>
             </wj-flex-grid-cell-template>
-        </wj-flex-grid-column>
-        <wj-flex-grid-column
-        header="Estatus de entrega"
-        binding="status"
-        data-type="String"
-        width="*">   
         </wj-flex-grid-column>
     </wj-flex-grid>
   </div>
