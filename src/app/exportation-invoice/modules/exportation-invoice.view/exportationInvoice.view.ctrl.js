@@ -103,7 +103,7 @@ module.exports = (function (angular) {
 
                     flexSheet.mergeRange(new wijmo.grid.CellRange(18, 0, 19, 4));
                     flexSheet.setCellData(18, 0,
-                        "ESTA OPERACIÓN SE REALIZA DE CONFORMIDAD CON LAS REGLAS 5.2.7 \nFRACCION II y 4.3.19 DE LA R.C.G.M.C.E"
+                        "ESTA OPERACIÓN SE REALIZA DE CONFORMIDAD CON LAS REGLAS 5.2.6 \nFRACCION II y 4.3.21 DE LA R.C.G.M.C.E"
                     );
 
                     flexSheet.mergeRange(new wijmo.grid.CellRange(20, 0, 20, 4));
