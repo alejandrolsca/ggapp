@@ -257,8 +257,8 @@ module.exports = (function (angular) {
                     const [shippinglist] = data
                     $scope.fmData = shippinglist
                     const flexSheet = $scope.flex;
-                    const sl_date = moment(shippinglist.sl_date).tz('America/Chihuahua').format('DD/MM/YYYY')
-                    flexSheet.setCellData(0, 0, `LISTA DE EMBARQUE #${shippinglist.sl_id} ${sl_date}`);
+                    $scope.sl_date = moment(shippinglist.sl_date).tz('America/Chihuahua').format('YYYY-MM-DD')
+                    flexSheet.setCellData(0, 0, `LISTA DE EMBARQUE #${shippinglist.sl_id} ${$scope.sl_date}`);
                 }).then(function () {
                     shippingListViewFac.getClient($scope.fmData.cl_id).then(function (promise) {
                         const { data } = promise
@@ -328,7 +328,7 @@ module.exports = (function (angular) {
                                         flexSheet.setCellData(row, 6, $filter('number')(value.pr_weight, 6));
                                         flexSheet.setCellData(row, 7, value.wo_po);
                                         flexSheet.setCellData(row, 8, value.wo_release);
-                                        flexSheet.setCellData(row, 9, (++index < data.length) ? moment().tz('America/Chihuahua').format('YYYY-MM-DD') : null);
+                                        flexSheet.setCellData(row, 9, (++index < data.length) ? $scope.sl_date : null);
                                         row += 1;
                                     })
                                 }
