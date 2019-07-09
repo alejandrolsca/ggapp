@@ -10,6 +10,8 @@ window.jQuery = require('../node_modules/jquery/dist/jquery.js');
 window.$ = require('../node_modules/jquery/dist/jquery.js');
 window.JSZip = require("jszip");
 require('../bower_components/angular/angular.js');
+var agGrid = require('script-loader!../node_modules/ag-grid/dist/ag-grid');
+require('script-loader!../node_modules/ag-grid-enterprise/dist/ag-grid-enterprise');
 require('../bower_components/angular-ui-router/release/angular-ui-router.js');
 require('../bower_components/angular-animate/angular-animate.js');
 require('../bower_components/angular-bootstrap/ui-bootstrap-tpls.js');

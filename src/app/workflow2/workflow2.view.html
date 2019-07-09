@@ -1,0 +1,105 @@
+<div class="col-sm-12">
+    <h3>{{'workflow.title' | i18n}}</h3>
+    <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div> 
+    <div ng-click="exportPDF()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> PDF</div><br/><br/>    
+    <span ng-if="loading">Cargando...</span>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">ACTUALIZAR ESTATUS</h4>
+      </div>
+      <span ng-form name="updateForm">
+      <div class="modal-body">
+          <span>
+            <p><b>El estatus de las siguientes ordenes de trabajo será actualizado:</b></p>
+            <p>{{ wo_id.join(', ') }}</p>
+            <p><b>Estatus nuevo: </b>"{{ next_status }}"</p>
+            <span ng-switch="fmData.wo_nextstatus">
+                <p class="row" ng-switch-when="18">
+                    <gg-textarea err-class="error"
+                              lbl="Nota de cancelación" 
+                              form-group-class="col-sm-12"
+                              ng-model="fmData.wo_cancellationnotes"
+                              height="176"
+                              regexp="singlespaces"
+                              regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                              req-msg="Required"
+                              is-required="true">
+                    </gg-textarea>
+                </p>
+            </span>
+            <p><h4>Desea continuar?</h4></p>
+          </span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">{{'general.labels.cancel' | i18n}}</button>
+        <button class="btn btn-primary" ng-click="onSubmit()" ng-disabled="updateForm.$invalid">{{'general.labels.submit' | i18n}}</button>
+      </div>
+    </span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="materialsModal" tabindex="-1" role="dialog" aria-labelledby="materialsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="materialsModalLabel">MATERIAL ORDENADO</h4>
+        </div>
+        <div class="modal-body">  
+          <div ng-click="exportMaterialsXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br><br> 
+          <div ag-grid="materialsGridOptions" class="ag-theme-balham" style="height: 400px; display: block"></div>
+      </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal">{{'general.labels.close' | i18n}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="col-sm-12">
+  <div class="well well-sm col-sm-6 col-xs-12">
+      <form role="form" name="ggform" ng-submit="onUpdate();" novalidate>
+        <gg-select err-class="error"
+                lbl="{{'workflow.labels.wo-status' | i18n}}" 
+                form-group-class="col-sm-6" 
+                options="wo_statusoptions" 
+                ng-model="fmData.wo_status"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="false">
+        </gg-select>
+        <gg-select err-class="error"
+                lbl="{{'workflow-custom.labels.wo-nextstatus' | i18n}}" 
+                form-group-class="col-sm-6" 
+                options="actions" 
+                ng-model="fmData.wo_nextstatus"
+                regexp="singlespaces"
+                regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+                req-msg="Required"
+                is-required="true">
+        </gg-select>
+        <gg-submit lbl="Actualizar"
+                form-group-class="col-xs-12 col-sm-6" 
+                ng-disabled="ggform.$invalid"
+                btn-class="col-xs-12 col-sm-12">
+      </gg-submit>
+      <gg-action-button lbl="Material Ordenado"
+                ng-click="materialsModal()"
+                form-group-class="col-xs-12 col-sm-6" 
+                ng-disabled="false"
+                btn-class="col-xs-12 col-sm-12">
+      </gg-action-button>
+    </form>
+  </div>
+</div>
+<span class="col-sm-12">
+  <div ag-grid="mainGridOptions" class="ag-theme-balham" style="height: 400px; display: block"></div>
+</span>
