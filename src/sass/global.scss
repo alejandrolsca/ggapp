@@ -268,3 +268,23 @@ NOTYF
 .notyf-error {
     font-size: 1.4em;
 }
+.notyf-success {
+    font-size: 1.4em;
+    background: #5cb85c !important;
+}
+.notyf-warning {
+    font-size: 1.4em;
+    background:#ffc107;
+    color: #000;
+}
+.notyf-warning i {
+    font-size: 1.3em;
+    color: #000;
+}
+.notyf-info {
+    font-size: 1.4em;
+    background: #1976d2;
+}
+.notyf-info i {
+    font-size: 1.3em;
+}

@@ -1,5 +1,11 @@
 module.exports = (function(angular) {
   "use strict";
+  // if you're using ag-Grid-Enterprise, you'll need to provide the License Key before doing anything else
+  // not necessary if you're just using ag-Grid
+  // agGrid.LicenseManager.setLicenseKey("your license key goes here");
+
+  // get ag-Grid to create an Angular module and register the ag-Grid directive
+  agGrid.initialiseAgGridWithAngular1(angular);
 
   return angular
     .module("app", [
@@ -14,6 +20,7 @@ module.exports = (function(angular) {
       "angular-jwt",
       "angularFileUpload",
       "timer",
+      "agGrid",
       require("./404").name,
       require("./401").name,
       require("./login").name,
@@ -28,6 +35,7 @@ module.exports = (function(angular) {
       require("./wo").name,
       require("./zone").name,
       require("./workflow").name,
+      require("./workflow2").name,
       require("./traffic-light-report").name,
       require("./traffic-light-report-all").name,
       require("./exportation-invoice").name,
@@ -39,12 +47,7 @@ module.exports = (function(angular) {
       require("./earnings-by-status").name
     ])
 
-    .service("authService", [
-      "$rootScope",
-      "$state",
-      "angularAuth0",
-      "$timeout",
-      "$http",
+    .service("authService", ["$rootScope", "$state", "angularAuth0", "$timeout", "$http",
       function authService($rootScope, $state, angularAuth0, $timeout, $http) {
         function login() {
           angularAuth0.authorize();
@@ -175,6 +178,45 @@ module.exports = (function(angular) {
         };
       }
     ])
+    .service("notyf",[function notyf(){
+      var notyf = new Notyf({
+          duration: 5000,
+          types: [
+              {
+                type: "error",
+                duration: 5000,
+                className: "notyf-error"
+              },
+              {
+                type: 'success',
+                duration: 5000,
+                className: "notyf-success",
+              },
+              {
+                type: 'warning',
+                duration: 5000,
+                className: "notyf-warning",
+                icon: {
+                  className: 'glyphicon glyphicon-alert',
+                  tagName: 'i',
+                  text: ''
+                }
+              },
+              {
+                type: 'info',
+                duration: 5000,
+                className: "notyf-info",
+                icon: {
+                  className: 'glyphicon glyphicon-exclamation-sign',
+                  tagName: 'i',
+                  text: ''
+                }
+              }
+          ]
+      });
+      return notyf
+
+    }])
     .config(["$locationProvider","$stateProvider","$urlRouterProvider","angularAuth0Provider","$httpProvider","jwtOptionsProvider","jwtInterceptorProvider",
     function($locationProvider,$stateProvider,$urlRouterProvider,angularAuth0Provider,$httpProvider,jwtOptionsProvider,jwtInterceptorProvider) {
         var ggauthlogo = require("../static/img/ggauth-logo.png");

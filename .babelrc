@@ -1,5 +1,6 @@
 {
     "plugins": [
-        "dedent"
+        "dedent",
+        "transform-object-rest-spread"
     ]
 }

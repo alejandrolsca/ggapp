@@ -182,6 +182,11 @@ module.exports = {
                 ****************************************/
                 "workflow": require('./workflow/lang.es-MX'),
                 "workflow-custom": require('./workflow/lang.custom.es-MX'),
+                 /****************************************
+                WORKFLOW2 
+                ****************************************/
+               "workflow2": require('./workflow2/lang.es-MX'),
+               "workflow2-custom": require('./workflow2/lang.custom.es-MX'),
                 /****************************************
                 TRAFFIC LIGHT REPORT 
                 ****************************************/

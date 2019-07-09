@@ -18,6 +18,7 @@ select
 	pr.pr_jsonb,
 	ma.ma_name,
 	zo.zo_zone,
+	wo_release,
     wo_po,
 	wo_line,
 	wo_linetotal,
