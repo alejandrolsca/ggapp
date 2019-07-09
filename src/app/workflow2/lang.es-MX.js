@@ -24,7 +24,7 @@ module.exports = {
         ]
     },
     "mainColumnDefs": [
-        { headerName: "No. orden", field: "wo_id", width: 100, filter: 'agTextColumnFilter' },
+        { headerName: "No. orden", field: "wo_id", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Tipo", field: "wo_type", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Proceso", field: "pr_process", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Fecha compromiso", field: "wo_commitmentdate", filter: 'agTextColumnFilter' },
