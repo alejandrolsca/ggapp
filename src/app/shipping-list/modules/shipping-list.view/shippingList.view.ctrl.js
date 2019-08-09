@@ -286,7 +286,7 @@ module.exports = (function (angular) {
                                     "fmData.zo_id",
                                     function zoChange(newValue, oldValue) {
                                         const zone = rows.find(function (zone) {
-                                            return zone.zo_id = newValue
+                                            return zone.zo_id === newValue
                                         })
                                         var flexSheet = $scope.flex;
                                         if (newValue !== undefined && flexSheet) {
