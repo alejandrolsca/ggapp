@@ -1,3 +1,56 @@
+const dateTimeComparator = function (filterLocalDateAtMidnight, cellValue){
+    const dateAsString = cellValue;
+    const dateStart = filterLocalDateAtMidnight.setHours(0,0,0)
+    const dateEnd = filterLocalDateAtMidnight.setHours(23,59,59)
+    if (dateAsString == null) return 0;
+
+    // In the example application, dates are stored as dd/mm/yyyy
+    // We create a Date object for comparison against the filter date
+    const [date, time] = dateAsString.split(' ')
+    const dateParts = date.split("-");
+    const timeParts = time.split(":");
+    const day = Number(dateParts[2]);
+    const month = Number(dateParts[1]) - 1;
+    const year = Number(dateParts[0]);
+    const seconds = Number(timeParts[2]);
+    const minutes = Number(timeParts[1]) - 1;
+    const hours = Number(timeParts[0]);
+    const cellDate = new Date(year, month, day, hours, minutes, seconds);
+    //const cellDate = new Date(year, month, day, 0, 0, 0);
+    // Now that both parameters are Date objects, we can compare
+    if (cellDate < dateStart) { 
+    console.log(cellDate, '<', dateStart)
+        return -1;
+    } else if (cellDate > dateEnd) {
+    console.log(cellDate, '>', dateEnd)        
+        return 1;
+    } else {
+        console.log(cellDate, dateStart,dateEnd)
+        return 0;
+    }
+}
+const dateComparator = function (filterLocalDateAtMidnight, cellValue){
+    var dateAsString = cellValue;
+    if (dateAsString == null) return 0;
+
+    // In the example application, dates are stored as dd/mm/yyyy
+    // We create a Date object for comparison against the filter date
+    var date = dateAsString.substring(0,10);
+    var dateParts = date.split("-");
+    var day = Number(dateParts[2]);
+    var month = Number(dateParts[1]) - 1;
+    var year = Number(dateParts[0]);
+    var cellDate = new Date(year, month, day);
+    console.log(cellDate, filterLocalDateAtMidnight)
+    // Now that both parameters are Date objects, we can compare
+    if (cellDate < filterLocalDateAtMidnight) { 
+        return -1;
+    } else if (cellDate > filterLocalDateAtMidnight) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 module.exports = {
     "title": "Flujo de Trabajo",
     "defaultColDef": {
@@ -5,7 +58,7 @@ module.exports = {
         resizable: true,
         filterParams: {
             clearButton: true,
-            applyButton: false,
+            applyButton: true,
             debounceMs: 200
         }
     },
@@ -27,7 +80,7 @@ module.exports = {
         { headerName: "No. orden", field: "wo_id", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Tipo", field: "wo_type", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Proceso", field: "pr_process", width: 100, filter: 'agSetColumnFilter' },
-        { headerName: "Fecha compromiso", field: "wo_commitmentdate", filter: 'agTextColumnFilter' },
+        { headerName: "Fecha compromiso", field: "wo_commitmentdate", filter: 'agDateColumnFilter', filterParams:{comparator: dateComparator}},
         { headerName: "cliente", field: "cl_id", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Razón social", field: "cl_corporatename", width: 200, filter: 'agSetColumnFilter' },
         { headerName: "Zona", field: "zo_zone", width: 200, filter: 'agSetColumnFilter' },
@@ -55,7 +108,7 @@ module.exports = {
         { headerName: "ID anterior", field: "wo_previousid", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Fecha anterior", field: "wo_previousdate", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Actualizado por", field: "wo_updatedby", width: 200, filter: 'agSetColumnFilter' },
-        { headerName: "Fecha de Actualización", field: "wo_updated", width: 200, filter: 'agTextColumnFilter' },
+        { headerName: "Fecha de Actualización", field: "wo_updated", width: 200, filter: 'agDateColumnFilter', filterParams:{comparator: dateTimeComparator}},
         { headerName: "Creado por", field: "wo_createdby", width: 200, filter: 'agSetColumnFilter' },
         { headerName: "Fecha", field: "wo_date", width: 200, filter: 'agTextColumnFilter' }
     ],

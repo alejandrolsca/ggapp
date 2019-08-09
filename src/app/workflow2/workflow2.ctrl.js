@@ -15,6 +15,8 @@ module.exports = (function (angular) {
             const mainColumnDefs = i18nFilter("workflow2.mainColumnDefs");
             const materialColumnDefs = i18nFilter("workflow2.materialColumnDefs");
 
+            const customDateComponent = require('./customDateComponent')
+
             // export to xls
             $scope.exportXLS = function () {
                 if ($scope.fmData.wo_status || $scope.fmData.wo_status === 0) {
@@ -320,6 +322,9 @@ module.exports = (function (angular) {
                 statusBar: { ...statusBar },
                 onGridReady: onGridReady,
                 onSelectionChanged: onSelectionChanged,
+                components: {
+                    agDateInput: customDateComponent
+                },
                 rowData: []
 
             }

@@ -1,3 +1,20 @@
 .ag-theme-balham .ag-header-select-all {
     height: auto !important;
 }
+
+.custom-date-filter a {
+    position: absolute;
+    right: 20px;
+    color: rgba(0, 0, 0, 0.54);
+    cursor: pointer;
+  }
+  .custom-date-filter:after {
+    position: absolute;
+    content: '\e109';
+    display: block;
+    font-weight: 400;
+    font-family: 'Glyphicons Halflings';
+    right: 5px;
+    pointer-events: none;
+    color: rgba(0, 0, 0, 0.54);
+  }
