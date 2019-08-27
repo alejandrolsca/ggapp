@@ -309,7 +309,7 @@ module.exports = (function (angular) {
                                 $scope.loading = false;
 
                                 $scope.data = promise.data
-                                $scope.disableXLS = ($scope.data.length === 1);
+                                $scope.disableXLS = ($scope.data.length >= 1) ? false: true;
 
 
                                 var flexSheet = $scope.flex,
