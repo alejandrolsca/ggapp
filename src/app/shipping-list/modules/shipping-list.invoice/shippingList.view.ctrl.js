@@ -66,7 +66,7 @@ module.exports = (function (angular) {
                             value.sl_date = sl_date
                         })
                         $scope.data = data
-                        $scope.disableXLS = ($scope.data.length === 1);
+                        $scope.disableXLS = ($scope.data.length >= 1) ? false: true;
                         const releases = _.groupBy(data, 'wo_release')
                         const releaseLabels = Object.keys(releases)
                         $scope.releases = releases
