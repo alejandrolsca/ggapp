@@ -130,4 +130,4 @@ from (
 join machine ma
 on printruns.ma_id = ma.ma_id
 group by printruns.ma_id, ma_name, printruns.wo_status
-order by ma_name asc
+order by ma_name, printruns.wo_status asc

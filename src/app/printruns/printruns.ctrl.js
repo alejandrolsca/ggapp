@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'printrunsFac', 'i18nFilter',
-        function ($scope, printrunsFac, i18nFilter) {
+    return ['$scope', 'printrunsFac', 'i18nFilter', '$timeout',
+        function ($scope, printrunsFac, i18nFilter, $timeout) {
 
             $scope.labels = Object.keys(i18nFilter("printruns.labels"));
             $scope.columns = i18nFilter("printruns.columns");
@@ -31,6 +31,8 @@ module.exports = (function (angular) {
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
                     col.isContentHtml = $scope.columns[i].html;
+                    col.format = $scope.columns[i].format;
+                    col.aggregate = $scope.columns[i].aggregate;
                     col.header = i18nFilter("printruns.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.wordWrap = false;
                     col.width = $scope.columns[i].width;
@@ -106,6 +108,15 @@ module.exports = (function (angular) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data)) {
                         $scope.data = new wijmo.collections.CollectionView(promise.data);
+                        $timeout(function () {
+                            var cv = $scope.data;
+                            cv.groupDescriptions.clear(); // clear current groups
+                            var groupDesc = new wijmo.collections.PropertyGroupDescription('ma_name', function (item, prop) {
+                                item.print_runs = +item.print_runs //convert string to number
+                                return item.ma_name
+                            });
+                            cv.groupDescriptions.push(groupDesc);
+                        }, 100)
                     }
                 });
             });
