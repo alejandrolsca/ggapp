@@ -55,7 +55,7 @@ module.exports = {
         { headerName: "ID anterior", field: "wo_previousid", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Fecha anterior", field: "wo_previousdate", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Actualizado por", field: "wo_updatedby", width: 200, filter: 'agSetColumnFilter' },
-        { headerName: "Fecha de Actualización", field: "wo_updated", width: 200, filter: 'agTextColumnFilter' },
+        { headerName: "Ult. Actualización", field: "wo_updated", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Creado por", field: "wo_createdby", width: 200, filter: 'agSetColumnFilter' },
         { headerName: "Fecha", field: "wo_date", width: 200, filter: 'agTextColumnFilter' }
     ],

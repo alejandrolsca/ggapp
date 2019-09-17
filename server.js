@@ -1499,7 +1499,7 @@ if (cluster.isMaster) {
                 await client.query(`set timezone = '${timezone}';`)
                 // execute query
                 const query = file('shippinglist/shippinglist:release_invoice')
-                const parameters = [req.body.cl_id, req.body.wo_id,req.body.zo_id]
+                const parameters = [req.body.cl_id, req.body.wo_id, req.body.zo_id]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));
             } catch (e) {
@@ -1578,9 +1578,9 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
-     /* SHIPPING LIST */
+    /* SHIPPING LIST */
 
-     app.post('/api/exportationinvoice', function (req, res, next) {
+    app.post('/api/exportationinvoice', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
             // we don't need to dispose of the client (it will be undefined)

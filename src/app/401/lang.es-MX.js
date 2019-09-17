@@ -1,3 +1,3 @@
 module.exports = {
-                    "title" : "Acceso restringido!"
-                }
+    "title": "Acceso restringido!"
+}

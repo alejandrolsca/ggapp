@@ -27,7 +27,7 @@ module.exports = {
         "zo-phoneextension": "Ext.",
         "zo-mobile": "móvil",
         "zo-status": "estatus",
-        "zo-date": "fecha",
+        "zo-date": "Fec. de Creación",
 
     },
     "columns": [

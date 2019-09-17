@@ -1,7 +1,9 @@
-select 
-    *
+select
+    su_id,
+    su_jsonb.*,
+    to_char((su_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as su_date
 from  public.supplier, 
-jsonb_to_record(su_jsonb) as x (
+jsonb_to_record(su_jsonb) as su_jsonb (
     su_type text,
     su_corporatename text,
     su_tin text,

@@ -41,9 +41,9 @@ module.exports = {
         "wo-status": "Estatus ID",
         "wo-textstatus": "Estatus del proceso",
         "wo-updatedby": "Actualizado por",
-        "wo-updated": "Ult. Actualización",
+        "wo-lastupdated": "Ult. Actualización",
         "wo-createdby": "Creado por",
-        "wo-date": "Creado"
+        "wo-date": "Fec. de Creación"
     },
     "columns": [
         { "binding": "delivery_status", "type": "String", "width": 80, "wordWrap": false },
@@ -65,7 +65,7 @@ module.exports = {
         { "binding": "wo_previousdate", "type": "Date", "width": 120, "wordWrap": false },
         { "binding": "wo_notes", "type": "String", "width": 300, "wordWrap": false },
         { "binding": "wo_updatedby", "type": "String", "width": 130, "wordWrap": false },
-        { "binding": "wo_updated", "type": "Date", "width": 140, "wordWrap": false },
+        { "binding": "wo_lastupdated", "type": "Date", "width": 140, "wordWrap": false },
         { "binding": "wo_createdby", "type": "String", "width": 100, "wordWrap": false },
         { "binding": "wo_date", "type": "Date", "width": 140, "wordWrap": false }
     ],

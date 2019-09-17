@@ -15,7 +15,7 @@ select
 	wo.wo_notes, 
 	wo.wo_createdby, 
 	wo.wo_updatedby, 
-	to_char((wo.wo_updated at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_updated,  
+	to_char((wo.wo_lastupdated at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_lastupdated,  
 	wo.wo_status,
 	to_char((wo.wo_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_date,
 	case
@@ -66,6 +66,7 @@ select
     wo_id,
 	wo_jsonb.*,
 	wo_date,
+	wo_lastupdated,
 	((wo_commitmentdate + interval '1 day') at time zone 'utc' at time zone 'america/chihuahua') - now() as diff
 from  wo, 
 	jsonb_to_record(wo_jsonb) as wo_jsonb (
@@ -83,8 +84,7 @@ from  wo,
 		wo_previousdate text, 
 		wo_notes text, 
 		wo_createdby text, 
-		wo_updatedby text, 
-		wo_updated timestamptz,  
+		wo_updatedby text,
 		wo_status int
 	)
 ) wo

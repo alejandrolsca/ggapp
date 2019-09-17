@@ -1,4 +1,4 @@
 module.exports = {
-                    "title" : "inicio",
-                    "welcome" : "bienvenido @@!"
-                }
+    "title": "inicio",
+    "welcome": "bienvenido @@!"
+}

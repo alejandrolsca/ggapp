@@ -57,7 +57,7 @@ select
     x.cl_customerdiscount,
     x.cl_receiptschedule,
     x.cl_status,
-	cl.cl_date
+    to_char((cl.cl_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as cl_date
 from  public.client cl, 
 jsonb_to_record(cl_jsonb) as x (
     cl_type text,

@@ -38,11 +38,31 @@ select
 	wo_currency, 
 	wo_notes,
 	wo_cancellationnotes,
-	wo_status,
+	case wo_status
+		when 0 then '(0) Activo'
+		when 1 then '(1) En espera de material'
+		when 2 then '(2) Material disponible'
+		when 3 then '(3) En producción'
+		when 4 then '(4) Detenido en Producción'
+		when 5 then '(5) Acabados'
+		when 6 then '(6) Detenido en Acabados'
+		when 7 then '(7) Terminado'
+		when 8 then '(8) Departamento de calidad'
+		when 9 then '(9) Rechazado por calidad'
+		when 10 then '(10) Aprobado por calidad'
+		when 11 then '(11) Empaque'
+		when 12 then '(12) Inspección Final'
+		when 13 then '(13) Facturación/Lista de Embarque'
+		when 14 then '(14) Enviado'
+		when 15 then '(15) No se pudo entregar'
+		when 16 then '(16) Rechazado por el cliente'
+		when 17 then '(17) Entregada'
+		when 18 then '(18) Cancelada'
+	end as wo_status,
 	wo_updatedby,         
-	wo_updated,         
 	wo_createdby,
-    wo.wo_date,
+    to_char((wo.wo_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_date,
+	to_char((wo.wo_lastupdated at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_lastupdated,
     file1,
     file2,
 	case 
@@ -154,8 +174,7 @@ from
         wo_currency text, 
         wo_email text, 
         wo_status int,
-        wo_updatedby text,         
-        wo_updated text,         
+        wo_updatedby text,               
         wo_createdby text,
         file1 text,
         file2 text

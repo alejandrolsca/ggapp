@@ -1,5 +1,10 @@
 select 
-    sl.*,
+    sl.sl_id,
+    sl.cl_id,
+    sl.zo_id,
+    sl.wo_id,
+    sl.sl_createdby,
+    to_char((sl.sl_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as sl_date,
     zo.zo_jsonb->>'zo_zone' as zo_zone,
     sl_jsonb ? 'sl_cancelled' as sl_cancelled,
     case
