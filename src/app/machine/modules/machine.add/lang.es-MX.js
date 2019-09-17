@@ -1,3 +1,3 @@
 module.exports = {
-                    "title" : "Agregar maquina",
-                }
+    "title": "Agregar maquina",
+}

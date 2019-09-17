@@ -6,7 +6,7 @@ select
 		else cl_jsonb->>'cl_corporatename'
 	end as cl_corporatename,
     cl.cl_jsonb,
-    cl.cl_date
+    to_char((cl.cl_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as cl_date
     
 from  client cl, jsonb_to_record(cl_jsonb) as cl_jsonb (
     cl_status text

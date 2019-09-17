@@ -29,12 +29,12 @@
 	wo.wo_status,
 	wo.wo_createdby, 
 	wo.wo_updatedby,
-	wo.wo_updated,
 	wo.file1,
 	wo.file2,
 	wo_exportationinvoice,
 	wo_shippinglist,
-	wo_date,
+	to_char((wo_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_date,
+	to_char((wo_lastupdated at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_lastupdated,
     case
 		when cl.cl_jsonb->>'cl_type' = 'natural' 
 			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
@@ -50,7 +50,8 @@
 	select
 		wo_id,
 		wo_jsonb.*,
-		wo_date
+		wo_date,
+		wo_lastupdated
 	from  wo,  
     jsonb_to_record(wo_jsonb) as wo_jsonb (
             cl_id int,
@@ -82,7 +83,6 @@
             wo_status int,
             wo_createdby text, 
             wo_updatedby text,
-            wo_updated text,
             file1 text,
             file2 text,
 			wo_exportationinvoice boolean,

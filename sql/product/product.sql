@@ -12,7 +12,7 @@ select
 		from wo
 		where (wo_jsonb->>'pr_id')::integer = pr.pr_id
 	) as wo_previousid,
-	pr.pr_date
+	to_char((pr.pr_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as pr_date
 from  public.product pr, 
 jsonb_to_record(pr_jsonb) as x (
     cl_id int,

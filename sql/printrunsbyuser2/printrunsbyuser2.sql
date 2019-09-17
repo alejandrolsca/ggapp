@@ -31,7 +31,7 @@ select
 		end 
 	) print_runs,
 	printruns.wo_status,
-	printruns.wo_deliverydate
+	to_char((printruns.wo_deliverydate at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_deliverydate
 from (
 	select
 		wo_id,

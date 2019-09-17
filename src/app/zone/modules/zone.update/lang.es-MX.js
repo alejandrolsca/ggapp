@@ -1,3 +1,3 @@
 module.exports = {
-                    "title" : "Actualizar dirección de envio",
-                }
+    "title": "Actualizar dirección de envio",
+}

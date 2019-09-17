@@ -82,7 +82,7 @@ select
 	ma.ma_name,
     wo.wo_id,
 	wo.wo_jsonb,
-	wo_date,
+	to_char((wo_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_date,
 	wo_price,
 	wo_currency,
 	pr.*

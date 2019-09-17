@@ -53,7 +53,7 @@ select
     x.zo_phoneextension,
     x.zo_mobile,
     x.zo_status,
-	zo.zo_date
+	  to_char((zo.zo_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as zo_date
 from  public.zone zo, 
 jsonb_to_record(zo_jsonb) as x (
     zo_type text,

@@ -8,9 +8,11 @@ select
 	end as su_corporatename
 from (
     select 
-    *
+    mt_id,
+    mt_jsonb.*,
+    to_char((mt_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as mt_date
     from  public.material, 
-    jsonb_to_record(mt_jsonb) as x (
+    jsonb_to_record(mt_jsonb) as mt_jsonb (
         su_id int,
         mt_code text,
         mt_type int,

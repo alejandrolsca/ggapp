@@ -1,3 +1,3 @@
 module.exports = {
-                    "title" : "Actualizar cliente",
-                }
+    "title": "Actualizar cliente",
+}

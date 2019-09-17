@@ -24,11 +24,11 @@ module.exports = {
         "17": labels[17].label,
         "18": labels[18].label,
         "wo-currency": "moneda",
-        "target-date": "Fecha"
+        "target-date": "Fec. de Creación"
     },
     "columns": [
-        { "binding": "cl_corporatename", "type": "String", "width": 300, "html": false, "format": "string", "aggregate": "None" },           
-        { "binding": "total", "type": "Number", "width": 300, "html": false, "format": "n2", "aggregate": "Sum" },           
+        { "binding": "cl_corporatename", "type": "String", "width": 300, "html": false, "format": "string", "aggregate": "None" },
+        { "binding": "total", "type": "Number", "width": 300, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "0", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "1", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "2", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },

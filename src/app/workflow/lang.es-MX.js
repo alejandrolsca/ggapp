@@ -46,9 +46,9 @@ module.exports = {
         "wo-email": "Enviar Correo",
         "wo-status": "Estatus",
         "wo-updatedby": "Actualizado por",
-        "wo-updated": "Fecha de Actualización",
+        "wo-lastupdated": "Ult. Actualización",
         "wo-createdby": "Creado por",
-        "wo-date": "Fecha"
+        "wo-date": "Fec. de Creación"
     },
     "columns": [
         { "binding": "wo_type", "type": "String", "width": 100, "html": false },
@@ -80,9 +80,9 @@ module.exports = {
         { "binding": "wo_cancellationnotes", "type": "String", "width": 100, "html": false },
         { "binding": "wo_previousid", "type": "Number", "width": 100, "html": false },
         { "binding": "wo_previousdate", "type": "Date", "width": 150, "html": false },
-        { "binding": "wo_status", "type": "Number", "width": 100, "html": false },
-        { "binding": "wo_updatedby", "type": "String", "width": 100, "html": false },
-        { "binding": "wo_updated", "type": "Date", "width": 150, "html": false },
+        { "binding": "wo_status", "type": "Number", "width": 175, "html": false },
+        { "binding": "wo_updatedby", "type": "String", "width": 150, "html": false },
+        { "binding": "wo_lastupdated", "type": "Date", "width": 150, "html": false },
         { "binding": "wo_createdby", "type": "String", "width": 100, "html": false },
         { "binding": "wo_date", "type": "Date", "width": 150, "html": false }
     ],
