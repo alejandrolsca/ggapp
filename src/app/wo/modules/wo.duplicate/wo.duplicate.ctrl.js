@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService',
-        function ($scope, woDuplicateFactory, $stateParams, i18nFilter, $filter, $location, authService) {
+    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService', 'notyf',
+        function ($scope, woDuplicateFactory, $stateParams, i18nFilter, $filter, $location, authService, notyf) {
 
             const camelCase = (...args) => {
                 const camelCase = args.map(function (value, index) {
@@ -18,11 +18,17 @@ module.exports = (function (angular) {
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
             $scope.wo_emailoptions = i18nFilter("wo-add.fields.wo_emailoptions");
 
+            $scope.duplicated = false
+
             $scope.onSubmit = function () {
 
                 woDuplicateFactory.duplicate($scope.fmData).then(function (promise) {
                     if (promise.data.rowCount === 1) {
-                        $location.path('/wo/' + $stateParams.cl_id);
+                        notyf.open({
+                            type: 'success',
+                            message: 'Orden Duplicada.'
+                        });
+                        $scope.duplicated = true;
                     } else {
                         $scope.updateFail = true;
                     }
