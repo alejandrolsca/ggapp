@@ -218,13 +218,13 @@ module.exports = (function (angular) {
                     e.cell.style.overflow = 'visible';
                     e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
                                             <div class="btn-group" role="group">
-                                                <a href="/wo/update/${$stateParams.cl_id}/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.edit")}</a>
+                                                <a href="/wo/update/${$stateParams.cl_id}/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.edit")}</a>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <a href="/wo/history/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.history")}</a>
+                                                <a href="/wo/history/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.history")}</a>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <a href="/wo/duplicate/${$stateParams.cl_id}/${wo_id}" class="btn btn-default btn-xs">${i18nFilter("general.labels.duplicate")}</a>
+                                                <a href="/wo/duplicate/${$stateParams.cl_id}/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.duplicate")}</a>
                                             </div>
                                        </div>`;
                 }
