@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService', 'FileUploader',
-        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location, authService, FileUploader) {
+    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService', 'FileUploader','notyf',
+        function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location, authService, FileUploader, notyf) {
 
             const camelCase = (...args) => {
                 const camelCase = args.map(function (value, index) {
@@ -94,7 +94,10 @@ module.exports = (function (angular) {
 
                 woUpdateFactory.update($scope.fmData).then(function (promise) {
                     if (promise.data.rowCount === 1) {
-                        $location.path('/wo/' + $stateParams.cl_id);
+                        notyf.open({
+                            type: 'success',
+                            message: 'Orden Actualizada.'
+                        });
                     } else {
                         $scope.updateFail = true;
                     }
