@@ -93,6 +93,7 @@ module.exports = (function (angular) {
                     col.dataType = $scope.columns[i].type;
                     col.width = $scope.columns[i].width;
                     col.isContentHtml = $scope.columns[i].html;
+                    col.wordWrap = $scope.columns[i].wordWrap;
                     col.align = 'left';
                     s.columns.push(col);
                 }

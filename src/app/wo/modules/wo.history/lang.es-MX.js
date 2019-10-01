@@ -41,13 +41,13 @@ module.exports = {
         "new-changes": "Nuevos Cambios"
     },
     "columns": [
-        { "binding": "wo_id", "type": "Number", "width": 100, "html": false},
-        { "binding": "wo_createdby", "type": "String", "width": 150, "html": false },
-        { "binding": "wo_created", "type": "Date", "width": 175, "html": false },
-        { "binding": "wo_updatedby", "type": "String", "width": 150, "html": false },
-        { "binding": "wo_updated", "type": "Date", "width": 175, "html": false },
-        { "binding": "old_status", "type": "String", "width": 150, "html": false },
-        { "binding": "new_status", "type": "String", "width": 150, "html": false },
-        { "binding": "new_changes", "type": "String", "width": 200, "html": true }
+        { "binding": "wo_id", "type": "Number", "width": 100, "html": false, "wordWrap": false},
+        { "binding": "wo_createdby", "type": "String", "width": 150, "html": false, "wordWrap": false},
+        { "binding": "wo_created", "type": "Date", "width": 175, "html": false, "wordWrap": false },
+        { "binding": "wo_updatedby", "type": "String", "width": 150, "html": false, "wordWrap": false },
+        { "binding": "wo_updated", "type": "Date", "width": 175, "html": false, "wordWrap": false },
+        { "binding": "old_status", "type": "String", "width": 150, "html": false, "wordWrap": false },
+        { "binding": "new_status", "type": "String", "width": 150, "html": false, "wordWrap": false },
+        { "binding": "new_changes", "type": "String", "width": 350, "html": true, "wordWrap": true }
     ]
 }
