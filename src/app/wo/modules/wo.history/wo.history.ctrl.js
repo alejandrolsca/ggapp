@@ -91,8 +91,9 @@ module.exports = (function (angular) {
                     col.header = i18nFilter("wo-history.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
-                    col.width = $scope.columns[i].width
-                    col.align = 'left'
+                    col.width = $scope.columns[i].width;
+                    col.isContentHtml = $scope.columns[i].html;
+                    col.align = 'left';
                     s.columns.push(col);
                 }
             };
