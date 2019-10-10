@@ -188,7 +188,7 @@ module.exports = (function (angular) {
                     if (angular.isArray(promise.data)) {
                         var rows = promise.data;
                         angular.forEach(rows, function (value, key) {
-                            this.push({ "label": rows[key]['ma_jsonb']['ma_name'], "value": rows[key]['ma_id'] });
+                            this.push({ "label": rows[key]['ma_name'], "value": rows[key]['ma_id'] });
                         }, $scope.ma_idoptions);
                     }
                 });
