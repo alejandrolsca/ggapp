@@ -11,4 +11,4 @@ from wohistory wohi
 left join wo wo
 on wohi.wo_id = wo.wo_id
 where wohi.wo_id = $1
-order by wohi.wohi_id asc
+order by wohi.wohi_id desc

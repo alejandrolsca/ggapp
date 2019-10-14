@@ -95,6 +95,22 @@ module.exports = (function (angular) {
                                         </div>`;
                 }
             }
+
+            // autoSizeRows on load
+            $scope.itemsSourceChanged = function (sender, args) {
+                //sender.autoSizeColumns();
+                sender.autoSizeRows()
+            };
+
+            // autoSizeRows on sorted column
+            $scope.onSortedColumn = function (sender, args) {
+                sender.autoSizeRows()
+            };
+
+            // autoSizeRows after filter applied
+            $scope.onFilterApplied = function (sender, args) {
+                sender.grid.autoSizeRows()
+            }
         
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
@@ -105,6 +121,8 @@ module.exports = (function (angular) {
                     col.header = i18nFilter("product.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.wordWrap = false;
                     col.width = $scope.columns[i].width;
+                    col.isContentHtml = $scope.columns[i].html;
+                    col.visible = $scope.columns[i].visible;
                     s.columns.push(col);
                     
                 }
