@@ -19,12 +19,12 @@ select
 	wo.wo_status,
 	to_char((wo.wo_date at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_date,
 	case
-	when date_part('hours',diff) < 0
-		then 'Retrasado'
-	when date_part('days',diff) >= 0 and date_part('days',diff) < 2
-		then 'Por vencer'
-	when date_part('days',diff) >= 2 
+	when diff >= interval '2 day'
 		then 'Normal'
+	when diff > interval '0'
+		then 'Por vencer'
+	when diff <= interval '0'
+		then 'Retrasado'
 	end as delivery_status,
 	case wo.wo_status
 		when 0 then '(0) Activo'
