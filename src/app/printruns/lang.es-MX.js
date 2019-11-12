@@ -4,7 +4,7 @@ module.exports = {
         "ma-id": "ID Maquina",
         "ma-name": "Maquina",
         "print-runs": "Tirajes",
-        "print-time": "Tiempo (Horas)",
+        "print-time": "Horas",
         "wo-status": "Estatus"
     },
     "columns": [

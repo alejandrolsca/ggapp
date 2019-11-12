@@ -2,7 +2,7 @@ with print_runs as (
 select
 	printruns.ma_id,
 	printruns.ma_name,
-	printruns.ma_velocity,
+	coalesce(printruns.ma_velocity,1) as ma_velocity,
 	sum (
 		case 
 		when components = false
@@ -139,7 +139,8 @@ group by printruns.ma_id, printruns.ma_name, printruns.ma_velocity, printruns.wo
 	ma_id,
 	ma_name,
 	print_runs,
-	print_runs/coalesce(ma_velocity,1) as print_time,
+	ma_velocity,
+	print_runs/ma_velocity as print_time,
 	wo_status
 from print_runs
 order by ma_name, wo_status asc
