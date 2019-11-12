@@ -113,6 +113,7 @@ module.exports = (function (angular) {
                             cv.groupDescriptions.clear(); // clear current groups
                             var groupDesc = new wijmo.collections.PropertyGroupDescription('ma_name', function (item, prop) {
                                 item.print_runs = +item.print_runs //convert string to number
+                                item.print_time = +item.print_time //convert string to number
                                 return item.ma_name
                             });
                             cv.groupDescriptions.push(groupDesc);

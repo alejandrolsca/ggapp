@@ -1,6 +1,8 @@
+with print_runs as (
 select
 	printruns.ma_id,
-	ma.ma_jsonb->>'ma_name' ma_name,
+	printruns.ma_name,
+	printruns.ma_velocity,
 	sum (
 		case 
 		when components = false
@@ -27,7 +29,8 @@ from (
 	select
 		wo_id,
 		wo_jsonb.ma_id,
-		ma_totalinks,
+		ma_jsonb.ma_name,
+		ma_jsonb.ma_velocity,
 		case
 		when pr_jsonb ? 'pr_components'
 		then true
@@ -119,7 +122,9 @@ from (
 			pr_type text
 		),
 		machine ma, jsonb_to_record(ma_jsonb) as ma_jsonb (
-			ma_totalinks numeric
+			ma_name text,
+			ma_totalinks numeric,
+			ma_velocity numeric
 		)
 	where wo_jsonb.pr_id = pr.pr_id
 	and wo_jsonb.ma_id = ma.ma_id
@@ -129,5 +134,12 @@ from (
 ) printruns
 join machine ma
 on printruns.ma_id = ma.ma_id
-group by printruns.ma_id, ma_name, printruns.wo_status
-order by ma_name, printruns.wo_status asc
+group by printruns.ma_id, printruns.ma_name, printruns.ma_velocity, printruns.wo_status
+) select
+	ma_id,
+	ma_name,
+	print_runs,
+	print_runs/coalesce(ma_velocity,1) as print_time,
+	wo_status
+from print_runs
+order by ma_name, wo_status asc
