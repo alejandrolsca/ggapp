@@ -6,7 +6,7 @@
 <form class="col-md-8" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
   <gg-input err-class="error"
             lbl="{{'machine.labels.ma-name' | i18n}}" 
-            form-group-class="col-sm-12"
+            form-group-class="col-sm-6"
             ng-model="fmData.ma_name"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
@@ -108,6 +108,18 @@
            is-required="true"
            is-disabled="true">
   </gg-select>
+  <span ng-if="isPrintRunProcess">
+    <gg-input err-class="error"
+              lbl="{{'machine.labels.ma-velocity'+printRunProcess | i18n}}" 
+              form-group-class="col-sm-6" 
+              ng-model="fmData.ma_velocity"
+              regexp="decimal"
+              regexp-msg="{{'general.regexp.decimal' | i18n}}"
+              req-msg="Required"
+              is-required="true"
+              is-disabled="false">
+    </gg-input>
+  </span>
   <gg-select err-class="error"
            lbl="{{'machine.labels.ma-status' | i18n}}" 
            form-group-class="col-sm-6" 

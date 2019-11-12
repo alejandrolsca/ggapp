@@ -11,6 +11,7 @@ jsonb_to_record(ma_jsonb) as ma_jsonb (
     ma_minsizeheight text,
     ma_sizemeasure text,
     ma_totalinks text,
+    ma_velocity text,
     ma_fullcolor text,
     ma_printbg text,
     ma_process text,
