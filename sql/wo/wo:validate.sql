@@ -1,6 +1,6 @@
 select 
     wo_id,
-	wo_jsonb - 'wo_status' as wo_jsonb,
+	wo_jsonb,
 	wo_date,
 	wo_lastupdated
 from  wo, jsonb_to_record(wo_jsonb) wo_jsonb (

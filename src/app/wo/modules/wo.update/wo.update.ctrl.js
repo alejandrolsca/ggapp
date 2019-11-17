@@ -14,7 +14,7 @@ module.exports = (function (angular) {
                 return camelCase.join('')
             }
 
-            const { username } = authService.profile()
+            const { username, us_group } = authService.profile()
 
             // Create a new instance of the FileUploader
             $scope.uploader = new FileUploader({
@@ -25,7 +25,9 @@ module.exports = (function (angular) {
                 formData: [
                     {
                         wo_id: $stateParams.wo_id,
-                        wo_updatedby: username
+                        cl_id: $stateParams.cl_id,
+                        wo_updatedby: username,
+                        us_group: us_group
                     }
                 ]
             });
@@ -38,13 +40,11 @@ module.exports = (function (angular) {
             });
 
             $scope.uploader.onBeforeUploadItem = function (item) {
-                console.info(item.alias)
                 const [formData] = item.formData
                 formData.originalName = item.file.name
                 formData.alias = item.alias
                 item.file.name = `${formData.wo_id}_${item.alias}.pdf`
                 item.alias = 'file'
-                console.info('onBeforeUploadItem', item);
             };
 
             $scope.uploader.onWhenAddingFileFailed = function (item, filter, options) {
@@ -55,7 +55,24 @@ module.exports = (function (angular) {
                         input.type = ''
                         input.type = 'file'
                     }
-                    alert('El archivo es mayor a 10MB.')
+                    notyf.open({
+                        type: 'warning',
+                        message: 'El archivo es mayor a 10MB.'
+                    });
+                }
+            }
+            $scope.uploader.onErrorItem = function(item, response, status, headers) {
+                const [file] = item.formData
+                if(status === 601) {
+                    notyf.error('La orden de trabajo no esta activa ó necesita privilegios adicionales para realizar esta acción. Por favor contacte al propietario.')
+                } else {
+                    notyf.error(`Ocurrio un error al subir el archivo ${file.originalName}.`)
+                }
+                let [input] = document.getElementsByName(file.alias)
+                input.value = ''
+                if (!/safari/i.test(navigator.userAgent)) {
+                    input.type = ''
+                    input.type = 'file'
                 }
             }
 
@@ -72,7 +89,7 @@ module.exports = (function (angular) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
                         $scope.fmData = promise.data[0].wo_jsonb;
-                        $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
+                        $scope.fmData.wo_type = "NC"; //N-new, R-rep, NC-change
                         $scope.wo_id = promise.data[0].wo_id;
                         $scope.wo_date = promise.data[0].wo_date;
                         const { username } = authService.profile()
@@ -98,9 +115,7 @@ module.exports = (function (angular) {
                             type: 'success',
                             message: 'Orden Actualizada.'
                         });
-                    } else {
-                        $scope.updateFail = true;
-                    }
+                    } 
                 });
             };
 
@@ -111,10 +126,11 @@ module.exports = (function (angular) {
                 woUpdateFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
-                        $scope.fmData = promise.data[0].wo_jsonb;
-                        $scope.fmData.wo_type = "C"; //N-new,R-rep,C-change
-                        $scope.wo_id = promise.data[0].wo_id;
-                        $scope.wo_date = promise.data[0].wo_date;
+                        const {wo_id, wo_jsonb: fmData, wo_date } = promise.data[0]
+                        $scope.fmData = fmData;
+                        $scope.fmData.wo_type = "NC"; //N-new, R-rep, NC-New with changes
+                        $scope.wo_id = wo_id;
+                        $scope.wo_date = wo_date;
                         const { username } = authService.profile()
                         $scope.fmData.wo_updatedby = username;
 

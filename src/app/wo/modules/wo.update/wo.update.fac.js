@@ -1,7 +1,7 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$http', '$q',  '$stateParams', function ($http, $q, $stateParams) {
+    return ['$http', '$q',  '$stateParams', 'authService', function ($http, $q, $stateParams, authService) {
         var factory = {};
         factory.getData = function () {
             var deferred = $q.defer();
@@ -13,9 +13,6 @@ module.exports = (function (angular) {
                     wo_id: $stateParams.wo_id
                 }).success(function (data, status, headers, config) {
                     return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
                 })
             );
             return deferred.promise;
@@ -30,9 +27,6 @@ module.exports = (function (angular) {
                     zo_status: 'A,I'
                 }).success(function (data, status, headers, config) {
                     return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
                 })
             );
             return deferred.promise;
@@ -46,9 +40,6 @@ module.exports = (function (angular) {
                     cl_id: $stateParams.cl_id
                 }).success(function (data, status, headers, config) {
                     return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
                 })
             );
             return deferred.promise;
@@ -63,24 +54,23 @@ module.exports = (function (angular) {
                     pr_status: 'A'
                 }).success(function (data, status, headers, config) {
                     return data;
-                }).error(function (data, status, headers, config) {
-                    
-                    return { "status": false };
                 })
             );
             return deferred.promise;
         };
         factory.update = function (wo_jsonb) {
+            const { us_group } = authService.profile()
             var promise = $http.post('/api/wo/update', {
                 /* POST variables here */
                 procces_id: new Date().getMilliseconds(),
-                wo_jsonb: wo_jsonb,
-                wo_id: $stateParams.wo_id
+                us_group: us_group,
+                cl_id: $stateParams.cl_id,
+                wo_id: $stateParams.wo_id,
+                wo_jsonb: wo_jsonb
             }).success(function (data, status, headers, config) {
                 return data;
-            }).error(function (data, status, headers, config) {
-                return { "status": false };
-            });
+            })
+
             return promise;
         };
         return factory;
