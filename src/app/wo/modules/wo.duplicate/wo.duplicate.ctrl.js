@@ -63,16 +63,17 @@ module.exports = (function (angular) {
                 woDuplicateFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
-                        $scope.fmData = promise.data[0].wo_jsonb;
+                        const {wo_id, wo_jsonb: fmData, wo_date } = promise.data[0]
+                        $scope.fmData = fmData;
                         $scope.fmData.wo_release = undefined;
                         $scope.fmData.wo_po = undefined;
                         $scope.fmData.wo_line = undefined;
                         $scope.fmData.wo_linetotal = undefined;
-                        $scope.fmData.wo_type = "R"; //N-new, R-rep, C-change
+                        $scope.fmData.wo_type = "R"; //N-new, R-rep, NC-New with changes
                         $scope.fmData.wo_status = 0; //0-Active
-                        $scope.wo_id = promise.data[0].wo_id;
-                        $scope.fmData.wo_previousid = promise.data[0].wo_id;
-                        $scope.fmData.wo_previousdate = promise.data[0].wo_date.substring(0, 10);
+                        $scope.wo_id = wo_id;
+                        $scope.fmData.wo_previousid = wo_id;
+                        $scope.fmData.wo_previousdate = wo_date.substring(0, 10);
                         $scope.fmData.wo_commitmentdate = moment($scope.wo_commitmentdate.value).format('YYYY-MM-DD')
                         const { username } = authService.profile()
                         $scope.fmData.wo_createdby = username;

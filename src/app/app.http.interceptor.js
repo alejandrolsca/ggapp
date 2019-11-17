@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$q', '$injector',
-        function ($q, $injector) {
+    return ['$q', '$injector','notyf',
+        function ($q, $injector, notyf) {
             return {
                 'request': function (config) {
                     // if user is athenticated, add the profile to the headers
@@ -22,7 +22,11 @@ module.exports = (function (angular) {
                     // do something on error
                     var alerts = $injector.get('$alerts');
                     if(rejection.status !== 401) {
-                        alerts.error('Wooops! an error has ocurred.', JSON.stringify(rejection, null, 4));
+                        if (rejection.status === 601) {
+                            notyf.error('La orden de trabajo no esta activa ó necesita privilegios adicionales para realizar esta acción. Por favor contacte al propietario.')
+                        } else {
+                            alerts.error('¡Uy! Se ha producido un error.', JSON.stringify(rejection, null, 4));
+                        }
                     }
                     return $q.reject(rejection);
                 }

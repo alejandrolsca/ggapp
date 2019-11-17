@@ -938,13 +938,24 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // execute query
-                const query = file('wo/wo:update')
-                const parameters = [req.body.wo_jsonb, req.body.wo_id]
-                const result = await client.query(query, parameters)
+                await client.query('BEGIN')
+                const {us_group, cl_id, wo_id, wo_jsonb} = req.body
+                const getWoQuery = file('wo/wo:validate')
+                const getWoParameters = [cl_id, wo_id]
+                const {rows} = await client.query(getWoQuery, getWoParameters)
+                const [wo] = rows
+                const isOwner = us_group.includes('owner')
+                if (wo.wo_jsonb.wo_status !== 0 && !isOwner) {
+                    return res.status(601).send('601 - The work order is not active or needs additional privileges to perform this action. Please contact the owner.');
+                }
+                const updateWoQuery = file('wo/wo:update')
+                const updateWoParameters = [wo_jsonb, wo_id]
+                const result = await client.query(updateWoQuery, updateWoParameters)
+                await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
+                await client.query('ROLLBACK')
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
@@ -1900,13 +1911,25 @@ if (cluster.isMaster) {
                 // we don't need to dispose of the client (it will be undefined)
                 const client = await pool.connect()
                 try {
-                    // execute query
-                    const query = file('upload/wo:upload')
-                    const parameters = [req.body.alias, req.body.originalName, req.body.wo_updatedby, req.body.wo_id]
-                    const { rows } = await client.query(query, parameters)
+                    await client.query('BEGIN')
+                    const {alias, originalName, wo_updatedby, cl_id, wo_id, us_group} = req.body
+                    const getWoQuery = file('wo/wo:validate')
+                    const getWoParameters = [cl_id, wo_id]
+                    const {rows} = await client.query(getWoQuery, getWoParameters)
+                    const [wo] = rows
+                    const isOwner = us_group.includes('owner')
+                    if (wo.wo_jsonb.wo_status !== 0 && !isOwner) {
+                        return res.status(601).send('601 - The work order is not active or needs additional privileges to perform this action. Please contact the owner.');
+                    }
+                    //
+                    const uploadQuery = file('upload/wo:upload')
+                    const uploadParameters = [alias, originalName, wo_updatedby, wo_id]
+                    await client.query(uploadQuery, uploadParameters)
+                    await client.query('COMMIT')
                     res.send('File uploaded!');
                 } catch (e) {
                     console.log(e)
+                    await client.query('ROLLBACK')
                     return res.status(500).send(JSON.stringify(e.stack, null, 4));
                 } finally {
                     client.release()
