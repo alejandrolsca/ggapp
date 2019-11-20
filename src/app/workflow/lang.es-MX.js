@@ -93,7 +93,7 @@ module.exports = {
     ],
     "fields": {
         wo_statusoptions: [
-            { "label": "Activo", "value": 0, "desc": "Orden Activa", "us_group": "sales", "wo_prevstatus": [], "interval": "1 year" },
+            { "label": "Activo", "value": 0, "desc": "Orden Activa", "us_group": "production_planner", "wo_prevstatus": [], "interval": "1 year" },
             { "label": "En espera de material", "value": 1, "desc": "No hay material en el almacén", "us_group": "warehouse", "wo_prevstatus": [0, 4, 6, 9, 16], "interval": "1 year" },
             { "label": "Material disponible", "value": 2, "desc": "Hay material en el almacén pero aun no se ha iniciado el trabajo", "us_group": "production", "wo_prevstatus": [1], "interval": "1 year" },
             { "label": "En producción", "value": 3, "desc": "En producción", "us_group": "production", "wo_prevstatus": [2, 4], "interval": "1 year" },
