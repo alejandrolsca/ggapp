@@ -156,13 +156,13 @@ module.exports = (function (angular) {
                 var notyf = new Notyf({
                     duration: 5000,
                     types: [
-                      {
-                        type: "error",
-                        duration: 5000,
-                        className: "notyf-error"
-                      }
+                        {
+                            type: "error",
+                            duration: 5000,
+                            className: "notyf-error"
+                        }
                     ]
-                  });
+                });
 
                 const { us_group: status_group } = $scope.wo_statusoptions.find((value) => {
                     return value.value === $scope.fmData.wo_status
@@ -170,7 +170,7 @@ module.exports = (function (angular) {
 
                 const statusChangeAllowed = userProfile.us_group.includes(status_group) || userProfile.us_group.includes('admin')
 
-                if(!statusChangeAllowed) {
+                if (!statusChangeAllowed) {
                     // Display an error notification
                     notyf.error({
                         type: "error",
@@ -366,8 +366,8 @@ module.exports = (function (angular) {
                     col.header = i18nFilter("workflow.labels." + $scope.columns[i].binding.replace('_', '-'));
                     col.wordWrap = false;
                     col.width = $scope.columns[i].width;
-                    if(['wo_price', 'wo_currency'].includes($scope.columns[i].binding) ){
-                        col.visible = authService.userHasRole(['admin','warehouse','sales'])
+                    if (['wo_price', 'wo_currency'].includes($scope.columns[i].binding)) {
+                        col.visible = authService.userHasRole(['admin', 'warehouse', 'sales'])
                     }
                     s.columns.push(col);
 
@@ -435,10 +435,10 @@ module.exports = (function (angular) {
             $scope.wo_statusoptions = [];
             $scope.wo_statusoptions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions"))) // clone array
             $scope.wo_statusoptions.map((value) => {
-                value.notAnOption = true;
-                if ( userProfile.us_group.includes(value.us_group) || userProfile.us_group.includes('admin')) {
+                value.notAnOption = false;
+                /*if (userProfile.us_group.includes(value.us_group) || userProfile.us_group.includes('admin')) {
                     value.notAnOption = false;
-                }
+                }*/
                 return value
             })
 
@@ -452,14 +452,22 @@ module.exports = (function (angular) {
                     const actions = JSON.parse(JSON.stringify(i18nFilter("workflow.fields.wo_statusoptions"))) // clone array
                     const current_status = actions.find((value) => {
                         return newValue === value.value
-                    }) || {"interval": "1 year"}
+                    }) || { "interval": "1 year" }
+                    console.log(actions[newValue])
                     actions.map((value) => {
                         if (value.wo_prevstatus.includes(newValue)) {
-                            value.notAnOption = false;
-                            if ((value.value === 18) && !userProfile.us_group.includes('admin')) {
-                                value.notAnOption = true;
+                            if (userProfile.us_group.includes('admin')) {
+                                value.notAnOption = false
+                                $scope.actions.push(value)
+                            } else {
+                                if (!userProfile.us_group.includes(actions[newValue].us_group)) {
+                                    value.notAnOption = true
+                                    $scope.actions.push(value)
+                                } else {
+                                    value.notAnOption = (value.value === 18);
+                                    $scope.actions.push(value)
+                                }
                             }
-                            $scope.actions.push(value)
                         }
                     })
                     workflowFactory.getData(newValue, current_status.interval).then(function (promise) {

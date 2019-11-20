@@ -349,11 +349,18 @@ module.exports = (function (angular) {
                     }) || { "interval": "1 year" }
                     actions.map((value) => {
                         if (value.wo_prevstatus.includes(newValue)) {
-                            value.notAnOption = false;
-                            if ((value.value === 18) && !userProfile.us_group.includes('admin')) {
-                                value.notAnOption = true;
+                            if (userProfile.us_group.includes('admin')) {
+                                value.notAnOption = false
+                                $scope.actions.push(value)
+                            } else {
+                                if (!userProfile.us_group.includes(actions[newValue].us_group)) {
+                                    value.notAnOption = true
+                                    $scope.actions.push(value)
+                                } else {
+                                    value.notAnOption = (value.value === 18);
+                                    $scope.actions.push(value)
+                                }
                             }
-                            $scope.actions.push(value)
                         }
                     })
                     workflow2Factory.getData(newValue, current_status.interval).then(function (promise) {
