@@ -272,10 +272,10 @@ module.exports = (function (angular) {
             $scope.wo_statusoptions = [];
             $scope.wo_statusoptions = JSON.parse(JSON.stringify(i18nFilter("workflow2.fields.wo_statusoptions"))) // clone array
             $scope.wo_statusoptions.map((value) => {
-                value.notAnOption = true;
-                if (userProfile.us_group.includes(value.us_group) || userProfile.us_group.includes('admin')) {
+                value.notAnOption = false;
+                /*if (userProfile.us_group.includes(value.us_group) || userProfile.us_group.includes('admin')) {
                     value.notAnOption = false;
-                }
+                }*/
                 return value
             })
 
