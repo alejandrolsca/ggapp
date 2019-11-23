@@ -44,7 +44,8 @@ module.exports = (function(angular) {
       require("./printruns-by-user").name,
       require("./printruns-by-user2").name,
       require("./package-labels").name,
-      require("./earnings-by-status").name
+      require("./earnings-by-status").name,
+      require("./material-count").name
     ])
 
     .service("authService", ["$rootScope", "$state", "angularAuth0", "$timeout", "$http",
