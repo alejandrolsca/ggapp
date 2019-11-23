@@ -230,6 +230,10 @@ module.exports = {
      ****************************************/
     "earnings-by-status": require('./earnings-by-status/lang.es-MX'),
     /****************************************
+     MATERIAL COUNT
+     ****************************************/
+    "material-count": require('./material-count/lang.es-MX'),
+    /****************************************
     PACKAGE LABELS
     ****************************************/
     "package-labels": require('./package-labels/lang.es-MX'),
