@@ -13,7 +13,8 @@ module.exports = (function(angular){
             data: {
                 requiresLogin: true,
                 roles: [
-                    'admin'
+                    'admin',
+                    'production_planner'
                 ]
             }    
         });
