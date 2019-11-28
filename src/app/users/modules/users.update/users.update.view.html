@@ -1,0 +1,47 @@
+<div class="col-sm-12">
+    <h3>{{'users-update.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+    
+</div>
+<form class="col-md-8" role="form" name="ggform" ng-submit="onSubmit();" novalidate>
+  <gg-input err-class="error"
+            lbl="{{'users.labels.username' | i18n}}" 
+            form-group-class="col-sm-6"
+            ng-model="fmData.username"
+            regexp="auth0_user"
+            regexp-msg="{{'general.regexp.auth0_user' | i18n}}"
+            max-length="15"
+            req-msg="Required"
+            is-required="true"
+            is-disabled="true">
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'users.labels.email' | i18n}}" 
+            form-group-class="col-sm-6"
+            ng-model="fmData.email"
+            regexp="email"
+            regexp-msg="{{'general.regexp.email' | i18n}}"
+            req-msg="Required"
+            is-required="true"
+            is-disabled="true">
+  </gg-input>
+  <gg-select err-class="error"
+           lbl="{{'users.labels.us-group' | i18n}}"
+           select-class="user-groups"
+           form-group-class="col-sm-6" 
+           options="us_groupoptions" 
+           ng-model="fmData.app_metadata.us_group"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true"
+           is-disabled="false"
+           size="10"
+           multiple>
+  </gg-select>
+  <gg-submit lbl="Submit"
+            form-group-class="col-sm-12" 
+            ng-disabled="ggform.$invalid"
+            btn-class="col-xs-12 col-sm-4  col-md-2">
+  </gg-submit>
+</form>

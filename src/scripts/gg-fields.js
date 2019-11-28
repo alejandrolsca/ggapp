@@ -23,6 +23,7 @@
             "zipcode": /^([\-A-Z0-9](.[\-A-Z0-9])*)*$/,
             "date": /^20[1-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/,
             "user": /^\w{4,16}$/,
+            "auth0_user": /^(\w(\.\w)?){4,15}$/,
             "password": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
             "phone": /^([+])?(\d{2,}-)*(\d{2,}-\d{2,})$/,
             "wo_id": /^(\d+)(,\s*\d+)*$/,            
@@ -236,6 +237,7 @@
                     formGroupClass: '@',
                     lblClass: '@',
                     fldClass: '@',
+                    selectClass: '@',
                     reqMsg: '@',
                     regexpMsg: '@',
                     options: '=',
@@ -252,7 +254,7 @@
                     return '<div class="form-group {{formGroupClass}}">\
                                     <label class="{{lblClass}} control-label">{{lbl}} <span class="glyphicon glyphicon-asterisk" aria-hidden="true" ng-show="required"></span></label>\
                                     <div class="{{fldClass}}">\
-                                        <select id="{{unique_id}}" class="form-control red-tooltip" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label disable when item.notAnOption for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
+                                        <select id="{{unique_id}}" class="form-control red-tooltip {{selectClass}}" name="name" ng-model="ngModel" ng-change="ngChange()" ng-options="item.value as item.label disable when item.notAnOption for item in options" ng-required="required" ' + multiple + ' ng-disabled="isDisabled">\
                                         </select>\
                                     </div>\
                               </div>';
