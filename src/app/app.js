@@ -26,6 +26,7 @@ module.exports = (function(angular) {
       require("./login").name,
       require("./client").name,
       require("./user").name,
+      require("./users").name,
       require("./home").name,
       require("./product").name,
       require("./supplier").name,

@@ -66,6 +66,7 @@ module.exports = {
             "zipcode": "Solo mayusculas, numeros enteros y guíon medio.",
             "date": "aaaa-mm-dd",
             "user": "de 4 a 16 caracteres sin espacios ni caracteres especiales.",
+            "auth0_user": "de 4 a 15 caracteres sin espacios, puede incluir un puntos (.) intermedios.",
             "password": "la contraseña debe contener de 8-16 caracteres, por lo menos una letra mayuscula, una letra minuscula y un digito.",
             "phone": "solo use el simbolo + al principio y numeros del 0 al 9",
             "wo_id": "Solo se aceptan numeros enteros separados por coma."
@@ -166,6 +167,11 @@ module.exports = {
     ****************************************/
     "user": require('./user/lang.es-MX'),
     "user-profile": require('./user/modules/user.profile/lang.es-MX'),
+    /****************************************
+    USERS 
+    ****************************************/
+   "users": require('./users/lang.es-MX'),
+   "users-update": require('./users/modules/users.update/lang.es-MX'),
     /****************************************
     WORK ORDER 
     ****************************************/

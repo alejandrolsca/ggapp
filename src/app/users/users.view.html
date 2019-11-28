@@ -1,0 +1,23 @@
+<div class="col-sm-12">
+    <h3>{{'users.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<div class="col-sm-12">
+    <wj-flex-grid 
+    control="ggGrid" 
+    items-source="data" 
+    items-source-changed="itemsSourceChanged(s,e)"
+    sorted-column="onSortedColumn(s,e)"
+    auto-generate-columns="false" 
+    initialized="initGrid(s,e)"
+    allow-sorting="true" 
+    show-sort="true" 
+    style="height:390px;">
+        <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
+        <wj-flex-grid-column
+        is-read-only="true"
+        width="60">
+            <a href="/users/update/{{$item.user_id}}" class="btn btn-default btn-xs">{{'general.labels.edit' | i18n}}</a>
+        </wj-flex-grid-column>
+    </wj-flex-grid>
+</div>

@@ -8,3 +8,4 @@ uploads/
 package-lock.json
 log/
 .log
+.env*

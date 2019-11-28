@@ -29,7 +29,8 @@ if (cluster.isMaster) {
     // Code to run if we're in a worker process no
 } else {
     //LOAD NODE MODULES
-    const express = require('express'),
+        require('custom-env').env(process.env['NODE_ENV']);
+        const express = require('express'),
         jwt = require('express-jwt'),
         jwksRsa = require('jwks-rsa'),
         jwtAuthz = require('express-jwt-authz'),
@@ -40,7 +41,6 @@ if (cluster.isMaster) {
         fs = require('fs'),
         fileUpload = require('express-fileupload'),
         port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000;
-
     const { Pool, types } = require('pg');
 
     // CREATE REQUIRED FOLDERS
@@ -60,11 +60,20 @@ if (cluster.isMaster) {
             cache: true,
             rateLimit: true,
             jwksRequestsPerMinute: 5,
-            jwksUri: `https://grupografico.auth0.com/.well-known/jwks.json`
+            jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
         }),
-        audience: 'ZexVDEPlqGLMnWXnmyKSsoE8JO3ZS76y',
-        issuer: 'https://grupografico.auth0.com/',
+        audience: process.env.AUTH0_JWTCHECK_AUDIENCE,
+        issuer: `https://${process.env.AUTH0_DOMAIN}/`,
         algorithms: ['RS256']
+    });
+
+    var ManagementClient = require('auth0').ManagementClient;
+
+    var auth0 = new ManagementClient({
+        domain: process.env.AUTH0_DOMAIN,
+        clientId: process.env.AUTH0_CLIENT_ID,
+        clientSecret: process.env.AUTH0_CLIENT_SECRET,
+        scope: process.env.AUTH0_SCOPE
     });
 
     app.use('/api/', jwtCheck);
@@ -75,7 +84,7 @@ if (cluster.isMaster) {
 
     //SETUP POSTGRESQL
     const pool = new Pool({
-        connectionString: 'postgres://Alejandro:a186419.ASB@localhost:5432/ggapp'
+        connectionString: process.env.PG_CONNECTION_STRING
     })
 
     function pgToString(value) {
@@ -88,7 +97,7 @@ if (cluster.isMaster) {
     types.setTypeParser(1266, pgToString); // timetz
 
     // SET DEFAULT TIMEZONE
-    const defaultTimezone = 'America/Chihuahua'
+    const defaultTimezone = process.env.DEFAULT_TIME_ZONE
 
     //SETUP SQL FILE READER
     const sqlPath = __dirname + '/sql/';
@@ -98,7 +107,7 @@ if (cluster.isMaster) {
 
     //SETUP FILE UPLOADER
     app.use(fileUpload({
-        limits: { fileSize: 10 * 1024 * 1024 },
+        limits: { fileSize: 20 * 1024 * 1024 },
         abortOnLimit: true
     }));
 
@@ -939,10 +948,10 @@ if (cluster.isMaster) {
             const client = await pool.connect()
             try {
                 await client.query('BEGIN')
-                const {us_group, cl_id, wo_id, wo_jsonb} = req.body
+                const { us_group, cl_id, wo_id, wo_jsonb } = req.body
                 const getWoQuery = file('wo/wo:validate')
                 const getWoParameters = [cl_id, wo_id]
-                const {rows} = await client.query(getWoQuery, getWoParameters)
+                const { rows } = await client.query(getWoQuery, getWoParameters)
                 const [wo] = rows
                 const isOwner = us_group.includes('owner')
                 if (wo.wo_jsonb.wo_status !== 0 && !isOwner) {
@@ -1935,10 +1944,10 @@ if (cluster.isMaster) {
                 const client = await pool.connect()
                 try {
                     await client.query('BEGIN')
-                    const {alias, originalName, wo_updatedby, cl_id, wo_id, us_group} = req.body
+                    const { alias, originalName, wo_updatedby, cl_id, wo_id, us_group } = req.body
                     const getWoQuery = file('wo/wo:validate')
                     const getWoParameters = [cl_id, wo_id]
-                    const {rows} = await client.query(getWoQuery, getWoParameters)
+                    const { rows } = await client.query(getWoQuery, getWoParameters)
                     const [wo] = rows
                     const isOwner = us_group.includes('owner')
                     if (wo.wo_jsonb.wo_status !== 0 && !isOwner) {
@@ -1959,6 +1968,61 @@ if (cluster.isMaster) {
                 }
             })().catch(e => console.error(e.stack))
         });
+    });
+
+    app.post('/api/users/', function (req, res, next) {
+        (async () => {
+            try {
+                // Pagination settings.
+                const params = {
+                    search_engine: 'v3',
+                    per_page: 100,
+                    page: 0
+                };
+                const rows = await auth0.getUsers(params)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                //client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+    app.post('/api/users/user_id', function (req, res, next) {
+        (async () => {
+            try {
+                // Pagination settings.
+                const params = {
+                    id: req.body.user_id
+                };
+                const user = await auth0.getUser(params)
+                res.send(")]}',\n".concat(JSON.stringify(user)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                //client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/users/update', function (req, res, next) {
+        (async () => {
+            try {
+                // Pagination settings.
+                const params = {
+                    id: req.body.user_id
+                };
+                const user = await auth0.updateUser(params, req.body.data)
+                res.send(")]}',\n".concat(JSON.stringify(user)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                //client.release()
+            }
+        })().catch(e => console.error(e.stack))
     });
 
     const server = app.listen(port, function () {
