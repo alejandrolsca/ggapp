@@ -209,14 +209,17 @@ module.exports = (function (angular) {
                 cell.style.color = '';
                 // end fix
 
-                // localize timezone America/Chihuahua
                 if ((panel.cellType == wijmo.grid.CellType.Cell)) {
                     var flex = panel.grid;
                     var col = flex.columns[c];
                     var row = flex.rows[r];
-                    if (col.binding === 'wo_updated') {
-                        if (row.dataItem.wo_updated) {
-                            row.dataItem.wo_updated = moment(row.dataItem.wo_updated).tz('America/Chihuahua').format();
+                    const hasAttachements = !!row.dataItem.file1 || !!row.dataItem.file2
+                    if (!hasAttachements) {
+                        //row.isReadOnly = true
+                        cell.style.backgroundColor = 'Gainsboro';
+                        if (col.binding === 'active') {
+                            cb = cell.firstChild
+                            cb.setAttribute('disabled', 'disabled')
                         }
                     }
                 }
@@ -252,6 +255,7 @@ module.exports = (function (angular) {
                 if (panel.cellType == wijmo.grid.CellType.ColumnHeader) {
                     var flex = panel.grid;
                     var col = flex.columns[c];
+                    var row = flex.rows[r];
 
                     // check that this is a boolean column
                     if (col.dataType == wijmo.DataType.Boolean) {
@@ -262,7 +266,7 @@ module.exports = (function (angular) {
                         // count true values to initialize checkbox
                         var cnt = 0;
                         for (var i = 0; i < flex.rows.length; i++) {
-                            if (flex.getCellData(i, c) == true) cnt++;
+                            if (flex.getCellData(i, c) === true) cnt++;
                         }
 
                         // create and initialize checkbox
@@ -275,7 +279,11 @@ module.exports = (function (angular) {
                         cb.addEventListener('click', function (e) {
                             flex.beginUpdate();
                             for (var i = 0; i < flex.rows.length; i++) {
-                                flex.setCellData(i, c, cb.checked);
+                                    const row = flex.rows[i]
+                                    const hasAttachements = !!row.dataItem.file1 || !!row.dataItem.file2
+                                    if (hasAttachements) {
+                                        flex.setCellData(i, c, cb.checked);
+                                    }
                             }
                             flex.endUpdate();
                         });
@@ -453,7 +461,6 @@ module.exports = (function (angular) {
                     const current_status = actions.find((value) => {
                         return newValue === value.value
                     }) || { "interval": "1 year" }
-                    console.log(actions[newValue])
                     actions.map((value) => {
                         if (value.wo_prevstatus.includes(newValue)) {
                             if (userProfile.us_group.includes('admin')) {

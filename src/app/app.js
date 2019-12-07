@@ -36,7 +36,7 @@ module.exports = (function(angular) {
       require("./wo").name,
       require("./zone").name,
       require("./workflow").name,
-      require("./workflow2").name,
+      //require("./workflow2").name,
       require("./traffic-light-report").name,
       require("./traffic-light-report-all").name,
       require("./exportation-invoice").name,

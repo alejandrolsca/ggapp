@@ -1,7 +1,7 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$q', '$injector','notyf',
+    return ['$q', '$injector', 'notyf',
         function ($q, $injector, notyf) {
             return {
                 'request': function (config) {
@@ -21,11 +21,14 @@ module.exports = (function (angular) {
                 'responseError': function (rejection) {
                     // do something on error
                     var alerts = $injector.get('$alerts');
-                    if(rejection.status !== 401) {
-                        if (rejection.status === 601) {
-                            notyf.error('La orden de trabajo no esta activa ó necesita privilegios adicionales para realizar esta acción. Por favor contacte al propietario.')
-                        } else {
-                            alerts.error('¡Uy! Se ha producido un error.', JSON.stringify(rejection, null, 4));
+                    if (rejection.status !== 401) {
+                        switch (rejection.status) {
+                            case 601:
+                                notyf.error('La orden de trabajo no esta activa ó necesita privilegios adicionales para realizar esta acción. Por favor contacte al propietario.')
+                                break;
+                            default:
+                                alerts.error('¡Ups! algo salio mal.', JSON.stringify(rejection, null, 4));
+                                break;
                         }
                     }
                     return $q.reject(rejection);
