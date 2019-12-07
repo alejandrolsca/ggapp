@@ -1,10 +1,8 @@
-select 
-    wo_id,
-	wo_jsonb,
-	wo_date,
-	wo_lastupdated
+select
+	wo_jsonb.*
 from  wo, jsonb_to_record(wo_jsonb) wo_jsonb (
-	cl_id integer
+	file1 text,
+	file2 text,
+	wo_status integer
 ) 
-where wo_jsonb.cl_id = $1
-and wo_id = $2;
+where wo_id = $1;

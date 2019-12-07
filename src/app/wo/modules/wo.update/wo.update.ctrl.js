@@ -35,7 +35,8 @@ module.exports = (function (angular) {
             $scope.uploader.filters.push({
                 'name': 'enforceMaxFileSize',
                 'fn': function (item) {
-                    return item.size <= 10485760 // 10 MiB to bytes
+                    const limit = 20 * 1024 * 1024 // 20 MiB to bytes
+                    return item.size <= limit 
                 }
             });
 

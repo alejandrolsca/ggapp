@@ -29,8 +29,8 @@ if (cluster.isMaster) {
     // Code to run if we're in a worker process no
 } else {
     //LOAD NODE MODULES
-        require('custom-env').env(process.env['NODE_ENV']);
-        const express = require('express'),
+    require('custom-env').env(process.env['NODE_ENV']);
+    const express = require('express'),
         jwt = require('express-jwt'),
         jwksRsa = require('jwks-rsa'),
         jwtAuthz = require('express-jwt-authz'),
@@ -948,13 +948,13 @@ if (cluster.isMaster) {
             const client = await pool.connect()
             try {
                 await client.query('BEGIN')
-                const { us_group, cl_id, wo_id, wo_jsonb } = req.body
+                const { us_group, wo_id, wo_jsonb } = req.body
                 const getWoQuery = file('wo/wo:validate')
-                const getWoParameters = [cl_id, wo_id]
+                const getWoParameters = [wo_id]
                 const { rows } = await client.query(getWoQuery, getWoParameters)
                 const [wo] = rows
                 const isOwner = us_group.includes('owner')
-                if (wo.wo_jsonb.wo_status !== 0 && !isOwner) {
+                if (wo.wo_status !== 0 && !isOwner) {
                     return res.status(601).send('601 - The work order is not active or needs additional privileges to perform this action. Please contact the owner.');
                 }
                 const updateWoQuery = file('wo/wo:update')
@@ -1282,13 +1282,14 @@ if (cluster.isMaster) {
             let result = undefined;
             try {
                 await client.query('BEGIN')
+                const { wo_status, wo_updatedby, wo_id } = req.body
                 const updateStatusQuery = file('workflow/workflow:update')
-                const updateStatusValues = [req.body.wo_status, req.body.wo_updatedby, req.body.wo_id]
+                const updateStatusParameters = [wo_status, wo_updatedby, wo_id]
                 const updateDeliveryDateQuery = file('workflow/workflow:update:wo_deliverydate')
-                const updateDeliveryDateValues = [req.body.wo_id]
-                result = await client.query(updateStatusQuery, updateStatusValues)
-                if (req.body.wo_status === 17) {
-                    result = await client.query(updateDeliveryDateQuery, updateDeliveryDateValues)
+                const updateDeliveryDateParameters = [wo_id]
+                result = await client.query(updateStatusQuery, updateStatusParameters)
+                if (wo_status === 17) {
+                    result = await client.query(updateDeliveryDateQuery, updateDeliveryDateParameters)
                 }
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(result)));
@@ -1309,9 +1310,10 @@ if (cluster.isMaster) {
             let result = undefined;
             try {
                 await client.query('BEGIN')
+                const { wo_status, wo_updatedby, wo_cancellationnotes, wo_id } = req.body
                 const updateStatusQuery = file('workflow/workflow:updatecancellation')
-                const updateStatusValues = [req.body.wo_status, req.body.wo_updatedby, req.body.wo_cancellationnotes, req.body.wo_id]
-                result = await client.query(updateStatusQuery, updateStatusValues)
+                const updateStatusParameters = [wo_status, wo_updatedby, wo_cancellationnotes, wo_id]
+                result = await client.query(updateStatusQuery, updateStatusParameters)
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
@@ -1944,16 +1946,15 @@ if (cluster.isMaster) {
                 const client = await pool.connect()
                 try {
                     await client.query('BEGIN')
-                    const { alias, originalName, wo_updatedby, cl_id, wo_id, us_group } = req.body
+                    const { alias, originalName, wo_updatedby, wo_id, us_group } = req.body
                     const getWoQuery = file('wo/wo:validate')
-                    const getWoParameters = [cl_id, wo_id]
+                    const getWoParameters = [wo_id]
                     const { rows } = await client.query(getWoQuery, getWoParameters)
                     const [wo] = rows
                     const isOwner = us_group.includes('owner')
-                    if (wo.wo_jsonb.wo_status !== 0 && !isOwner) {
+                    if (wo.wo_status !== 0 && !isOwner) {
                         return res.status(601).send('601 - The work order is not active or needs additional privileges to perform this action. Please contact the owner.');
                     }
-                    //
                     const uploadQuery = file('upload/wo:upload')
                     const uploadParameters = [alias, originalName, wo_updatedby, wo_id]
                     await client.query(uploadQuery, uploadParameters)
