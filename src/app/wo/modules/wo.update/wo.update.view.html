@@ -2,6 +2,7 @@
     <h3>{{'wo-update.title' | i18n}}</h3>
     <span ng-if="loading">Cargando...</span>
     <label class="col-sm-12 fieldset">
+    {{'wo-update.labels.wo-type' | i18n}}: {{wo_type}} <span class="arrow-rightwards"></span> {{fmData.wo_type}}<br/>
     {{'wo-update.labels.wo-id' | i18n}}: {{wo_id}}<br/>
     {{'wo-update.labels.wo-date' | i18n}}: {{wo_date}}<br/>
     <span ng-if="fmData.file1">

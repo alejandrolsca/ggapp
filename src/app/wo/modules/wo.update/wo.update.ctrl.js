@@ -1,7 +1,7 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService', 'FileUploader','notyf',
+    return ['$scope', 'woUpdateFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService', 'FileUploader', 'notyf',
         function ($scope, woUpdateFactory, $stateParams, i18nFilter, $filter, $location, authService, FileUploader, notyf) {
 
             const camelCase = (...args) => {
@@ -36,7 +36,7 @@ module.exports = (function (angular) {
                 'name': 'enforceMaxFileSize',
                 'fn': function (item) {
                     const limit = 20 * 1024 * 1024 // 20 MiB to bytes
-                    return item.size <= limit 
+                    return item.size <= limit
                 }
             });
 
@@ -62,9 +62,9 @@ module.exports = (function (angular) {
                     });
                 }
             }
-            $scope.uploader.onErrorItem = function(item, response, status, headers) {
+            $scope.uploader.onErrorItem = function (item, response, status, headers) {
                 const [file] = item.formData
-                if(status === 601) {
+                if (status === 601) {
                     notyf.error('La orden de trabajo no esta activa ó necesita privilegios adicionales para realizar esta acción. Por favor contacte al propietario.')
                 } else {
                     notyf.error(`Ocurrio un error al subir el archivo ${file.originalName}.`)
@@ -75,6 +75,17 @@ module.exports = (function (angular) {
                     input.type = ''
                     input.type = 'file'
                 }
+            }
+
+            function setType(currentType) {
+                var types = {
+                    'N': 'NC', // N → NC  
+                    'NC': 'NC', // NC → NC  
+                    'R': 'RC', // R → RC  
+                    'RC': 'RC', // RC → RC  
+                    'unknown': 'unknown_type'
+                };
+                return (types[currentType] || types['unknown']);
             }
 
             $scope.uploader.onSuccessItem = function (item, response, status, headers) {
@@ -89,10 +100,13 @@ module.exports = (function (angular) {
                 woUpdateFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
-                        $scope.fmData = promise.data[0].wo_jsonb;
-                        $scope.fmData.wo_type = "NC"; //N-new, R-rep, NC-change
-                        $scope.wo_id = promise.data[0].wo_id;
-                        $scope.wo_date = promise.data[0].wo_date;
+                        const [wo] = promise.data
+                        const { wo_id, wo_jsonb: fmData, wo_jsonb: { wo_type }, wo_date } = wo
+                        $scope.fmData = fmData;
+                        $scope.fmData.wo_type = setType(wo_type); 
+                        $scope.wo_type = wo_type; // current type
+                        $scope.wo_id = wo_id;
+                        $scope.wo_date = wo_date;
                         const { username } = authService.profile()
                         $scope.fmData.wo_updatedby = username;
                     }
@@ -112,11 +126,12 @@ module.exports = (function (angular) {
 
                 woUpdateFactory.update($scope.fmData).then(function (promise) {
                     if (promise.data.rowCount === 1) {
+                        $scope.wo_type = $scope.fmData.wo_type
                         notyf.open({
                             type: 'success',
                             message: 'Orden Actualizada.'
                         });
-                    } 
+                    }
                 });
             };
 
@@ -127,9 +142,11 @@ module.exports = (function (angular) {
                 woUpdateFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
-                        const {wo_id, wo_jsonb: fmData, wo_date } = promise.data[0]
+                        const [wo] = promise.data
+                        const { wo_id, wo_jsonb: fmData, wo_jsonb: { wo_type }, wo_date } = wo
                         $scope.fmData = fmData;
-                        $scope.fmData.wo_type = "NC"; //N-new, R-rep, NC-New with changes
+                        $scope.fmData.wo_type = setType(wo_type); 
+                        $scope.wo_type = wo_type; // current type
                         $scope.wo_id = wo_id;
                         $scope.wo_date = wo_date;
                         const { username } = authService.profile()
