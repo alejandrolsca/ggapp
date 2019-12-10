@@ -26,11 +26,12 @@ module.exports = (function (angular) {
                 woViewFactory.getData().then(function(promise){
                     $scope.loading = false;
                     if(angular.isArray(promise.data) && promise.data.length === 1) {
-                            const {wo_id, wo_jsonb: fmData, wo_date } = promise.data[0]
+                            const [wo] = promise.data
+                            const {wo_jsonb: {wo_type}, wo_jsonb: fmData} = wo
                             $scope.fmData = fmData;
-                            $scope.fmData.wo_type = "C"; //N-new, R-rep, NC-New with changes
-                            $scope.wo_id = wo_id;
-                            $scope.wo_date = wo_date;
+                            $scope.wo_type = wo_type;
+                            $scope.wo_id = wo.wo_id;
+                            $scope.wo_date = wo.wo_date;
                             $scope.zoneViewUrl = `/zone/view/${$scope.fmData.cl_id}/${$scope.fmData.zo_id}`;
                             const { username } = authService.profile()
                             $scope.fmData.wo_updatedby = username;

@@ -298,3 +298,38 @@ USERS MODULES
 select.user-groups {
     height: 16em !important;
 }
+
+/*
+********************************************
+SYMBOLS
+********************************************
+*/
+$arrow-symbols: (
+    leftwards: "\2190",
+    upwards: "\2191",
+    rightwards: "\2192",
+    downwards: "\2193"
+);
+
+.arrow {
+    &-leftwards {
+        &:before {
+            content: map-get($arrow-symbols, leftwards);
+        }
+    }
+    &-upwards {
+        &:before {
+            content: map-get($arrow-symbols, upwards);
+        }
+    }
+    &-rightwards {
+        &:before {
+            content: map-get($arrow-symbols, rightwards);
+        }
+    }
+    &-downwards {
+        &:before {
+            content: map-get($arrow-symbols, downwards);
+        }
+    }
+}

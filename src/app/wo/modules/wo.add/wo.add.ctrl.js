@@ -4,8 +4,8 @@ module.exports = (function (angular) {
     return ['$scope', 'woAddFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService', 'notyf',
         function ($scope, woAddFactory, $stateParams, i18nFilter, $filter, $location, authService, notyf) {
             $scope.fmData = {};
-            $scope.fmData.wo_type = "N"; //N-new, R-rep, NC-New with changes
-            $scope.fmData.wo_status = 0; //0-Active
+            $scope.fmData.wo_type = "N"; // N-new
+            $scope.fmData.wo_status = 0; // 0-Active
             $scope.fmData.cl_id = +$stateParams.cl_id;
             $scope.fmData.pr_id = +$stateParams.pr_id;
             const { username } = authService.profile()
