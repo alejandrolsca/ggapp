@@ -78,7 +78,9 @@ select
 			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
 		else cl.cl_jsonb->>'cl_corporatename'
 	end as cl_corporatename,
+	zo.zo_id,
 	zo.zo_zone,
+	ma.ma_id,
 	ma.ma_name,
     wo.wo_id,
 	wo.wo_jsonb,
