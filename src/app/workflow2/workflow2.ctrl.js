@@ -57,54 +57,101 @@ module.exports = (function (angular) {
             $scope.exportPDF = () => {
                 isSelected().then(async (selected) => {
                     if (selected) {
+                        const bold = {
+                            font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold")
+                        }
+                        const boldContinued = {
+                            font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
+                            continued: true
+                        }
+
                         var img_gglogo = require('../../static/img/gg-logo.png');
                         const { data: orders } = await workflow2Factory.getWoPrint($scope.wo_id.join(','))
                         let pdfDoc = null
                         const pdfTemplate = (pdfDoc, data) => {
-                            const { pr_material } = data
-                            const { wo_jsonb } = data
-                            const { pr_jsonb } = data
+                            const { pr_material, wo_jsonb, pr_jsonb } = data
                             const materials = pr_material.split(',')
                             const hasComponents = (pr_jsonb.pr_type === 'paginated' || pr_jsonb.pr_type === 'counterfoil') ? true : false;
-                            const componentsArray = new Array(pr_jsonb.pr_components)
+                            const timestamp = moment().tz('America/Chihuahua').locale('es').format("DD/MM/YYYY h:mm:ss a");
+                            //const componentsArray = new Array(pr_jsonb.pr_components)
                             pdfDoc.header.drawImage(img_gglogo, 0, 0, {
                                 width: wijmo.pdf.pxToPt(150),
                                 height: wijmo.pdf.pxToPt(79)
                             });
-                            pdfDoc.drawText(`Orden no: ${data.wo_id}`, 0, wijmo.pdf.pxToPt(79))
-                            pdfDoc.drawText(`Cliente: ${data.cl_corporatename}`)
-                            pdfDoc.drawText(`Order Type: ${wo_jsonb.wo_type}`)
-                            pdfDoc.drawText(`Zona: ${data.zo_zone}`)
-                            pdfDoc.drawText(`Release: ${wo_jsonb.wo_release}`)
-                            pdfDoc.drawText(`Orden de compra: ${wo_jsonb.wo_po}`)
-                            pdfDoc.drawText(`Linea ${wo_jsonb.wo_line} de ${wo_jsonb.wo_linetotal}`)
-                            pdfDoc.drawText(`Producto: ${pr_jsonb.pr_code} - ${pr_jsonb.pr_name}`)
-                            pdfDoc.drawText(`Cantidad: ${wo_jsonb.wo_qty}`)
-                            pdfDoc.drawText(`No. Part: ${data.pr_partno}`)
-                            pdfDoc.drawText(`Folio: ${data.pr_folio}`)
-                            pdfDoc.drawText(`Material:`)
+                            pdfDoc.drawText(`Orden no: `, 0, wijmo.pdf.pxToPt(79), data.wo_id ? boldContinued : bold); pdfDoc.drawText(`${data.wo_id || ''}`, null, null, {
+                                brush: new wijmo.pdf.PdfSolidBrush('Blue'),
+                                font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
+                                link: `${window.location.origin}/wo/view/${data.cl_id}/${data.wo_id}`
+                            })
+                            pdfDoc.drawText(`Usuario: `, null, null, userProfile.username ? boldContinued : bold); pdfDoc.drawText(`${userProfile.username}`)
+                            pdfDoc.drawText(`Fecha: `, null, null, timestamp ? boldContinued : bold); pdfDoc.drawText(`${timestamp}`)
+                            pdfDoc.drawText(` `)
+                            pdfDoc.drawText(`------------------------------------------------------- CLIENTE -----------------------------------------------------------`)
+                            pdfDoc.drawText(`Cliente: `, null, null, data.cl_corporatename ? boldContinued : bold); pdfDoc.drawText(`${data.cl_corporatename || ''}`, null, null, {
+                                brush: new wijmo.pdf.PdfSolidBrush('Blue'),
+                                font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
+                                link: `${window.location.origin}/client/update/${data.cl_id}`
+                            })
+                            pdfDoc.drawText(`Zona: `, null, null, data.zo_zone ? boldContinued : bold); pdfDoc.drawText(`${data.zo_zone || ''}`, null, null, {
+                                brush: new wijmo.pdf.PdfSolidBrush('Blue'),
+                                font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
+                                link: `${window.location.origin}/zone/update/${data.cl_id}/${data.zo_id}`
+                            })
+                            pdfDoc.drawText(` `)
+                            pdfDoc.drawText(`------------------------------------------------------- PRODUCTO --------------------------------------------------------`)
+                            pdfDoc.drawText(`Codigo: `, null, null, pr_jsonb.pr_code ? boldContinued : bold); pdfDoc.drawText(`${pr_jsonb.pr_code || ''}`, null, null, {
+                                brush: new wijmo.pdf.PdfSolidBrush('Blue'),
+                                font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
+                                link: `${window.location.origin}/product/update/${pr_jsonb.pr_process}/${pr_jsonb.pr_type}/${data.cl_id}/${data.pr_id}`
+                            })
+                            pdfDoc.drawText(`Producto: `, null, null, pr_jsonb.pr_name ? boldContinued : bold); pdfDoc.drawText(`${pr_jsonb.pr_name || ''}`)
+                            pdfDoc.drawText(`No. Parte: `, null, null, data.pr_partno ? boldContinued : bold); pdfDoc.drawText(`${data.pr_partno || ''}`)
+                            pdfDoc.drawText(`Folio: `, null, null, data.pr_folio ? boldContinued : bold); pdfDoc.drawText(`${data.pr_folio || ''}`)
+                            pdfDoc.drawText(`# Tintas frente: `, null, null, data.inkfront ? boldContinued : bold); pdfDoc.drawText(`${data.inkfront || ''}`)
+                            pdfDoc.drawText(`Tintas frente: `, null, null, data.inksfront ? boldContinued : bold); pdfDoc.drawText(`${data.inksfront || ''}`)
+                            pdfDoc.drawText(`# Tintas reverso: `, null, null, data.inkback ? boldContinued : bold); pdfDoc.drawText(`${data.inkback || ''}`)
+                            pdfDoc.drawText(`Tintas reverso: `, null, null, data.inksback ? boldContinued : bold); pdfDoc.drawText(`${data.inksback || ''}`)
+                            pdfDoc.drawText(` `)
+                            pdfDoc.drawText(`------------------------------------------------------- ORDEN -------------------------------------------------------------`)
+                            pdfDoc.drawText(`Orden no: `, null, null, data.wo_id ? boldContinued : bold); pdfDoc.drawText(`${data.wo_id || ''}`, null, null, {
+                                brush: new wijmo.pdf.PdfSolidBrush('Blue'),
+                                font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
+                                link: `${window.location.origin}/wo/view/${data.cl_id}/${data.wo_id}`
+                            })
+                            pdfDoc.drawText(`Fecha compromiso: `, null, null, wo_jsonb.wo_commitmentdate ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_commitmentdate || ''}`)
+                            pdfDoc.drawText(`Tipo: `, null, null, wo_jsonb.wo_type ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_type || ''}`)
+                            pdfDoc.drawText(`Release: `, null, null, wo_jsonb.wo_release ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_release || ''}`)
+                            pdfDoc.drawText(`Orden de compra: `, null, null, wo_jsonb.wo_po ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_po || ''}`)
+                            pdfDoc.drawText(`Linea: `, null, null, wo_jsonb.wo_line || wo_jsonb.wo_linetotal ? boldContinued : bold);
+                            if (wo_jsonb.wo_line || wo_jsonb.wo_linetotal) {
+                                pdfDoc.drawText(`${wo_jsonb.wo_line || ''} de ${wo_jsonb.wo_linetotal || ''}`)
+                            }
+                            pdfDoc.drawText(`Cantidad: `, null, null, wo_jsonb.wo_qty ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_qty || ''}`)
+                            pdfDoc.drawText(`Material:`, null, null, bold)
                             materials.map((value) => {
                                 pdfDoc.drawText(`${value}`)
                             })
                             if (hasComponents) {
-                                pdfDoc.drawText(`Material Ordenado:`)
+                                pdfDoc.drawText(`Material Ordenado:`, null, null, bold)
                                 for (let i = 0; i < pr_jsonb.pr_components; i++) {
                                     pdfDoc.drawText(`${pr_jsonb.pr_concept[i]}: ${wo_jsonb.wo_componentmaterialqty[i]}`)
                                 }
                             } else {
-                                pdfDoc.drawText(`Material Ordenado: ${wo_jsonb.wo_materialqty}`)
+                                pdfDoc.drawText(`Material Ordenado: `, null, null, wo_jsonb.wo_materialqty ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_materialqty || ''}`)
+
                             }
-                            pdfDoc.drawText(`# Tintas frente: ${data.inkfront}`)
-                            pdfDoc.drawText(`Tintas frente: ${data.inksfront}`)
-                            pdfDoc.drawText(`# Tintas reverso: ${data.inkback}`)
-                            pdfDoc.drawText(`Tintas reverso: ${data.inksback}`)
-                            pdfDoc.drawText(`Maquina: ${data.ma_name}`)
-                            pdfDoc.drawText(`Cant. x paq/rollo: ${wo_jsonb.wo_packageqty}`)
-                            pdfDoc.drawText(`Cant. x caja: ${wo_jsonb.wo_boxqty}`)
-                            pdfDoc.drawText(`Notas: ${wo_jsonb.wo_notes}`)
-                            pdfDoc.drawText(`Fecha compromiso: ${wo_jsonb.wo_commitmentdate}`)
-                            pdfDoc.drawText(`Precio: ${data.wo_price}`)
-                            pdfDoc.drawText(`Moneda: ${data.wo_currency}`)
+                            pdfDoc.drawText(`Maquina: `, null, null, data.ma_name ? boldContinued : bold); pdfDoc.drawText(`${data.ma_name || ''}`, null, null, {
+                                brush: new wijmo.pdf.PdfSolidBrush('Blue'),
+                                font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
+                                link: `${window.location.origin}/machine/update/${data.ma_id}`
+                            })
+                            pdfDoc.drawText(`Notas: `, null, null, wo_jsonb.wo_notes ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_notes || ''}`)
+                            pdfDoc.drawText(` `)
+                            pdfDoc.drawText(`------------------------------------------------------- EMPAQUE -----------------------------------------------------------`)
+                            pdfDoc.drawText(`Cant. x paq/rollo: `, null, null, wo_jsonb.wo_packageqty ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_packageqty || ''}`)
+                            pdfDoc.drawText(`Cant. x caja: `, null, null, wo_jsonb.wo_boxqty ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_boxqty || ''}`)
+                            pdfDoc.drawText(`Precio: `, null, null, data.wo_price ? boldContinued : bold); pdfDoc.drawText(`${data.wo_price || ''}`)
+                            pdfDoc.drawText(`Moneda: `, null, null, data.wo_currency ? boldContinued : bold); pdfDoc.drawText(`${data.wo_currency || ''}`)
 
 
                         }
@@ -136,6 +183,7 @@ module.exports = (function (angular) {
                             }
                         })
                         pdfDoc.end()
+
                     } else {
                         notyf.open({
                             type: 'warning',
@@ -147,7 +195,7 @@ module.exports = (function (angular) {
 
             $scope.onUpdate = function () {
                 isSelected().then((selected) => {
-                    if(selected) {
+                    if (selected) {
                         $('#myModal').modal('show');
                         setNextStatus()
                     } else {
@@ -320,6 +368,8 @@ module.exports = (function (angular) {
                 statusBar: { ...statusBar },
                 onGridReady: onGridReady,
                 onSelectionChanged: onSelectionChanged,
+                isRowSelectable: isRowSelectable,
+                dateComponent: CustomDateComponent,
                 rowData: []
 
             }
@@ -336,6 +386,64 @@ module.exports = (function (angular) {
                     return row.data.wo_id
                 })
             }
+
+            function isRowSelectable(rowNode) {
+                const hasAttachements = !!rowNode.data.file1 || !!rowNode.data.file2
+                return hasAttachements;
+            }
+
+            function CustomDateComponent() {
+            }
+            
+            CustomDateComponent.prototype.init = function (params) {
+                var template = 
+                    `<input style="width:90%; margin-left: 4px;
+                    margin-right: 4px;" type="text" data-input />
+                    <a class="input-button" title="clear" data-clear>
+                        <i class="glyphicon glyphicon-remove-circle"></i>
+                    </a>`;
+            
+                this.params = params;
+            
+                this.eGui = document.createElement('div');
+            
+                var eGui = this.eGui;
+            
+                eGui.setAttribute('role', 'presentation');
+                eGui.classList.add('ag-input-wrapper');
+                eGui.classList.add('custom-date-filter');
+                eGui.innerHTML = template;
+            
+                this.eInput = eGui.querySelector('input');
+            
+                this.picker = flatpickr(this.eGui, {
+                    onChange: this.onDateChanged.bind(this),
+                    dateFormat: 'Y-m-d',
+                    wrap: true
+                });
+            
+                this.picker.calendarContainer.classList.add('ag-custom-component-popup');
+            
+                this.date = null;
+            };
+            
+            CustomDateComponent.prototype.getGui = function () {
+                return this.eGui;
+            };
+            
+            CustomDateComponent.prototype.onDateChanged = function (selectedDates) {
+                this.date = selectedDates[0] || null;
+                this.params.onDateChanged();
+            };
+            
+            CustomDateComponent.prototype.getDate = function () {
+                return this.date;
+            };
+            
+            CustomDateComponent.prototype.setDate = function (date) {
+                this.picker.setDate(date);
+                this.date = date;
+            };
 
             $scope.$on('$viewContentLoaded', function () {
 
