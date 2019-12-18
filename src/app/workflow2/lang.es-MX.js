@@ -1,3 +1,32 @@
+const datefilterParams = {
+    inRangeInclusive: true,
+    includeBlanksInEquals: false,
+    includeBlanksInLessThan: false,
+    includeBlanksInGreaterThan: false,
+    comparator: function (filterLocalDateAtMidnight, cellValue) {
+        let dateAsString = cellValue || ''
+        
+        dateAsString = dateAsString.slice(0,10);
+
+        if (!moment(dateAsString,"YYYY-MM-DD").isValid()) return -1;
+        
+        const dateParts = dateAsString.split("-");
+        
+        const cellDate = new Date(Number(dateParts[0]), Number(dateParts[1]) - 1, Number(dateParts[2]));
+
+        if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+            return 0;
+        }
+
+        if (cellDate < filterLocalDateAtMidnight) {
+            return -1;
+        }
+
+        if (cellDate > filterLocalDateAtMidnight) {
+            return 1;
+        }
+    }
+}
 module.exports = {
     "title": "Flujo de Trabajo",
     "defaultColDef": {
@@ -27,18 +56,18 @@ module.exports = {
         { headerName: "No. orden", field: "wo_id", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Tipo", field: "wo_type", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Proceso", field: "pr_process", width: 100, filter: 'agSetColumnFilter' },
-        { headerName: "Fecha compromiso", field: "wo_commitmentdate", filter: 'agTextColumnFilter' },
+        { headerName: "Fecha compromiso", field: "wo_commitmentdate", filter: 'agDateColumnFilter', filterParams: datefilterParams },
         { headerName: "cliente", field: "cl_id", width: 100, filter: 'agSetColumnFilter' },
         { headerName: "Razón social", field: "cl_corporatename", width: 200, filter: 'agSetColumnFilter' },
         { headerName: "Zona", field: "zo_zone", width: 200, filter: 'agSetColumnFilter' },
         { headerName: "Codigo de Producto", field: "pr_code", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Producto", field: "pr_name", width: 200, filter: 'agSetColumnFilter' },
         { headerName: "Maquina", field: "ma_name", width: 200, filter: 'agSetColumnFilter' },
-        { headerName: "Material", field: "pr_material", width: 200, filter: 'agSetColumnFilter' },
-        { headerName: "No. Tintas frente", field: "inkfront", width: 200, filter: false },
-        { headerName: "Tintas frente", field: "inksfront", width: 200, filter: 'agTextColumnFilter' },
-        { headerName: "No. Tintas reverso", field: "inkback", width: 200, filter: false },
-        { headerName: "Tintas reverso", field: "inksback", width: 200, filter: 'agTextColumnFilter' },
+        { headerName: "Material", field: "pr_material", width: 200, filter: 'agSetColumnFilter', cellRenderer: (params) => params.data.pr_material, autoHeight: true },
+        { headerName: "No. Tintas frente", field: "inkfront", width: 200, filter: false, cellRenderer: (params) => params.data.inkfront },
+        { headerName: "Tintas frente", field: "inksfront", width: 200, filter: 'agTextColumnFilter', cellRenderer: (params) => params.data.inksfront },
+        { headerName: "No. Tintas reverso", field: "inkback", width: 200, filter: false, cellRenderer: (params) => params.data.inkback },
+        { headerName: "Tintas reverso", field: "inksback", width: 200, filter: 'agTextColumnFilter', cellRenderer: (params) => params.data.inksback },
         { headerName: "Release", field: "wo_release", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Orden de compra", field: "wo_po", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Cantidad", field: "wo_qty", width: 200, filter: false },
@@ -53,11 +82,11 @@ module.exports = {
         { headerName: "Notas", field: "wo_notes", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Notas Cancelación", field: "wo_cancellationnotes", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "ID anterior", field: "wo_previousid", width: 200, filter: 'agTextColumnFilter' },
-        { headerName: "Fecha anterior", field: "wo_previousdate", width: 200, filter: 'agTextColumnFilter' },
+        { headerName: "Fecha anterior", field: "wo_previousdate", width: 200, filter: 'agDateColumnFilter', filterParams: datefilterParams },
         { headerName: "Actualizado por", field: "wo_updatedby", width: 200, filter: 'agSetColumnFilter' },
-        { headerName: "Ult. Actualización", field: "wo_updated", width: 200, filter: 'agTextColumnFilter' },
+        { headerName: "Ult. Actualización", field: "wo_lastupdated", width: 200, filter: 'agDateColumnFilter', filterParams: datefilterParams },
         { headerName: "Creado por", field: "wo_createdby", width: 200, filter: 'agSetColumnFilter' },
-        { headerName: "Fecha", field: "wo_date", width: 200, filter: 'agTextColumnFilter' }
+        { headerName: "Fecha", field: "wo_date", width: 200, filter: 'agDateColumnFilter', filterParams: datefilterParams }
     ],
     "materialColumnDefs": [
         { headerName: "ID Material", field: "mt_id", width: 176, filter: 'agTextColumnFilter', type: "numericColumn" },

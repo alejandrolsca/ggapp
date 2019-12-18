@@ -3,15 +3,17 @@ require('../node_modules/bootstrap/dist/css/bootstrap.css');
 require('../node_modules/animate.css/animate.css');
 require('../wijmo/Dist/styles/wijmo.css');
 require('../node_modules/notyf/notyf.min.css');
+require('../node_modules/flatpickr/dist/themes/dark.css');
+
 
 // vendor libraries
 window._ = require('lodash');
 window.jQuery = require('../node_modules/jquery/dist/jquery.js');
 window.$ = require('../node_modules/jquery/dist/jquery.js');
+require('../node_modules/flatpickr/dist/flatpickr');
 window.JSZip = require("jszip");
 require('../node_modules/angular/angular.js');
-var agGrid = require('script-loader!../node_modules/ag-grid/dist/ag-grid');
-require('script-loader!../node_modules/ag-grid-enterprise/dist/ag-grid-enterprise');
+var agGrid = require('script-loader!../node_modules/ag-grid-enterprise/dist/ag-grid-enterprise');
 require('../node_modules/@uirouter/angularjs/release/angular-ui-router.js');
 require('../node_modules/angular-animate/angular-animate.js');
 require('../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js');
