@@ -79,7 +79,7 @@ module.exports = (function (angular) {
                     pdfDoc.drawText(`Orden no: `, 0, wijmo.pdf.pxToPt(79), data.wo_id ? boldContinued : bold); pdfDoc.drawText(`${data.wo_id || ''}`, null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
-                        link: `http://192.168.100.2/wo/view/${data.cl_id}/${data.wo_id}`
+                        link: `${window.location.origin}/wo/view/${data.cl_id}/${data.wo_id}`
                     })
                     pdfDoc.drawText(`Usuario: `, null, null, userProfile.username ? boldContinued : bold); pdfDoc.drawText(`${userProfile.username}`)
                     pdfDoc.drawText(`Fecha: `, null, null, timestamp ? boldContinued : bold); pdfDoc.drawText(`${timestamp}`)
@@ -88,19 +88,19 @@ module.exports = (function (angular) {
                     pdfDoc.drawText(`Cliente: `, null, null, data.cl_corporatename ? boldContinued : bold); pdfDoc.drawText(`${data.cl_corporatename || ''}`,null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
-                        link: `http://192.168.100.2/client/update/${data.cl_id}`
+                        link: `${window.location.origin}/client/update/${data.cl_id}`
                     })
                     pdfDoc.drawText(`Zona: `, null, null, data.zo_zone ? boldContinued : bold); pdfDoc.drawText(`${data.zo_zone || ''}`,null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
-                        link: `http://192.168.100.2/zone/update/${data.cl_id}/${data.zo_id}`
+                        link: `${window.location.origin}/zone/update/${data.cl_id}/${data.zo_id}`
                     })
                     pdfDoc.drawText(` `)
                     pdfDoc.drawText(`------------------------------------------------------- PRODUCTO --------------------------------------------------------`)
                     pdfDoc.drawText(`Codigo: `, null, null, pr_jsonb.pr_code ? boldContinued : bold); pdfDoc.drawText(`${pr_jsonb.pr_code || ''}`, null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
-                        link: `http://192.168.100.2/product/update/${pr_jsonb.pr_process}/${pr_jsonb.pr_type}/${data.cl_id}/${data.pr_id}`
+                        link: `${window.location.origin}/product/update/${pr_jsonb.pr_process}/${pr_jsonb.pr_type}/${data.cl_id}/${data.pr_id}`
                     })
                     pdfDoc.drawText(`Producto: `, null, null, pr_jsonb.pr_name ? boldContinued : bold); pdfDoc.drawText(`${pr_jsonb.pr_name || ''}`)
                     pdfDoc.drawText(`No. Parte: `, null, null, data.pr_partno ? boldContinued : bold); pdfDoc.drawText(`${data.pr_partno || ''}`)
@@ -114,7 +114,7 @@ module.exports = (function (angular) {
                     pdfDoc.drawText(`Orden no: `, null, null, data.wo_id ? boldContinued : bold); pdfDoc.drawText(`${data.wo_id || ''}`, null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
-                        link: `http://192.168.100.2/wo/view/${data.cl_id}/${data.wo_id}`
+                        link: `${window.location.origin}/wo/view/${data.cl_id}/${data.wo_id}`
                     })
                     pdfDoc.drawText(`Fecha compromiso: `, null, null, wo_jsonb.wo_commitmentdate ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_commitmentdate || ''}`)
                     pdfDoc.drawText(`Tipo: `, null, null, wo_jsonb.wo_type ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_type || ''}`)
@@ -141,7 +141,7 @@ module.exports = (function (angular) {
                     pdfDoc.drawText(`Maquina: `, null, null, data.ma_name ? boldContinued : bold); pdfDoc.drawText(`${data.ma_name || ''}`,null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
-                        link: `http://192.168.100.2/machine/update/${data.ma_id}`
+                        link: `${window.location.origin}/machine/update/${data.ma_id}`
                     })
                     pdfDoc.drawText(`Notas: `, null, null, wo_jsonb.wo_notes ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_notes || ''}`)
                     pdfDoc.drawText(` `)
