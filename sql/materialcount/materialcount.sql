@@ -19,7 +19,7 @@ select
 		when 9 then '(9) Rechazado por calidad'
 		when 10 then '(10) Aprobado por calidad'
 		when 11 then '(11) Empaque e Inspección Final'
-		when 12 then '(12) Almacén'
+		when 12 then '(12) Producto terminado'
 		when 13 then '(13) Facturación/Lista de Embarque'
 		when 14 then '(14) Enviado'
 		when 15 then '(15) No se pudo entregar'
