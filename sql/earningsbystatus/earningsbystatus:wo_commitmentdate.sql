@@ -21,18 +21,19 @@ coalesce("17",0)
 ) as total
 FROM crosstab($$
 	select
+		pr.pr_jsonb->>'pr_process',
 		case
 			when cl.cl_jsonb->>'cl_type' = 'natural' 
 				then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
 			else cl_jsonb->>'cl_corporatename'
 		end as cl_corporatename,
-		wo_jsonb.cl_id,
 		wo_jsonb.wo_status,
 		sum(wo_qty * wo_jsonb.wo_price)
 	from 
 		wo wo, 
 		jsonb_to_record(wo_jsonb) as wo_jsonb (
 			cl_id int,
+			pr_id int,
 			wo_currency text,
 			wo_price decimal,
 			wo_qty int,
@@ -41,17 +42,19 @@ FROM crosstab($$
 		)
 		join client cl
 		on wo_jsonb.cl_id = cl.cl_id
+		join product pr
+		on wo_jsonb.pr_id = pr.pr_id
 		where wo_jsonb.wo_currency = '$$ || cast($1 as text) || $$'
 		and wo_jsonb.wo_commitmentdate between '$$ || cast($2 as text) || $$' and '$$ || cast($3 as text) || $$'
-		group by 1,2,3
-		order by 1,2,3
+		group by 2,1,3
+		order by 2,1,3 DESC
 $$,
 $$
 	select status from generate_series(0,18) status
 $$)
 as ct(
+	pr_process text,
 	cl_corporatename text,
-	cl_id int,
 	"0" decimal,
 	"1" decimal,
 	"2" decimal,

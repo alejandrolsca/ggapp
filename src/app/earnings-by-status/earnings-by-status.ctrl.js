@@ -115,7 +115,7 @@ module.exports = (function (angular) {
                             $scope.groupBy = '';
                             var cv = $scope.data;
                             cv.groupDescriptions.clear(); // clear current groups
-                            var groupDesc = new wijmo.collections.PropertyGroupDescription('cl_corporatename', function (item, prop) {
+                            var groupDesc = new wijmo.collections.PropertyGroupDescription('pr_process', function (item, prop) {
                                 //convert string to number
                                 item['total'] = Number(item['total'])
                                 item['0'] = Number(item['0'])
@@ -137,7 +137,7 @@ module.exports = (function (angular) {
                                 item['16'] = Number(item['16'])
                                 item['17'] = Number(item['17'])
                                 item['18'] = Number(item['18'])
-                                return item.wo_updatedby
+                                return item.pr_process
                             });
                             cv.groupDescriptions.push(groupDesc);
                         }, 100)
