@@ -2,6 +2,7 @@ const labels = require('../workflow/lang.es-MX').fields.wo_statusoptions
 module.exports = {
     "title": "Ganancias por estatus",
     "labels": {
+        "pr-process": "Proceso",
         "cl-corporatename": "Cliente",
         "total": "Total",
         "0": labels[0].label,
@@ -27,6 +28,7 @@ module.exports = {
         "target-date": "Fec. de Creación"
     },
     "columns": [
+        { "binding": "pr_process", "type": "String", "width": 150, "html": false, "format": "string", "aggregate": "None" },
         { "binding": "cl_corporatename", "type": "String", "width": 300, "html": false, "format": "string", "aggregate": "None" },
         { "binding": "total", "type": "Number", "width": 300, "html": false, "format": "n2", "aggregate": "Sum" },
         { "binding": "0", "type": "Number", "width": 150, "html": false, "format": "n2", "aggregate": "Sum" },
