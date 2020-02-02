@@ -8,7 +8,6 @@ module.exports = {
         "wo-qty": "Cantidad",
     },
     "columns": [
-        { "binding": "wo_id", "type": "Number", "width": 100, "html": false },
         { "binding": "pr_process", "type": "String", "width": 80, "html": false },
         { "binding": "pr_code", "type": "String", "width": 200, "html": false },
         { "binding": "pr_name", "type": "String", "width": 200, "html": false },
