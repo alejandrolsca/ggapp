@@ -12,13 +12,15 @@ module.exports = (function(angular){
             data: {
                 requiresLogin: true,
                 roles: [
+                    'owner',
                     'admin',
                     'finishing',
                     'packaging',
                     'production',
                     'quality_assurance',
                     'sales',
-                    'warehouse'
+                    'warehouse',
+                    'cardinal'
                 ]
             }    
         });

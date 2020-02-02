@@ -28,7 +28,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" ng-if="!authService.userHasRole(['cardinal'])">
             <li ng-class="{active: currentState.name==='home'}"><a ui-sref="home">DASHBOARD <span class="sr-only">(current)</span></a></li>
             <li ng-class="{active: currentState.name==='workflow'}"><a ui-sref="workflow">WORKFLOW<span class="sr-only">(current)</span></a></li>
             <li ng-class="{active: currentState.name==='client'}"><a ui-sref="client">CLIENTES <span class="sr-only">(current)</span></a></li>
@@ -67,8 +67,8 @@
               <ul class="dropdown-menu" role="menu">
                 <li ng-if="profile"><a ui-sref="userProfile" ng-bind="profile.username"></a></li>
                 <li ng-if="profile" class="divider"></li>
-                <li><a href="javascript:void(0);">Ayuda</a></li>
-                <li><a href="javascript:void(0);">Reportar un problema</a></li>
+                <li ng-if="authService.userHasRole(['cardinal'])"><a ui-sref="cardinalArt" target="_self">CARDINAL ARTE</a></li> 
+                <li><a href="mailto:alejandrolsca@gmail.com;">Reportar un problema</a></li>
                 <li class="divider"></li>
                 <li ng-if="!authService.isAuthenticated()"><a href="javascript:void(0);" ng-click="authService.login()">Iniciar sesión</a></li>
                 <li ng-if="authService.isAuthenticated()"><a href="javascript:void(0);" ng-click="authService.logout()">Cerrar sesión</a></li>

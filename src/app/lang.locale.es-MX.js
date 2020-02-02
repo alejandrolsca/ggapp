@@ -244,4 +244,8 @@ module.exports = {
     ****************************************/
     "package-labels": require('./package-labels/lang.es-MX'),
     "package-labels-custom": require('./package-labels/lang.custom.es-MX'),
+    /****************************************
+    CARDINAL
+    ****************************************/
+   "cardinal-art": require('./cardinal-art/lang.es-MX')
 }
