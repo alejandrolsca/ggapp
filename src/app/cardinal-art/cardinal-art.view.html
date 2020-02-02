@@ -1,0 +1,34 @@
+<div class="col-sm-12">
+    <h3>{{'cardinal-art.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<div class="col-sm-12">
+    <wj-flex-grid 
+      control="ggGrid" 
+      items-source="data"
+      items-source-changed="itemsSourceChanged(s,e)"
+      sorted-column="onSortedColumn(s,e)"
+      auto-generate-columns="false" 
+      initialized="initGrid(s,e)" 
+      item-formatter="itemFormatter"
+      allow-sorting="true" 
+      show-sort="true" 
+      style="height:390px;">
+      <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
+      <wj-flex-grid-column
+        header="No. Orden" 
+        binding="wo_id" 
+        is-read-only="true"
+        is-html="false" 
+        width="100">
+        </wj-flex-grid-column>
+      <wj-flex-grid-column
+        header="Archivos" 
+        binding="files" 
+        is-read-only="true"
+        is-html="true" 
+        width="200">
+        </wj-flex-grid-column>
+
+    </wj-flex-grid>
+</div>

@@ -46,7 +46,8 @@ module.exports = (function(angular) {
       require("./printruns-by-user2").name,
       require("./package-labels").name,
       require("./earnings-by-status").name,
-      require("./material-count").name
+      require("./material-count").name,
+      require("./cardinal-art").name
     ])
 
     .service("authService", ["$rootScope", "$state", "angularAuth0", "$timeout", "$http",
@@ -58,8 +59,7 @@ module.exports = (function(angular) {
         function handleAuthentication() {
           angularAuth0.parseHash(function(err, authResult) {
             if (authResult && authResult.accessToken && authResult.idToken) {
-              setSession(authResult);
-              $state.go("home");
+              setSession(authResult);              
             } else if (err) {
               $timeout(function() {
                 $state.go("login");
@@ -79,6 +79,8 @@ module.exports = (function(angular) {
           localStorage.setItem("expires_at", expiresAt);
           scheduleTimeout();
           getProfile(function(err, profile) {
+            const isCardinalUser = profile.us_group.includes('cardinal')
+            isCardinalUser ? $state.go("cardinalArt") : $state.go("home");
             if (err) {
               throw new Error(err);
             }
