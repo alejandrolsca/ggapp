@@ -1,6 +1,5 @@
 <div class="col-sm-12">
-    <h3>{{'printruns.title' | i18n}}</h3>
-    <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>
+    <h3>{{'printruns-by-user.title' | i18n}}</h3>
     <span ng-if="loading">Cargando...</span>
 </div>
 <div class="col-sm-12">
@@ -14,6 +13,11 @@
             <div class=""><div class="datepicker form-control" id="toDate"></div></div>
         </div>
     </div>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default btn-xs" ng-click="ggGrid.collapseGroupsToLevel(1)"><span class="glyphicon glyphicon-collapse-down"></span> Expandir</button>
+        <button type="button" class="btn btn-default btn-xs" ng-click="ggGrid.collapseGroupsToLevel(0)"><span class="glyphicon glyphicon-collapse-up"></span> Colapsar</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="exportXLS()"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</button>
+      </div><br><br>
     <wj-flex-grid 
       control="ggGrid" 
       items-source="data" 
@@ -22,7 +26,7 @@
       item-formatter="itemFormatter"
       allow-sorting="true" 
       show-sort="true" 
-      style="height:390px;">
+      style="height:480px;">
       <wj-flex-grid-filter></wj-flex-grid-filter>
     </wj-flex-grid>
 </div>
