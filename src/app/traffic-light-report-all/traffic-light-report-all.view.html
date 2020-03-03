@@ -1,9 +1,11 @@
 <div class="col-sm-12">
     <h3>{{'tlr.title' | i18n}}</h3>
-    <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div><br/><br/>    
     <span ng-if="loading">Cargando...</span>
 </div>
 <div class="col-sm-12">
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-success btn-xs" ng-click="exportXLS()"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</button>
+    </div><br><br>
     <wj-flex-grid 
     control="ggGrid"
     allow-editing="false"
@@ -13,7 +15,7 @@
     initialized="initGrid(s,e)"
     allow-sorting="true" 
     show-sort="true"
-    style="height:390px;">
+    style="height:550px;">
         <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
         <wj-flex-grid-column
             header="Active" 

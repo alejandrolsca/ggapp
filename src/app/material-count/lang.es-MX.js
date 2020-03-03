@@ -1,5 +1,5 @@
 module.exports = {
-    "title": "Tirajes",
+    "title": "Recuento de material",
     "labels": {
         "wo-id": "Orden",
         "mt-id": "ID Material",

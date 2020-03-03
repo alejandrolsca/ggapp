@@ -1,5 +1,5 @@
 module.exports = {
-    "title": "Tirajes",
+    "title": "Tirajes por usuario (Producción)",
     "labels": {
         "wo-updatedby": "Usuario",
         "wo-id": "Orden",
