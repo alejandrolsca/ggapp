@@ -1,0 +1,348 @@
+
+> ggapp@1.0.0 prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> npm run api:prod & npm run build:prod
+
+
+> ggapp@1.0.0 api:prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> NODE_ENV=production node server.js
+
+
+> ggapp@1.0.0 build:prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> webpack --progress --colors --env=prod
+
+Master cluster setting up 8 workers...
+Worker 72330 is online
+Worker 72332 is online
+Worker 72331 is online
+Worker 72334 is online
+Worker 72335 is online
+Worker 72333 is online
+Worker 72337 is online
+Worker 72336 is online
+Worker 1 running!
+Worker 2 running!
+Worker 3 running!
+Server running on worker 2 listening at http://localhost:3000
+Worker 8 running!
+Server running on worker 1 listening at http://localhost:3000
+Worker 6 running!
+Server running on worker 3 listening at http://localhost:3000
+Server running on worker 8 listening at http://localhost:3000
+Worker 4 running!
+Server running on worker 6 listening at http://localhost:3000
+Worker 5 running!
+Server running on worker 4 listening at http://localhost:3000
+Server running on worker 5 listening at http://localhost:3000
+Worker 7 running!
+Server running on worker 7 listening at http://localhost:3000
+Hash: [1mf1b060b8e34a14493a48[39m[22m
+Version: webpack [1m3.12.0[39m[22m
+Time: [1m33858[39m[22mms
+                                                  [1mAsset[39m[22m     [1mSize[39m[22m  [1mChunks[39m[22m  [1m[39m[22m           [1m[39m[22m       [1mChunk Names[39m[22m
+                         [1m[32mstatic/img/gg-logo.cb8432e.png[39m[22m  9.62 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                      [1m[32mstatic/img/brand-logo.bc2b945.png[39m[22m  9.19 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+[1m[32mstatic/fonts/glyphicons-halflings-regular.448c34a.woff2[39m[22m    18 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+ [1m[32mstatic/fonts/glyphicons-halflings-regular.fa27723.woff[39m[22m  23.4 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+  [1m[32mstatic/fonts/glyphicons-halflings-regular.e18bbf6.ttf[39m[22m  45.4 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+  [1m[32mstatic/fonts/glyphicons-halflings-regular.8988968.svg[39m[22m   109 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+  [1m[32mstatic/fonts/glyphicons-halflings-regular.f4769f9.eot[39m[22m  20.1 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                     [1m[32mstatic/img/ggauth-logo.388aeef.png[39m[22m  3.55 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                            [1m[33mapp.f1b060b8e34a14493a48.js[39m[22m  [1m[33m1.49 MB[39m[22m       [1m0[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  app
+                         [1m[33mvendor.f1b060b8e34a14493a48.js[39m[22m    [1m[33m10 MB[39m[22m       [1m1[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  vendor
+            [1m[33mvendor.aad07442a2e5490e666d1cf9cfc95757.css[39m[22m   [1m[33m281 kB[39m[22m       [1m1[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  vendor
+               [1m[32mapp.ae1c38c07cd00ebbcc2c7d902052dc49.css[39m[22m  11.6 kB       [1m0[39m[22m  [1m[32m[emitted][39m[22m         app
+                                             [1m[32mindex.html[39m[22m   4.9 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+
+> ggapp@1.0.0 prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> npm run api:prod & npm run build:prod
+
+
+> ggapp@1.0.0 build:prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> webpack --progress --colors --env=prod
+
+
+> ggapp@1.0.0 api:prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> NODE_ENV=production node server.js
+
+Master cluster setting up 8 workers...
+Worker 72724 is online
+Worker 72725 is online
+Worker 72726 is online
+Worker 72728 is online
+Worker 72727 is online
+Worker 72729 is online
+Worker 72730 is online
+Worker 72731 is online
+Worker 1 running!
+Worker 6 running!
+Worker 4 running!
+Worker 2 running!
+Worker 7 running!
+Worker 3 running!
+Worker 72724 died with code: 1, and signal: null
+Starting a new worker
+Worker 5 running!
+Worker 72727 died with code: 1, and signal: null
+Starting a new worker
+Worker 8 running!
+Worker 72729 died with code: 1, and signal: null
+Starting a new worker
+Worker 72725 died with code: 1, and signal: null
+Starting a new worker
+Worker 72726 died with code: 1, and signal: null
+Starting a new worker
+Worker 72730 died with code: 1, and signal: null
+Starting a new worker
+Worker 72728 died with code: 1, and signal: null
+Starting a new worker
+Worker 72731 died with code: 1, and signal: null
+Starting a new worker
+Worker 72733 is online
+Worker 72734 is online
+Worker 72735 is online
+Worker 72736 is online
+Worker 72732 is online
+Worker 72737 is online
+Worker 72738 is online
+Worker 72739 is online
+Worker 9 running!
+Worker 12 running!
+Worker 14 running!
+Worker 13 running!
+Worker 10 running!
+Worker 11 running!
+Worker 15 running!
+Worker 72732 died with code: 1, and signal: null
+Starting a new worker
+Worker 72735 died with code: 1, and signal: null
+Starting a new worker
+Worker 72736 died with code: 1, and signal: null
+Starting a new worker
+Worker 16 running!
+Worker 72737 died with code: 1, and signal: null
+Starting a new worker
+Worker 72733 died with code: 1, and signal: null
+Starting a new worker
+Worker 72734 died with code: 1, and signal: null
+Starting a new worker
+Worker 72738 died with code: 1, and signal: null
+Starting a new worker
+Worker 72739 died with code: 1, and signal: null
+Starting a new worker
+Worker 72743 is online
+Worker 72740 is online
+Worker 72742 is online
+Worker 72745 is online
+Worker 72741 is online
+Worker 72744 is online
+Worker 72746 is online
+Worker 72747 is online
+Worker 21 running!
+Worker 19 running!
+Worker 18 running!
+Worker 17 running!
+Worker 22 running!
+Worker 20 running!
+Worker 72744 died with code: 1, and signal: null
+Starting a new worker
+Worker 72742 died with code: 1, and signal: null
+Starting a new worker
+Worker 23 running!
+Worker 72740 died with code: 1, and signal: null
+Starting a new worker
+Worker 72741 died with code: 1, and signal: null
+Starting a new worker
+Worker 72743 died with code: 1, and signal: null
+Starting a new worker
+Worker 72745 died with code: 1, and signal: null
+Starting a new worker
+Worker 72746 died with code: 1, and signal: null
+Starting a new worker
+Worker 24 running!
+Worker 72747 died with code: 1, and signal: null
+Starting a new worker
+Worker 72749 is online
+Worker 72750 is online
+Worker 72751 is online
+Worker 72752 is online
+Worker 72753 is online
+Worker 72754 is online
+Worker 72755 is online
+Worker 72756 is online
+Worker 26 running!
+Worker 25 running!
+Worker 30 running!
+Worker 27 running!
+Worker 72750 died with code: 1, and signal: null
+Starting a new worker
+Worker 28 running!
+Worker 72749 died with code: 1, and signal: null
+Starting a new worker
+Worker 31 running!
+Worker 72754 died with code: 1, and signal: null
+Starting a new worker
+Worker 72751 died with code: 1, and signal: null
+Starting a new worker
+Worker 72752 died with code: 1, and signal: null
+Starting a new worker
+Worker 29 running!
+Worker 72755 died with code: 1, and signal: null
+Starting a new worker
+Worker 72753 died with code: 1, and signal: null
+Starting a new worker
+Worker 32 running!
+Worker 72756 died with code: 1, and signal: null
+Starting a new worker
+Worker 72758 is online
+Worker 72759 is online
+Worker 72757 is online
+Worker 72760 is online
+Worker 72761 is online
+Worker 72762 is online
+Worker 72763 is online
+Worker 72764 is online
+Worker 34 running!
+Worker 36 running!
+Worker 33 running!
+Worker 35 running!
+Worker 72760 died with code: 1, and signal: null
+Starting a new worker
+Worker 38 running!
+Worker 72757 died with code: 1, and signal: null
+Starting a new worker
+Worker 72758 died with code: 1, and signal: null
+Starting a new worker
+Worker 37 running!
+Worker 72759 died with code: 1, and signal: null
+Starting a new worker
+Worker 72762 died with code: 1, and signal: null
+Starting a new worker
+Worker 72761 died with code: 1, and signal: null
+Starting a new worker
+Worker 39 running!
+Worker 72763 died with code: 1, and signal: null
+Starting a new worker
+Worker 72767 is online
+Worker 72766 is online
+Worker 72765 is online
+Worker 72768 is online
+Worker 40 running!
+Worker 72770 is online
+Worker 72769 is online
+Worker 72764 died with code: 1, and signal: null
+Starting a new worker
+Worker 72771 is online
+Worker 72772 is online
+Worker 41 running!
+Worker 43 running!
+Worker 42 running!
+Worker 44 running!
+Worker 46 running!
+Worker 72767 died with code: 1, and signal: null
+Starting a new worker
+Worker 72765 died with code: 1, and signal: null
+Starting a new worker
+Worker 45 running!
+Worker 72766 died with code: 1, and signal: null
+Starting a new worker
+Worker 72768 died with code: 1, and signal: null
+Starting a new worker
+Worker 72769 died with code: 1, and signal: null
+Starting a new worker
+Worker 72770 died with code: 1, and signal: null
+Starting a new worker
+Worker 47 running!
+Worker 72771 died with code: 1, and signal: null
+Starting a new worker
+Worker 72773 is online
+Worker 72774 is online
+Worker 72777 is online
+Worker 72775 is online
+Worker 72776 is online
+Worker 72778 is online
+Worker 48 running!
+Worker 72772 died with code: 1, and signal: null
+Starting a new worker
+Worker 72779 is online
+Worker 72780 is online
+Worker 51 running!
+Worker 49 running!
+Worker 50 running!
+Worker 53 running!
+Worker 52 running!
+Worker 54 running!
+Worker 72773 died with code: 1, and signal: null
+Starting a new worker
+Worker 72774 died with code: 1, and signal: null
+Starting a new worker
+Worker 72775 died with code: 1, and signal: null
+Starting a new worker
+Worker 72776 died with code: 1, and signal: null
+Starting a new worker
+Worker 72777 died with code: 1, and signal: null
+Starting a new worker
+Worker 72778 died with code: 1, and signal: null
+Starting a new worker
+Worker 55 running!
+Worker 72779 died with code: 1, and signal: null
+Starting a new worker
+Worker 72781 is online
+Worker 72783 is online
+Worker 72782 is online
+Worker 72784 is online
+Worker 72786 is online
+Worker 72785 is online
+
+> ggapp@1.0.0 prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> npm run api:prod & npm run build:prod
+
+
+> ggapp@1.0.0 api:prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> NODE_ENV=production node server.js
+
+
+> ggapp@1.0.0 build:prod /Users/Alejandro/Files/DevProjects/ng1/ggapp
+> webpack --progress --colors --env=prod
+
+Master cluster setting up 8 workers...
+Worker 73156 is online
+Worker 73157 is online
+Worker 73158 is online
+Worker 73159 is online
+Worker 73161 is online
+Worker 73160 is online
+Worker 73162 is online
+Worker 73163 is online
+Worker 2 running!
+Worker 3 running!
+Server running on worker 2 listening at http://localhost:3000
+Worker 1 running!
+Server running on worker 3 listening at http://localhost:3000
+Worker 5 running!
+Worker 4 running!
+Server running on worker 1 listening at http://localhost:3000
+Server running on worker 5 listening at http://localhost:3000
+Server running on worker 4 listening at http://localhost:3000
+Worker 6 running!
+Worker 8 running!
+Server running on worker 6 listening at http://localhost:3000
+Worker 7 running!
+Server running on worker 8 listening at http://localhost:3000
+Server running on worker 7 listening at http://localhost:3000
+Hash: [1mf1b060b8e34a14493a48[39m[22m
+Version: webpack [1m3.12.0[39m[22m
+Time: [1m31653[39m[22mms
+                                                  [1mAsset[39m[22m     [1mSize[39m[22m  [1mChunks[39m[22m  [1m[39m[22m           [1m[39m[22m       [1mChunk Names[39m[22m
+                         [1m[32mstatic/img/gg-logo.cb8432e.png[39m[22m  9.62 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                      [1m[32mstatic/img/brand-logo.bc2b945.png[39m[22m  9.19 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+[1m[32mstatic/fonts/glyphicons-halflings-regular.448c34a.woff2[39m[22m    18 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+ [1m[32mstatic/fonts/glyphicons-halflings-regular.fa27723.woff[39m[22m  23.4 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+  [1m[32mstatic/fonts/glyphicons-halflings-regular.e18bbf6.ttf[39m[22m  45.4 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+  [1m[32mstatic/fonts/glyphicons-halflings-regular.8988968.svg[39m[22m   109 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+  [1m[32mstatic/fonts/glyphicons-halflings-regular.f4769f9.eot[39m[22m  20.1 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                     [1m[32mstatic/img/ggauth-logo.388aeef.png[39m[22m  3.55 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                            [1m[33mapp.f1b060b8e34a14493a48.js[39m[22m  [1m[33m1.49 MB[39m[22m       [1m0[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  app
+                         [1m[33mvendor.f1b060b8e34a14493a48.js[39m[22m    [1m[33m10 MB[39m[22m       [1m1[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  vendor
+            [1m[33mvendor.aad07442a2e5490e666d1cf9cfc95757.css[39m[22m   [1m[33m281 kB[39m[22m       [1m1[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  vendor
+               [1m[32mapp.ae1c38c07cd00ebbcc2c7d902052dc49.css[39m[22m  11.6 kB       [1m0[39m[22m  [1m[32m[emitted][39m[22m         app
+                                             [1m[32mindex.html[39m[22m   4.9 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
