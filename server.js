@@ -887,6 +887,29 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
+    app.post('/api/search/wo/id', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                // set default time zone
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
+                // execute query
+                const query = file('wo/wo:search:wo_id')
+                const parameters = [req.body.wo_id]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
     app.post('/api/wo/add', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception

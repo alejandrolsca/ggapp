@@ -3,7 +3,7 @@
     <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div> 
     <div ng-click="exportPDF()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> PDF</div><br/><br/>    
     <span ng-if="loading">Cargando...</span>
-</div>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -62,9 +62,7 @@
       </div>
     </div>
   </div>
-
-<div class="col-sm-12">
-  <div class="well well-sm col-sm-6 col-xs-12">
+  <div class="well well-sm col-sm-12 col-xs-12">
       <form role="form" name="ggform" ng-submit="onUpdate();" novalidate>
         <gg-select err-class="error"
                 lbl="{{'workflow.labels.wo-status' | i18n}}" 
@@ -99,7 +97,7 @@
       </gg-action-button>
     </form>
   </div>
+  <div class="row">
+    <div ag-grid="mainGridOptions" class="ag-theme-balham col-sm-12 col-xs-12" style="height: 400px;"></div>
+  </div>
 </div>
-<span class="col-sm-12">
-  <div ag-grid="mainGridOptions" class="ag-theme-balham" style="height: 400px; display: block"></div>
-</span>

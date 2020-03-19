@@ -54,20 +54,26 @@
                 <li><a ui-sref="ink">TINTAS</a></li>
               </ul>
             </li>
-            <li ng-if="authService.userHasRole(['owner'])" class="dropdown">
-              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">AJUSTES<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a ui-sref="users">USUARIOS</a></li>
-              </ul>
-            </li>
           </ul>
+          <form class="navbar-form navbar-left visible-md visible-lg" role="search">
+            <div class="form-group has-feedback">
+              <input type="text" ng-model="wo_id" placeholder="No. de orden" 
+              uib-typeahead="wo.wo_id for wo in searchWoID($viewValue)" 
+              typeahead-loading="loadingResults" 
+              typeahead-wait-ms="1000"
+              typeahead-on-select="open(wo_id)" class="form-control">
+              <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+            <i ng-show="loadingResults" class="glyphicon glyphicon-refresh" style="color: white;"></i>
+          </form>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li ng-if="profile"><a ui-sref="userProfile" ng-bind="profile.username"></a></li>
                 <li ng-if="profile" class="divider"></li>
-                <li ng-if="authService.userHasRole(['cardinal'])"><a ui-sref="cardinalArt" target="_self">CARDINAL ARTE</a></li> 
+                <li ng-if="authService.userHasRole(['cardinal'])"><a ui-sref="cardinalArt" target="_self">CARDINAL ARTE</a></li>
+                <li ng-if="authService.userHasRole(['owner'])"><a ui-sref="users">Usuarios</a></li>
                 <li><a href="mailto:alejandrolsca@gmail.com;">Reportar un problema</a></li>
                 <li class="divider"></li>
                 <li ng-if="!authService.isAuthenticated()"><a href="javascript:void(0);" ng-click="authService.login()">Iniciar sesión</a></li>
