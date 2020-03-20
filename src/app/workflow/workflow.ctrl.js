@@ -255,7 +255,7 @@ module.exports = (function (angular) {
                 cell.style.backgroundColor = '';
                 cell.style.color = '';
                 // end fix
-
+                
                 if ((panel.cellType == wijmo.grid.CellType.Cell)) {
                     var flex = panel.grid;
                     var col = flex.columns[c];
@@ -341,12 +341,11 @@ module.exports = (function (angular) {
             }
 
             $scope.formatItem = function (s, e, cell) {
-
+                
                 if (e.panel.cellType == wijmo.grid.CellType.RowHeader) {
                     e.cell.textContent = e.row + 1;
                 }
-
-                s.rows.defaultSize = 30;
+                
                 var col = s.columns[e.col];
                 // add Bootstrap html
                 if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (col.binding === 'actions')) {
@@ -361,18 +360,6 @@ module.exports = (function (angular) {
                 }
             }
 
-            // autoSizeRows on load
-            $scope.itemsSourceChanged = function (sender, args) {
-                //sender.autoSizeColumns();
-                sender.autoSizeRows()
-            };
-
-            // autoSizeRows on sorted column
-            $scope.onSortedColumn = function (sender, args) {
-                sender.autoSizeRows()
-            };
-
-            // autoSizeRows after filter applied
             $scope.onFilterApplied = function (s, e) {
                 setTimeout(function () {
                     const { items: rows } = $scope.data
@@ -408,20 +395,21 @@ module.exports = (function (angular) {
                         }
                     })
                     $scope.materialsRaw = materials
-                    s.grid.autoSizeRows()
                 }, 500);
 
             };
 
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
+
+                s.rows.defaultSize = 48;
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
                     col.isContentHtml = $scope.columns[i].html;
                     col.header = i18nFilter("workflow.labels." + $scope.columns[i].binding.replace('_', '-'));
-                    col.wordWrap = false;
+                    col.wordWrap = true;
                     col.width = $scope.columns[i].width;
                     if (['wo_price', 'wo_currency'].includes($scope.columns[i].binding)) {
                         col.visible = authService.userHasRole(['admin', 'warehouse', 'sales'])

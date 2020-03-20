@@ -62,9 +62,7 @@
             sorted-column="onSortedColumn(s,e)"
             item-formatter="materialsItemFormatter"
             initialized="initMaterialsGrid(s,e)"
-            auto-generate-columns="false" 
-            allow-sorting="true" 
-            show-sort="true" 
+            auto-generate-columns="false"
             style="height:390px;">
           </wj-flex-grid>
       </div>
@@ -117,26 +115,27 @@
     <wj-flex-grid 
     control="ggGrid" 
     items-source="data" 
-    items-source-changed="itemsSourceChanged(s,e)"
-    sorted-column="onSortedColumn(s,e)"
     item-formatter="itemFormatter"
     format-item="formatItem(s,e,cell)" 
     auto-generate-columns="false" 
     initialized="initGrid(s,e)"
     allow-sorting="true" 
     show-sort="true" 
+    is-read-only="true"
+    selection-mode="Row"
     style="height:390px;">
         <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
         <wj-flex-grid-column
-        header="Active" 
+        header="Selec."
         binding="active"
+        width="80"
         data-type="Boolean">
         </wj-flex-grid-column>
         <wj-flex-grid-column
         header="Acciones" 
         binding="actions" 
         is-read-only="true" 
-        width="100">
+        width="80">
         </wj-flex-grid-column>
         <wj-flex-grid-column
         header="Archivos" 
