@@ -27,8 +27,6 @@
     <wj-flex-grid 
       control="ggGrid" 
       items-source="data"
-      items-source-changed="itemsSourceChanged(s,e)"
-      sorted-column="onSortedColumn(s,e)"
       auto-generate-columns="false" 
       initialized="initGrid(s,e)"
       item-formatter="itemFormatter" 
@@ -36,7 +34,7 @@
       allow-sorting="true" 
       show-sort="true" 
       style="height:390px;">
-      <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
+      <wj-flex-grid-filter></wj-flex-grid-filter>
       <wj-flex-grid-column
         header="{{'exportationInvoice.labels.ei-id' | i18n}}" 
         binding="ei_id"        

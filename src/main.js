@@ -4,7 +4,6 @@ require('./sass/exportation-invoice.scss');
 require('./sass/global.scss');
 require('./sass/navbar.scss');
 require('./sass/bootstrap_override.scss');
-require('./sass/ag-grid.scss');
 
 // Aplication Libraries
 require('./scripts/gg-alerts.js');

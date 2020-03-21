@@ -273,8 +273,6 @@ module.exports = (function (angular) {
                 $('#materialsModal').modal('show');
             }
 
-
-            // autoSizeRows after filter applied
             $scope.setMaterials = function (s, e) {
                 setTimeout(function () {
                     const rows = $scope.selectedRows || []

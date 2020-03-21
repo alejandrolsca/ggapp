@@ -21,24 +21,6 @@ module.exports = (function(angular){
             }
         };
 
-        // autoSizeRows on load
-        $scope.itemsSourceChanged = function (sender, args) {
-            //sender.autoSizeColumns();
-            sender.autoSizeRows()
-        };
-
-        // autoSizeRows on sorted column
-        $scope.onSortedColumn = function (sender, args) {
-            sender.autoSizeRows()
-        };
-
-         // autoSizeRows after filter applied
-         $scope.onFilterApplied = function (s, e) {
-            setTimeout(function () {
-                s.grid.autoSizeRows()
-            }, 0);
-        };
-
         $scope.$on('$viewContentLoaded', function () {
             // this code is executed after the view is loaded
             $scope.loading = true;
