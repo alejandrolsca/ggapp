@@ -85,14 +85,6 @@ module.exports = {
         { "binding": "wo_date", "type": "Date", "width": 150, "isReadOnly": true, "filterType": 0 }
     ],
     "fields": {
-        wo_dateoptions: [
-            { "label": "1 mes", "value": '1 month' },
-            { "label": "2 meses", "value": '2 month' },
-            { "label": "3 meses", "value": '3 month' },
-            { "label": "6 meses", "value": '6 month' },
-            { "label": "1 año", "value": '1 year' },
-            { "label": "2 años", "value": '2 year' },
-            { "label": "3 años", "value": '3 year' }
-        ]
+
     }
 }

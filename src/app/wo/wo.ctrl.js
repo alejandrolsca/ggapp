@@ -209,7 +209,6 @@ module.exports = (function (angular) {
                     e.cell.textContent = e.row + 1;
                 }
 
-                s.rows.defaultSize = 30;
                 var col = s.columns[e.col];
 
                 // add Bootstrap html
@@ -285,76 +284,14 @@ module.exports = (function (angular) {
                 }
             });
 
-            // autoSizeRows on load
-            $scope.itemsSourceChanged = function (sender, args) {
-                //sender.autoSizeColumns();
-                sender.autoSizeRows()
-            };
-
-            // autoSizeRows on sorted column
-            $scope.onSortedColumn = function (sender, args) {
-                sender.autoSizeRows()
-            };
-
-            // autoSizeRows after filter applied
-            $scope.onFilterApplied = function (s, e) {
-                setTimeout(function () {
-                    s.grid.autoSizeRows()
-                }, 500);
-
-            };
-
-            $scope.wo_dateoptions = i18nFilter("wo.fields.wo_dateoptions");
-            $scope.wo_date = '1 month'
-
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
-
-                let currentSearch,
-                    lastSearch,
-                    filterTextTimeout;
-                $scope.$watchGroup(['wo_id', 'zo_zone', 'wo_release', 'wo_po', 'pr_name', 'wo_date'], function (newValues, oldValues, scope) {
-                    let [wo_id, zo_zone, wo_release, wo_po, pr_name, wo_date] = newValues
-                    wo_id = wo_id || ''
-                    zo_zone = zo_zone || ''
-                    wo_release = wo_release || ''
-                    wo_po = wo_po || ''
-                    pr_name = pr_name || ''
-                    wo_date = wo_date || '1 month'
-
-                    currentSearch = wo_id.toLowerCase() + zo_zone.toLowerCase() + wo_release.toLowerCase() + wo_po.toLowerCase() + pr_name.toLowerCase() + wo_date.toLowerCase()
-
-                    const sameSearch = (currentSearch === lastSearch)
-
-                    if (filterTextTimeout) {
-                        $scope.loading = false;
-                        $timeout.cancel(filterTextTimeout);
-                    }
-
-                    if (!sameSearch) {
-                        $scope.loading = true;
-                        filterTextTimeout = $timeout(function () {
-                            woFactory.getData(wo_id, zo_zone, wo_release, wo_po, pr_name, wo_date).then(function (promise) {
-                                $scope.loading = false;
-                                lastSearch = wo_id.toLowerCase() + zo_zone.toLowerCase() + wo_release.toLowerCase() + wo_po.toLowerCase() + pr_name.toLowerCase() + wo_date.toLowerCase()
-                                if (angular.isArray(promise.data)) {
-                                    // expose data as a CollectionView to get events
-                                    $scope.data = new wijmo.collections.CollectionView(promise.data);
-                                    /*
-                                    setTimeout(() => {
-                                        var flex = $scope.ggGrid;
-                                        var filter = new wijmo.grid.filter.FlexGridFilter(flex);
-                                        filter.defaultFilterType = wijmo.grid.filter.FilterType.None;
-                                        var columns = flex.columns;
-                                        angular.forEach(columns, function (value, key) {
-                                            var col = flex.columns.getColumn(value.binding),
-                                                cf = filter.getColumnFilter(key);
-                                            cf.filterType = value.filterType;
-                                        });
-                                    }, 1500);*/
-                                }
-                            });
-                        }, 1500);
+                $scope.loading = false;
+                woFactory.getData().then(function (promise) {
+                    $scope.loading = false;
+                    if (angular.isArray(promise.data)) {
+                        // expose data as a CollectionView to get events
+                        $scope.data = new wijmo.collections.CollectionView(promise.data);
                     }
                 });
             });

@@ -401,15 +401,24 @@ module.exports = (function (angular) {
 
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
-
-                s.rows.defaultSize = 48;
+                s.rows.defaultSize = 60;
+                /*
+                var flex = $scope.ggGrid;
+                
+                flex.updatingView.addHandler(function(s,e){
+                    flex.autoSizeRows(flex.viewRange.row,flex.viewRange.row2)
+                });
+                flex.scrollPositionChanged.addHandler(function(s,e){
+                    flex.autoSizeRows(flex.viewRange.row,flex.viewRange.row2)
+                });
+                */
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i].binding;
                     col.dataType = $scope.columns[i].type;
                     col.isContentHtml = $scope.columns[i].html;
                     col.header = i18nFilter("workflow.labels." + $scope.columns[i].binding.replace('_', '-'));
-                    col.wordWrap = true;
+                    col.wordWrap = false;
                     col.width = $scope.columns[i].width;
                     if (['wo_price', 'wo_currency'].includes($scope.columns[i].binding)) {
                         col.visible = authService.userHasRole(['admin', 'warehouse', 'sales'])

@@ -64,10 +64,10 @@ module.exports = {
         { headerName: "Producto", field: "pr_name", width: 200, filter: 'agSetColumnFilter' },
         { headerName: "Maquina", field: "ma_name", width: 200, filter: 'agSetColumnFilter' },
         { headerName: "Material", field: "pr_material", width: 200, filter: 'agSetColumnFilter', cellRenderer: (params) => params.data.pr_material, autoHeight: true },
-        { headerName: "No. Tintas frente", field: "inkfront", width: 200, filter: false, cellRenderer: (params) => params.data.inkfront },
-        { headerName: "Tintas frente", field: "inksfront", width: 200, filter: 'agTextColumnFilter', cellRenderer: (params) => params.data.inksfront },
-        { headerName: "No. Tintas reverso", field: "inkback", width: 200, filter: false, cellRenderer: (params) => params.data.inkback },
-        { headerName: "Tintas reverso", field: "inksback", width: 200, filter: 'agTextColumnFilter', cellRenderer: (params) => params.data.inksback },
+        { headerName: "No. Tintas frente", field: "inkfront", width: 200, filter: false, cellRenderer: (params) => params.data.inkfront, autoHeight: true },
+        { headerName: "Tintas frente", field: "inksfront", width: 200, filter: 'agTextColumnFilter', cellRenderer: (params) => params.data.inksfront, autoHeight: true },
+        { headerName: "No. Tintas reverso", field: "inkback", width: 200, filter: false, cellRenderer: (params) => params.data.inkback, autoHeight: true },
+        { headerName: "Tintas reverso", field: "inksback", width: 200, filter: 'agTextColumnFilter', cellRenderer: (params) => params.data.inksback, autoHeight: true },
         { headerName: "Release", field: "wo_release", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Orden de compra", field: "wo_po", width: 200, filter: 'agTextColumnFilter' },
         { headerName: "Cantidad", field: "wo_qty", width: 200, filter: false },
@@ -112,7 +112,7 @@ module.exports = {
             { "label": "Enviado", "value": 14, "desc": "Los articulos fueron enviados", "us_group": "warehouse", "wo_prevstatus": [13], "interval": "1 year" },
             { "label": "No se pudo entregar", "value": 15, "desc": "El producto no se pudo entregar", "us_group": "warehouse", "wo_prevstatus": [14], "interval": "1 year" },
             { "label": "Rechazado por el cliente", "value": 16, "desc": "El producto fue rechazado por el cliente", "us_group": "warehouse", "wo_prevstatus": [14, 15], "interval": "1 year" },
-            { "label": "Entregado", "value": 17, "desc": "El producto se entrego al cliente con éxito", "us_group": "warehouse", "wo_prevstatus": [14, 15], "interval": "6 week" },
+            { "label": "Entregado", "value": 17, "desc": "El producto se entrego al cliente con éxito", "us_group": "warehouse", "wo_prevstatus": [14, 15], "interval": "1 year" },
             { "label": "Cancelada", "value": 18, "desc": "La orden de trabajo fue cancelada", "us_group": "admin", "wo_prevstatus": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], "interval": "1 year" }
         ]
     }

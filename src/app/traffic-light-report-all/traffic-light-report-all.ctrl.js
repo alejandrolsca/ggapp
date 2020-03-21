@@ -111,14 +111,6 @@ module.exports = (function (angular) {
                 }
             }
 
-            // autoSizeRows after filter applied
-            $scope.onFilterApplied = function (s, e) {
-                setTimeout(function () {
-                    s.grid.autoSizeRows()
-                }, 0);
-
-            };
-
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
                 for (var i = 0; i < $scope.columns.length; i++) {

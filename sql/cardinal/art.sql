@@ -24,6 +24,6 @@ jsonb_to_record(pr_jsonb) as x (
 	pr_process text
 )
 where wo_status not in (18)
-and wo_date > (now()::date - '3 month'::interval)
+and wo_date > (now()::date - '6 month'::interval)
 and wo_jsonb.cl_id = 1
 order by wo_id desc

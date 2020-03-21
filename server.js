@@ -787,13 +787,7 @@ if (cluster.isMaster) {
                 // execute query
                 const query = file('wo/wo:cl_id')
                 const parameters = [
-                    req.body.cl_id,
-                    req.body.zo_zone,
-                    req.body.wo_release,
-                    req.body.pr_name,
-                    req.body.wo_date,
-                    req.body.wo_id,
-                    req.body.wo_po
+                    req.body.cl_id
                 ]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));

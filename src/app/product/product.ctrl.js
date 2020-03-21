@@ -53,7 +53,6 @@ module.exports = (function (angular) {
                     e.cell.textContent = e.row + 1;
                 }
 
-                s.rows.defaultSize = 30;
                 var col = s.columns[e.col];
                 // add Bootstrap html
                 if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (col.binding === 'actions')) {
@@ -95,25 +94,10 @@ module.exports = (function (angular) {
                                         </div>`;
                 }
             }
-
-            // autoSizeRows on load
-            $scope.itemsSourceChanged = function (sender, args) {
-                //sender.autoSizeColumns();
-                sender.autoSizeRows()
-            };
-
-            // autoSizeRows on sorted column
-            $scope.onSortedColumn = function (sender, args) {
-                sender.autoSizeRows()
-            };
-
-            // autoSizeRows after filter applied
-            $scope.onFilterApplied = function (sender, args) {
-                sender.grid.autoSizeRows()
-            }
         
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
+                s.rows.defaultSize = 60;
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i].binding;

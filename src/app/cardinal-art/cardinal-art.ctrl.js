@@ -65,26 +65,10 @@ module.exports = (function(angular){
                 }
             }
         }
-
-        // autoSizeRows on load
-        $scope.itemsSourceChanged = function (sender, args) {
-            //sender.autoSizeColumns();
-            sender.autoSizeRows()
-        };
-
-        // autoSizeRows on sorted column
-        $scope.onSortedColumn = function (sender, args) {
-            sender.autoSizeRows()
-        };
-
-        $scope.onFilterApplied = function (sender, args) {
-            setTimeout(function () {
-                sender.grid.autoSizeRows()
-            }, 0);
-        };
         
         // bind columns when grid is initialized
         $scope.initGrid = function(s, e) {
+            s.rows.defaultSize = 48;
             for (var i = 0; i < $scope.columns.length; i++) {
                 var col = new wijmo.grid.Column();
                 col.binding = $scope.columns[i].binding;

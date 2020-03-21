@@ -97,13 +97,6 @@ left join zone zo
 on wo.zo_id = zo.zo_id
 left join machine ma
 on wo.ma_id = ma.ma_id
-where 
-	  wo.cl_id = $1 and
-	  wo.wo_date > (now()::date - $5::interval) and
-	  coalesce(zo.zo_jsonb->>'zo_zone','') ilike ('%' || $2 || '%') and
-      coalesce(wo.wo_release,'') ilike ('%' || $3 || '%') and
-      coalesce(pr.pr_jsonb->>'pr_name','') ilike ('%' || $4 || '%') and
-	  coalesce(wo.wo_po,'') ilike ('%' || $7 || '%') and
-	  wo.wo_id::text ilike ('%' || $6 || '%') 
+where wo.cl_id = $1 
 order by wo.wo_date desc;
       

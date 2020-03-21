@@ -1,11 +1,5 @@
 module.exports = (function(angular) {
   "use strict";
-  // if you're using ag-Grid-Enterprise, you'll need to provide the License Key before doing anything else
-  // not necessary if you're just using ag-Grid
-  // agGrid.LicenseManager.setLicenseKey("your license key goes here");
-
-  // get ag-Grid to create an Angular module and register the ag-Grid directive
-  agGrid.initialiseAgGridWithAngular1(angular);
 
   return angular
     .module("app", [
@@ -20,7 +14,6 @@ module.exports = (function(angular) {
       "angular-jwt",
       "angularFileUpload",
       "timer",
-      "agGrid",
       require("./404").name,
       require("./401").name,
       require("./login").name,
@@ -36,7 +29,6 @@ module.exports = (function(angular) {
       require("./wo").name,
       require("./zone").name,
       require("./workflow").name,
-      require("./workflow2").name,
       require("./traffic-light-report").name,
       require("./traffic-light-report-all").name,
       require("./exportation-invoice").name,

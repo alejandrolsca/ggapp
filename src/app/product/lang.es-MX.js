@@ -18,9 +18,9 @@ module.exports = {
     },
     "columns": [
         { "binding": "pr_id", "type": "Number", "width": 100, "visible": true, "html": false },
-        { "binding": "wo_previousid", "type": "Number", "width": 100, "visible": true, "html": false },
+        { "binding": "wo_previousid", "type": "Number", "width": 140, "visible": true, "html": false },
         { "binding": "cl_id", "type": "Number", "width": 100, "visible": false, "html": false },
-        { "binding": "cl_corporatename", "type": "String", "width": 150, "visible": true, "html": false },
+        { "binding": "cl_corporatename", "type": "String", "width": 200, "visible": true, "html": false },
         { "binding": "pr_partno", "type": "String", "width": 150, "visible": true, "html": false },
         { "binding": "pr_code", "type": "String", "width": 250, "visible": true, "html": false },
         { "binding": "pr_name", "type": "String", "width": 100, "visible": true, "html": false },
