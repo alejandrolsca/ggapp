@@ -3,7 +3,6 @@
     <div ng-click="exportXLS()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</div> 
     <div ng-click="exportPDF()" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> PDF</div><br/><br/>    
     <span ng-if="loading">Cargando...</span>
-</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -72,13 +71,10 @@
       </div>
     </div>
   </div>
-
-<div class="col-sm-12">
-  <div class="well well-sm col-sm-6 col-xs-12">
-      <form role="form" name="ggform" ng-submit="onUpdate();" novalidate>
+      <form class="row" role="form" name="ggform" ng-submit="onUpdate();" novalidate>
         <gg-select err-class="error"
                 lbl="{{'workflow.labels.wo-status' | i18n}}" 
-                form-group-class="col-sm-6" 
+                form-group-class="col-sm-2" 
                 options="wo_statusoptions" 
                 ng-model="fmData.wo_status"
                 regexp="singlespaces"
@@ -88,7 +84,7 @@
         </gg-select>
         <gg-select err-class="error"
                 lbl="{{'workflow-custom.labels.wo-nextstatus' | i18n}}" 
-                form-group-class="col-sm-6" 
+                form-group-class="col-sm-2" 
                 options="actions" 
                 ng-model="fmData.wo_nextstatus"
                 regexp="singlespaces"
@@ -96,22 +92,19 @@
                 req-msg="Required"
                 is-required="true">
         </gg-select>
-        <gg-submit lbl="Actualizar"
-                data-toggle="modal" data-target="#myModal"
-                form-group-class="col-xs-12 col-sm-6" 
-                ng-disabled="ggform.$invalid"
-                btn-class="col-xs-12 col-sm-12">
-      </gg-submit>
-      <gg-action-button lbl="Material Ordenado"
-                ng-click="materialsModal()"
-                form-group-class="col-xs-12 col-sm-6" 
-                ng-disabled="false"
-                btn-class="col-xs-12 col-sm-12">
-      </gg-action-button>
+        <div class="form-group col-lg-1 col-sm-2 col-xs-6">
+          <label class="control-label">&nbsp</label>
+          <div>
+              <button ng-disabled="ggform.$invalid" class="btn btn-success custom form-control" data-toggle="modal" data-target="#myModal">Actualizar</button>  
+          </div>
+        </div>
+        <div class="form-group col-lg-1 col-sm-2 col-xs-6">
+          <label class="control-label">&nbsp</label>
+          <div>
+              <button ng-click="materialsModal()" class="btn btn-success custom form-control">Material</button>  
+          </div>
+        </div>
     </form>
-  </div>
-</div>
-<span class="col-sm-12">
     <wj-flex-grid 
     control="ggGrid" 
     items-source="data" 
@@ -123,7 +116,7 @@
     show-sort="true" 
     is-read-only="true"
     selection-mode="Row"
-    style="height:390px;">
+    style="height:520px;">
         <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
         <wj-flex-grid-column
         header="Selec."
@@ -146,4 +139,4 @@
         </wj-flex-grid-column>
     </wj-flex-grid>
     
-</span>
+  </div>
