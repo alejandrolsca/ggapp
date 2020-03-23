@@ -10,7 +10,7 @@ module.exports = function (env) {
             contentBase: path.join(path.resolve(), "dist"),
             historyApiFallback: true,
             compress: true,
-            host: 'localhost',
+            host: '0.0.0.0',
             disableHostCheck: true,
             port: 4000,
             proxy: {
