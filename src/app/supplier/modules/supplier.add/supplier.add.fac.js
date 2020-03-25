@@ -25,18 +25,6 @@ module.exports = (function (angular) {
             });
             return promise;
         };
-        factory.getChilds = function (geonameId) {
-            var promise = $http.post('/api/geonames/childs/geonameid', {
-                /* POST variables here */
-                geonameId: geonameId
-            }).success(function (data, status, headers, config) {
-                return data;
-            }).error(function (data, status, headers, config) {
-
-                return { "status": false };
-            });
-            return promise;
-        };
         return factory;
     }];
 
