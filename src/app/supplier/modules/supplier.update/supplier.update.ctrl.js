@@ -15,48 +15,6 @@ module.exports = (function (angular) {
                 });
             };
 
-            $scope.getStates = function () {
-                $scope.su_stateoptions = [];
-                $scope.su_cityoptions = [];
-                $scope.su_countyoptions = [];
-                $interval(function () {
-                    supplierUpdateFac.getChilds($scope.fmData.su_country).then(function (promise) {
-                        if (angular.isArray(promise.data)) {
-                            $scope.su_stateoptions = promise.data;
-                        } else {
-                            //$scope.updateFail = true;
-                        }
-                    });
-                }, 0, 1);
-            }
-
-            $scope.getCity = function () {
-                $scope.su_cityoptions = [];
-                $scope.su_countyoptions = [];
-                $interval(function () {
-                    supplierUpdateFac.getChilds($scope.fmData.su_state).then(function (promise) {
-                        if (angular.isArray(promise.data)) {
-                            $scope.su_cityoptions = promise.data;
-                        } else {
-                            //$scope.updateFail = true;
-                        }
-                    });
-                }, 0, 1);
-            }
-
-            $scope.getCounty = function () {
-                $scope.su_countyoptions = [];
-                $interval(function () {
-                    supplierUpdateFac.getChilds($scope.fmData.su_city).then(function (promise) {
-                        if (angular.isArray(promise.data)) {
-                            $scope.su_countyoptions = promise.data;
-                        } else {
-                            //$scope.updateFail = true;
-                        }
-                    });
-                }, 0, 1);
-            }
-
             $scope.su_statusoptions = i18nFilter("supplier.fields.su_statusoptions");
             $scope.su_typeoptions = i18nFilter("supplier.fields.su_typeoptions");
 
@@ -75,30 +33,6 @@ module.exports = (function (angular) {
                         } else {
                             //$scope.updateFail = true;
                         }
-                    }).then(function () {
-                        supplierUpdateFac.getChilds($scope.fmData.su_country).then(function (promise) {
-                            if (angular.isArray(promise.data)) {
-                                $scope.su_stateoptions = promise.data;
-                            } else {
-                                //$scope.updateFail = true;
-                            }
-                        })
-                    }).then(function () {
-                        supplierUpdateFac.getChilds($scope.fmData.su_state).then(function (promise) {
-                            if (angular.isArray(promise.data)) {
-                                $scope.su_cityoptions = promise.data;
-                            } else {
-                                //$scope.updateFail = true;
-                            }
-                        })
-                    }).then(function () {
-                        supplierUpdateFac.getChilds($scope.fmData.su_city).then(function (promise) {
-                            if (angular.isArray(promise.data)) {
-                                $scope.su_countyoptions = promise.data;
-                            } else {
-                                //$scope.updateFail = true;
-                            }
-                        })
                     });
                 });
 

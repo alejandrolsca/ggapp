@@ -19,34 +19,10 @@ select
     x.zo_suitenumber,
     x.zo_neighborhood,
     x.zo_addressreference,
-    (select name from countryinfo where geonameid = x.zo_country::int) as zo_country,
-    (
-		select
-			gn.name
-		from 
-			hierarchy hi
-		join geoname gn 
-		on gn.geonameid = hi.childid
-		where hi.parentid = x.zo_country::int and hi.childid = x.zo_state::int
-    ) as zo_state,
-    (
-		select
-			gn.name
-		from 
-			hierarchy hi
-		join geoname gn 
-		on gn.geonameid = hi.childid
-		where hi.parentid = x.zo_state::int and hi.childid = x.zo_city::int
-    ) as zo_city,
-    (
-		select
-			gn.name
-		from 
-			hierarchy hi
-		join geoname gn 
-		on gn.geonameid = hi.childid
-		where hi.parentid = x.zo_city::int and hi.childid = x.zo_county::int
-    ) as zo_county,
+    x.zo_country,
+    x.zo_state,
+    x.zo_city,
+    x.zo_county,
     x.zo_zipcode,
     x.zo_email,
     x.zo_phone,

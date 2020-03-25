@@ -238,7 +238,7 @@ module.exports = (function(angular) {
           tokenGetter: function() {
             return localStorage.getItem("id_token");
           },
-          whiteListedDomains: ["http://api.geonames.org/"]
+          whiteListedDomains: []
         });
 
         $httpProvider.interceptors.push("jwtInterceptor");

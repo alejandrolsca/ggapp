@@ -73,38 +73,33 @@
            req-msg="Required"
            is-required="true">
   </gg-countries>
-  <gg-states err-class="error"
-           lbl="{{'supplier.labels.su-state' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="su_stateoptions" 
-           ng-model="fmData.su_state"
-           ng-change="getCity()"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-states>
-  <gg-city-county err-class="error"
-            lbl="{{'supplier.labels.su-city' | i18n}}"
-            form-group-class="col-sm-3"
-            options="su_cityoptions"
-            ng-model="fmData.su_city"
-            ng-change="getCounty()"
+  <gg-input err-class="error"
+            lbl="{{'supplier.labels.su-state' | i18n}}"
+            form-group-class="col-sm-3" 
+            ng-model="fmData.su_state"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="true">
-  </gg-city-county>
-  <gg-city-county err-class="error"
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'supplier.labels.su-city' | i18n}}"
+            form-group-class="col-sm-3" 
+            ng-model="fmData.su_city"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
             lbl="{{'supplier.labels.su-county' | i18n}}"
-            form-group-class="col-sm-3"
-            options="su_countyoptions"
+            form-group-class="col-sm-3" 
             ng-model="fmData.su_county"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="false">
-  </gg-city-county>
+  </gg-input>
   <gg-input err-class="error"
             lbl="{{'supplier.labels.su-street' | i18n}}"
             form-group-class="col-sm-4" 

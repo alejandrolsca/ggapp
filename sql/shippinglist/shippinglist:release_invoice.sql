@@ -11,26 +11,8 @@ select
 		coalesce(zjb.zo_street,'') || ' C.P. ' || 
 		coalesce(zjb.zo_zipcode,'N/A')
 	) as shipto_address,
-    (
-		select
-			gn.name
-		from 
-			hierarchy hi
-		join geoname gn 
-		on gn.geonameid = hi.childid
-		where hi.parentid = zjb.zo_state and hi.childid = zjb.zo_city
-        limit 1
-    ) as shipto_city,
-    (
-		select
-			gn.name
-		from 
-			hierarchy hi
-		join geoname gn 
-		on gn.geonameid = hi.childid
-		where hi.parentid = zjb.zo_country and hi.childid = zjb.zo_state
-        limit 1
-    ) as shipto_state,
+    zo_city as shipto_city,
+    zo_state as shipto_state,
 	zjb.zo_zipcode as shipto_zip,
 	wjb.wo_qty,
 	prjb.pr_weight,
@@ -64,9 +46,9 @@ jsonb_to_record(zo_jsonb) as zjb (
 		zo_streetnumber text,
         zo_suitenumber text,
 		zo_zipcode text,
-		zo_city int,
-		zo_state int,
-		zo_country int
+		zo_city text,
+		zo_state text,
+		zo_country text
 )
 where wjb.cl_id = $1
 and wo_id = any(string_to_array($2,',')::integer[])

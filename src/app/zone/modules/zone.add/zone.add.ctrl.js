@@ -17,48 +17,6 @@ module.exports = (function (angular) {
                 });
             };
 
-            $scope.getStates = function () {
-                $scope.zo_stateoptions = [];
-                $scope.zo_cityoptions = [];
-                $scope.zo_countyoptions = [];
-                $interval(function () {
-                    zoneAddFac.getChilds($scope.fmData.zo_country).then(function (promise) {
-                        if (angular.isArray(promise.data)) {
-                            $scope.zo_stateoptions = promise.data;
-                        } else {
-                            //$scope.updateFail = true;
-                        }
-                    });
-                }, 0, 1);
-            }
-
-            $scope.getCity = function () {
-                $scope.zo_cityoptions = [];
-                $scope.zo_countyoptions = [];
-                $interval(function () {
-                    zoneAddFac.getChilds($scope.fmData.zo_state).then(function (promise) {
-                        if (angular.isArray(promise.data)) {
-                            $scope.zo_cityoptions = promise.data;
-                        } else {
-                            //$scope.updateFail = true;
-                        }
-                    });
-                }, 0, 1);
-            };
-
-            $scope.getCounty = function () {
-                $scope.zo_countyoptions = [];
-                $interval(function () {
-                    zoneAddFac.getChilds($scope.fmData.zo_city).then(function (promise) {
-                        if (angular.isArray(promise.data)) {
-                            $scope.zo_countyoptions = promise.data;
-                        } else {
-                            //$scope.updateFail = true;
-                        }
-                    });
-                }, 0, 1);
-            };
-
             $scope.zo_statusoptions = i18nFilter("zone.fields.zo_statusoptions");
             $scope.zo_typeoptions = i18nFilter("zone.fields.zo_typeoptions");
 

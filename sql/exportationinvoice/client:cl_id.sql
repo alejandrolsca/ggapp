@@ -17,37 +17,10 @@ select
     x.cl_suitenumber,
     x.cl_neighborhood,
     x.cl_addressreference,
-    (select name from countryinfo where geonameid = x.cl_country::int limit 1) as cl_country,
-    (
-		select
-			gn.name
-		from 
-			hierarchy hi
-		join geoname gn 
-		on gn.geonameid = hi.childid
-		where hi.parentid = x.cl_country::int and hi.childid = x.cl_state::int
-        limit 1
-    ) as cl_state,
-    (
-		select
-			gn.name
-		from 
-			hierarchy hi
-		join geoname gn 
-		on gn.geonameid = hi.childid
-		where hi.parentid = x.cl_state::int and hi.childid = x.cl_city::int
-        limit 1
-    ) as cl_city,
-    (
-		select
-			gn.name
-		from 
-			hierarchy hi
-		join geoname gn 
-		on gn.geonameid = hi.childid
-		where hi.parentid = x.cl_city::int and hi.childid = x.cl_county::int
-        limit 1
-    ) as cl_county,
+    x.cl_country,
+    x.cl_state,
+    x.cl_city,
+    x.cl_county,
     x.cl_zipcode,
     x.cl_email,
     x.cl_phone,

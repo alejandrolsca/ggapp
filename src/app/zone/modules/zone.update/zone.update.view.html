@@ -94,38 +94,33 @@
            req-msg="Required"
            is-required="true">
   </gg-countries>
-  <gg-states err-class="error"
-           lbl="{{'zone.labels.zo-state' | i18n}}" 
-           form-group-class="col-sm-3" 
-           options="zo_stateoptions" 
-           ng-model="fmData.zo_state"
-           ng-change="getCity()"
-           regexp="singlespaces"
-           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
-           req-msg="Required"
-           is-required="true">
-  </gg-states>
-  <gg-city-county err-class="error"
-            lbl="{{'zone.labels.zo-city' | i18n}}"
-            form-group-class="col-sm-3"
-            options="zo_cityoptions"
-            ng-model="fmData.zo_city"
-            ng-change="getCounty()"           
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-state' | i18n}}"
+            form-group-class="col-sm-3" 
+            ng-model="fmData.zo_state"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="true">
-  </gg-city-county>
-  <gg-city-county err-class="error"
+  </gg-input>
+  <gg-input err-class="error"
+            lbl="{{'zone.labels.zo-city' | i18n}}"
+            form-group-class="col-sm-3" 
+            ng-model="fmData.zo_city"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-input>
+  <gg-input err-class="error"
             lbl="{{'zone.labels.zo-county' | i18n}}"
-            form-group-class="col-sm-3"
-            options="zo_countyoptions"
+            form-group-class="col-sm-3" 
             ng-model="fmData.zo_county"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"
             is-required="false">
-  </gg-city-county>
+  </gg-input>
   <gg-input err-class="error"
             lbl="{{'zone.labels.zo-street' | i18n}}"
             form-group-class="col-sm-4" 
