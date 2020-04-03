@@ -22,6 +22,7 @@ coalesce("17",0)
 FROM crosstab($$
 	select
 		pr.pr_jsonb->>'pr_process',
+		wo_jsonb.cl_id,
 		case
 			when cl.cl_jsonb->>'cl_type' = 'natural' 
 				then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
@@ -46,14 +47,15 @@ FROM crosstab($$
 		on wo_jsonb.pr_id = pr.pr_id
 		where wo_jsonb.wo_currency = '$$ || cast($1 as text) || $$'
 		and wo_jsonb.wo_commitmentdate between '$$ || cast($2 as text) || $$' and '$$ || cast($3 as text) || $$'
-		group by 2,1,3
-		order by 2,1,3 DESC
+		group by 2, 1, 3, 4
+		order by 2, 1, 3, 4 DESC
 $$,
 $$
 	select status from generate_series(0,18) status
 $$)
 as ct(
 	pr_process text,
+	cl_id int,
 	cl_corporatename text,
 	"0" decimal,
 	"1" decimal,
