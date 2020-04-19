@@ -968,6 +968,71 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
+    app.post('/api/wo/split', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+                await client.query('BEGIN')
+                // VALIDATE WO
+                const { us_group, wo_id, wo_jsonb } = req.body
+                const getWoQuery = file('wo/wo:validate')
+                const getWoParameters = [wo_id]
+                const { rows: getWoRows } = await client.query(getWoQuery, getWoParameters)
+                const [wo] = getWoRows
+                const allowedGroups = ['owner','admin','sales']
+                const isAllowed = allowedGroups.some(allowedGroup => us_group.includes(allowedGroup))
+                const isPartial = (wo.wo_type === 'P')
+                const isSplit = wo.wo_split
+                console.log(typeof(wo.wo_split))
+                console.log(isSplit)
+                const isValidStatus = [3,4,5,6,7,8,9,10,11].includes(wo.wo_status)
+                if(!isAllowed) {
+                    return res.status(603).send('603 - You need additional privileges to perform this action. Please contact the owner.');
+                }
+                if(isPartial) {
+                    return res.status(604).send('604 - The work order is of type partial, cannot be split.');
+                }
+                if(isSplit) {
+                    return res.status(605).send('605 - Cannot split a work order twice.');
+                }
+                if(!isValidStatus) {
+                    return res.status(602).send('602 - The work order status must be between Production (3) and Packaging and Final Inspection (11).');
+                }
+                // UPDATE ORIGINAL WO
+                const { wo_qtydone, wo_originalqty, wo_originalfoliosto } = wo_jsonb
+                const updateWoQuery = file('wo/wo:updatesplitted')
+                const updateWoParameters = [wo_qtydone, wo_originalqty, wo_originalfoliosto, wo_id]
+                const updateWoResult = await client.query(updateWoQuery, updateWoParameters)
+                // CREATE A NEW WO
+                const splitWoQuery = file('wo/wo:split')
+                const splitWoParameters = [wo_jsonb]
+                const splitWoResult = await client.query(splitWoQuery, splitWoParameters)
+                const { rows: splitWoRows } = splitWoResult
+                const [row] = splitWoRows
+                const { wo_id: newID } = row
+                // duplicate uploaded files
+                const uploadsFolder = path.join(__dirname, 'uploads')
+                const file1 = `${uploadsFolder}/${req.body.wo_id}_file1.pdf`
+                const file2 = `${uploadsFolder}/${req.body.wo_id}_file2.pdf`
+                if (fs.existsSync(file1)) {
+                    fs.copyFileSync(file1, `${uploadsFolder}/${newID}_file1.pdf`);
+                }
+                if (fs.existsSync(file2)) {
+                    fs.copyFileSync(file2, `${uploadsFolder}/${newID}_file2.pdf`);
+                }
+                await client.query('COMMIT')
+                res.send(")]}',\n".concat(JSON.stringify(splitWoResult)));
+            } catch (e) {
+                await client.query('ROLLBACK')
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
     app.post('/api/wo/update', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception

@@ -23,6 +23,7 @@ select
 	wo_line,
 	wo_linetotal,
 	wo_qty,
+	wo_originalqty,
 	wo_componentmaterialqty,
 	wo_materialqty,
 	wo_packageqty,
@@ -31,6 +32,7 @@ select
 	wo_foliosseries, 
 	wo_foliosfrom, 
 	wo_foliosto,
+	wo_originalfoliosto,
 	wo_deliverydate,  
 	wo_previousid, 
 	wo_previousdate, 
@@ -38,6 +40,7 @@ select
 	wo_currency, 
 	wo_notes,
 	wo_cancellationnotes,
+	wo_splitnotes,
 	case wo_status
 		when 0 then '(0) Activo'
 		when 1 then '(1) En espera de material'
@@ -65,6 +68,7 @@ select
 	to_char((wo.wo_lastupdated at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_lastupdated,
     file1,
     file2,
+	wo_split,
 	case 
 		when jsonb_typeof(pr_inkfront) = 'object'
 		then (
@@ -154,6 +158,7 @@ from
         wo_linetotal int,
         pr_id int,
         wo_qty int,
+		wo_originalqty int,
 		wo_componentmaterialqty jsonb, 
 		wo_materialqty decimal, 
         wo_packageqty int, 
@@ -162,14 +167,16 @@ from
         wo_foliosperformat int, 
         wo_foliosseries text, 
         wo_foliosfrom int, 
-        wo_foliosto int, 
+        wo_foliosto int,
+		wo_originalfoliosto int,
         wo_type text,
         wo_commitmentdate date,
         wo_deliverydate timestamp,  
         wo_previousid int, 
         wo_previousdate date, 
         wo_notes text, 
-        wo_cancellationnotes text, 
+        wo_cancellationnotes text,
+		wo_splitnotes text,
         wo_price text, 
         wo_currency text, 
         wo_email text, 
@@ -177,7 +184,8 @@ from
         wo_updatedby text,               
         wo_createdby text,
         file1 text,
-        file2 text
+        file2 text,
+		wo_split boolean
 	),
 	(
 		select 

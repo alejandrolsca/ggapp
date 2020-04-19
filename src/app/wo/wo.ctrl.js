@@ -214,23 +214,27 @@ module.exports = (function (angular) {
                 // add Bootstrap html
                 if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (col.binding === 'actions')) {
                     const wo_id = e.panel.getCellData(e.row, s.columns.getColumn('wo_id').index, false);
+                    const wo_qty = e.panel.getCellData(e.row, s.columns.getColumn('wo_qty').index, false);
                     e.cell.style.overflow = 'visible';
                     e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                            <div class="btn-group" role="group">
-                                                <a href="/wo/update/${$stateParams.cl_id}/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.edit")}</a>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="/wo/update/${$stateParams.cl_id}/${wo_id}" target="_blank"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> ${i18nFilter("general.labels.edit")}</a></li>
+                                                    <li><a href="/wo/history/${wo_id}" target="_blank"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> ${i18nFilter("general.labels.history")}</a></li>
+                                                    <li><a href="/wo/duplicate/${$stateParams.cl_id}/${wo_id}" target="_blank"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> ${i18nFilter("general.labels.duplicate")}</a></li>
+                                                    <li><a href="/wo/split/${$stateParams.cl_id}/${wo_id}" target="_blank"><span class="glyphicon glyphicon-scissors" aria-hidden="true"></span> ${i18nFilter("general.labels.divide")}</a></li>
+                                                </ul>
                                             </div>
-                                            <div class="btn-group" role="group">
-                                                <a href="/wo/history/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.history")}</a>
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <a href="/wo/duplicate/${$stateParams.cl_id}/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.duplicate")}</a>
-                                            </div>
-                                       </div>`;
+                                        </div>`;
                 }
             }
 
             // bind columns when grid is initialized
             $scope.initGrid = function (s, e) {
+                s.rows.defaultSize = 30;
                 for (var i = 0; i < $scope.columns.length; i++) {
                     var col = new wijmo.grid.Column();
                     col.binding = $scope.columns[i].binding;

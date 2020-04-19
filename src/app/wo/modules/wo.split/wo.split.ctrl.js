@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'woDuplicateFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService', 'notyf',
-        function ($scope, woDuplicateFactory, $stateParams, i18nFilter, $filter, $location, authService, notyf) {
+    return ['$scope', 'woSplitFactory', '$stateParams', 'i18nFilter', '$filter', '$location', 'authService', 'notyf',
+        function ($scope, woSplitFactory, $stateParams, i18nFilter, $filter, $location, authService, notyf) {
 
             const camelCase = (...args) => {
                 const camelCase = args.map(function (value, index) {
@@ -18,19 +18,19 @@ module.exports = (function (angular) {
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
             $scope.wo_emailoptions = i18nFilter("wo-add.fields.wo_emailoptions");
 
-            $scope.duplicated = false
+            $scope.splitted = false
 
             $scope.onSubmit = function () {
 
-                woDuplicateFactory.duplicate($scope.fmData).then(function (promise) {
-                    $scope.duplicated = true;
+                woSplitFactory.split($scope.fmData).then(function (promise) {
+                    $scope.splitted = true;
                     if (promise.data.rowCount === 1) {
                         notyf.open({
                             type: 'success',
-                            message: 'Orden Duplicada.'
+                            message: 'Orden dividida.'
                         });
                     } else {
-                        $scope.duplicated = false;
+                        $scope.splitted = false;
                     }
                 });
             };
@@ -38,51 +38,48 @@ module.exports = (function (angular) {
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
 
-                // create InputDate control
-                $scope.wo_commitmentdate = new wijmo.input.InputDate('#wo_commitmentdate', {
-                    format: 'yyyy-MM-dd',
-                    mask: '9999-99-99',
-                    isRequired: true
-                });
-
-                // wo_commitmentdate validator                
-                $scope.wo_commitmentdate.itemValidator = function (date) {
-                    return !moment(date).isBefore(moment(), 'day');
-                }
-
-                // wo_commitmentdate changed handler                
-                $scope.wo_commitmentdate.valueChanged.addHandler(wo_commitmentdateChanged)
-
-                // wo_commitmentdate changed function
-                function wo_commitmentdateChanged(s, e) {
-                    $scope.fmData.wo_commitmentdate = moment(s.value).format('YYYY-MM-DD')
-                    $scope.$apply()
-                }
-
                 $scope.loading = true;
-                woDuplicateFactory.getData().then(function (promise) {
+                woSplitFactory.getData().then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data) && promise.data.length === 1) {
-                        const {wo_id, wo_jsonb: fmData, wo_date } = promise.data[0]
-                        fmData.wo_release = undefined;
-                        fmData.wo_po = undefined;
-                        fmData.wo_line = undefined;
-                        fmData.wo_linetotal = undefined;
-                        fmData.wo_cancellationnotes = undefined;
-                        fmData.wo_type = "R"; // R-Repetition
+                        const { wo_id, wo_jsonb: fmData, wo_date } = promise.data[0]
+                        if (fmData.wo_componentmaterialqty) {
+                            for (let key in fmData.wo_componentmaterialqty) {
+                                fmData.wo_componentmaterialqty[key] = "0.00"
+                            }
+                        } else {
+                            fmData.wo_materialqty = "0.00";
+                        }
+                        fmData.wo_type = "P"; // P-Partial
                         fmData.wo_status = 0; // 0-Active
                         fmData.wo_previousid = wo_id;
+                        fmData.wo_originalqty = +fmData.wo_qty
+                        fmData.wo_originalfoliosfrom = +fmData.wo_foliosfrom
+                        fmData.wo_originalfoliosto = +fmData.wo_foliosto
                         fmData.wo_previousdate = wo_date.substring(0, 10);
-                        fmData.wo_commitmentdate = moment($scope.wo_commitmentdate.value).format('YYYY-MM-DD')
+                        fmData.wo_cancellationnotes = undefined;
                         const { username } = authService.profile()
                         fmData.wo_createdby = username;
                         $scope.fmData = fmData;
                         $scope.wo_id = wo_id;
 
+
+                        $scope.$watch("fmData.wo_qtydone", function qtyDondeChanged(newValue, oldValue) {
+                            const isEmpty = (newValue === undefined)
+                            if (isEmpty) {
+                                $scope.fmData.wo_qty = $scope.fmData.wo_originalqty
+                                $scope.fmData.wo_foliosfrom = $scope.fmData.wo_originalfoliosfrom
+                                return
+                            } 
+                            newValue = +newValue
+                            if ($scope.fmData.wo_foliosfrom) {
+                                $scope.fmData.wo_foliosfrom = (+$scope.fmData.wo_originalfoliosfrom) + newValue
+                            }
+                            $scope.fmData.wo_qty = $scope.fmData.wo_originalqty - newValue
+                        })
                     }
                 });
-
-                woDuplicateFactory.getZone().then(function (promise) {
+                woSplitFactory.getZone().then(function (promise) {
                     $scope.zo_idoptions = [];
                     if (angular.isArray(promise.data)) {
                         var rows = promise.data;
@@ -92,7 +89,7 @@ module.exports = (function (angular) {
                     }
                 })
 
-                woDuplicateFactory.getProduct().then(function (promise) {
+                woSplitFactory.getProduct().then(function (promise) {
                     $scope.pr_idoptions = [];
                     var rows = [];
                     if (angular.isArray(promise.data)) {
@@ -132,7 +129,7 @@ module.exports = (function (angular) {
                                         return value
                                     })
                                     $scope.materials = materials
-                                    woDuplicateFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {
+                                    woSplitFactory.getMachine(product[0]['pr_jsonb']['pr_process']).then(function (promise) {
                                         $scope.ma_idoptions = [];
                                         if (angular.isArray(promise.data)) {
                                             var rows = promise.data;

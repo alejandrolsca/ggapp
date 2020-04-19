@@ -40,6 +40,7 @@ module.exports = {
             "add": "Agregar",
             "edit": "Editar",
             "duplicate": "Duplicar",
+            "divide": "Dividir",
             "show": "Mostrar",
             "open": "Abrir",
             "submit": "Enviar",
@@ -178,6 +179,7 @@ module.exports = {
     "wo": require('./wo/lang.es-MX'),
     "wo-add": require('./wo/modules/wo.add/lang.es-MX'),
     "wo-duplicate": require('./wo/modules/wo.duplicate/lang.es-MX'),
+    "wo-split": require('./wo/modules/wo.split/lang.es-MX'),
     "wo-update": require('./wo/modules/wo.update/lang.es-MX'),
     "wo-view": require('./wo/modules/wo.view/lang.es-MX'),
     "wo-history": require('./wo/modules/wo.history/lang.es-MX'),
@@ -209,8 +211,8 @@ module.exports = {
     "exportationInvoice": require('./exportation-invoice/lang.es-MX'),
     "exportationInvoice-add": require('./exportation-invoice/modules/exportation-invoice.add/lang.es-MX'),
     /****************************************
-   SHIPPING LIST
-   ****************************************/
+    SHIPPING LIST
+    ****************************************/
     "shippingList": require('./shipping-list/lang.es-MX'),
     "shippingList-add": require('./shipping-list/modules/shipping-list.add/lang.es-MX'),
     "shippingList-invoice": require('./shipping-list/modules/shipping-list.invoice/lang.es-MX'),

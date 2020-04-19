@@ -8,7 +8,7 @@ module.exports = {
         "sl-cancelled": "Cancelada",
         "sl-createdby": "Creado por",
         "sl-date": "Fec. de Creación",
-        "release-invoice": "Facturar"
+        "release-invoice": "Factura Fiscal"
     },
     "columns": [
         // { "binding": "sl_id", "type": "Number" , "width": 60 , "isReadOnly": true},
