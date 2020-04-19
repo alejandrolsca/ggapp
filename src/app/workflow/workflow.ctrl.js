@@ -263,7 +263,7 @@ module.exports = (function (angular) {
                     const hasAttachements = !!row.dataItem.file1 || !!row.dataItem.file2
                     if (!hasAttachements) {
                         //row.isReadOnly = true
-                        cell.style.backgroundColor = 'Gainsboro';
+                        //cell.style.backgroundColor = 'Gainsboro';
                         if (col.binding === 'active') {
                             cb = cell.firstChild
                             cb.setAttribute('disabled', 'disabled')
@@ -348,16 +348,6 @@ module.exports = (function (angular) {
                 
                 var col = s.columns[e.col];
                 // add Bootstrap html
-                if ((e.panel.cellType == wijmo.grid.CellType.Cell) && (col.binding === 'actions')) {
-                    const cl_id = e.panel.getCellData(e.row, s.columns.getColumn('cl_id').index, false);
-                    const wo_id = e.panel.getCellData(e.row, s.columns.getColumn('wo_id').index, false);
-                    e.cell.style.overflow = 'visible';
-                    e.cell.innerHTML = `<div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                                <div class="btn-group" role="group">
-                                                    <a href="/wo/view/${cl_id}/${wo_id}" target="_blank" class="btn btn-default btn-xs">${i18nFilter("general.labels.open")}</a>
-                                                </div>
-                                        </div>`;
-                }
             }
 
             $scope.onFilterApplied = function (s, e) {

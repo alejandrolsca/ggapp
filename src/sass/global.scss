@@ -205,16 +205,20 @@ AUTH0 LOGO
 WIJMO
 ********************************************
 */
-
+.wj-state-selected {
+    background-color: #dddddd;
+    color: #000;
+    font-weight: 700;
+}
 .wj-cell.wj-state-selected a.link {
     color: #000;
 }
-.wj-state-selected {
-    background-color: #E0E0E0;
-    color: #000;
-}
 .wj-state-multi-selected {
-    background-color: #E0E0E0;
+    background-color: #dddddd;
+    color: #000;
+    font-weight: 700;
+}
+.wj-state-multi-selected a.link {
     color: #000;
 }
 
