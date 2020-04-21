@@ -113,8 +113,7 @@
     auto-generate-columns="false" 
     initialized="initGrid(s,e)"
     allow-sorting="true" 
-    show-sort="true" 
-    selection-mode="Row"
+    show-sort="true"
     style="height:390px;">
         <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
         <wj-flex-grid-column
@@ -126,14 +125,14 @@
         <wj-flex-grid-column
           header="No." 
           binding="wo_id"   
-          is-read-only="true"
           data-type="Number"
           format="D"
-          filter-type="0" 
+          filter-type="2" 
           width="60">
         </wj-flex-grid-column>
         <wj-flex-grid-column
         header=""
+        is-read-only="true"
         width="50">
           <span ng-if="($item.file1 || $item.file2)" class="glyphicon glyphicon-file" aria-hidden="true"></span>
           <span ng-if="($item.wo_split)" class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
