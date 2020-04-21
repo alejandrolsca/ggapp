@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'packageLabelsFac', 'i18nFilter', 'authService',
-        function ($scope, packageLabelsFac, i18nFilter, authService) {
+    return ['$scope', 'packageLabelsFac', 'i18nFilter', 'authService','notyf',
+        function ($scope, packageLabelsFac, i18nFilter, authService, notyf) {
 
             $scope.save = function () {
                 $scope.pdfDisabled = true //prevents saving multiple times
@@ -40,47 +40,49 @@ module.exports = (function (angular) {
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left
                     });
                     doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
-                    doc.drawText($scope.wo.pr_name, 144 - margin, 12, {
+                    doc.drawText(`${$scope.wo.pr_name}`, 144 - margin, 12, {
                         height: 48,
                         width: 144 - margin,
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left
                     });
-                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
-                    doc.drawText("Cantidad:", 144 - margin, 63, {
-                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
-                    });
-                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
-                    doc.drawText(`${qty}`, 144 - margin, 75, {
-                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
-                    });
-                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
-                    doc.drawText("No parte:", 216 - margin, 63, {
-                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
-                    });
-                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
-                    doc.drawText($scope.wo.pr_partno, 216 - margin, 75, {
-                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
-                    });
-                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
-                    doc.drawText("Paquete", 144 - margin, 93, {
-                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
-                    });
-                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
-                    doc.drawText(`${i}/${iterations}`, 144 - margin, 105, {
-                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
-                    });
-                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
-                    doc.drawText("No. Orden:", 216 - margin, 93, {
-                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
-                    });
-                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
-                    doc.drawText(`${$scope.wo.wo_id}`, 216 - margin, 105, {
-                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
-                    });
                     doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 12, 'normal', '500'));
-                    doc.drawText($scope.wo.cl_corporatename, 0, 63, {
+                    doc.drawText(`${$scope.wo.cl_corporatename}`, 0, 63, {
                         height: 72 - margin,
                         width: 144 - margin,
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
+                    });
+                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
+                    doc.drawText("No parte", 144 - margin, 58, {
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
+                    });
+                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
+                    doc.drawText(`${$scope.wo.pr_partno}`, 144 - margin, 70, {
+                        height: 24,
+                        width: 144 - margin,
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
+                    });
+                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
+                    doc.drawText("Cant.", 144 - margin, 93, {
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
+                    });
+                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
+                    doc.drawText(`${qty}`, 144 - margin, 105, {
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
+                    });
+                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
+                    doc.drawText("Paq.", 190 - margin, 93, {
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
+                    });
+                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
+                    doc.drawText(`${i}/${iterations}`, 190 - margin, 105, {
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
+                    });
+                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
+                    doc.drawText("# Orden", 228 - margin, 93, {
+                        align: wijmo.pdf.PdfTextHorizontalAlign.Left
+                    });
+                    doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
+                    doc.drawText(`${$scope.wo.wo_id}`, 228 - margin, 105, {
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left
                     });
                     if (i < iterations) {
@@ -95,17 +97,31 @@ module.exports = (function (angular) {
                 try {
                     packageLabelsFac.searchWoId($scope.fmData.wo_id).then(function (promise) {
                         const { data } = promise
-                        if (!data.length > 0) {
+                        const woFound = (data.length === 1)
+                        if (woFound) {
+                            const [wo] = data
+                            $scope.wo = wo
+                            const isValidStatus = [3,4,5,6,7,8,9,10,11].includes(wo.wo_status)
+                            if (!isValidStatus) {
+                                $scope.pdfDisabled = true
+                                $scope.fmData.wo_packageqty = undefined
+                                notyf.open({
+                                    type: 'warning',
+                                    message: 'Solo se aceptan ordenes desde Producción hasta Empaque e Inspección Final.'
+                                });
+                                return;
+                            }
+                            $scope.fmData.wo_packageqty = wo.wo_packageqty
+                            $scope.pdfDisabled = false
+                        } else {
                             $scope.pdfDisabled = true
                             $scope.fmData.wo_packageqty = undefined
-                            $scope.warning = true
+                            notyf.open({
+                                type: 'warning',
+                                message: 'No se encontro la orden de trabajo.'
+                            });
                             return;
                         }
-                        const [wo] = data
-                        $scope.wo = wo
-                        $scope.fmData.wo_packageqty = wo.wo_packageqty
-                        $scope.pdfDisabled = false
-                        $scope.warning = false
                     })
                 } catch (error) {
                     throw new Error(error)

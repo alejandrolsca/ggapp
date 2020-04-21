@@ -22,4 +22,3 @@ on wo_jsonb.pr_id = pr.pr_id
 left join client cl
 on wo_jsonb.cl_id = cl.cl_id
 where wo_id = $1
-and wo_jsonb.wo_status <> 18
