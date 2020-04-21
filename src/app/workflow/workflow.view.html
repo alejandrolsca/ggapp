@@ -131,14 +131,18 @@
           format="D"
           filter-type="0" 
           width="60">
-          <a href="/wo/view/{{$item.cl_id}}/{{$item.wo_id}}" target="_blank" class="btn btn-default btn-xs">{{ $item.wo_id }}</a>
         </wj-flex-grid-column>
         <wj-flex-grid-column
         header=""
         width="50">
-        <span ng-if="($item.file1 || $item.file2)" class="glyphicon glyphicon-file" aria-hidden="true"></span>
-        <span ng-if="($item.wo_split)" class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
-        <span ng-if="($item.wo_type === 'P')" class="glyphicon glyphicon-link" aria-hidden="true"></span>
+          <span ng-if="($item.file1 || $item.file2)" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+          <span ng-if="($item.wo_split)" class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
+          <span ng-if="($item.wo_type === 'P')" class="glyphicon glyphicon-link" aria-hidden="true"></span>
+        </wj-flex-grid-column>
+        <wj-flex-grid-column  
+          is-read-only="true" 
+          width="50">
+          <a href="/wo/view/{{$item.cl_id}}/{{$item.wo_id}}" target="_blank" class="btn btn-default btn-xs">Abrir</a>
         </wj-flex-grid-column>
         <wj-flex-grid-column
         header="Archivos" 
