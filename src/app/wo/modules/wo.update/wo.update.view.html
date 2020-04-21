@@ -304,6 +304,26 @@
         is-required="true">
 </gg-input>
 <label class="col-sm-12 fieldset">ORDEN</label>
+<gg-input err-class="error"
+        lbl="{{'wo-update.labels.wo-previousid' | i18n}}" 
+        form-group-class="col-sm-6"
+        ng-model="fmData.wo_previousid"
+        regexp="integer"
+        regexp-msg="{{'general.regexp.integer' | i18n}}"
+        req-msg="Required"
+        is-required="false"
+        is-disabled="true">
+</gg-input>
+<gg-input err-class="error"
+        lbl="{{'wo-update.labels.wo-previousdate' | i18n}}" 
+        form-group-class="col-sm-6"
+        ng-model="fmData.wo_previousdate"
+        regexp="date"
+        regexp-msg="{{'general.regexp.date' | i18n}}"
+        req-msg="Required"
+        is-required="false"
+        is-disabled="true">
+</gg-input>
 <gg-textarea err-class="error"
         lbl="{{'wo-update.labels.wo-notes' | i18n}}" 
         form-group-class="col-sm-6"
