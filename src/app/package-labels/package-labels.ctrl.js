@@ -101,13 +101,14 @@ module.exports = (function (angular) {
                         if (woFound) {
                             const [wo] = data
                             $scope.wo = wo
-                            const isValidStatus = [3,4,5,6,7,8,9,10,11].includes(wo.wo_status)
+                            console.log(authService.userHasRole(['owner']) )
+                            const isValidStatus = authService.userHasRole(['owner']) ? true : [11].includes(wo.wo_status)
                             if (!isValidStatus) {
                                 $scope.pdfDisabled = true
                                 $scope.fmData.wo_packageqty = undefined
                                 notyf.open({
                                     type: 'warning',
-                                    message: 'Solo se aceptan ordenes desde Producción hasta Empaque e Inspección Final.'
+                                    message: 'Solo se aceptan ordenes en Empaque e Inspección Final.'
                                 });
                                 return;
                             }
