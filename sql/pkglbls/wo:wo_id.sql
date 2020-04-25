@@ -6,6 +6,7 @@ select
 		else cl_jsonb->>'cl_corporatename'
 	end as cl_corporatename,
 	wo_jsonb.wo_qty,
+	wo_jsonb.wo_qtymeasure,
     wo_jsonb.wo_packageqty,
 	pr.pr_jsonb->'pr_name' pr_name,
 	pr.pr_jsonb->'pr_partno' pr_partno,
@@ -15,6 +16,7 @@ from  wo, jsonb_to_record(wo_jsonb) as wo_jsonb (
     pr_id integer,
     wo_packageqty integer,
 	wo_qty integer,
+	wo_qtymeasure text,
 	wo_status integer
 )
 left join product pr

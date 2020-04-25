@@ -109,6 +109,17 @@
         is-required="true"
         is-disabled="true">
 </gg-input>
+<gg-select err-class="error"
+           lbl="{{'wo-split.labels.wo-qtymeasure' | i18n}}" 
+           form-group-class="col-sm-2" 
+           options="wo_qtymeasureoptions" 
+           ng-model="fmData.wo_qtymeasure"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true"
+           is-disabled="true">
+  </gg-select>
 <gg-input err-class="error"
         lbl="{{'wo-split.labels.wo-qtydone' | i18n}}" 
         form-group-class="col-sm-2"

@@ -50,7 +50,7 @@ module.exports = {
         { "binding": "delivery_time", "type": "String", "width": 120, "wordWrap": false },
         { "binding": "wo_commitmentdate", "type": "Date", "width": 140, "wordWrap": false },
         { "binding": "wo_textstatus", "type": "String", "width": 250, "wordWrap": false },
-        { "binding": "wo_id", "type": "Number", "width": 100, "wordWrap": false },
+        //{ "binding": "wo_id", "type": "Number", "width": 100, "wordWrap": false },
         { "binding": "cl_corporatename", "type": "String", "width": 300, "wordWrap": false },
         { "binding": "zo_zone", "type": "String", "width": 300, "wordWrap": false },
         { "binding": "wo_orderedby", "type": "String", "width": 220, "wordWrap": false },

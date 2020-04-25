@@ -25,9 +25,26 @@ module.exports = (function (angular) {
                         wijmo.pdf.saveBlob(args.blob, `package_labels_${$scope.wo.wo_id}.pdf`);
                     }
                 });
-                let iterations = Math.floor($scope.wo.wo_qty / $scope.wo.wo_packageqty)
+
+                const iterationsFormula = {
+                    "cientos": Math.floor(($scope.wo.wo_qty * 100) / $scope.wo.wo_packageqty),
+                    "piezas": Math.floor($scope.wo.wo_qty / $scope.wo.wo_packageqty),
+                    "millares": Math.floor(($scope.wo.wo_qty * 1000) / $scope.wo.wo_packageqty),
+                    "rollos": Math.floor(($scope.wo.wo_qty * $scope.wo.wo_packageqty) / $scope.wo.wo_packageqty)
+                }
+
+                const residueFormula = {
+                    "cientos": ($scope.wo.wo_qty * 100) % $scope.wo.wo_packageqty,
+                    "piezas": $scope.wo.wo_qty % $scope.wo.wo_packageqty,
+                    "millares": ($scope.wo.wo_qty * 1000) % $scope.wo.wo_packageqty,
+                    "rollos": ($scope.wo.wo_qty * $scope.wo.wo_packageqty) % $scope.wo.wo_packageqty
+                }
+
+                const iterations = iterationsFormula[$scope.wo.wo_qtymeasure]
+                const residue = residueFormula[$scope.wo.wo_qtymeasure]
+
                 let qty = $scope.wo.wo_packageqty                
-                const residue = ($scope.wo.wo_qty % $scope.wo.wo_packageqty)
+
                 if (residue > 0) {
                     iterations += 1
                 }
@@ -101,7 +118,7 @@ module.exports = (function (angular) {
                         if (woFound) {
                             const [wo] = data
                             $scope.wo = wo
-                            console.log(authService.userHasRole(['owner']) )
+                            console.log(authService.userHasRole(['owner']))
                             const isValidStatus = authService.userHasRole(['owner']) ? true : [11].includes(wo.wo_status)
                             if (!isValidStatus) {
                                 $scope.pdfDisabled = true
@@ -110,6 +127,11 @@ module.exports = (function (angular) {
                                     type: 'warning',
                                     message: 'Solo se aceptan ordenes en Empaque e Inspección Final.'
                                 });
+                                return;
+                            }
+                            if(!$scope.wo.wo_qtymeasure) {
+                                console.log($scope.wo.wo_qtymeasure)
+                                notyf.error('No se encontro la unidad de medida (cientos, millares, piezas, rollos) para Cantidad.');
                                 return;
                             }
                             $scope.fmData.wo_packageqty = wo.wo_packageqty

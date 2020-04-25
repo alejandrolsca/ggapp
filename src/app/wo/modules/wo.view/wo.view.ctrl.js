@@ -15,7 +15,8 @@ module.exports = (function (angular) {
             }
 
             $scope.displayPrice = authService.userHasRole(['admin','warehouse','sales'])
-            
+
+            $scope.wo_qtymeasureoptions = i18nFilter("wo-add.fields.wo_qtymeasureoptions");
             $scope.wo_foliosperformatoptions = i18nFilter("wo-add.fields.wo_foliosperformatoptions");
             $scope.wo_currencyoptions = i18nFilter("wo-add.fields.wo_currencyoptions");
             $scope.wo_emailoptions = i18nFilter("wo-add.fields.wo_emailoptions");
