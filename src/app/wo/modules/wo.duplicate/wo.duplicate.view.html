@@ -77,7 +77,7 @@
 <label class="col-sm-12 fieldset">PRODUCTO</label>
 <gg-select err-class="error"
         lbl="{{'wo-duplicate.labels.pr-id' | i18n}}" 
-        form-group-class="col-sm-8 col-xs-10" 
+        form-group-class="col-sm-6 col-xs-10" 
         options="pr_idoptions" 
         ng-model="fmData.pr_id"
         regexp="singlespaces"
@@ -93,14 +93,25 @@
     </div>
 </div>
 <gg-input err-class="error"
-lbl="{{'wo-duplicate.labels.wo-qty' | i18n}}" 
-form-group-class="col-sm-2"
-ng-model="fmData.wo_qty"
-regexp="integer"
-regexp-msg="{{'general.regexp.integer' | i18n}}"
-req-msg="Required"
-is-required="true">
+        lbl="{{'wo-duplicate.labels.wo-qty' | i18n}}" 
+        form-group-class="col-sm-2"
+        ng-model="fmData.wo_qty"
+        regexp="integer"
+        regexp-msg="{{'general.regexp.integer' | i18n}}"
+        req-msg="Required"
+        is-required="true">
 </gg-input>
+<gg-select err-class="error"
+           lbl="{{'wo-duplicate.labels.wo-qtymeasure' | i18n}}" 
+           form-group-class="col-sm-2" 
+           options="wo_qtymeasureoptions" 
+           ng-model="fmData.wo_qtymeasure"
+           regexp="singlespaces"
+           regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+           req-msg="Required"
+           is-required="true"
+           is-disabled="true">
+  </gg-select>
 <span class="col-sm-12">
 <div ng-show="prinfo" class="pr-info col-sm-12 bg-info">
         <div class="text-danger" ng-if="pr_inactive">El producto esta deshabilitado</div>
