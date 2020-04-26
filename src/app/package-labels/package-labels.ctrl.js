@@ -87,11 +87,11 @@ module.exports = (function (angular) {
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left
                     });
                     doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
-                    doc.drawText("Paq.", 190 - margin, 93, {
+                    doc.drawText("Paq.", 180 - margin, 93, {
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left
                     });
                     doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', '400'));
-                    doc.drawText(`${i}/${iterations}`, 190 - margin, 105, {
+                    doc.drawText(`${i}/${iterations}`, 180 - margin, 105, {
                         align: wijmo.pdf.PdfTextHorizontalAlign.Left
                     });
                     doc.setFont(new wijmo.pdf.PdfFont('Helvetica', 10, 'normal', 'bold'));
