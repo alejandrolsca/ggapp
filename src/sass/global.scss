@@ -12,12 +12,12 @@ body {
     margin-left:auto;
 	margin-right:auto;
     padding:0;
-    font-size:100%;
+    //font-size:100%;
 }
 .page-wrapper {
     overflow:hidden;
     margin-top: 15px;
-    font-size: 1.25em;
+    font-size: 12px;
 }
 .header-wrapper, .nav-wrapper, .content-wrapper, .aside-wrapper {
     background: $layout-bg;
@@ -56,6 +56,11 @@ body {
 .footer-wrapper {
     margin: 0;
     padding:$layout-padding;
+}
+.avatar {
+    width: 25px;
+    height: auto;
+    border-radius: 9999px;
 }
 /*
 ********************************************

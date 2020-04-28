@@ -4,7 +4,7 @@ SASS VARIABLES
 ********************************************
 */
 
-$body-bg: #eceff1;
+$body-bg: #fafafa;
 $body-color: #455a64;
 $body-font: 'Open Sans', sans-serif;
 
@@ -34,8 +34,17 @@ NAVBAR
 ********************************************
 */
 
-$bgDefault      : #0064b7;
-$bgHighlight    : #007ac1;
-$colDefault     : #ecf0f1;
-$colHighlight   : #fff;
+$bgDefault      : #fafafa;
+$bgHighlight    : #455a64;
+$colorDefault   : #455a64;
+$colorHighlight : #eceff1;
 $dropDown       : false;
+
+/*
+********************************************
+BRAND COLORS
+********************************************
+*/
+
+$ggBlue         : #343787;
+$ggGreen        : #00a321;
