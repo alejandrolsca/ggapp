@@ -23,9 +23,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="javascript:void(0);"><img src="static/img/brand-logo.png" class="brand-logo"/></a>
+          <a class="navbar-brand" href="javascript:void(0);"><img src="static/img/ggauth-logo.png" class="brand-logo"/></a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav" ng-if="!authService.userHasRole(['cardinal'])">
@@ -57,7 +56,7 @@
           </ul>
           <form class="navbar-form navbar-left visible-md visible-lg" role="search">
             <div class="form-group has-feedback">
-              <input type="text" ng-model="wo_id" placeholder="No. de orden" 
+              <input style="width: 145px;" type="text" ng-model="wo_id" placeholder="No. de orden" 
               uib-typeahead="wo.wo_id for wo in searchWoID($viewValue)" 
               typeahead-loading="loadingResults" 
               typeahead-wait-ms="1000"
@@ -68,9 +67,27 @@
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
+              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="avatar" src="{{profile.picture}}" alt="{{profile.username}"> <span class="caret"></span></span></a>
               <ul class="dropdown-menu" role="menu">
+                <li class="navbar-form navbar-left visible-xs visible-sm">
+                  <form class="form" role="search">
+                    <div class="form-group has-feedback">
+                      <input style="width: 145px;" type="text" ng-model="wo_id" placeholder="No. de orden" 
+                      uib-typeahead="wo.wo_id for wo in searchWoID($viewValue)" 
+                      typeahead-loading="loadingResults" 
+                      typeahead-wait-ms="1000"
+                      typeahead-on-select="open(wo_id)" class="form-control">
+                      <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                    </div>
+                    <i ng-show="loadingResults" class="glyphicon glyphicon-refresh" style="color: white;"></i>
+                  </form>
+                </li>
                 <li ng-if="profile"><a ui-sref="userProfile" ng-bind="profile.username"></a></li>
+                <li ng-if="profile" class="visible-xs visible-sm">
+                      <a href="javascript:void(0);" class="expiration-time">
+                        <timer end-time="authService.getExpiration()"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{hhours}}:{{mminutes}}:{{sseconds}}</timer>                
+                      </a>
+                </li>
                 <li ng-if="profile" class="divider"></li>
                 <li ng-if="authService.userHasRole(['cardinal'])"><a ui-sref="cardinalArt" target="_self">CARDINAL ARTE</a></li>
                 <li ng-if="authService.userHasRole(['owner'])"><a ui-sref="users">Usuarios</a></li>
@@ -81,7 +98,7 @@
               </ul>
             </li>
           </ul>
-          <span class="nav navbar-nav navbar-right">
+          <span class="nav navbar-nav navbar-right visible-md visible-lg">
               <li>
                 <a href="javascript:void(0);" class="expiration-time">
                   <timer end-time="authService.getExpiration()"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{hhours}}:{{mminutes}}:{{sseconds}}</timer>                
