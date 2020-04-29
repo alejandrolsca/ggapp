@@ -983,17 +983,15 @@ if (cluster.isMaster) {
                 const [wo] = getWoRows
                 const allowedGroups = ['owner','admin','sales']
                 const isAllowed = allowedGroups.some(allowedGroup => us_group.includes(allowedGroup))
-                const isPartial = (wo.wo_type === 'P')
+                //const isPartial = (wo.wo_type === 'P')
                 const isSplit = wo.wo_split
-                console.log(typeof(wo.wo_split))
-                console.log(isSplit)
                 const isValidStatus = [3,4,5,6,7,8,9,10,11].includes(wo.wo_status)
                 if(!isAllowed) {
                     return res.status(603).send('603 - You need additional privileges to perform this action. Please contact the owner.');
                 }
-                if(isPartial) {
+                /*if(isPartial) {
                     return res.status(604).send('604 - The work order is of type partial, cannot be split.');
-                }
+                }*/
                 if(isSplit) {
                     return res.status(605).send('605 - Cannot split a work order twice.');
                 }
