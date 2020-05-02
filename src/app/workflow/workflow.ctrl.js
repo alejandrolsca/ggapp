@@ -124,7 +124,7 @@ module.exports = (function (angular) {
                     if (wo_jsonb.wo_line || wo_jsonb.wo_linetotal) {
                         pdfDoc.drawText(`${wo_jsonb.wo_line || ''} de ${wo_jsonb.wo_linetotal || ''}`)
                     }
-                    pdfDoc.drawText(`Cantidad: `, null, null, wo_jsonb.wo_qty ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_qty || ''}`)
+                    pdfDoc.drawText(`Cantidad: `, null, null, wo_jsonb.wo_qty ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_qty || ''} ${wo_jsonb.wo_qtymeasure || ''}`)
                     pdfDoc.drawText(`Material:`, null, null, bold)
                     materials.map((value) => {
                         pdfDoc.drawText(`${value}`)
