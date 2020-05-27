@@ -302,6 +302,8 @@ module.exports = (function(angular) {
 
     .filter("i18n", require("./lang.filter.i18n"))
 
+    .filter("sanitize", require("./app.filter.sanitize"))
+
     .factory("appFac", require("./app.fac"))
 
     .controller("appCtrl", require("./app.ctrl"));

@@ -18,6 +18,7 @@ require('script-loader!../wijmo/Dist/controls/wijmo.js');
 require('script-loader!../wijmo/Dist/controls/wijmo.chart.js');
 require('script-loader!../wijmo/Dist/controls/wijmo.gauge.js');
 require('script-loader!../wijmo/Dist/controls/wijmo.grid.js');
+require('script-loader!../wijmo/Dist/controls/wijmo.grid.detail.js');
 require('script-loader!../wijmo/Dist/controls/wijmo.grid.filter.js');
 require('script-loader!../wijmo/Dist/controls/wijmo.grid.sheet.js');
 require('script-loader!../wijmo/Dist/controls/wijmo.xlsx.js');

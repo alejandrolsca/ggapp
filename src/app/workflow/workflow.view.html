@@ -116,6 +116,10 @@
     show-sort="true"
     style="height:390px;">
         <wj-flex-grid-filter filter-applied="onFilterApplied(s,e)"></wj-flex-grid-filter>
+        <wj-flex-grid-column is-read-only="true" width="30">
+          <span ng-show="dp.isDetailVisible($row)" ng-click="dp.hideDetail($row)" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true" ></span>
+          <span ng-hide="dp.isDetailVisible($row)" ng-click="dp.showDetail($row, true)" class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+        </wj-flex-grid-column>
         <wj-flex-grid-column
         header="√"
         binding="active"
@@ -150,6 +154,12 @@
         is-html="true" 
         width="200">
         </wj-flex-grid-column>
+        <wj-flex-grid-detail control="dp" detail-visibility-mode="Code">
+            <b>Codigo de Producto:</b> <span ng-bind="$item.pr_code"></span><br>
+            <b>Producto:</b> <span ng-bind="$item.pr_name"></span><br>
+            <b>Materiales:</b><br> <span ng-bind-html="$item.pr_material | sanitize"></span><br>
+            <button class="btn btn-default" ng-click="dp.hideDetail($row)">Ocultar</button>
+        </wj-flex-grid-detail>
     </wj-flex-grid>
     
   </div>
