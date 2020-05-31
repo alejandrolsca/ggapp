@@ -40,7 +40,7 @@ module.exports = (function (angular) {
                     "rollos": ($scope.wo.wo_qty * $scope.wo.wo_packageqty) % $scope.wo.wo_packageqty
                 }
 
-                const iterations = iterationsFormula[$scope.wo.wo_qtymeasure]
+                let iterations = iterationsFormula[$scope.wo.wo_qtymeasure]
                 const residue = residueFormula[$scope.wo.wo_qtymeasure]
 
                 let qty = $scope.wo.wo_packageqty                
