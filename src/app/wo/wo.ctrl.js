@@ -288,6 +288,16 @@ module.exports = (function (angular) {
                 }
             });
 
+            $scope.pageSize = 1000;
+
+            $scope.$watch('pageSize', function () {
+                var flex = $scope.ggGrid;
+                if (flex && $scope.pageSize != null) {
+                    var cv = flex.collectionView;
+                    cv.pageSize = $scope.pageSize;
+                }
+            });
+
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded
                 $scope.loading = false;
@@ -295,7 +305,9 @@ module.exports = (function (angular) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data)) {
                         // expose data as a CollectionView to get events
-                        $scope.data = new wijmo.collections.CollectionView(promise.data);
+                        $scope.data = new wijmo.collections.CollectionView(promise.data, {
+                          pageSize: $scope.pageSize
+                        });
                     }
                 });
             });

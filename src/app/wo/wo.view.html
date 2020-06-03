@@ -70,4 +70,16 @@
         is-read-only="true">
         </wj-flex-grid-column>
     </wj-flex-grid>
+    <div class="row-fluid well text-right">
+      <wj-collection-view-pager cv="data">
+      </wj-collection-view-pager>
+      <wj-input-number
+        value="pageSize"
+        min="1000"
+        format="n0"
+        show-spinner="true"
+        step="1000"
+        placeholder="1000+">
+      </wj-input-number>
+    </div>
 </div>
