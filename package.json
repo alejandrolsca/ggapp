@@ -49,7 +49,7 @@
     "cors": "^2.7.1",
     "custom-env": "^1.0.2",
     "express": "^4.13.4",
-    "express-fileupload": "^0.4.0",
+    "express-fileupload": "^1.1.9",
     "express-jwt": "^3.4.0",
     "express-jwt-authz": "^1.0.0",
     "flatpickr": "^4.6.3",
