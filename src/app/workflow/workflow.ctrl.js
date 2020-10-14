@@ -276,20 +276,6 @@ module.exports = (function (angular) {
                     var flex = panel.grid;
                     var col = flex.columns[c];
                     var row = flex.rows[r];
-                    if (col.binding === 'files') {
-                        if (row.dataItem.file1) {
-                            row.dataItem.files = row.dataItem.file1
-                            cell.innerHTML =
-                                `<a class="link" href="/uploads/${row.dataItem.wo_id}_file1.pdf" download="${row.dataItem.file1}" target="_blank">descargar</a> | 
-                            <a class="link" href="/uploads/${row.dataItem.wo_id}_file1.pdf" target="_blank">${row.dataItem.file1}</a><br/>`
-                        }
-                        if (row.dataItem.file2) {
-                            row.dataItem.files += ` | ${row.dataItem.file2}`
-                            cell.innerHTML +=
-                                `<a class="link" href="/uploads/${row.dataItem.wo_id}_file2.pdf" download="${row.dataItem.file2}" target="_blank">descargar</a> | 
-                            <a class="link" href="/uploads/${row.dataItem.wo_id}_file2.pdf" target="_blank">${row.dataItem.file2}</a>`
-                        }
-                    }
                 }
 
                 // highlight rows that have 'active' set
