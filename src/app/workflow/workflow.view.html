@@ -149,6 +149,14 @@
         is-read-only="true"
         is-html="true" 
         width="200">
+        <span ng-if="($item.file1)">
+          <a class="link" href="/uploads/{{$item.wo_id}}_file1.pdf" download="{{$item.file1}}" target="_blank">descargar</a> | 
+          <a class="link" href="/uploads/{{$item.wo_id}}_file1.pdf" target="_blank">{{$item.file1}}</a><br/>
+        </span>
+        <span ng-if="($item.file2)">
+          <a class="link" href="/uploads/{{$item.wo_id}}_file2.pdf" download="{{$item.file2}}" target="_blank">descargar</a> | 
+          <a class="link" href="/uploads/{{$item.wo_id}}_file2.pdf" target="_blank">{{$item.file2}}</a><br/>
+        </span> 
         </wj-flex-grid-column>
     </wj-flex-grid>
     
