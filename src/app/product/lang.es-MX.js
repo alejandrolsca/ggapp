@@ -11,7 +11,8 @@ module.exports = {
         "pr-type": "Tipo",
         "pr-material": "Material",
         "wo-previousid": "Orden Anterior",
-        "tc-id": "Fracción",
+        "tc-code": "Fracción",
+        "tc-description": "Fracción Desc.",
         "pr-weight": "Peso",
         "pr-status": "Estatus",
         "pr-date": "Fec. de Creación",
@@ -28,6 +29,8 @@ module.exports = {
         { "binding": "pr_type", "type": "String", "width": 100, "visible": true, "html": false },
         { "binding": "pr_material", "type": "String", "width": 250, "visible": true, "html": true },
         { "binding": "pr_weight", "type": "Number", "width": 100, "visible": true, "html": false },
+        { "binding": "tc_code", "type": "String", "width": 250, "visible": true, "html": true },
+        { "binding": "tc_description", "type": "String", "width": 250, "visible": true, "html": true },
         { "binding": "pr_status", "type": "String", "width": 100, "visible": true, "html": false },
         { "binding": "pr_date", "type": "Date", "width": 150, "visible": true, "html": false }
     ],
