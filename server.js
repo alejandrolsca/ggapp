@@ -981,21 +981,21 @@ if (cluster.isMaster) {
                 const getWoParameters = [wo_id]
                 const { rows: getWoRows } = await client.query(getWoQuery, getWoParameters)
                 const [wo] = getWoRows
-                const allowedGroups = ['owner','admin','sales']
+                const allowedGroups = ['owner', 'admin', 'sales']
                 const isAllowed = allowedGroups.some(allowedGroup => us_group.includes(allowedGroup))
                 //const isPartial = (wo.wo_type === 'P')
                 const isSplit = wo.wo_split
-                const isValidStatus = [3,4,5,6,7,8,9,10,11].includes(wo.wo_status)
-                if(!isAllowed) {
+                const isValidStatus = [3, 4, 5, 6, 7, 8, 9, 10, 11].includes(wo.wo_status)
+                if (!isAllowed) {
                     return res.status(603).send('603 - You need additional privileges to perform this action. Please contact the owner.');
                 }
                 /*if(isPartial) {
                     return res.status(604).send('604 - The work order is of type partial, cannot be split.');
                 }*/
-                if(isSplit) {
+                if (isSplit) {
                     return res.status(605).send('605 - Cannot split a work order twice.');
                 }
-                if(!isValidStatus) {
+                if (!isValidStatus) {
                     return res.status(602).send('602 - The work order status must be between Production (3) and Packaging and Final Inspection (11).');
                 }
                 // UPDATE ORIGINAL WO
@@ -1044,7 +1044,9 @@ if (cluster.isMaster) {
                 const { rows } = await client.query(getWoQuery, getWoParameters)
                 const [wo] = rows
                 const isOwner = us_group.includes('owner')
-                if (wo.wo_status !== 0 && !isOwner) {
+                const isQA = us_group.includes('quality_assurance')
+                const isGranted = (isOwner || isQA)
+                if (wo.wo_status !== 0 && !isGranted) {
                     return res.status(601).send('601 - The work order is not active or needs additional privileges to perform this action. Please contact the owner.');
                 }
                 const updateWoQuery = file('wo/wo:update')

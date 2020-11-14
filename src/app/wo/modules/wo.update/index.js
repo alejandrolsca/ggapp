@@ -13,7 +13,8 @@ module.exports = (function(angular){
                 requiresLogin: true,
                 roles: [
                     'admin',
-                    'sales'
+                    'sales',
+                    'quality_assurance'
                 ]
             }    
         });
