@@ -104,6 +104,7 @@ module.exports = (function (angular) {
                     })
                     pdfDoc.drawText(`Producto: `, null, null, pr_jsonb.pr_name ? boldContinued : bold); pdfDoc.drawText(`${pr_jsonb.pr_name || ''}`)
                     pdfDoc.drawText(`No. Parte: `, null, null, data.pr_partno ? boldContinued : bold); pdfDoc.drawText(`${data.pr_partno || ''}`)
+                    pdfDoc.drawText(`Medida Final: `, null, null, (data.pr_jsonb.pr_finalsizewidth && data.pr_jsonb.pr_finalsizeheight && data.pr_jsonb.pr_finalsizemeasure) ? boldContinued : bold); pdfDoc.drawText(`${data.pr_jsonb.pr_finalsizewidth || ''}x${data.pr_jsonb.pr_finalsizeheight || ''}${data.pr_jsonb.pr_finalsizemeasure || ''}`)
                     pdfDoc.drawText(`Folio: `, null, null, data.pr_folio ? boldContinued : bold); pdfDoc.drawText(`${data.pr_folio || ''}`)
                     pdfDoc.drawText(`# Tintas frente: `, null, null, data.inkfront ? boldContinued : bold); pdfDoc.drawText(`${data.inkfront || ''}`)
                     pdfDoc.drawText(`Tintas frente: `, null, null, data.inksfront ? boldContinued : bold); pdfDoc.drawText(`${data.inksfront || ''}`)
@@ -166,6 +167,13 @@ module.exports = (function (angular) {
                                     right: margin,
                                     bottom: margin
                                 },
+                            },
+                            footer: {
+                                declarative: {
+                                    text: '\tGGM-FR42 REV 0  NOV 2019\tPág. &[Page]\\&[Pages]',
+                                    brush: '#000000',
+                                    font: new wijmo.pdf.PdfFont('helvetica', 10, 'normal', 'bold')
+                                }
                             },
                             ended: function (sender, args) {
                                 const timestamp = moment().tz('America/Chihuahua').format();
