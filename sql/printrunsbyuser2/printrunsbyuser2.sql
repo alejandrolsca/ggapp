@@ -1,5 +1,10 @@
 select
 	printruns.wo_id,
+	case
+		when cl.cl_jsonb->>'cl_type' = 'natural' 
+			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
+		else cl.cl_jsonb->>'cl_corporatename'
+	end as cl_corporatename,
 	printruns.wo_qty,
 	printruns.wo_price,
 	(printruns.wo_qty * printruns.wo_price) as wo_total,
@@ -35,6 +40,7 @@ select
 from (
 	select
 		wo_id,
+		wo_jsonb.cl_id,
 		wo_jsonb.ma_id,
 		ma_totalinks,
 		case
@@ -119,6 +125,7 @@ from (
 	from 
 		wo wo,
 		jsonb_to_record(wo_jsonb) as wo_jsonb (
+			cl_id int,
 			pr_id int,
 			ma_id int,
 			wo_status int,
@@ -146,7 +153,7 @@ from (
 	and pr_jsonb.pr_process in ('offset', 'digital', 'flexo')
 	and pr_jsonb.pr_type not in ('ribbons')
 ) printruns
-join machine ma
+left join machine ma
 on printruns.ma_id = ma.ma_id
 join (
 	select 
@@ -167,4 +174,6 @@ join (
 	wohi.wohi_date between $1 and $2
 ) wohi
 on printruns.wo_id = wohi.wo_id
+left join client cl
+on printruns.cl_id = cl.cl_id
 order by wo_updatedby, wo_id desc
