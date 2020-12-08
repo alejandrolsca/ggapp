@@ -81,6 +81,8 @@ module.exports = (function (angular) {
                 var types = {
                     'N': 'NC', // N → NC  
                     'NC': 'NC', // NC → NC  
+                    'P': 'PC', // P → PC
+                    'PC': 'PC', // PC → PC
                     'R': 'RC', // R → RC  
                     'RC': 'RC', // RC → RC  
                     'unknown': 'unknown_type'
