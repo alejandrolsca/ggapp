@@ -136,7 +136,7 @@
         width="50">
           <span ng-if="($item.file1 || $item.file2)" class="glyphicon glyphicon-file" aria-hidden="true"></span>
           <span ng-if="($item.wo_split)" class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
-          <span ng-if="($item.wo_type === 'P')" class="glyphicon glyphicon-link" aria-hidden="true"></span>
+          <span ng-if="['P','PC'].includes($item.wo_type)" class="glyphicon glyphicon-link" aria-hidden="true"></span>
         </wj-flex-grid-column>
         <wj-flex-grid-column  
           is-read-only="true" 
