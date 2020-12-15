@@ -41,6 +41,6 @@ jsonb_to_record(pr_jsonb) as pr_jsonb (
         pr_weight decimal
 )
 where wo_jsonb->>'cl_id' = $1
-and wo_jsonb->'wo_status' between '13' and '17'
+and wo_jsonb->'wo_status' between '1' and '17'
 and wo_id = any(string_to_array($2,',')::integer[])
 order by 1 asc
