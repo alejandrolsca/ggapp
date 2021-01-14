@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 
 /*
 ********************************************
@@ -6,61 +6,64 @@ LAYOUT
 ********************************************
 */
 body {
-    background:$body-bg;
-    color: $body-color;
-    font-family: $body-font;
-    margin-left:auto;
-	margin-right:auto;
-    padding:0;
-    //font-size:100%;
+  background: $body-bg;
+  color: $body-color;
+  font-family: $body-font;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  //font-size:100%;
 }
 .page-wrapper {
-    overflow:hidden;
-    margin-top: 15px;
-    font-size: 12px;
+  overflow: hidden;
+  margin-top: 15px;
+  font-size: 12px;
 }
-.header-wrapper, .nav-wrapper, .content-wrapper, .aside-wrapper {
-    background: $layout-bg;
-    display:block;
+.header-wrapper,
+.nav-wrapper,
+.content-wrapper,
+.aside-wrapper {
+  background: $layout-bg;
+  display: block;
 }
 
 .header-wrapper {
-    margin: 1em 0 0 0;
-    border-top:$layout-border;
-    border-left:$layout-border;
-    border-right:$layout-border;
-    border-top-left-radius: .5em;
-    border-top-right-radius: .5em;
+  margin: 1em 0 0 0;
+  border-top: $layout-border;
+  border-left: $layout-border;
+  border-right: $layout-border;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
 }
 .nav-wrapper {
-    border-left:$layout-border;
-    border-right:$layout-border;
-    margin: 0;
-    padding: 0;
+  border-left: $layout-border;
+  border-right: $layout-border;
+  margin: 0;
+  padding: 0;
 }
 .content-wrapper {
-    min-height:44em;
-    border-top:$layout-border;
-    border-left:$layout-border;
-    border-right:$layout-border;
-    border-bottom:$layout-border;
-    border-radius: .5em;
-    margin: 0;
-    padding: 0 0 1em 0;
+  min-height: 44em;
+  border-top: $layout-border;
+  border-left: $layout-border;
+  border-right: $layout-border;
+  border-bottom: $layout-border;
+  border-radius: 0.5em;
+  margin: 0;
+  padding: 0 0 1em 0;
 }
-@media (min-width: 768px) { 
-    .content-wrapper {
-        padding: 0 0 1em 0;
-    }
+@media (min-width: 768px) {
+  .content-wrapper {
+    padding: 0 0 1em 0;
+  }
 }
 .footer-wrapper {
-    margin: 0;
-    padding:$layout-padding;
+  margin: 0;
+  padding: $layout-padding;
 }
 .avatar {
-    width: 25px;
-    height: auto;
-    border-radius: 9999px;
+  width: 25px;
+  height: auto;
+  border-radius: 9999px;
 }
 /*
 ********************************************
@@ -68,33 +71,35 @@ HTML TAGS
 ********************************************
 */
 
-a, a:visited {
-	text-decoration:none;
-	color:#333;
+a,
+a:visited {
+  text-decoration: none;
+  color: #333;
 }
-a.btn.custom, a.btn:visited.custom {
-	text-decoration:none;
-	color:#fff;
+a.btn.custom,
+a.btn:visited.custom {
+  text-decoration: none;
+  color: #fff;
 }
 a:hover {
-	text-decoration:underline;
+  text-decoration: underline;
 }
 
 h1 {
-    font-size:2em;
-    margin-bottom:12px;
+  font-size: 2em;
+  margin-bottom: 12px;
 }
 h2 {
-    font-size:1.75em;
-    margin-bottom:12px;
+  font-size: 1.75em;
+  margin-bottom: 12px;
 }
 h3 {
-    font-size:1.5em;
-    margin-bottom:12px;
+  font-size: 1.5em;
+  margin-bottom: 12px;
 }
 h4 {
-    font-size:1.25em;
-    margin-bottom:12px;
+  font-size: 1.25em;
+  margin-bottom: 12px;
 }
 /*
 ********************************************
@@ -102,73 +107,72 @@ CLASSES
 ********************************************
 */
 .is-authenticated {
-    margin-top: 65px;
+  margin-top: 65px;
 }
 
 .action_buttons {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 .text_left {
-    text-align:left;
+  text-align: left;
 }
 .text_right {
-    text-align:right;
+  text-align: right;
 }
 
 .gg-grid {
-    overflow: auto;
+  overflow: auto;
 }
 
 .gg-grid thead tr th {
-
-    white-space: nowrap;
-    vertical-align: middle;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 .brand-logo {
-    height:25px;
+  height: 25px;
 }
 .logo {
-    height: 6em;
-    width: auto
+  height: 6em;
+  width: auto;
 }
 .field-info {
-    border-radius: 5px;
-    padding: 15px;
+  border-radius: 5px;
+  padding: 15px;
 }
 .pr-info {
-    border-radius: 4px;
-    margin-bottom: 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .product-left-headers {
-    text-align: right;
+  text-align: right;
 }
 
 .tile {
-    flex-grow: 1;
-    overflow: hidden;
-    padding: 0 2em 0 2em;
-    border: 2px solid transparent;
-    background: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    page-break-inside: avoid;
-    transition: all 250ms;
+  flex-grow: 1;
+  overflow: hidden;
+  padding: 0 2em 0 2em;
+  border: 2px solid transparent;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  page-break-inside: avoid;
+  transition: all 250ms;
 }
 .widget {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 .bad {
-    color: red
+  color: red;
 }
 .good {
-    color: #ffc400
+  color: #ffc400;
 }
 .very-good {
-    color: #00c853
+  color: #00c853;
 }
 .excellent {
-    color: #0d84c1
+  color: #0d84c1;
 }
 /*
 ********************************************
@@ -176,8 +180,10 @@ VIEWS
 ********************************************
 */
 
-.homeView,.loginView, .clientView {
-    display:block;
+.homeView,
+.loginView,
+.clientView {
+  display: block;
 }
 .homeView {
 }
@@ -192,7 +198,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
 }
 /*
 ********************************************
@@ -201,8 +207,8 @@ AUTH0 LOGO
 */
 
 .auth0-lock-header-logo {
-    width: 58px !important;
-    height: 58px !important;
+  width: 58px !important;
+  height: 58px !important;
 }
 
 /*
@@ -211,46 +217,47 @@ WIJMO
 ********************************************
 */
 .wj-state-selected {
-    background-color: #cccccc !important;
-    color: #000;
-    font-weight: 600;
+  background-color: #cccccc !important;
+  color: #000;
+  font-weight: 600;
 }
 .wj-cell.wj-state-selected a.link {
-    color: #000;
+  color: #000;
 }
 .wj-state-multi-selected {
-    background-color: #dddddd;
-    color: #000;
-    font-weight: 600;
+  background-color: #dddddd;
+  color: #000;
+  font-weight: 600;
 }
 .wj-state-multi-selected a.link {
-    color: #000;
+  color: #000;
 }
 
 .datepicker {
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
 .datepicker {
-    padding: 0;
-    border: 1px solid #455a64;
+  padding: 0;
+  border: 1px solid #455a64;
 }
 
 .wj-radialgauge .wj-value {
-    font-size: 100%;
+  font-size: 100%;
 }
 
 /*
@@ -259,11 +266,11 @@ ANGULAR CLASSES
 ********************************************
 */
 
-[ng\:cloak], 
-[ng-cloak], 
-[data-ng-cloak], 
-[x-ng-cloak], 
-.ng-cloak, 
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
 .x-ng-cloak {
   display: none !important;
 }
@@ -275,27 +282,28 @@ NOTYF
 */
 
 .notyf-error {
-    font-size: 1.4em;
+  font-size: 1.4em;
+  background: #f7383c !important;
 }
 .notyf-success {
-    font-size: 1.4em;
-    background: #5cb85c !important;
+  font-size: 1.4em;
+  background: #5cb85c !important;
 }
 .notyf-warning {
-    font-size: 1.4em;
-    background:#ffc107;
-    color: #000;
+  font-size: 1.4em;
+  background: #ffc107;
+  color: #000;
 }
 .notyf-warning i {
-    font-size: 1.3em;
-    color: #000;
+  font-size: 1.3em;
+  color: #000;
 }
 .notyf-info {
-    font-size: 1.4em;
-    background: #1976d2;
+  font-size: 1.4em;
+  background: #1976d2;
 }
 .notyf-info i {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
 
 /*
@@ -305,7 +313,7 @@ USERS MODULES
 */
 
 select.user-groups {
-    height: 16em !important;
+  height: 16em !important;
 }
 
 /*
@@ -314,31 +322,31 @@ SYMBOLS
 ********************************************
 */
 $arrow-symbols: (
-    leftwards: "\2190",
-    upwards: "\2191",
-    rightwards: "\2192",
-    downwards: "\2193"
+  leftwards: "\2190",
+  upwards: "\2191",
+  rightwards: "\2192",
+  downwards: "\2193",
 );
 
 .arrow {
-    &-leftwards {
-        &:before {
-            content: map-get($arrow-symbols, leftwards);
-        }
+  &-leftwards {
+    &:before {
+      content: map-get($arrow-symbols, leftwards);
     }
-    &-upwards {
-        &:before {
-            content: map-get($arrow-symbols, upwards);
-        }
+  }
+  &-upwards {
+    &:before {
+      content: map-get($arrow-symbols, upwards);
     }
-    &-rightwards {
-        &:before {
-            content: map-get($arrow-symbols, rightwards);
-        }
+  }
+  &-rightwards {
+    &:before {
+      content: map-get($arrow-symbols, rightwards);
     }
-    &-downwards {
-        &:before {
-            content: map-get($arrow-symbols, downwards);
-        }
+  }
+  &-downwards {
+    &:before {
+      content: map-get($arrow-symbols, downwards);
     }
+  }
 }

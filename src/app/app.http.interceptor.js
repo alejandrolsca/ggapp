@@ -19,6 +19,7 @@ module.exports = (function (angular) {
                     return $q.reject(rejection);
                 },
                 'responseError': function (rejection) {
+                    console.log(rejection)
                     // do something on error
                     var alerts = $injector.get('$alerts');
                     if (rejection.status !== 401) {
@@ -37,6 +38,9 @@ module.exports = (function (angular) {
                                 break;
                             case 605:
                                 notyf.error('605 - No se puede dividir una orden de trabajo dos veces.')
+                                break;
+                            case 606:
+                                notyf.error(rejection.data)
                                 break;
                             default:
                                 alerts.error('¡Ups! algo salio mal.', JSON.stringify(rejection, null, 4));
