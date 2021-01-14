@@ -1,8 +1,8 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'shippingListFactory', '$location', 'i18nFilter', '$state', '$stateParams',
-        function ($scope, shippingListFactory, $location, i18nFilter, $state, $stateParams) {
+    return ['$scope', 'shippingListFactory', '$location', 'i18nFilter', '$state', '$stateParams', 'authService', 'notyf',
+        function ($scope, shippingListFactory, $location, i18nFilter, $state, $stateParams, authService, notyf) {
 
             $scope.labels = Object.keys(i18nFilter("shippingList.labels"));
             $scope.columns = i18nFilter("shippingList.columns");
@@ -23,20 +23,35 @@ module.exports = (function (angular) {
 
             }
 
-            $scope.open = function(view, $item) {
+            $scope.open = function (view, $item) {
                 $state.go(view, {
                     sl_id: $item.sl_id
                 })
             }
 
-            $scope.cancelModal = function($item) {
+            $scope.cancelModal = function ($item) {
                 $scope.shippingList = $item
                 $('#cancelModal').modal('show');
             }
-            $scope.cancel = function() {
-                shippingListFactory.cancelSL($scope.shippingList.wo_id, $scope.shippingList.sl_id).then(function(promise){
+            $scope.cancel = function () {
+                shippingListFactory.cancelSL($scope.shippingList.wo_id, $scope.shippingList.sl_id).then(function (promise) {
                     $('#cancelModal').modal('hide');
                     $state.reload()
+                })
+            }
+            $scope.addExportationInvoice = function ($item) {
+                console.log($item)
+                const { username: ei_createdby } = authService.profile()
+                shippingListFactory.addExportationInvoice($item.zo_id, $item.wo_id, ei_createdby).then(function (promise) {
+                    const { data: exportationinvoice } = promise
+                    const ei_date = moment(exportationinvoice.ei_date).tz('America/Chihuahua').format('DD/MM/YYYY')
+                    notyf.open({
+                        type: 'success',
+                        message: `FACTURA DE EXPORTACION #${exportationinvoice.ei_id} ${ei_date}`
+                    });
+                    $state.go('exportationInvoiceView', {
+                        ei_id: exportationinvoice.ei_id
+                    })
                 })
             }
 

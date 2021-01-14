@@ -1748,7 +1748,17 @@ if (cluster.isMaster) {
             let result = undefined;
             try {
                 await client.query('BEGIN')
-                const result = await client.query(file('exportationinvoice/wo:update:wo_id'), [req.body.wo_id])
+                const validateExportationInvoiceQuery = file('exportationinvoice/exportationinvoice:validate')
+                const validateExportationInvoiceParameters = [req.body.cl_id, req.body.wo_id]
+                const { rows: validationRows } = await client.query(validateExportationInvoiceQuery, validateExportationInvoiceParameters)
+                const invoiceFound = validationRows.length > 0
+                if (invoiceFound) {
+                    const billed = validationRows.map(function (row) {
+                        return row.wo_id;
+                    }).join(", ");
+                    return res.status(606).send(`606 - Las siguientes órdenes de trabajo fueron facturadas previamente: ${billed}`);
+                }
+                await client.query(file('exportationinvoice/wo:update:wo_id'), [req.body.wo_id])
                 const { rows } = await client.query(file('exportationinvoice/exportationinvoice:add'), [req.body.cl_id, req.body.zo_id, req.body.wo_id, req.body.ei_createdby])
                 const [exportationinvoice] = rows;
                 await client.query('COMMIT')
