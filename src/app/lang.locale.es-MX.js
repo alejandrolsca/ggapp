@@ -70,7 +70,8 @@ module.exports = {
             "auth0_user": "de 4 a 15 caracteres sin espacios, puede incluir un puntos (.) intermedios.",
             "password": "la contraseña debe contener de 8-16 caracteres, por lo menos una letra mayuscula, una letra minuscula y un digito.",
             "phone": "solo use el simbolo + al principio y numeros del 0 al 9",
-            "wo_id": "Solo se aceptan numeros enteros separados por coma."
+            "wo_id": "Solo se aceptan numeros enteros separados por coma.",
+            "foliosseries": "Solo mayusculas y numeros del 0 al 9"
         },
         "copyright": "©2020 Grupo Gráfico de México S.A. de C.C. Todos los derechos reservados."
     },
@@ -171,8 +172,8 @@ module.exports = {
     /****************************************
     USERS 
     ****************************************/
-   "users": require('./users/lang.es-MX'),
-   "users-update": require('./users/modules/users.update/lang.es-MX'),
+    "users": require('./users/lang.es-MX'),
+    "users-update": require('./users/modules/users.update/lang.es-MX'),
     /****************************************
     WORK ORDER 
     ****************************************/
@@ -244,5 +245,5 @@ module.exports = {
     /****************************************
     CARDINAL
     ****************************************/
-   "cardinal-art": require('./cardinal-art/lang.es-MX')
+    "cardinal-art": require('./cardinal-art/lang.es-MX')
 }
