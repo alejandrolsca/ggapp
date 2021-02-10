@@ -18,7 +18,7 @@ module.exports = {
         "pr-date": "Fec. de Creación",
     },
     "columns": [
-        { "binding": "pr_id", "type": "Number", "width": 100, "visible": true, "html": false },
+        //{ "binding": "pr_id", "type": "Number", "width": 100, "visible": true, "html": false },
         { "binding": "wo_previousid", "type": "Number", "width": 140, "visible": true, "html": false },
         { "binding": "cl_id", "type": "Number", "width": 100, "visible": false, "html": false },
         { "binding": "cl_corporatename", "type": "String", "width": 200, "visible": true, "html": false },

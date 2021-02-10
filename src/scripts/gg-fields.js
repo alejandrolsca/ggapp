@@ -26,8 +26,9 @@
             "auth0_user": /^(\w(\.\w)?){4,15}$/,
             "password": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
             "phone": /^([+])?(\d{2,}-)*(\d{2,}-\d{2,})$/,
-            "wo_id": /^(\d+)(,\s*\d+)*$/,            
-            "uppercase": /^[A-Z]{0,}$/
+            "wo_id": /^(\d+)(,\s*\d+)*$/,
+            "uppercase": /^[A-Z]{0,}$/,
+            "foliosseries": /^[A-Z0-9]{0,}$/
         })
 
         .directive('ggInput', ['validTypes', function (validTypes) {
@@ -62,7 +63,7 @@
                     scope.$on('$destroy',
                         function handleDestroyEvent() {
                             ctrl.$setViewValue(undefined);
-                        }      
+                        }
                     );
 
                     var validator = function (value) {
@@ -143,7 +144,7 @@
                     scope.$on('$destroy',
                         function handleDestroyEvent() {
                             ctrl.$setViewValue(undefined);
-                        }      
+                        }
                     );
 
                     var validator = function (value) {
@@ -201,7 +202,7 @@
                         }
 
                         if (validPhone) {
-                            $('[id="' + scope.unique_id  + '.phones"]').popover({
+                            $('[id="' + scope.unique_id + '.phones"]').popover({
                                 placement: "top",
                                 trigger: "click",
                                 title: "Como marcar",
@@ -212,9 +213,9 @@
                                          <p>Original: <a href="tel:'+ scope.phone4 + '">' + scope.phone4 + '</a></p>'
 
                             });
-                            $('[id="' + scope.unique_id  + '.phones"]').popover('show');
+                            $('[id="' + scope.unique_id + '.phones"]').popover('show');
                         } else {
-                            $('[id="' + scope.unique_id  + '.phones"]').popover('destroy')
+                            $('[id="' + scope.unique_id + '.phones"]').popover('destroy')
                         }
 
                         return value || undefined;
@@ -264,7 +265,7 @@
                     scope.$on('$destroy',
                         function handleDestroyEvent() {
                             ctrl.$setViewValue(undefined);
-                        }      
+                        }
                     );
 
                     var validator = function (value) {
@@ -345,16 +346,16 @@
                     scope.$on('$destroy',
                         function handleDestroyEvent() {
                             ctrl.$setViewValue(undefined);
-                        }      
+                        }
                     );
 
                     var validator = function (value) {
 
-                        if(!!value || !ctrl.$pristine) {
+                        if (!!value || !ctrl.$pristine) {
                             ctrl.$setViewValue(value);
                         };
 
-                        var required = (!value && attrs.isRequired==='true');
+                        var required = (!value && attrs.isRequired === 'true');
                         var invalid = (!!value && !validTypes[attrs.regexp].test(value));
 
                         elem.toggleClass('has-error', (required || invalid));
@@ -424,16 +425,16 @@
                     scope.$on('$destroy',
                         function handleDestroyEvent() {
                             ctrl.$setViewValue(undefined);
-                        }      
+                        }
                     );
 
                     var validator = function (value) {
 
-                        if(!!value || !ctrl.$pristine) {
+                        if (!!value || !ctrl.$pristine) {
                             ctrl.$setViewValue(value);
                         };
 
-                        var required = (!value && attrs.isRequired==='true');
+                        var required = (!value && attrs.isRequired === 'true');
                         var invalid = (!!value && !validTypes[attrs.regexp].test(value));
 
                         elem.toggleClass('has-error', (required || invalid));
