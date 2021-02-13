@@ -45,9 +45,10 @@
         header="Acciones" 
         binding="actions"        
         is-read-only="true" 
-        width="260">
+        width="400">
         <wj-flex-grid-cell-template 
             cell-type="Cell">
+
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
                     <a ng-click="$item.sl_cancelled === true || open('shippingListView', $item)" ng-disabled="$item.sl_cancelled" class="btn btn-success btn-xs">{{'general.labels.open' | i18n}}</a>
@@ -56,7 +57,10 @@
                     <a ng-click="$item.sl_cancelled === true || addExportationInvoice($item)" ng-disabled="$item.sl_cancelled" class="btn btn-success btn-xs">{{'shippingList.labels.exportation-invoice' | i18n}}</a>
                 </div>
                 <div class="btn-group" role="group">
-                    <a ng-click="$item.sl_cancelled === true || open('shippingListReleaseInvoice',$item)" ng-disabled="$item.sl_cancelled" class="btn btn-success btn-xs">{{'shippingList.labels.release-invoice' | i18n}}</a>
+                    <a ng-click="$item.sl_cancelled === true || open('shippingListReleaseInvoice',$item)" ng-disabled="$item.sl_cancelled" class="btn btn-default btn-xs">{{'shippingList.labels.release-invoice' | i18n}}</a>
+                </div>
+                <div class="btn-group" role="group">
+                    <a ng-click="$item.sl_cancelled === true || open('shippingListFiscalInvoice',$item)" ng-disabled="$item.sl_cancelled" class="btn btn-success btn-xs">{{'shippingList.labels.fiscal-invoice' | i18n}}</a>
                 </div>
                 <div class="btn-group" role="group">
                 <a ng-click="$item.sl_cancelled === true || cancelModal($item)" ng-disabled="$item.sl_cancelled" class="btn btn-danger btn-xs">{{'general.labels.cancel' | i18n}}</a>

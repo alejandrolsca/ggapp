@@ -1,0 +1,52 @@
+module.exports = {
+    "title": "Factura Fiscal",
+    "labels": {
+        "invoice-no": "Invoice No",
+        "invoice-date": "Invoice Date (dd/mm/yyyy)",
+        "wo-id": "Grupo Purchase Order",
+        "wo-po": "SRC PO Number",
+        "wo-release": "Release",
+        "pr-partno": "Form Number",
+        "shipto-name": "Ship to Name",
+        "shipto-address": "Ship to Address",
+        "shipto-city": "Ship to City",
+        "shipto-state": "Ship to State",
+        "shipto-zip": "Ship to Zip (5 digits)",
+        "wo-qty": "Quantity Shipped",
+        "sl-date": "Ship Date (dd/mm/yyyy)",
+        "carrier-code": "Carrier Code",
+        "shipment-expedited": "Shipment Expedited (Y or N)",
+        "cartons": "Cartons",
+        "total-weight": "Weight (lbs)",
+        "tracking-no": "Tracking #",
+        "wo-price": "Product Cost",
+        "shipping-handling": "Shipping/Handling",
+        "total-price": "Invoice Total"
+    },
+    "columns": [
+        { "binding": "invoice_no", "type": "Number", "width": 80, "isReadOnly": true, "filterType": 0 },
+        { "binding": "invoice_date", "type": "Date", "width": 200, "isReadOnly": true, "filterType": 0 },
+        { "binding": "wo_id", "type": "Number", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "wo_po", "type": "String", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "wo_release", "type": "String", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "pr_partno", "type": "String", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "shipto_name", "type": "String", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "shipto_address", "type": "String", "width": 400, "isReadOnly": true, "filterType": 0 },
+        { "binding": "shipto_city", "type": "String", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "shipto_state", "type": "String", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "shipto_zip", "type": "String", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "wo_qty", "type": "Number", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "sl_date", "type": "Date", "width": 200, "isReadOnly": true, "filterType": 0 },
+        { "binding": "carrier-code", "type": "String", "width": 100, "isReadOnly": true, "filterType": 0 },
+        { "binding": "shipment-expedited", "type": "String", "width": 200, "isReadOnly": true, "filterType": 0 },
+        { "binding": "cartons", "type": "String", "width": 100, "isReadOnly": true, "filterType": 0 },
+        { "binding": "total_weight", "type": "Number", "width": 100, "isReadOnly": true, "filterType": 0 },
+        { "binding": "tracking_no", "type": "String", "width": 100, "isReadOnly": true, "filterType": 0 },
+        { "binding": "wo_price", "type": "Number", "width": 100, "isReadOnly": true, "filterType": 0 },
+        { "binding": "shipping_handling", "type": "String", "width": 150, "isReadOnly": true, "filterType": 0 },
+        { "binding": "total_price", "type": "Number", "width": 100, "isReadOnly": true, "filterType": 0 }
+    ],
+    "fields": {
+
+    }
+}
