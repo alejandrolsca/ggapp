@@ -210,6 +210,7 @@ module.exports = {
             { "label": "No", "value": "no" },
             { "label": "Una grapa", "value": "1" },
             { "label": "Dos grapas", "value": "2" },
+            { "label": "Manual", "value": "manual" },
         ], pr_boundoptions: [
             { "label": "No", "value": "no" },
             { "label": "Si", "value": "yes" },
