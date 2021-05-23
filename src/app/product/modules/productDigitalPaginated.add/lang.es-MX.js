@@ -34,6 +34,7 @@ module.exports = {
         "pr-foldunit1": "Estación 1",
         "pr-foldunit2": "Estación 2",
         "pr-foldunit3": "Estación 3",
+        "pr-foldunit4": "Manual",
         "pr-precut": "Precorte",
         "pr-diecutting": "Suaje",
         "pr-diecuttingqty": "No. Suajes",
@@ -83,6 +84,7 @@ module.exports = {
         "pr_foldunit1",
         "pr_foldunit2",
         "pr_foldunit3",
+        "pr_foldunit4",
         "pr_precut",
         "pr_diecutting",
         "pr_diecuttingqty",
@@ -210,6 +212,7 @@ module.exports = {
             { "label": "No", "value": "no" },
             { "label": "Una grapa", "value": "1" },
             { "label": "Dos grapas", "value": "2" },
+            { "label": "Manual", "value": "manual" },
         ], pr_boundoptions: [
             { "label": "No", "value": "no" },
             { "label": "Si", "value": "yes" },

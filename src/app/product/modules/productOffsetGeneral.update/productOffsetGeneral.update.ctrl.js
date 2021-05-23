@@ -5,20 +5,21 @@ module.exports = (function (angular) {
         function ($scope, productOffsetGeneralUpdateFac, $location, i18nFilter, $stateParams) {
             $scope.fmData = {
                 "pr_process": "offset",
-                "pr_type": "general", 
-                "pr_laminate": "no", 
-                "pr_varnish": "no", 
-                "pr_foldunit1": 0, 
-                "pr_foldunit2": 0, 
-                "pr_foldunit3": 0, 
+                "pr_type": "general",
+                "pr_laminate": "no",
+                "pr_varnish": "no",
+                "pr_foldunit1": 0,
+                "pr_foldunit2": 0,
+                "pr_foldunit3": 0,
+                "pr_foldunit4": 0,
                 "pr_precut": "no",
-                "pr_diecuttingqty": "0", 
-                "pr_reinforcement": "no", 
-                "pr_cord": "no", 
-                "pr_wire": "no", 
-                "pr_drill": 0, 
-                "pr_folio": "no", 
-                "pr_blocks": "no", 
+                "pr_diecuttingqty": "0",
+                "pr_reinforcement": "no",
+                "pr_cord": "no",
+                "pr_wire": "no",
+                "pr_drill": 0,
+                "pr_folio": "no",
+                "pr_blocks": "no",
                 "pr_status": "A"
             };
             $scope.fmData.cl_id = +$stateParams.cl_id;
@@ -85,7 +86,7 @@ module.exports = (function (angular) {
                         $scope.fmData.cl_id = data.cl_id
                         $scope.fmData.cl_corporatename = data.cl_corporatename
                         $scope.fmData.pr_id = $stateParams.pr_id
-                        
+
                     }
                     $scope.loading = false;
                 })
