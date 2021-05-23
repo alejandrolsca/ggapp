@@ -256,7 +256,7 @@
   <label class="col-sm-12 fieldset">DOBLEZ</label>
   <gg-select err-class="error"
            lbl="{{'productDigitalGeneral-add.labels.pr-foldunit1' | i18n}}" 
-           form-group-class="col-sm-4" 
+           form-group-class="col-sm-3" 
            options="pr_foldunitoptions" 
            ng-model="fmData.pr_foldunit1"
            regexp="singlespaces"
@@ -266,7 +266,7 @@
   </gg-select>
   <gg-select err-class="error"
            lbl="{{'productDigitalGeneral-add.labels.pr-foldunit2' | i18n}}" 
-           form-group-class="col-sm-4" 
+           form-group-class="col-sm-3" 
            options="pr_foldunitoptions" 
            ng-model="fmData.pr_foldunit2"
            regexp="singlespaces"
@@ -276,9 +276,19 @@
   </gg-select>
   <gg-select err-class="error"
             lbl="{{'productDigitalGeneral-add.labels.pr-foldunit3' | i18n}}" 
-            form-group-class="col-sm-4" 
+            form-group-class="col-sm-3" 
             options="pr_foldunitoptions" 
             ng-model="fmData.pr_foldunit3"
+            regexp="singlespaces"
+            regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
+            req-msg="Required"
+            is-required="true">
+  </gg-select>
+  <gg-select err-class="error"
+            lbl="{{'productDigitalGeneral-add.labels.pr-foldunit4' | i18n}}" 
+            form-group-class="col-sm-3" 
+            options="pr_foldunitoptions" 
+            ng-model="fmData.pr_foldunit4"
             regexp="singlespaces"
             regexp-msg="{{'general.regexp.singlespaces' | i18n}}"
             req-msg="Required"

@@ -6,10 +6,10 @@ module.exports = (function (angular) {
             $scope.fmData = {
                 "pr_process": "digital",
                 "pr_type": "paginated",
-                "pr_spiralbind": "no", 
-                "pr_stapling": "no", 
+                "pr_spiralbind": "no",
+                "pr_stapling": "no",
                 "pr_bound": "no",
-                "pr_folio": "no", 
+                "pr_folio": "no",
                 "pr_status": "A"
             };
             $scope.fmData.cl_id = +$stateParams.cl_id;
@@ -26,7 +26,7 @@ module.exports = (function (angular) {
                 });
             };
 
-            $scope.pr_languageoptions = i18nFilter("productDigitalPaginated-add.fields.pr_languageoptions");            
+            $scope.pr_languageoptions = i18nFilter("productDigitalPaginated-add.fields.pr_languageoptions");
             $scope.pr_finalsizemeasureoptions = i18nFilter("productDigitalPaginated-add.fields.pr_finalsizemeasureoptions");
             $scope.pr_componentsoptions = i18nFilter("productDigitalPaginated-add.fields.pr_componentsoptions");
             $scope.pr_inkfrontoptions = i18nFilter("productDigitalPaginated-add.fields.pr_inkfrontoptions");
@@ -38,7 +38,7 @@ module.exports = (function (angular) {
             $scope.pr_laminatecaliberoptions = i18nFilter("productDigitalPaginated-add.fields.pr_laminatecaliberoptions");
             $scope.pr_foliooptions = i18nFilter("productDigitalPaginated-add.fields.pr_foliooptions");
             $scope.pr_foldunitoptions = i18nFilter("productDigitalPaginated-add.fields.pr_foldunitoptions");
-            $scope.pr_precutoptions = i18nFilter("productDigitalPaginated-add.fields.pr_precutoptions");            
+            $scope.pr_precutoptions = i18nFilter("productDigitalPaginated-add.fields.pr_precutoptions");
             $scope.pr_diecuttingoptions = i18nFilter("productDigitalPaginated-add.fields.pr_diecuttingoptions");
             $scope.pr_reinforcementoptions = i18nFilter("productDigitalPaginated-add.fields.pr_reinforcementoptions");
             $scope.pr_cordoptions = i18nFilter("productDigitalPaginated-add.fields.pr_cordoptions");
@@ -50,15 +50,15 @@ module.exports = (function (angular) {
             $scope.pr_blocksoptions = i18nFilter("productDigitalPaginated-add.fields.pr_blocksoptions");
             $scope.pr_statusoptions = i18nFilter("productDigitalPaginated-add.fields.pr_statusoptions");
             $scope.pr_materialsizemeasureoptions = i18nFilter("productDigitalPaginated-add.fields.pr_materialsizemeasureoptions");
-            
+
             // create components
             $scope.$watch('fmData.pr_components', function (newValue, oldValue) {
-                if(newValue===undefined){
+                if (newValue === undefined) {
                     $scope.components = [];
                     return;
                 }
                 $scope.components = new Array(newValue)
-                
+
                 var componentFields = [
                     'pr_pages',
                     'pr_inkfront',
@@ -82,35 +82,36 @@ module.exports = (function (angular) {
                     'pr_drill'
                 ];
                 var componentDefaults = [
-                    {"field":"pr_varnish", "value":"no"},
-                    {"field": "pr_laminate", "value": "no"},
-                    {"field": "pr_foldunit1", "value": 0},
-                    {"field": "pr_foldunit2", "value": 0},
-                    {"field": "pr_foldunit3", "value": 0},
-                    {"field": "pr_precut", "value": "no"},
-                    {"field": "pr_drill", "value": 0}
+                    { "field": "pr_varnish", "value": "no" },
+                    { "field": "pr_laminate", "value": "no" },
+                    { "field": "pr_foldunit1", "value": 0 },
+                    { "field": "pr_foldunit2", "value": 0 },
+                    { "field": "pr_foldunit3", "value": 0 },
+                    { "field": "pr_foldunit4", "value": 0 },
+                    { "field": "pr_precut", "value": "no" },
+                    { "field": "pr_drill", "value": 0 }
                 ];
                 var index = undefined;
-                for(var i = 8; newValue <= i; --i){
+                for (var i = 8; newValue <= i; --i) {
                     index = i.toString();
-                    angular.forEach(componentFields,function(value,key){
-                        if($scope.fmData[value]) {
-                            if($scope.fmData[value][index]){
+                    angular.forEach(componentFields, function (value, key) {
+                        if ($scope.fmData[value]) {
+                            if ($scope.fmData[value][index]) {
                                 $scope.fmData[value][index] = undefined;
                             }
-                        }                
+                        }
                     })
                 }
-                for(var i = 0; i < newValue; i++){
+                for (var i = 0; i < newValue; i++) {
                     index = i.toString();
-                    angular.forEach(componentDefaults, function(value,key){
-                        if(!$scope.fmData[value.field]){
+                    angular.forEach(componentDefaults, function (value, key) {
+                        if (!$scope.fmData[value.field]) {
                             $scope.fmData[value.field] = {};
-                            if(!$scope.fmData[value.field][index]){
+                            if (!$scope.fmData[value.field][index]) {
                                 $scope.fmData[value.field][index] = value.value;
                             }
                         }
-                        if(!$scope.fmData[value.field][index]){
+                        if (!$scope.fmData[value.field][index]) {
                             $scope.fmData[value.field][index] = value.value;
                         }
                     })
@@ -118,38 +119,38 @@ module.exports = (function (angular) {
             });
 
             $scope.frontInks = {};
-            $scope.$watchCollection('fmData.pr_inkfront',function(newValues,oldValues){
+            $scope.$watchCollection('fmData.pr_inkfront', function (newValues, oldValues) {
                 if ($scope.fmData.pr_inkfront !== undefined) {
-                    angular.forEach(Object.keys(newValues),function(value,key){
+                    angular.forEach(Object.keys(newValues), function (value, key) {
                         $scope.frontInks[value] = new Array($scope.fmData.pr_inkfront[value]);
                         for (var i = $scope.fmData.pr_inkfront[value]; i < 8; i++) {
                             if ($scope.fmData['pr_inksfront']) {
-                                if($scope.fmData['pr_inksfront'][value]){
-                                    if($scope.fmData['pr_inksfront'][value][i]) {
+                                if ($scope.fmData['pr_inksfront'][value]) {
+                                    if ($scope.fmData['pr_inksfront'][value][i]) {
                                         $scope.fmData['pr_inksfront'][value][i] = undefined;
                                     }
                                 }
                             }
                         }
-                    })    
+                    })
                 }
             })
 
             $scope.backInks = {};
-            $scope.$watchCollection('fmData.pr_inkback',function(newValues,oldValues){
+            $scope.$watchCollection('fmData.pr_inkback', function (newValues, oldValues) {
                 if ($scope.fmData.pr_inkback !== undefined) {
-                    angular.forEach(Object.keys(newValues),function(value,key){
+                    angular.forEach(Object.keys(newValues), function (value, key) {
                         $scope.backInks[value] = new Array($scope.fmData.pr_inkback[value]);
                         for (var i = $scope.fmData.pr_inkback[value]; i < 8; i++) {
                             if ($scope.fmData['pr_inksback']) {
-                                if($scope.fmData['pr_inksback'][value]){
-                                    if($scope.fmData['pr_inksback'][value][i]) {
+                                if ($scope.fmData['pr_inksback'][value]) {
+                                    if ($scope.fmData['pr_inksback'][value][i]) {
                                         $scope.fmData['pr_inksback'][value][i] = undefined;
                                     }
                                 }
                             }
                         }
-                    })    
+                    })
                 }
             })
 
@@ -161,7 +162,8 @@ module.exports = (function (angular) {
                     if (angular.isObject(promise.data)) {
                         var client = promise.data[0].cl_jsonb;
                         var cl_type = client.cl_type
-                        $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_firstsurname;                    }
+                        $scope.client = (cl_type === 'legal') ? client.cl_corporatename : client.cl_name + ' ' + client.cl_firstsurname;
+                    }
                 });
 
                 productDigitalPaginatedAddFac.getInks($scope.fmData.pr_process).then(function (promise) {
