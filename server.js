@@ -40,7 +40,8 @@ if (cluster.isMaster) {
         path = require('path'),
         fs = require('fs'),
         fileUpload = require('express-fileupload'),
-        port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000;
+        port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000,
+        axios = require('axios')
     const { Pool, types } = require('pg');
 
     // CREATE REQUIRED FOLDERS
@@ -914,21 +915,115 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
+    async function newWoMessage(wo) {
+        const { wo_id, wo_jsonb, wo_date } = wo
+        const { cl_id, zo_id, pr_id, wo_qty, wo_commitmentdate, wo_notes } = wo_jsonb
+        // note: we don't try/catch this because if connecting throws an exception
+        // we don't need to dispose of the client (it will be undefined)
+        const client = await pool.connect()
+
+        try {
+
+            // set default time zone
+            const timezone = defaultTimezone
+            await client.query(`set timezone = '${timezone}';`)
+            // execute query
+            const query = file('wo/wo:details')
+            const parameters = [wo_id]
+            const { rows } = await client.query(query, parameters)
+            const [details] = rows
+
+            const response = await axios.post(process.env.TEAMS_WEBHOOK,
+                {
+                    "type": "message",
+                    "attachments": [
+                        {
+                            "contentType": "application/vnd.microsoft.teams.card.o365connector",
+                            "content": {
+                                "@type": "MessageCard",
+                                "@context": "http://schema.org/extensions",
+                                "summary": 'Nueva orden de trabajo',
+                                "title": `Nueva orden de trabajo: ${wo_id}`,
+                                "sections": [{
+                                    "activityTitle": `Creada por **@${wo_jsonb.wo_createdby}**`,
+                                    "activitySubtitle": `${wo_date}`,
+                                },
+                                {
+                                    "title": "Detalles",
+                                    "facts": [{
+                                        "name": "Cliente",
+                                        "value": `${cl_id} - ${details.cl_corporatename}`
+                                    }, {
+                                        "name": "Zona",
+                                        "value": `${zo_id} - ${details.zo_zone}`
+                                    }, {
+                                        "name": "Producto",
+                                        "value": `${pr_id} - ${details.pr_name} - ${details.pr_partno}`
+                                    }, {
+                                        "name": "Cantidad",
+                                        "value": wo_qty
+                                    }, {
+                                        "name": "Fecha Compromiso",
+                                        "value": wo_commitmentdate
+                                    }, {
+                                        "name": "Notas",
+                                        "value": wo_notes
+                                    }], "markdown": true
+                                }, {
+                                    "type": "TextBlock",
+                                    "text": `[Ver (localmente)](http://192.168.100.2:3000/wo/view/${cl_id}/${wo_id}) | [Ver (ggapp.dyndns.org)](http://ggapp.dyndns.org/wo/view/${cl_id}/${wo_id})`
+                                }]/*,
+                                "potentialAction": [{
+                                    "@context": "http://schema.org",
+                                    "@type": "ViewAction",
+                                    "name": "Abrir local",
+                                    "target": [
+                                        `http://192.168.100.2:3000/wo/view/${cl_id}/${wo_id}`
+                                    ]
+                                }, {
+                                    "@context": "http://schema.org",
+                                    "@type": "ViewAction",
+                                    "name": "Abrir remoto",
+                                    "target": [
+                                        `http://ggapp.dyndns.org/wo/view/${cl_id}/${wo_id}`
+                                    ]
+                                }]*/
+                            }
+                        }]
+                })
+            if (response.status !== 200) {
+                console.warn('Oops! Something went wrong!', JSON.stringify(response))
+            }
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            client.release()
+
+        }
+    }
+
     app.post('/api/wo/add', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
+            let result = undefined
             try {
                 // execute query
+                const timezone = req.body.timezone || defaultTimezone
+                await client.query(`set timezone = '${timezone}';`)
                 const query = file('wo/wo:add')
                 const parameters = [req.body.wo_jsonb]
-                const result = await client.query(query, parameters)
+                result = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
                 console.log(e)
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
+                //newWoMessage(result)
+                const [wo] = result.rows
+                newWoMessage(wo)
                 client.release()
             }
         })().catch(e => console.error(e.stack))
