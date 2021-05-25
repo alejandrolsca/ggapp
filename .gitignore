@@ -9,3 +9,4 @@ package-lock.json
 log/
 .log
 .env*
+.http
