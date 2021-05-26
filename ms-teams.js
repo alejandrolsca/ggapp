@@ -177,8 +177,8 @@ exports.mstStatusChangeMessage = async (title, woData) => {
                         "content": {
                             "@type": "MessageCard",
                             "@context": "http://schema.org/extensions",
-                            "summary": `Actualizacón de estatus: ${status_label}`,
-                            "title": `Actualizacón de estatus: ${status_label}`,
+                            "summary": `Actualización de estatus: ${status_label}`,
+                            "title": `Actualización de estatus: ${status_label}`,
                             "sections": [
                                 {
                                     "type": "TextBlock",
