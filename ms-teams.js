@@ -160,7 +160,7 @@ exports.mstStatusChangeMessage = async (title, woData) => {
     const updatedOrders = rows.map(value => value.wo_id).join(', ')
 
     const [firstRow] = rows
-    const { wo_status } = firstRow.wo_jsonb
+    const { wo_status, wo_updatedby } = firstRow.wo_jsonb
 
     console.log(wo_status)
     console.log(updatedOrders)
@@ -177,15 +177,15 @@ exports.mstStatusChangeMessage = async (title, woData) => {
                         "content": {
                             "@type": "MessageCard",
                             "@context": "http://schema.org/extensions",
-                            "summary": `Cambio de estatus`,
-                            "title": `Cambio de status`,
+                            "summary": `Actualizacón de status: ${status_label}`,
+                            "title": `Actualizacón de status: ${status_label}`,
                             "sections": [
                                 {
                                     "type": "TextBlock",
                                     "text": `**Numero(s) de orden:** ${updatedOrders}`
                                 }, {
                                     "type": "TextBlock",
-                                    "text": `**Nuevo Estatus:** ${status_label}`
+                                    "text": `**Actualizado por:** ${wo_updatedby}`
                                 }, {
                                     "type": "TextBlock",
                                     "text": `[Abri workflow (localmente)](http://192.168.100.2:3000/workflow) | [Abri workflow (ggapp.dyndns.org)](http://ggapp.dyndns.org/workflow)`
