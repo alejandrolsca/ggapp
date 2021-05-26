@@ -85,12 +85,12 @@ module.exports = (function (angular) {
                     pdfDoc.drawText(`Fecha: `, null, null, timestamp ? boldContinued : bold); pdfDoc.drawText(`${timestamp}`)
                     pdfDoc.drawText(` `)
                     pdfDoc.drawText(`------------------------------------------------------- CLIENTE -----------------------------------------------------------`)
-                    pdfDoc.drawText(`Cliente: `, null, null, data.cl_corporatename ? boldContinued : bold); pdfDoc.drawText(`${data.cl_corporatename || ''}`,null, null, {
+                    pdfDoc.drawText(`Cliente: `, null, null, data.cl_corporatename ? boldContinued : bold); pdfDoc.drawText(`${data.cl_corporatename || ''}`, null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
                         link: `${window.location.origin}/client/update/${data.cl_id}`
                     })
-                    pdfDoc.drawText(`Zona: `, null, null, data.zo_zone ? boldContinued : bold); pdfDoc.drawText(`${data.zo_zone || ''}`,null, null, {
+                    pdfDoc.drawText(`Zona: `, null, null, data.zo_zone ? boldContinued : bold); pdfDoc.drawText(`${data.zo_zone || ''}`, null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
                         link: `${window.location.origin}/zone/update/${data.cl_id}/${data.zo_id}`
@@ -139,7 +139,7 @@ module.exports = (function (angular) {
                         pdfDoc.drawText(`Material Ordenado: `, null, null, wo_jsonb.wo_materialqty ? boldContinued : bold); pdfDoc.drawText(`${wo_jsonb.wo_materialqty || ''}`)
 
                     }
-                    pdfDoc.drawText(`Maquina: `, null, null, data.ma_name ? boldContinued : bold); pdfDoc.drawText(`${data.ma_name || ''}`,null, null, {
+                    pdfDoc.drawText(`Maquina: `, null, null, data.ma_name ? boldContinued : bold); pdfDoc.drawText(`${data.ma_name || ''}`, null, null, {
                         brush: new wijmo.pdf.PdfSolidBrush('Blue'),
                         font: new wijmo.pdf.PdfFont("Helvetica", 10, "normal", "bold"),
                         link: `${window.location.origin}/machine/update/${data.ma_id}`
@@ -235,6 +235,7 @@ module.exports = (function (angular) {
                 }
                 if ($scope.fmData.wo_nextstatus === 18) {
                     workflowFactory.updatecancellation($scope.fmData.wo_nextstatus, userProfile.username, $scope.fmData.wo_cancellationnotes, $scope.wo_id.join(',')).then(function (promise) {
+                        console.log(promise.data)
                         if (promise.data.rowCount >= 1) {
                             $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
                         } else {
@@ -243,6 +244,7 @@ module.exports = (function (angular) {
                     });
                 } else {
                     workflowFactory.update($scope.fmData.wo_nextstatus, userProfile.username, $scope.wo_id.join(',')).then(function (promise) {
+                        console.log(promise.data)
                         if (promise.data.rowCount >= 1) {
                             $scope.fmData.wo_status = $scope.fmData.wo_nextstatus;
                         } else {
@@ -263,7 +265,7 @@ module.exports = (function (angular) {
                 cell.style.backgroundColor = '';
                 cell.style.color = '';
                 // end fix
-                
+
                 if ((panel.cellType == wijmo.grid.CellType.Cell)) {
                     var flex = panel.grid;
                     var col = flex.columns[c];
@@ -335,11 +337,11 @@ module.exports = (function (angular) {
             }
 
             $scope.formatItem = function (s, e, cell) {
-                
+
                 if (e.panel.cellType == wijmo.grid.CellType.RowHeader) {
                     e.cell.textContent = e.row + 1;
                 }
-                
+
                 var col = s.columns[e.col];
                 // add Bootstrap html
             }
