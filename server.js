@@ -43,6 +43,7 @@ if (cluster.isMaster) {
         port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000,
         axios = require('axios')
     const { Pool, types } = require('pg');
+    const { mstWoAddMessage, mstStatusChangeMessage } = require('./ms-teams.js')
 
     // CREATE REQUIRED FOLDERS
     const uploadsFolder = path.join(__dirname, 'uploads')
@@ -915,94 +916,6 @@ if (cluster.isMaster) {
         })().catch(e => console.error(e.stack))
     });
 
-    async function newWoMessage(wo) {
-        const { wo_id, wo_jsonb, wo_date } = wo
-        const { cl_id, zo_id, pr_id, wo_qty, wo_commitmentdate, wo_notes } = wo_jsonb
-        // note: we don't try/catch this because if connecting throws an exception
-        // we don't need to dispose of the client (it will be undefined)
-        const client = await pool.connect()
-
-        try {
-
-            // set default time zone
-            const timezone = defaultTimezone
-            await client.query(`set timezone = '${timezone}';`)
-            // execute query
-            const query = file('wo/wo:details')
-            const parameters = [wo_id]
-            const { rows } = await client.query(query, parameters)
-            const [details] = rows
-
-            const response = await axios.post(process.env.TEAMS_WEBHOOK,
-                {
-                    "type": "message",
-                    "attachments": [
-                        {
-                            "contentType": "application/vnd.microsoft.teams.card.o365connector",
-                            "content": {
-                                "@type": "MessageCard",
-                                "@context": "http://schema.org/extensions",
-                                "summary": 'Nueva orden de trabajo',
-                                "title": `Nueva orden de trabajo: ${wo_id}`,
-                                "sections": [{
-                                    "activityTitle": `Creada por **@${wo_jsonb.wo_createdby}**`,
-                                    "activitySubtitle": `${wo_date}`,
-                                },
-                                {
-                                    "title": "Detalles",
-                                    "facts": [{
-                                        "name": "Cliente",
-                                        "value": `${cl_id} - ${details.cl_corporatename}`
-                                    }, {
-                                        "name": "Zona",
-                                        "value": `${zo_id} - ${details.zo_zone}`
-                                    }, {
-                                        "name": "Producto",
-                                        "value": `${pr_id} - ${details.pr_name} - ${details.pr_partno}`
-                                    }, {
-                                        "name": "Cantidad",
-                                        "value": wo_qty
-                                    }, {
-                                        "name": "Fecha Compromiso",
-                                        "value": wo_commitmentdate
-                                    }, {
-                                        "name": "Notas",
-                                        "value": wo_notes
-                                    }], "markdown": true
-                                }, {
-                                    "type": "TextBlock",
-                                    "text": `[Ver (localmente)](http://192.168.100.2:3000/wo/view/${cl_id}/${wo_id}) | [Ver (ggapp.dyndns.org)](http://ggapp.dyndns.org/wo/view/${cl_id}/${wo_id})`
-                                }]/*,
-                                "potentialAction": [{
-                                    "@context": "http://schema.org",
-                                    "@type": "ViewAction",
-                                    "name": "Abrir local",
-                                    "target": [
-                                        `http://192.168.100.2:3000/wo/view/${cl_id}/${wo_id}`
-                                    ]
-                                }, {
-                                    "@context": "http://schema.org",
-                                    "@type": "ViewAction",
-                                    "name": "Abrir remoto",
-                                    "target": [
-                                        `http://ggapp.dyndns.org/wo/view/${cl_id}/${wo_id}`
-                                    ]
-                                }]*/
-                            }
-                        }]
-                })
-            if (response.status !== 200) {
-                console.warn('Oops! Something went wrong!', JSON.stringify(response))
-            }
-
-        } catch (error) {
-            console.error(error);
-        } finally {
-            client.release()
-
-        }
-    }
-
     app.post('/api/wo/add', function (req, res, next) {
         (async () => {
             // note: we don't try/catch this because if connecting throws an exception
@@ -1021,10 +934,9 @@ if (cluster.isMaster) {
                 console.log(e)
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
-                //newWoMessage(result)
-                const [wo] = result.rows
-                newWoMessage(wo)
                 client.release()
+                const [woData] = result.rows
+                mstWoAddMessage('Nueva orden de trabajo', woData)
             }
         })().catch(e => console.error(e.stack))
     });
@@ -1034,11 +946,12 @@ if (cluster.isMaster) {
             // note: we don't try/catch this because if connecting throws an exception
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
+            let result
             try {
                 await client.query('BEGIN')
                 const query = file('wo/wo:duplicate')
                 const parameters = [req.body.wo_jsonb]
-                const result = await client.query(query, parameters)
+                result = await client.query(query, parameters)
                 const { rows } = result
                 const [row] = rows
                 const { wo_id } = row
@@ -1059,6 +972,8 @@ if (cluster.isMaster) {
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
+                const [woData] = result.rows
+                mstWoAddMessage('Orden de trabajo duplicada', woData)
             }
         })().catch(e => console.error(e.stack))
     });
@@ -1068,6 +983,7 @@ if (cluster.isMaster) {
             // note: we don't try/catch this because if connecting throws an exception
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
+            let splitWoResult
             try {
                 await client.query('BEGIN')
                 // VALIDATE WO
@@ -1101,7 +1017,7 @@ if (cluster.isMaster) {
                 // CREATE A NEW WO
                 const splitWoQuery = file('wo/wo:split')
                 const splitWoParameters = [wo_jsonb]
-                const splitWoResult = await client.query(splitWoQuery, splitWoParameters)
+                splitWoResult = await client.query(splitWoQuery, splitWoParameters)
                 const { rows: splitWoRows } = splitWoResult
                 const [row] = splitWoRows
                 const { wo_id: newID } = row
@@ -1122,6 +1038,8 @@ if (cluster.isMaster) {
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
+                const [woData] = splitWoResult.rows
+                mstWoAddMessage('Nueva orden parcial', woData)
             }
         })().catch(e => console.error(e.stack))
     });
@@ -1131,6 +1049,7 @@ if (cluster.isMaster) {
             // note: we don't try/catch this because if connecting throws an exception
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
+            let result
             try {
                 await client.query('BEGIN')
                 const { us_group, wo_id, wo_jsonb } = req.body
@@ -1146,7 +1065,7 @@ if (cluster.isMaster) {
                 }
                 const updateWoQuery = file('wo/wo:update')
                 const updateWoParameters = [wo_jsonb, wo_id]
-                const result = await client.query(updateWoQuery, updateWoParameters)
+                result = await client.query(updateWoQuery, updateWoParameters)
                 await client.query('COMMIT')
                 res.send(")]}',\n".concat(JSON.stringify(result)));
             } catch (e) {
@@ -1154,6 +1073,8 @@ if (cluster.isMaster) {
                 await client.query('ROLLBACK')
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
+                const [woData] = result.rows
+                mstWoAddMessage('Orden de trabajo actualizada', woData)
                 client.release()
             }
         })().catch(e => console.error(e.stack))
@@ -1466,7 +1387,8 @@ if (cluster.isMaster) {
             // note: we don't try/catch this because if connecting throws an exception
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
-            let result = undefined;
+            let updateStatusResult;
+            let updateDeliveryDateResult;
             try {
                 await client.query('BEGIN')
                 const { wo_status, wo_updatedby, wo_id } = req.body
@@ -1474,17 +1396,18 @@ if (cluster.isMaster) {
                 const updateStatusParameters = [wo_status, wo_updatedby, wo_id]
                 const updateDeliveryDateQuery = file('workflow/workflow:update:wo_deliverydate')
                 const updateDeliveryDateParameters = [wo_id]
-                result = await client.query(updateStatusQuery, updateStatusParameters)
+                updateStatusResult = await client.query(updateStatusQuery, updateStatusParameters)
                 if (wo_status === 17) {
-                    result = await client.query(updateDeliveryDateQuery, updateDeliveryDateParameters)
+                    updateDeliveryDateResult = await client.query(updateDeliveryDateQuery, updateDeliveryDateParameters)
                 }
                 await client.query('COMMIT')
-                res.send(")]}',\n".concat(JSON.stringify(result)));
+                res.send(")]}',\n".concat(JSON.stringify(updateStatusResult)));
             } catch (e) {
                 await client.query('ROLLBACK')
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
+                mstStatusChangeMessage('test', updateStatusResult)
             }
         })().catch(e => console.error(e.stack))
     });
