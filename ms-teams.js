@@ -65,6 +65,20 @@ const getWoDetails = async (woData) => {
     }
 }
 
+const webhookUrls = {
+    finishing: process.env.TEAMS_WEBHOOK_FINISHING,
+    packaging: process.env.TEAMS_WEBHOOK_PACKAGING,
+    problems: process.env.TEAMS_WEBHOOK_PROBLEMS,
+    production_planner: process.env.TEAMS_WEBHOOK_PLANNING,
+    production: process.env.TEAMS_WEBHOOK_PRODUCTION,
+    quality_assurance: process.env.TEAMS_WEBHOOK_QUALITYASSURANCE,
+    warehouse: process.env.TEAMS_WEBHOOK_WAREHOUSE,
+    admin: process.env.TEAMS_WEBHOOK_PROBLEMS //cancellations
+}
+
+const problemStatuses = [4, 6, 9, 15, 16]
+
+
 exports.mstWoAddMessage = async (title, woData) => {
 
     const woWithDetails = await getWoDetails(woData)
@@ -88,67 +102,47 @@ exports.mstWoAddMessage = async (title, woData) => {
         wo_qty,
         wo_status } = woWithDetails
 
-    const { label: status_label } = statuses.find(value => value.value === wo_status)
+    const { label: status_label, us_group } = statuses.find(value => value.value === wo_status)
+
+    const isProblem = problemStatuses.some(problemStatus => problemStatus === wo_status)
 
     const details = [
+        `**Estatus:** ${status_label}\n\n`,
+        `**Cliente ${cl_id}** ${cl_corporatename}\n\n`,
+        `**Zona ${zo_id}** ${zo_zone}\n\n`,
+        `**Producto ${pr_id}** ${pr_name}\n\n`,
+        `${pr_partno ? `**No. parte** ${pr_partno}\n\n` : ''}`,
+        `**Cantidad** ${new Intl.NumberFormat('es-MX').format(wo_qty)}\n\n`,
+        `**Fecha Compromiso** ${wo_commitmentdate}\n\n`,
+        `${wo_notes ? `**Notas** ${wo_notes}\n\n` : ''}`,
+        `${wo_splitnotes ? `**Razón de entrega parcial** ${wo_splitnotes}` : ''}`
+    ].join('')
+
+    const template = {
+        "@type": "MessageCard",
+        "@context": "http://schema.org/extensions",
+        "themeColor": "#009c4d",
+        "summary": `${title}: ${wo_id}`,
+        "title": `${title}: ${wo_id}`,
+        "sections": [{
+            "type": "TextBlock",
+            "text": `Creada por **@${wo_createdby}** ${wo_date.substr(0, 16)} \n\n${(wo_updatedby ? `Últ. actualización **@${wo_updatedby}** ${wo_lastupdated.substr(0, 16)}` : '')}`
+        },
         {
             "type": "TextBlock",
-            "text": `**Cliente ${cl_id}**\n\n${cl_corporatename}`
-        }, {
+            "text": details
+        },
+        {
             "type": "TextBlock",
-            "text": `**Zona ${zo_id}**\n\n${zo_zone}`
-        }, {
-            "type": "TextBlock",
-            "text": `**Producto ${pr_id}**\n\n${pr_name || ''} ${pr_partno ? ` - ${pr_partno}` : ''}`
-        }, {
-            "type": "TextBlock",
-            "text": `**Cantidad** ${new Intl.NumberFormat('es-MX').format(wo_qty)}`
-        }, {
-            "type": "TextBlock",
-            "text": `**Fecha Compromiso** ${wo_commitmentdate}`
-        }, {
-            "type": "TextBlock",
-            "text": `**Notas** ${wo_notes || ''}`
-        }
-    ]
-
-
-    if (wo_splitnotes) details.push({
-        "type": "TextBlock",
-        "text": `Razón de entrega parcial\n\n${wo_splitnotes}`
-    })
+            "text": `[Ver (localmente)](http://192.168.100.2:3000/wo/view/${cl_id}/${wo_id}) | [Ver (ggapp.dyndns.org)](http://ggapp.dyndns.org/wo/view/${cl_id}/${wo_id})`
+        }]
+    }
 
     try {
-        const response = await axios.post(process.env.TEAMS_WEBHOOK,
-            {
-                "type": "message",
-                "attachments": [
-                    {
-                        "contentType": "application/vnd.microsoft.teams.card.o365connector",
-                        "content": {
-                            "@type": "MessageCard",
-                            "@context": "http://schema.org/extensions",
-                            "summary": `${title}: ${wo_id}`,
-                            "title": `${title}: ${wo_id}`,
-                            "sections": [{
-                                "type": "TextBlock",
-                                "text": `Creada por **@${wo_createdby}** ${wo_date.substr(0, 16)} \n\n${(wo_updatedby ? `Últ. actualización **@${wo_updatedby}** ${wo_lastupdated.substr(0, 16)}` : '')}`
-                            }, {
-                                "type": "TextBlock",
-                                "text": `**Status:** ${status_label}`
-                            },
-                            ...details,
-                            {
-                                "type": "TextBlock",
-                                "text": `[Ver (localmente)](http://192.168.100.2:3000/wo/view/${cl_id}/${wo_id}) | [Ver (ggapp.dyndns.org)](http://ggapp.dyndns.org/wo/view/${cl_id}/${wo_id})`
-                            }]
-                        }
-                    }]
-            })
-        if (response.status !== 200) {
-            console.warn('Oops! Something went wrong!', JSON.stringify(response))
+        const responseOne = await axios.post(webhookUrls[us_group], template)
+        if (isProblem) {
+            const responseTwo = await axios.post(webhookUrls['problems'], template)
         }
-
     } catch (error) {
         console.error(error);
     }
@@ -162,41 +156,41 @@ exports.mstStatusChangeMessage = async (title, woData) => {
     const [firstRow] = rows
     const { wo_status, wo_updatedby } = firstRow.wo_jsonb
 
-    console.log(wo_status)
-    console.log(updatedOrders)
+    const { label: status_label, us_group } = statuses.find(value => value.value === wo_status)
 
-    const { label: status_label } = statuses.find(value => value.value === wo_status)
+    const isProblem = problemStatuses.some(problemStatus => problemStatus === wo_status)
 
-    try {
-        const response = await axios.post(process.env.TEAMS_WEBHOOK,
+    const template = {
+        "type": "message",
+        "attachments": [
             {
-                "type": "message",
-                "attachments": [
-                    {
-                        "contentType": "application/vnd.microsoft.teams.card.o365connector",
-                        "content": {
-                            "@type": "MessageCard",
-                            "@context": "http://schema.org/extensions",
-                            "summary": `Actualización de estatus: ${status_label}`,
-                            "title": `Actualización de estatus: ${status_label}`,
-                            "sections": [
-                                {
-                                    "type": "TextBlock",
-                                    "text": `**Numero(s) de orden:** ${updatedOrders}`
-                                }, {
-                                    "type": "TextBlock",
-                                    "text": `**Actualizado por:** ${wo_updatedby}`
-                                }, {
-                                    "type": "TextBlock",
-                                    "text": `[Abri workflow (localmente)](http://192.168.100.2:3000/workflow) | [Abri workflow (ggapp.dyndns.org)](http://ggapp.dyndns.org/workflow)`
-                                }]
+                "contentType": "application/vnd.microsoft.teams.card.o365connector",
+                "content": {
+                    "@type": "MessageCard",
+                    "@context": "http://schema.org/extensions",
+                    "summary": `Actualización de estatus: ${status_label}`,
+                    "title": `Actualización de estatus: ${status_label}`,
+                    "sections": [
+                        {
+                            "type": "TextBlock",
+                            "text": `**Numero(s) de orden:** ${updatedOrders}`
+                        }, {
+                            "type": "TextBlock",
+                            "text": `**Actualizado por:** @${wo_updatedby}`
+                        }, {
+                            "type": "TextBlock",
+                            "text": `[Abri workflow (localmente)](http://192.168.100.2:3000/workflow) | [Abri workflow (ggapp.dyndns.org)](http://ggapp.dyndns.org/workflow)`
                         }
-                    }]
-            })
-        if (response.status !== 200) {
-            console.warn('Oops! Something went wrong!', JSON.stringify(response))
+                    ]
+                }
+            }
+        ]
+    }
+    try {
+        const responseOne = await axios.post(webhookUrls[us_group], template)
+        if (isProblem) {
+            const responseTwo = await axios.post(webhookUrls['problems'], template)
         }
-
     } catch (error) {
         console.error(error);
     }
