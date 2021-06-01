@@ -1407,7 +1407,7 @@ if (cluster.isMaster) {
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
-                mstStatusChangeMessage('test', updateStatusResult)
+                mstStatusChangeMessage(updateStatusResult)
             }
         })().catch(e => console.error(e.stack))
     });
@@ -1431,6 +1431,7 @@ if (cluster.isMaster) {
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
+                mstStatusChangeMessage(updateStatusResult)
             }
         })().catch(e => console.error(e.stack))
     });

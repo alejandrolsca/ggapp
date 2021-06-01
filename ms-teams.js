@@ -106,6 +106,8 @@ exports.mstWoAddMessage = async (title, woData) => {
 
     const isProblem = problemStatuses.some(problemStatus => problemStatus === wo_status)
 
+    const isAdmin = us_group === 'admin' ? true : false
+
     const details = [
         `**Estatus:** ${status_label}\n\n`,
         `**Cliente ${cl_id}** ${cl_corporatename}\n\n`,
@@ -140,7 +142,9 @@ exports.mstWoAddMessage = async (title, woData) => {
     }
 
     try {
-        const responseOne = await axios.post(webhookUrls[us_group], template)
+        if (!isAdmin) {
+            const responseOne = await axios.post(webhookUrls[us_group], template)
+        }
         const responseTwo = await axios.post(webhookUrls['follow_wo'], template)
         if (isProblem) {
             const responseThree = await axios.post(webhookUrls['problems'], template)
@@ -150,7 +154,7 @@ exports.mstWoAddMessage = async (title, woData) => {
     }
 }
 
-exports.mstStatusChangeMessage = async (title, woData) => {
+exports.mstStatusChangeMessage = async (woData) => {
 
     const { rowCount, rows } = woData
     const updatedOrders = rows.map(value => value.wo_id).join(', ')
@@ -161,6 +165,8 @@ exports.mstStatusChangeMessage = async (title, woData) => {
     const { label: status_label, us_group } = statuses.find(value => value.value === wo_status)
 
     const isProblem = problemStatuses.some(problemStatus => problemStatus === wo_status)
+
+    const isAdmin = us_group === 'admin' ? true : false
 
     const isCancellation = wo_status === 18 ? true : false
 
@@ -193,7 +199,9 @@ exports.mstStatusChangeMessage = async (title, woData) => {
         ]
     }
     try {
-        const responseOne = await axios.post(webhookUrls[us_group], template)
+        if (!isAdmin) {
+            const responseOne = await axios.post(webhookUrls[us_group], template)
+        }
         if (isProblem) {
             const responseTwo = await axios.post(webhookUrls['problems'], template)
         }
