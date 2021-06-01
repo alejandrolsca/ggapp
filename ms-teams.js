@@ -73,10 +73,10 @@ const webhookUrls = {
     production: process.env.TEAMS_WEBHOOK_PRODUCTION,
     quality_assurance: process.env.TEAMS_WEBHOOK_QUALITYASSURANCE,
     warehouse: process.env.TEAMS_WEBHOOK_WAREHOUSE,
-    admin: process.env.TEAMS_WEBHOOK_PROBLEMS //cancellations
+    follow_wo: process.env.TEAMS_WEBHOOK_FOLLOWWO
 }
 
-const problemStatuses = [4, 6, 9, 15, 16]
+const problemStatuses = [4, 6, 9, 15, 16, 18]
 
 
 exports.mstWoAddMessage = async (title, woData) => {
@@ -115,7 +115,8 @@ exports.mstWoAddMessage = async (title, woData) => {
         `**Cantidad** ${new Intl.NumberFormat('es-MX').format(wo_qty)}\n\n`,
         `**Fecha Compromiso** ${wo_commitmentdate}\n\n`,
         `${wo_notes ? `**Notas** ${wo_notes}\n\n` : ''}`,
-        `${wo_splitnotes ? `**Razón de entrega parcial** ${wo_splitnotes}` : ''}`
+        `${wo_splitnotes ? `**Razón de entrega parcial** ${wo_splitnotes}` : ''}`,
+        `${wo_cancellationnotes ? `**Notas de cancelación** ${wo_cancellationnotes}` : ''}`
     ].join('')
 
     const template = {
@@ -140,8 +141,9 @@ exports.mstWoAddMessage = async (title, woData) => {
 
     try {
         const responseOne = await axios.post(webhookUrls[us_group], template)
+        const responseTwo = await axios.post(webhookUrls['follow_wo'], template)
         if (isProblem) {
-            const responseTwo = await axios.post(webhookUrls['problems'], template)
+            const responseThree = await axios.post(webhookUrls['problems'], template)
         }
     } catch (error) {
         console.error(error);
@@ -160,6 +162,13 @@ exports.mstStatusChangeMessage = async (title, woData) => {
 
     const isProblem = problemStatuses.some(problemStatus => problemStatus === wo_status)
 
+    const isCancellation = wo_status === 18 ? true : false
+
+    const details = [
+        `**Numero(s) de orden:** ${updatedOrders}\n\n`,
+        `**Actualizado por:** @${wo_updatedby}\n\n`
+    ].join('')
+
     const template = {
         "type": "message",
         "attachments": [
@@ -173,10 +182,7 @@ exports.mstStatusChangeMessage = async (title, woData) => {
                     "sections": [
                         {
                             "type": "TextBlock",
-                            "text": `**Numero(s) de orden:** ${updatedOrders}`
-                        }, {
-                            "type": "TextBlock",
-                            "text": `**Actualizado por:** @${wo_updatedby}`
+                            "text": details
                         }, {
                             "type": "TextBlock",
                             "text": `[Abri workflow (localmente)](http://192.168.100.2:3000/workflow) | [Abri workflow (ggapp.dyndns.org)](http://ggapp.dyndns.org/workflow)`
@@ -190,6 +196,9 @@ exports.mstStatusChangeMessage = async (title, woData) => {
         const responseOne = await axios.post(webhookUrls[us_group], template)
         if (isProblem) {
             const responseTwo = await axios.post(webhookUrls['problems'], template)
+        }
+        if (isCancellation) {
+            const responseThree = await axios.post(webhookUrls['follow_wo'], template)
         }
     } catch (error) {
         console.error(error);
