@@ -43,7 +43,7 @@ if (cluster.isMaster) {
         port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000,
         axios = require('axios')
     const { Pool, types } = require('pg');
-    const { mstWoAddMessage, mstStatusChangeMessage } = require('./ms-teams.js')
+    const { teamsWOCRUDMsg, teamsWOStatusChangeMsg } = require('./ms-teams.js')
 
     // CREATE REQUIRED FOLDERS
     const uploadsFolder = path.join(__dirname, 'uploads')
@@ -98,15 +98,6 @@ if (cluster.isMaster) {
         // by default this is set to 10.
         max: 10
     })
-
-    function pgToString(value) {
-        return value.toString();
-    }
-    types.setTypeParser(1082, pgToString); // date
-    types.setTypeParser(1083, pgToString); // time
-    types.setTypeParser(1114, pgToString); // timestamp
-    types.setTypeParser(1184, pgToString); // timestamptz
-    types.setTypeParser(1266, pgToString); // timetz
 
     // SET DEFAULT TIMEZONE
     const defaultTimezone = process.env.DEFAULT_TIME_ZONE
@@ -936,7 +927,7 @@ if (cluster.isMaster) {
             } finally {
                 client.release()
                 const [woData] = result.rows
-                mstWoAddMessage('Nueva orden de trabajo', woData)
+                teamsWOCRUDMsg('Nueva orden de trabajo', woData)
             }
         })().catch(e => console.error(e.stack))
     });
@@ -973,7 +964,7 @@ if (cluster.isMaster) {
             } finally {
                 client.release()
                 const [woData] = result.rows
-                mstWoAddMessage('Orden de trabajo duplicada', woData)
+                teamsWOCRUDMsg('Orden de trabajo duplicada', woData)
             }
         })().catch(e => console.error(e.stack))
     });
@@ -1039,7 +1030,7 @@ if (cluster.isMaster) {
             } finally {
                 client.release()
                 const [woData] = splitWoResult.rows
-                mstWoAddMessage('Nueva orden parcial', woData)
+                teamsWOCRUDMsg('Nueva orden parcial', woData)
             }
         })().catch(e => console.error(e.stack))
     });
@@ -1074,7 +1065,7 @@ if (cluster.isMaster) {
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 const [woData] = result.rows
-                mstWoAddMessage('Orden de trabajo actualizada', woData)
+                teamsWOCRUDMsg('Orden de trabajo actualizada', woData)
                 client.release()
             }
         })().catch(e => console.error(e.stack))
@@ -1407,7 +1398,7 @@ if (cluster.isMaster) {
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
-                mstStatusChangeMessage(updateStatusResult)
+                teamsWOStatusChangeMsg(updateStatusResult)
             }
         })().catch(e => console.error(e.stack))
     });
@@ -1431,7 +1422,7 @@ if (cluster.isMaster) {
                 return res.status(500).send(JSON.stringify(e.stack, null, 4));
             } finally {
                 client.release()
-                mstStatusChangeMessage(updateStatusResult)
+                teamsWOStatusChangeMsg(updateStatusResult)
             }
         })().catch(e => console.error(e.stack))
     });

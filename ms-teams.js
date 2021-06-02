@@ -66,20 +66,21 @@ const getWoDetails = async (woData) => {
 }
 
 const webhookUrls = {
+    admin: process.env.TEAMS_WEBHOOK_PROBLEMS, // status 18 cancellation
     finishing: process.env.TEAMS_WEBHOOK_FINISHING,
+    follow_wo: process.env.TEAMS_WEBHOOK_FOLLOWWO,
     packaging: process.env.TEAMS_WEBHOOK_PACKAGING,
     problems: process.env.TEAMS_WEBHOOK_PROBLEMS,
     production_planner: process.env.TEAMS_WEBHOOK_PLANNING,
     production: process.env.TEAMS_WEBHOOK_PRODUCTION,
     quality_assurance: process.env.TEAMS_WEBHOOK_QUALITYASSURANCE,
     warehouse: process.env.TEAMS_WEBHOOK_WAREHOUSE,
-    follow_wo: process.env.TEAMS_WEBHOOK_FOLLOWWO
 }
 
-const problemStatuses = [4, 6, 9, 15, 16, 18]
+const problemStatuses = [4, 6, 9, 15, 16]
 
 
-exports.mstWoAddMessage = async (title, woData) => {
+exports.teamsWOCRUDMsg = async (title, woData) => {
 
     const woWithDetails = await getWoDetails(woData)
 
@@ -97,6 +98,7 @@ exports.mstWoAddMessage = async (title, woData) => {
         wo_updatedby,
         wo_lastupdated,
         wo_splitnotes,
+        wo_cancellationnotes,
         wo_date,
         wo_notes,
         wo_qty,
@@ -105,8 +107,6 @@ exports.mstWoAddMessage = async (title, woData) => {
     const { label: status_label, us_group } = statuses.find(value => value.value === wo_status)
 
     const isProblem = problemStatuses.some(problemStatus => problemStatus === wo_status)
-
-    const isAdmin = us_group === 'admin' ? true : false
 
     const details = [
         `**Estatus:** ${status_label}\n\n`,
@@ -142,9 +142,8 @@ exports.mstWoAddMessage = async (title, woData) => {
     }
 
     try {
-        if (!isAdmin) {
-            const responseOne = await axios.post(webhookUrls[us_group], template)
-        }
+
+        const responseOne = await axios.post(webhookUrls[us_group], template)
         const responseTwo = await axios.post(webhookUrls['follow_wo'], template)
         if (isProblem) {
             const responseThree = await axios.post(webhookUrls['problems'], template)
@@ -154,25 +153,24 @@ exports.mstWoAddMessage = async (title, woData) => {
     }
 }
 
-exports.mstStatusChangeMessage = async (woData) => {
+exports.teamsWOStatusChangeMsg = async (woData) => {
 
-    const { rowCount, rows } = woData
+    const { rows } = woData
     const updatedOrders = rows.map(value => value.wo_id).join(', ')
 
     const [firstRow] = rows
-    const { wo_status, wo_updatedby } = firstRow.wo_jsonb
+    const { wo_status, wo_updatedby, wo_cancellationnotes } = firstRow.wo_jsonb
 
     const { label: status_label, us_group } = statuses.find(value => value.value === wo_status)
 
     const isProblem = problemStatuses.some(problemStatus => problemStatus === wo_status)
 
-    const isAdmin = us_group === 'admin' ? true : false
-
     const isCancellation = wo_status === 18 ? true : false
 
     const details = [
         `**Numero(s) de orden:** ${updatedOrders}\n\n`,
-        `**Actualizado por:** @${wo_updatedby}\n\n`
+        `**Actualizado por:** @${wo_updatedby}\n\n`,
+        `${wo_cancellationnotes ? `**Notas de cancelación** ${wo_cancellationnotes}` : ''}`
     ].join('')
 
     const template = {
@@ -191,7 +189,7 @@ exports.mstStatusChangeMessage = async (woData) => {
                             "text": details
                         }, {
                             "type": "TextBlock",
-                            "text": `[Abri workflow (localmente)](http://192.168.100.2:3000/workflow) | [Abri workflow (ggapp.dyndns.org)](http://ggapp.dyndns.org/workflow)`
+                            "text": `[Abrir workflow (localmente)](http://192.168.100.2:3000/workflow) | [Abrir workflow (ggapp.dyndns.org)](http://ggapp.dyndns.org/workflow)`
                         }
                     ]
                 }
@@ -199,9 +197,8 @@ exports.mstStatusChangeMessage = async (woData) => {
         ]
     }
     try {
-        if (!isAdmin) {
-            const responseOne = await axios.post(webhookUrls[us_group], template)
-        }
+
+        const responseOne = await axios.post(webhookUrls[us_group], template)
         if (isProblem) {
             const responseTwo = await axios.post(webhookUrls['problems'], template)
         }
