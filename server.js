@@ -99,9 +99,6 @@ if (cluster.isMaster) {
         max: 10
     })
 
-    // SET DEFAULT TIMEZONE
-    const defaultTimezone = process.env.DEFAULT_TIME_ZONE
-
     //SETUP SQL FILE READER
     const sqlPath = __dirname + '/sql/';
     const file = function (file) {
@@ -131,9 +128,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('client/client:cl_id')
                 const parameters = [req.body.cl_id, req.body.cl_status]
@@ -194,9 +189,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('client/client')
                 const parameters = [req.body.cl_status]
@@ -219,9 +212,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('supplier/supplier:su_id')
                 const parameters = [req.body.su_id]
@@ -282,9 +273,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('supplier/supplier')
                 const parameters = []
@@ -305,9 +294,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('supplier/supplier:su_status')
                 const parameters = [req.body.su_status]
@@ -330,9 +317,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('material/material:mt_id')
                 const parameters = [req.body.mt_id]
@@ -353,9 +338,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('material/materialtype')
                 const parameters = []
@@ -420,9 +403,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('material/material')
                 const parameters = []
@@ -445,9 +426,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('ink/ink:in_id')
                 const parameters = [req.body.in_id]
@@ -508,9 +487,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('ink/ink')
                 const parameters = []
@@ -532,9 +509,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product')
                 const parameters = [req.body.cl_id]
@@ -555,9 +530,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product:info')
                 const parameters = [req.body.pr_id, req.body.pr_status]
@@ -578,9 +551,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product:info:ink')
                 const parameters = [req.body.in_id, req.body.in_status]
@@ -601,9 +572,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product:info:material')
                 const parameters = [req.body.mt_id, req.body.mt_status]
@@ -624,9 +593,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product:cl_id')
                 const parameters = [req.body.cl_id, req.body.pr_status]
@@ -691,9 +658,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product:client')
                 const parameters = [req.body.cl_id]
@@ -714,9 +679,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product:material')
                 const parameters = [req.body.mt_type]
@@ -737,9 +700,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product:ink')
                 const parameters = [req.body.in_type]
@@ -760,9 +721,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('product/product:pr_id')
                 const parameters = [req.body.pr_id]
@@ -784,9 +743,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('wo/wo:cl_id')
                 const parameters = [
@@ -808,9 +765,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('wo/wo:history')
                 const parameters = [req.body.wo_id]
@@ -831,9 +786,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('wo/wo:print')
                 const parameters = [req.body.wo_id]
@@ -867,9 +820,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('wo/wo:wo_id')
                 const parameters = [req.body.cl_id, req.body.wo_id]
@@ -890,9 +841,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('wo/wo:search:wo_id')
                 const parameters = [req.body.wo_id]
@@ -915,8 +864,6 @@ if (cluster.isMaster) {
             let result = undefined
             try {
                 // execute query
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
                 const query = file('wo/wo:add')
                 const parameters = [req.body.wo_jsonb]
                 result = await client.query(query, parameters)
@@ -1078,9 +1025,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('zone/zone:cl_id')
                 const parameters = [req.body.cl_id, req.body.zo_status]
@@ -1101,9 +1046,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('zone/zone:zo_id')
                 const parameters = [req.body.zo_id]
@@ -1164,9 +1107,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('zone/zone')
                 const parameters = []
@@ -1188,9 +1129,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('machine/machine:ma_id')
                 const parameters = [req.body.ma_id]
@@ -1251,9 +1190,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('machine/machine')
                 const parameters = []
@@ -1274,9 +1211,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('machine/machine:ma_process')
                 const parameters = [req.body.ma_process, req.body.ma_status]
@@ -1298,9 +1233,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('workflow/workflow')
                 const parameters = [req.body.wo_status, req.body.interval]
@@ -1476,9 +1409,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('global/geonames:countries')
                 const parameters = []
@@ -1501,9 +1432,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('tariffcode/tariffcode')
                 const parameters = [req.body.tc_status]
@@ -1526,9 +1455,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('shippinglist/shippinglist:cl_id')
                 const parameters = [req.body.cl_id]
@@ -1549,9 +1476,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('shippinglist/client:cl_id')
                 const parameters = [req.body.cl_id, req.body.cl_status]
@@ -1572,9 +1497,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('shippinglist/wo:cl_id:wo_id')
                 const parameters = [req.body.cl_id, req.body.wo_id]
@@ -1595,9 +1518,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('shippinglist/shippinglist:release_invoice')
                 const parameters = [req.body.cl_id, req.body.wo_id, req.body.zo_id]
@@ -1662,9 +1583,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('shippinglist/shippinglist:sl_id')
                 const parameters = [req.body.sl_id]
@@ -1687,9 +1606,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('exportationinvoice/exportationinvoice:cl_id')
                 const parameters = [req.body.cl_id]
@@ -1710,9 +1627,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('exportationinvoice/client:cl_id')
                 const parameters = [req.body.cl_id, req.body.cl_status]
@@ -1733,9 +1648,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('exportationinvoice/wo:cl_id:wo_id')
                 const parameters = [req.body.cl_id, req.body.wo_id]
@@ -1810,9 +1723,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('exportationinvoice/exportationinvoice:ei_id')
                 const parameters = [req.body.ei_id]
@@ -1835,9 +1746,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('printruns/printruns')
                 const parameters = []
@@ -1858,9 +1767,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('printrunsbyuser/printrunsbyuser')
                 const parameters = [req.body.fromDate, req.body.toDate]
@@ -1881,9 +1788,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('printrunsbyuser2/printrunsbyuser2')
                 const parameters = [req.body.fromDate, req.body.toDate]
@@ -1904,9 +1809,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('materialcount/materialcount')
                 const parameters = [req.body.fromDate, req.body.toDate]
@@ -1929,9 +1832,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('earningsbystatus/earningsbystatus:wo_date')
                 const parameters = [req.body.wo_currency, req.body.fromDate, req.body.toDate]
@@ -1952,9 +1853,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('earningsbystatus/earningsbystatus:wo_commitmentdate')
                 const parameters = [req.body.wo_currency, req.body.fromDate, req.body.toDate]
@@ -1975,9 +1874,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('cardinal/art')
                 const parameters = []
@@ -2000,9 +1897,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('dashboard/dashboard:deliveredwo')
                 const parameters = [req.body.fromDate, req.body.toDate]
@@ -2023,9 +1918,7 @@ if (cluster.isMaster) {
             // we don't need to dispose of the client (it will be undefined)
             const client = await pool.connect()
             try {
-                // set default time zone
-                const timezone = req.body.timezone || defaultTimezone
-                await client.query(`set timezone = '${timezone}';`)
+
                 // execute query
                 const query = file('pkglbls/wo:wo_id')
                 const parameters = [req.body.wo_id]
