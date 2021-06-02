@@ -11,7 +11,7 @@ select
 	),0) as notdelivered,
 	COALESCE(sum(
 		case when ((wo.wo_jsonb ? 'wo_deliverydate') = true) 
-			then case when (wo_deliverydate > wo_commitmentdate) 
+			then case when ((wo_deliverydate at time zone 'america/chihuahua')::date > wo_commitmentdate) 
 				then 1 else 0 end
 			else 0 end
 	),0) as latedelivered,
@@ -23,7 +23,7 @@ select
 	else
 	(((COALESCE(sum(
 		case when ((wo.wo_jsonb ? 'wo_deliverydate') = true) 
-			then case when (wo_deliverydate > wo_commitmentdate) 
+			then case when ((wo_deliverydate at time zone 'america/chihuahua')::date > wo_commitmentdate) 
 				then 1 else 0 end
 			else 0 end
 	),0))::numeric * 100) / (COALESCE(sum(
@@ -37,7 +37,7 @@ jsonb_to_record(wo_jsonb) as wjb (
 	pr_id int,
 	wo_status int,
 	wo_commitmentdate date,
-	wo_deliverydate date
+	wo_deliverydate timestamptz
 )
 join product pr
 on wjb.pr_id = pr.pr_id,
