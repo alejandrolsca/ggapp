@@ -1,7 +1,8 @@
 const axios = require('axios');
 const { Pool, types } = require('pg');
 const fs = require('fs');
-const statuses = require('./src/app/workflow/lang.es-MX').fields.wo_statusoptions
+const statuses = require('./src/app/workflow/lang.es-MX').fields.wo_statusoptions;
+const { stringify } = require('querystring');
 
 //SETUP POSTGRESQL
 const pool = new Pool({
@@ -28,9 +29,6 @@ types.setTypeParser(1114, pgToString); // timestamp
 types.setTypeParser(1184, pgToString); // timestamptz
 types.setTypeParser(1266, pgToString); // timetz
 
-// SET DEFAULT TIMEZONE
-const defaultTimezone = process.env.DEFAULT_TIME_ZONE
-
 //SETUP SQL FILE READER
 const sqlPath = __dirname + '/sql/';
 const file = function (file) {
@@ -44,8 +42,6 @@ const getWoDetails = async (woData) => {
     const client = await pool.connect()
 
     try {
-        // set default time zone
-        await client.query(`set timezone = '${defaultTimezone}';`)
         // execute query
         const query = file('wo/wo:details')
         const parameters = [wo_id]
@@ -65,6 +61,23 @@ const getWoDetails = async (woData) => {
     }
 }
 
+function truncateString(str, num) {
+    if (str.length > num) {
+        let subStr = str.substring(0, num);
+        return subStr + "...";
+    } else {
+        return str;
+    }
+}
+
+function groupByKey(array, key) {
+    return array
+        .reduce((hash, obj) => {
+            if (obj[key] === undefined) return hash;
+            return Object.assign(hash, { [obj[key]]: (hash[obj[key]] || []).concat(obj) })
+        }, {})
+}
+
 const webhookUrls = {
     admin: process.env.TEAMS_WEBHOOK_PROBLEMS, // status 18 cancellation
     finishing: process.env.TEAMS_WEBHOOK_FINISHING,
@@ -75,6 +88,7 @@ const webhookUrls = {
     production: process.env.TEAMS_WEBHOOK_PRODUCTION,
     quality_assurance: process.env.TEAMS_WEBHOOK_QUALITYASSURANCE,
     warehouse: process.env.TEAMS_WEBHOOK_WAREHOUSE,
+    testing: process.env.TEAMS_WEBHOOK_TESTING,
 }
 
 const problemStatuses = [4, 6, 9, 15, 16]
@@ -207,5 +221,68 @@ exports.teamsWOStatusChangeMsg = async (woData) => {
         }
     } catch (error) {
         console.error(error);
+    }
+}
+
+exports.teamsDelayedOrdersMsg = async () => {
+    // note: we don't try/catch this because if connecting throws an exception
+    // we don't need to dispose of the client (it will be undefined)
+    const template = (rows = []) => {
+        const rowsByClient = groupByKey(rows, 'cl_corporatename')
+        const clients = Object.keys(rowsByClient)
+        const details = clients.map((client) => {
+            console.log(rowsByClient[client])
+            const clientRows = rowsByClient[client]
+            const rowsDetails = clientRows.map((row) => {
+                return [
+                    `${row.wo_id}`,
+                    `${row.wo_commitmentdate}`,
+                    `${row.delivery_time}`,
+                    //`**Estatus:** ${wo_textstatus}\n\n`,
+                    `${truncateString(row.zo_zone, 50)}`
+                ].join(' | ')
+            })
+            return [
+                `**${truncateString(client, 50)}**\n\n`,
+                `${rowsDetails.join('\n\n')}`
+            ].join('')
+
+        })
+        return {
+            "type": "message",
+            "attachments": [
+                {
+                    "contentType": "application/vnd.microsoft.teams.card.o365connector",
+                    "content": {
+                        "@type": "MessageCard",
+                        "@context": "http://schema.org/extensions",
+                        "summary": `Ordenes retrasadas: ${rows.length}`,
+                        "title": `Ordenes retrasadas: ${rows.length}`,
+                        "sections": [
+                            {
+                                "type": "TextBlock",
+                                "text": details.join('\n\n')
+                            }, {
+                                "type": "TextBlock",
+                                "text": `[Abrir reporte semaforo (localmente)](http://192.168.100.2:3000/tlr-all/) | [Abrir reporte semaforo (ggapp.dyndns.org)](http://ggapp.dyndns.org/tlr-all/)`
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+    const client = await pool.connect()
+    try {
+        // execute query
+        const query = file('cronjobs/cron:delayedorders')
+        const parameters = []
+        const { rows } = await client.query(query, parameters)
+        template(rows)
+        const response = await axios.post(webhookUrls['problems'], template(rows))
+    } catch (e) {
+        console.log(e)
+    } finally {
+        client.release()
     }
 }
