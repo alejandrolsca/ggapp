@@ -278,7 +278,6 @@ exports.teamsDelayedOrdersMsg = async () => {
         const query = file('cronjobs/cron:delayedorders')
         const parameters = []
         const { rows } = await client.query(query, parameters)
-        template(rows)
         const response = await axios.post(webhookUrls['problems'], template(rows))
     } catch (e) {
         console.log(e)
