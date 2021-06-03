@@ -1,5 +1,20 @@
 // Include the cluster module
 const cluster = require('cluster');
+require('custom-env').env(process.env['NODE_ENV']);
+const express = require('express'),
+    jwt = require('express-jwt'),
+    jwksRsa = require('jwks-rsa'),
+    jwtAuthz = require('express-jwt-authz'),
+    bodyParser = require('body-parser'),
+    ConnectHistoryAPIFallback = require('connect-history-api-fallback'),
+    cors = require('cors'),
+    path = require('path'),
+    fs = require('fs'),
+    fileUpload = require('express-fileupload'),
+    port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000,
+    cron = require('node-cron');
+const { Pool, types } = require('pg');
+const { teamsWOCRUDMsg, teamsWOStatusChangeMsg, teamsDelayedOrdersMsg } = require('./ms-teams.js')
 
 // Code to run if we're in the master process
 if (cluster.isMaster) {
@@ -26,25 +41,16 @@ if (cluster.isMaster) {
         cluster.fork();
     });
 
-    // Code to run if we're in a worker process no
-} else {
-    //LOAD NODE MODULES
-    require('custom-env').env(process.env['NODE_ENV']);
-    const express = require('express'),
-        jwt = require('express-jwt'),
-        jwksRsa = require('jwks-rsa'),
-        jwtAuthz = require('express-jwt-authz'),
-        bodyParser = require('body-parser'),
-        ConnectHistoryAPIFallback = require('connect-history-api-fallback'),
-        cors = require('cors'),
-        path = require('path'),
-        fs = require('fs'),
-        fileUpload = require('express-fileupload'),
-        port = (process.env['NODE_ENV'] !== 'production') ? 8080 : 3000,
-        axios = require('axios')
-    const { Pool, types } = require('pg');
-    const { teamsWOCRUDMsg, teamsWOStatusChangeMsg } = require('./ms-teams.js')
+    //SETUP CRON JOBS
 
+    cron.schedule('0 7 * * *', () => {
+        console.log('Running a job at 07:00 at America/Chihuahua timezone');
+        teamsDelayedOrdersMsg()
+    }, {
+        scheduled: true,
+        timezone: "America/Chihuahua"
+    });
+} else {
     // CREATE REQUIRED FOLDERS
     const uploadsFolder = path.join(__dirname, 'uploads')
     if (!fs.existsSync(uploadsFolder)) fs.mkdirSync(uploadsFolder);
@@ -98,6 +104,16 @@ if (cluster.isMaster) {
         // by default this is set to 10.
         max: 10
     })
+
+    function pgToString(value) {
+        return value.toString();
+    }
+
+    types.setTypeParser(1082, pgToString); // date
+    types.setTypeParser(1083, pgToString); // time
+    types.setTypeParser(1114, pgToString); // timestamp
+    types.setTypeParser(1184, pgToString); // timestamptz
+    types.setTypeParser(1266, pgToString); // timetz
 
     //SETUP SQL FILE READER
     const sqlPath = __dirname + '/sql/';
