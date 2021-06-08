@@ -100,14 +100,14 @@ module.exports = {
     "fields": {
         wo_statusoptions: [
             { "label": "Activo", "value": 0, "desc": "Orden Activa", "us_group": "production_planner", "wo_prevstatus": [], "interval": "1 year" },
-            { "label": "En espera de material", "value": 1, "desc": "No hay material en el almacén", "us_group": "warehouse", "wo_prevstatus": [0, 4, 6, 9, 16], "interval": "1 year" },
+            { "label": "En espera de material", "value": 1, "desc": "No hay material en el almacén", "us_group": "warehouse", "wo_prevstatus": [0, 4, 6, 9], "interval": "1 year" },
             { "label": "Material disponible", "value": 2, "desc": "Hay material en el almacén pero aun no se ha iniciado el trabajo", "us_group": "production", "wo_prevstatus": [1], "interval": "1 year" },
             { "label": "En producción", "value": 3, "desc": "En producción", "us_group": "production", "wo_prevstatus": [2, 4], "interval": "1 year" },
             { "label": "Detenido en Producción", "value": 4, "desc": "La orden se detuvo en producción", "us_group": "production", "wo_prevstatus": [3], "interval": "1 year" },
             { "label": "Acabados", "value": 5, "desc": "Procesando Acabados", "us_group": "finishing", "wo_prevstatus": [3, 6, 7], "interval": "1 year" },
             { "label": "Detenido en Acabados", "value": 6, "desc": "La orden se detuvo en producción", "us_group": "finishing", "wo_prevstatus": [5], "interval": "1 year" },
             { "label": "Terminado", "value": 7, "desc": "Terminado en producción", "us_group": "quality_assurance", "wo_prevstatus": [3, 5], "interval": "1 year" },
-            { "label": "Departamento de calidad", "value": 8, "desc": "Inspeccion de calidad en proceso", "us_group": "quality_assurance", "wo_prevstatus": [2, 7], "interval": "1 year" },
+            { "label": "Departamento de calidad", "value": 8, "desc": "Inspeccion de calidad en proceso", "us_group": "quality_assurance", "wo_prevstatus": [2, 7, 16], "interval": "1 year" },
             { "label": "Rechazado por calidad", "value": 9, "desc": "Rechazado por calidad", "us_group": "warehouse", "wo_prevstatus": [8], "interval": "1 year" },
             { "label": "Aprobado por calidad", "value": 10, "desc": "Aprobado por calidad", "us_group": "packaging", "wo_prevstatus": [8], "interval": "1 year" },
             { "label": "Empaque e Inspección Final", "value": 11, "desc": "En proceso de empaque e inspección Final", "us_group": "packaging", "wo_prevstatus": [10], "interval": "1 year" },
