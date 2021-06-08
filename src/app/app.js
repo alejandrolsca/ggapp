@@ -1,4 +1,4 @@
-module.exports = (function(angular) {
+module.exports = (function (angular) {
   "use strict";
 
   return angular
@@ -39,7 +39,8 @@ module.exports = (function(angular) {
       require("./package-labels").name,
       require("./earnings-by-status").name,
       require("./material-count").name,
-      require("./cardinal-art").name
+      require("./cardinal-art").name,
+      require("./machines-productivity").name
     ])
 
     .service("authService", ["$rootScope", "$state", "angularAuth0", "$timeout", "$http",
@@ -49,11 +50,11 @@ module.exports = (function(angular) {
         }
 
         function handleAuthentication() {
-          angularAuth0.parseHash(function(err, authResult) {
+          angularAuth0.parseHash(function (err, authResult) {
             if (authResult && authResult.accessToken && authResult.idToken) {
-              setSession(authResult);              
+              setSession(authResult);
             } else if (err) {
-              $timeout(function() {
+              $timeout(function () {
                 $state.go("login");
               });
             }
@@ -70,7 +71,7 @@ module.exports = (function(angular) {
           localStorage.setItem("id_token", authResult.idToken);
           localStorage.setItem("expires_at", expiresAt);
           scheduleTimeout();
-          getProfile(function(err, profile) {
+          getProfile(function (err, profile) {
             const isCardinalUser = profile.us_group.includes('cardinal')
             isCardinalUser ? $state.go("cardinalArt") : $state.go("home");
             if (err) {
@@ -97,15 +98,15 @@ module.exports = (function(angular) {
           var delay = expiresAt - Date.now();
           if (delay > 0) {
             console.info('sessionTimeoutStart')
-            sessionTimeout = setTimeout(function() {
+            sessionTimeout = setTimeout(function () {
               console.info('sessionTimeoutEnd')
               logout();
             }, delay);
           }
         }
 
-        function getExpiration(){
-            return sessionExpiresAt;
+        function getExpiration() {
+          return sessionExpiresAt;
         }
 
         function isAuthenticated() {
@@ -122,7 +123,7 @@ module.exports = (function(angular) {
           if (!accessToken) {
             throw new Error("Access Token must exist to fetch profile");
           }
-          angularAuth0.client.userInfo(accessToken, async function(
+          angularAuth0.client.userInfo(accessToken, async function (
             err,
             profile
           ) {
@@ -174,47 +175,47 @@ module.exports = (function(angular) {
         };
       }
     ])
-    .service("notyf",[function notyf(){
+    .service("notyf", [function notyf() {
       var notyf = new Notyf({
-          duration: 5000,
-          types: [
-              {
-                type: "error",
-                duration: 5000,
-                className: "notyf-error"
-              },
-              {
-                type: 'success',
-                duration: 5000,
-                className: "notyf-success",
-              },
-              {
-                type: 'warning',
-                duration: 5000,
-                className: "notyf-warning",
-                icon: {
-                  className: 'glyphicon glyphicon-alert',
-                  tagName: 'i',
-                  text: ''
-                }
-              },
-              {
-                type: 'info',
-                duration: 5000,
-                className: "notyf-info",
-                icon: {
-                  className: 'glyphicon glyphicon-exclamation-sign',
-                  tagName: 'i',
-                  text: ''
-                }
-              }
-          ]
+        duration: 5000,
+        types: [
+          {
+            type: "error",
+            duration: 5000,
+            className: "notyf-error"
+          },
+          {
+            type: 'success',
+            duration: 5000,
+            className: "notyf-success",
+          },
+          {
+            type: 'warning',
+            duration: 5000,
+            className: "notyf-warning",
+            icon: {
+              className: 'glyphicon glyphicon-alert',
+              tagName: 'i',
+              text: ''
+            }
+          },
+          {
+            type: 'info',
+            duration: 5000,
+            className: "notyf-info",
+            icon: {
+              className: 'glyphicon glyphicon-exclamation-sign',
+              tagName: 'i',
+              text: ''
+            }
+          }
+        ]
       });
       return notyf
 
     }])
-    .config(["$locationProvider","$stateProvider","$urlRouterProvider","angularAuth0Provider","$httpProvider","jwtOptionsProvider","jwtInterceptorProvider",
-    function($locationProvider,$stateProvider,$urlRouterProvider,angularAuth0Provider,$httpProvider,jwtOptionsProvider,jwtInterceptorProvider) {
+    .config(["$locationProvider", "$stateProvider", "$urlRouterProvider", "angularAuth0Provider", "$httpProvider", "jwtOptionsProvider", "jwtInterceptorProvider",
+      function ($locationProvider, $stateProvider, $urlRouterProvider, angularAuth0Provider, $httpProvider, jwtOptionsProvider, jwtInterceptorProvider) {
         var ggauthlogo = require("../static/img/ggauth-logo.png");
 
         // Initialization for the angular-auth0 library
@@ -231,11 +232,11 @@ module.exports = (function(angular) {
           loginPath: "/home",
           unauthenticatedRedirector: [
             "$state",
-            function($state) {
+            function ($state) {
               $state.go("login");
             }
           ],
-          tokenGetter: function() {
+          tokenGetter: function () {
             return localStorage.getItem("id_token");
           },
           whiteListedDomains: []
@@ -261,9 +262,9 @@ module.exports = (function(angular) {
       }
     ])
 
-    .run(["$rootScope","authService","authManager","$location","jwtHelper","$state","appFac",
-    function($rootScope,authService,authManager,$location,jwtHelper,$state,appFac) {
-        $rootScope.$on("$stateChangeStart", function(event,toState,toStateParams) {
+    .run(["$rootScope", "authService", "authManager", "$location", "jwtHelper", "$state", "appFac",
+      function ($rootScope, authService, authManager, $location, jwtHelper, $state, appFac) {
+        $rootScope.$on("$stateChangeStart", function (event, toState, toStateParams) {
           // Check if current user has group access
           if (authService.isAuthenticated()) {
             if (!!toState.data.requiresLogin) {

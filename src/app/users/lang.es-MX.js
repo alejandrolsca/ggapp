@@ -27,7 +27,8 @@ module.exports = {
             { "label": "production_planner", "value": "production_planner" },
             { "label": "finishing", "value": "finishing" },
             { "label": "quality_assurance", "value": "quality_assurance" },
-            { "label": "packaging", "value": "packaging" }
+            { "label": "packaging", "value": "packaging" },
+            { "label": "logistics", "value": "logistics" }
         ]
     }
 }

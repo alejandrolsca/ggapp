@@ -35,13 +35,13 @@
               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">REPORTES <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a ui-sref="tlrAll">REPORTE SEMAFORO</a></li>
-                <li ng-if="authService.userHasRole(['admin'])"><a ui-sref="printruns" target="_blank">TIRAJES</a></li>                
+                <li ng-if="authService.userHasRole(['admin'])"><a ui-sref="machinesProductivity" target="_blank">PRODUCTIVIDAD DE LAS MAQUINAS</a></li>               
+                <li ng-if="authService.userHasRole(['admin'])"><a ui-sref="printruns" target="_blank">TIRAJES</a></li>               
                 <li ng-if="authService.userHasRole(['owner','admin_support'])"><a ui-sref="printrunsByUser" target="_blank">TIRAJES POR USUARIO</a></li>                
                 <li ng-if="authService.userHasRole(['owner','admin_support'])"><a ui-sref="printrunsByUser2" target="_blank">TIRAJES POR USUARIO (PRODUCCIÓN)</a></li>                
                 <li ng-if="authService.userHasRole(['owner','admin_support'])"><a ui-sref="materialCount" target="_blank">RECUENTO DE MATERIAL</a></li>                
                 <li ng-if="authService.userHasRole(['owner'])"><a ui-sref="earningsByStatus" target="_blank">GANANCIAS POR ESTATUS</a></li>                
                 <li><a ui-sref="packageLabels" target="_blank">ETIQUETAS DE EMPAQUE</a></li>                
-                <li><a ui-sref="woGenerator">GENERADOR DE ORDENES</a></li>
               </ul>
             </li>
             <li class="dropdown">
