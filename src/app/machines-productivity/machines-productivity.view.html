@@ -1,0 +1,28 @@
+<div class="col-sm-12">
+    <h3>{{'machines-productivity.title' | i18n}}</h3>
+    <span ng-if="loading">Cargando...</span>
+</div>
+<div class="col-sm-12">
+    <div class="row">
+        <div class="form-group col-sm-2">
+            <label class=" control-label">Mes <span class="glyphicon glyphicon-asterisk ng-hide" aria-hidden="true" ng-show="required"></span></label>
+            <div class=""><div class="datepicker form-control" id="fromDate"></div></div>
+        </div>
+    </div>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default btn-xs" ng-click="ggGrid.collapseGroupsToLevel(1)"><span class="glyphicon glyphicon-collapse-down"></span> Expandir</button>
+        <button type="button" class="btn btn-default btn-xs" ng-click="ggGrid.collapseGroupsToLevel(0)"><span class="glyphicon glyphicon-collapse-up"></span> Colapsar</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="exportXLS()"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> XLS</button>
+      </div><br><br>
+    <wj-flex-grid 
+      control="ggGrid" 
+      items-source="data" 
+      auto-generate-columns="false" 
+      initialized="initGrid(s,e)" 
+      item-formatter="itemFormatter"
+      allow-sorting="true" 
+      show-sort="true" 
+      style="height:390px;">
+      <wj-flex-grid-filter></wj-flex-grid-filter>
+    </wj-flex-grid>
+</div>

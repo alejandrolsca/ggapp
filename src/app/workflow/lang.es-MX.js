@@ -112,11 +112,11 @@ module.exports = {
             { "label": "Aprobado por calidad", "value": 10, "desc": "Aprobado por calidad", "us_group": "packaging", "wo_prevstatus": [8], "interval": "1 year" },
             { "label": "Empaque e Inspección Final", "value": 11, "desc": "En proceso de empaque e inspección Final", "us_group": "packaging", "wo_prevstatus": [10], "interval": "1 year" },
             { "label": "Producto terminado", "value": 12, "desc": "Producto terminado", "us_group": "packaging", "wo_prevstatus": [11], "interval": "1 year" },
-            { "label": "Facturación/Lista de Embarque", "value": 13, "desc": "Facturado", "us_group": "warehouse", "wo_prevstatus": [12], "interval": "1 year" },
-            { "label": "Enviado", "value": 14, "desc": "Los articulos fueron enviados", "us_group": "warehouse", "wo_prevstatus": [13], "interval": "1 year" },
-            { "label": "No se pudo entregar", "value": 15, "desc": "El producto no se pudo entregar", "us_group": "warehouse", "wo_prevstatus": [14], "interval": "1 year" },
-            { "label": "Rechazado por el cliente", "value": 16, "desc": "El producto fue rechazado por el cliente", "us_group": "warehouse", "wo_prevstatus": [14, 15], "interval": "1 year" },
-            { "label": "Entregado", "value": 17, "desc": "El producto se entrego al cliente con éxito", "us_group": "warehouse", "wo_prevstatus": [14, 15], "interval": "1 year" },
+            { "label": "Facturación/Lista de Embarque", "value": 13, "desc": "Facturado", "us_group": "logistics", "wo_prevstatus": [12], "interval": "1 year" },
+            { "label": "Enviado", "value": 14, "desc": "Los articulos fueron enviados", "us_group": "logistics", "wo_prevstatus": [13], "interval": "1 year" },
+            { "label": "No se pudo entregar", "value": 15, "desc": "El producto no se pudo entregar", "us_group": "logistics", "wo_prevstatus": [14], "interval": "1 year" },
+            { "label": "Rechazado por el cliente", "value": 16, "desc": "El producto fue rechazado por el cliente", "us_group": "quality_assurance", "wo_prevstatus": [14, 15], "interval": "1 year" },
+            { "label": "Entregado", "value": 17, "desc": "El producto se entrego al cliente con éxito", "us_group": "logistics", "wo_prevstatus": [14, 15], "interval": "1 year" },
             { "label": "Cancelada", "value": 18, "desc": "La orden de trabajo fue cancelada", "us_group": "admin", "wo_prevstatus": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], "interval": "1 year" }
         ]
     }

@@ -245,5 +245,9 @@ module.exports = {
     /****************************************
     CARDINAL
     ****************************************/
-    "cardinal-art": require('./cardinal-art/lang.es-MX')
+    "cardinal-art": require('./cardinal-art/lang.es-MX'),
+    /****************************************
+    CARDINAL
+    ****************************************/
+    "machines-productivity": require('./machines-productivity/lang.es-MX')
 }
