@@ -1,31 +1,25 @@
-module.exports = (function(angular){
+module.exports = (function (angular) {
     'use strict';
-    
-    return angular.module('app.user.profile',[])
 
-    .config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('userProfile', {
-            url:'/user/profile',
-            template: require('./user.profile.view.html'),
-            controller : 'userProfileCtrl',
-            data: {
-                requiresLogin: true,
-                roles: [
-                    'owner',
-                    'admin',
-                    'finishing',
-                    'packaging',
-                    'production',
-                    'quality_assurance',
-                    'sales',
-                    'warehouse',
-                    'cardinal'
-                ]
-            }    
-        });
-    }])
+    return angular.module('app.user.profile', ['app.constants'])
 
-    .controller('userProfileCtrl',require('./user.profile.ctrl'))
-    
+        .config(['$stateProvider', '$urlRouterProvider', 'roles',
+            function ($stateProvider, $urlRouterProvider, roles) {
+                const allRoles = roles.map(roles => roles.value)
+                $stateProvider.state('userProfile', {
+                    url: '/user/profile',
+                    template: require('./user.profile.view.html'),
+                    controller: 'userProfileCtrl',
+                    data: {
+                        requiresLogin: true,
+                        roles: [
+                            ...allRoles,
+                            'cardinal'
+                        ]
+                    }
+                });
+            }])
+
+        .controller('userProfileCtrl', require('./user.profile.ctrl'))
+
 })(angular);

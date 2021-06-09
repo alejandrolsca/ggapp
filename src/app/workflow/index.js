@@ -2,10 +2,12 @@ module.exports = (function (angular) {
     'use strict';
 
     return angular.module('app.workflow', [
+        'app.constants'
     ])
 
-        .config(['$stateProvider', '$urlRouterProvider',
-            function ($stateProvider, $urlRouterProvider) {
+        .config(['$stateProvider', '$urlRouterProvider', 'roles',
+            function ($stateProvider, $urlRouterProvider, roles) {
+                const allRoles = roles.map(roles => roles.value)
                 $stateProvider.state('workflow', {
                     url: '/workflow',
                     template: require('./workflow.view.html'),
@@ -13,13 +15,7 @@ module.exports = (function (angular) {
                     data: {
                         requiresLogin: true,
                         roles: [
-                            'admin',
-                            'finishing',
-                            'packaging',
-                            'production',
-                            'quality_assurance',
-                            'sales',
-                            'warehouse'
+                            ...allRoles
                         ]
                     }
                 });
