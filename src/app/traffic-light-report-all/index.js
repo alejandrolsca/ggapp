@@ -1,32 +1,28 @@
-module.exports = (function(angular){
+module.exports = (function (angular) {
     'use strict';
-    
-    return angular.module('app.tlrAll',[
+
+    return angular.module('app.tlrAll', [
+        'app.constants'
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('tlrAll', {
-            url:'/tlr-all/',
-            template: require('./traffic-light-report-all.view.html'),
-            controller : 'tlrAllController',
-            data: {
-                requiresLogin: true,
-                roles: [
-                    'admin',
-                    'finishing',
-                    'packaging',
-                    'production',
-                    'quality_assurance',
-                    'sales',
-                    'warehouse'
-                ]
-            }    
-        });
-    }])
+        .config(['$stateProvider', '$urlRouterProvider', 'roles',
+            function ($stateProvider, $urlRouterProvider, roles) {
+                const allRoles = roles.map(roles => roles.value)
+                $stateProvider.state('tlrAll', {
+                    url: '/tlr-all/',
+                    template: require('./traffic-light-report-all.view.html'),
+                    controller: 'tlrAllController',
+                    data: {
+                        requiresLogin: true,
+                        roles: [
+                            ...allRoles
+                        ]
+                    }
+                });
+            }])
 
-    .factory('tlrAllFactory',require('./traffic-light-report-all.fac'))
+        .factory('tlrAllFactory', require('./traffic-light-report-all.fac'))
 
-    .controller('tlrAllController',require('./traffic-light-report-all.ctrl'))
+        .controller('tlrAllController', require('./traffic-light-report-all.ctrl'))
 
 })(angular);

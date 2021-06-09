@@ -1,11 +1,11 @@
 module.exports = (function (angular) {
     'use strict';
 
-    return ['$scope', 'usersUpdateFac', '$location', 'i18nFilter', 'notyf',
-        function ($scope, usersUpdateFac, $location, i18nFilter, notyf) {
+    return ['$scope', 'usersUpdateFac', '$location', 'i18nFilter', 'notyf', 'roles',
+        function ($scope, usersUpdateFac, $location, i18nFilter, notyf, roles) {
 
             $scope.onSubmit = function () {
-                const {app_metadata} = $scope.fmData
+                const { app_metadata } = $scope.fmData
                 const data = {
                     app_metadata
                 }
@@ -22,7 +22,7 @@ module.exports = (function (angular) {
                 });
             };
 
-            $scope.us_groupoptions = i18nFilter("users.fields.us_groupoptions");
+            $scope.us_groupoptions = roles;
 
             $scope.$on('$viewContentLoaded', function () {
                 // this code is executed after the view is loaded

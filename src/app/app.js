@@ -40,7 +40,8 @@ module.exports = (function (angular) {
       require("./earnings-by-status").name,
       require("./material-count").name,
       require("./cardinal-art").name,
-      require("./machines-productivity").name
+      require("./machines-productivity").name,
+      require("./app.constants").name
     ])
 
     .service("authService", ["$rootScope", "$state", "angularAuth0", "$timeout", "$http",
