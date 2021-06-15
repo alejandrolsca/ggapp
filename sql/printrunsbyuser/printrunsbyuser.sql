@@ -141,7 +141,7 @@ from (
 ) printruns
 left join machine ma
 on printruns.ma_id = ma.ma_id
-join (
+left join (
 	select 
 		wohi.wo_id,
 		njb.wo_updatedby
