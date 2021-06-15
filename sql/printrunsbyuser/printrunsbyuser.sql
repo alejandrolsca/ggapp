@@ -1,17 +1,10 @@
 select
 	printruns.wo_id,
-	case
-		when cl.cl_jsonb->>'cl_type' = 'natural' 
-			then ((cl.cl_jsonb->>'cl_name') || ' ' || (cl.cl_jsonb->>'cl_firstsurname') || ' ' || coalesce(cl.cl_jsonb->>'cl_secondsurname',''))
-		else cl.cl_jsonb->>'cl_corporatename'
-	end as cl_corporatename,
 	printruns.wo_qty,
 	printruns.wo_price,
+	printruns.wo_currency,
 	(printruns.wo_qty * printruns.wo_price) as wo_total,
-	printruns.ma_id,
-	printruns.pr_name,
-	printruns.pr_partno,
-	printruns.pr_code,
+	printruns.pr_process,
 	wohi.wo_updatedby,
 	ma.ma_jsonb->>'ma_name' ma_name,
 	(
@@ -35,12 +28,10 @@ select
 		)
 		end 
 	) print_runs,
-	printruns.wo_status,
-	to_char((printruns.wo_deliverydate at time zone 'america/chihuahua'),'YYYY-MM-DD HH24:MI:SS') as wo_deliverydate
+	printruns.wo_status
 from (
 	select
 		wo_id,
-		wo_jsonb.cl_id,
 		wo_jsonb.ma_id,
 		ma_totalinks,
 		case
@@ -114,32 +105,26 @@ from (
 		(wo_componentmaterialqty->>'8')::numeric materialc9,
 		wo_qty,
 		wo_price,
-		pr_name,
-		pr_partno,
-		pr_code,
+		wo_currency,
 		pr_process,
 		pr_type,
 		wo_status,
-		wo_jsonb.wo_deliverydate,
-		wo_date
+		wo_jsonb.wo_deliverydate
 	from 
 		wo wo,
 		jsonb_to_record(wo_jsonb) as wo_jsonb (
-			cl_id int,
 			pr_id int,
 			ma_id int,
 			wo_status int,
 			wo_qty numeric,
 			wo_price numeric,
+			wo_currency text,
 			wo_materialqty numeric,
 			wo_componentmaterialqty jsonb,
 			wo_deliverydate timestamptz
 		), 
 		product pr, 
 		jsonb_to_record(pr_jsonb) as pr_jsonb (
-			pr_name text,
-			pr_partno text,
-			pr_code text,
 			pr_inkfront jsonb,
 			pr_inkback jsonb,
 			pr_process text,
@@ -184,7 +169,5 @@ join (
 	delivered.wo_id = wohi.wo_id
 ) wohi
 on printruns.wo_id = wohi.wo_id
-left join client cl
-on printruns.cl_id = cl.cl_id
 where printruns.wo_deliverydate between $1 and $2
 order by wo_updatedby, wo_id desc

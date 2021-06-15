@@ -108,8 +108,17 @@ module.exports = (function (angular) {
                 printrunsByUserFac.data(fromDate, toDate).then(function (promise) {
                     $scope.loading = false;
                     if (angular.isArray(promise.data)) {
-                        $scope.data = new wijmo.collections.CollectionView(promise.data);
-                        $timeout(function () {
+                        promise.data.map((item) => {
+                            item.print_runs = +item.print_runs //convert string to number
+                            item.wo_qty = +item.wo_qty //convert string to number
+                            item.wo_price = +item.wo_price //convert string to number
+                            item.wo_total = +item.wo_total //convert string to number
+                            return item
+                        })
+                        $scope.data = new wijmo.collections.CollectionView(promise.data, {
+                            groupDescriptions: ['pr_process', 'wo_updatedby', 'wo_currency']
+                        });
+                        /*$timeout(function () {
                             $scope.groupBy = '';
                             var cv = $scope.data;
                             cv.groupDescriptions.clear(); // clear current groups
@@ -121,7 +130,7 @@ module.exports = (function (angular) {
                                 return item.wo_updatedby
                             });
                             cv.groupDescriptions.push(groupDesc);
-                        }, 100)
+                        }, 100)*/
                     }
                 });
             }
