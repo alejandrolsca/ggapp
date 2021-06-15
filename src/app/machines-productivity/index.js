@@ -13,7 +13,7 @@ module.exports = (function (angular) {
                     data: {
                         requiresLogin: true,
                         roles: [
-                            'owner',
+                            'admin',
                             'admin_support'
                         ]
                     }

@@ -1,27 +1,28 @@
-module.exports = (function(angular){
+module.exports = (function (angular) {
     'use strict';
-    
-    return angular.module('app.packageLabels',[])
 
-    .config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('packageLabels', {
-            url:'/pkg-lbls/:cl_id',
-            template: require('./package-labels.view.html'),
-            controller : 'packageLabelsCtrl',
-            data: {
-                requiresLogin: true,
-                roles: [
-                    'admin',
-                    'finishing',
-                    'packaging'
-                ]
-            }    
-        });
-    }])
+    return angular.module('app.packageLabels', [])
 
-    .factory('packageLabelsFac',require('./package-labels.fac'))
+        .config(['$stateProvider', '$urlRouterProvider',
+            function ($stateProvider, $urlRouterProvider) {
+                $stateProvider.state('packageLabels', {
+                    url: '/pkg-lbls/:cl_id',
+                    template: require('./package-labels.view.html'),
+                    controller: 'packageLabelsCtrl',
+                    data: {
+                        requiresLogin: true,
+                        roles: [
+                            'admin',
+                            'admin_support',
+                            'finishing',
+                            'packaging'
+                        ]
+                    }
+                });
+            }])
 
-    .controller('packageLabelsCtrl',require('./package-labels.ctrl'))
+        .factory('packageLabelsFac', require('./package-labels.fac'))
+
+        .controller('packageLabelsCtrl', require('./package-labels.ctrl'))
 
 })(angular);
