@@ -1,27 +1,27 @@
-module.exports = (function(angular){
+module.exports = (function (angular) {
     'use strict';
-    
-    return angular.module('app.printrunsByUser',[
+
+    return angular.module('app.printrunsByUser', [
     ])
 
-    .config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('printrunsByUser', {
-            url:'/printrunsbyuser',
-            template: require('./printruns-by-user.view.html'),
-            controller : 'printrunsByUserCtrl',
-            data: {
-                requiresLogin: true,
-                roles: [
-                    'owner',
-                    'admin_support'
-                ]
-            }    
-        });
-    }])
+        .config(['$stateProvider', '$urlRouterProvider',
+            function ($stateProvider, $urlRouterProvider) {
+                $stateProvider.state('printrunsByUser', {
+                    url: '/printrunsbyuser',
+                    template: require('./printruns-by-user.view.html'),
+                    controller: 'printrunsByUserCtrl',
+                    data: {
+                        requiresLogin: true,
+                        roles: [
+                            'admin',
+                            'admin_support'
+                        ]
+                    }
+                });
+            }])
 
-    .factory('printrunsByUserFac',require('./printruns-by-user.fac'))
+        .factory('printrunsByUserFac', require('./printruns-by-user.fac'))
 
-    .controller('printrunsByUserCtrl',require('./printruns-by-user.ctrl'))
-    
+        .controller('printrunsByUserCtrl', require('./printruns-by-user.ctrl'))
+
 })(angular);
