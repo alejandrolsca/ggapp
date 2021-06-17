@@ -6,7 +6,7 @@ select
 	(printruns.wo_qty * printruns.wo_price) as wo_total,
 	printruns.pr_process,
 	wohi.wo_updatedby,
-	ma.ma_jsonb->>'ma_name' ma_name,
+	printruns.ma_name,
 	(
 		case 
 		when components = false
@@ -32,7 +32,7 @@ select
 from (
 	select
 		wo_id,
-		wo_jsonb.ma_id,
+		ma_jsonb.ma_name,
 		ma_totalinks,
 		case
 		when pr_jsonb ? 'pr_components'
@@ -131,6 +131,7 @@ from (
 			pr_type text
 		),
 		machine ma, jsonb_to_record(ma_jsonb) as ma_jsonb (
+			ma_name text,
 			ma_totalinks numeric
 		)
 	where wo_jsonb.pr_id = pr.pr_id
@@ -139,34 +140,24 @@ from (
 	and pr_jsonb.pr_process in ('offset', 'digital', 'flexo')
 	and pr_jsonb.pr_type not in ('ribbons')
 ) printruns
-left join machine ma
-on printruns.ma_id = ma.ma_id
 left join (
 	select 
-		wohi.wo_id,
-		njb.wo_updatedby
-	from wohistory wohi, 
-	jsonb_to_record(wohi_newjsonb) as njb (
-		wo_status int,
-		wo_updatedby text
-	),
-	jsonb_to_record(wohi_prevjsonb) as pjb (
-		wo_status int,
-		wo_updatedby text
-	),(
-		select 
-			distinct(wo_id)
-		from wohistory, jsonb_to_record(wohi_newjsonb) as njb (
-			wo_status int
-		)
-		where wohi_newjsonb ? 'wo_deliverydate'
-		group by wo_id
-		order by wo_id desc
-	) delivered
-	where 
-	pjb.wo_status = 3 and
-	njb.wo_status in (5,7) and
-	delivered.wo_id = wohi.wo_id
+		wo_id,
+		wo_updatedby
+	from ( 
+		select wohi.wo_id, njb.wo_updatedby, wohi_date, 
+			rank() over (partition by wo_id order by wohi_date desc) dest_rank
+			from wohistory wohi, 
+			jsonb_to_record(wohi_newjsonb) as njb (
+				wo_status int,
+				wo_updatedby text
+			),
+			jsonb_to_record(wohi_prevjsonb) as pjb (
+				wo_status int
+			)
+			where (wohi_prevjsonb->>'wo_status')::int = 3 
+			and (wohi_newjsonb->>'wo_status')::int in (5,7)
+		) ranked where dest_rank = 1
 ) wohi
 on printruns.wo_id = wohi.wo_id
 where printruns.wo_deliverydate between $1 and $2
