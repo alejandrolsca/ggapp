@@ -88,7 +88,8 @@ const webhookUrls = {
     production: process.env.TEAMS_WEBHOOK_PRODUCTION,
     quality_assurance: process.env.TEAMS_WEBHOOK_QUALITYASSURANCE,
     warehouse: process.env.TEAMS_WEBHOOK_WAREHOUSE,
-    testing: process.env.TEAMS_WEBHOOK_TESTING,
+    logistics: process.env.TEAMS_WEBHOOK_LOGISTICS,
+    testing: process.env.TEAMS_WEBHOOK_TESTING
 }
 
 const problemStatuses = [4, 6, 9, 15, 16]
