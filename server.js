@@ -44,12 +44,13 @@ if (cluster.isMaster) {
     //SETUP CRON JOBS
 
     cron.schedule('0 7 * * *', () => {
-        console.log('Running a job at 07:00 at America/Chihuahua timezone');
+        console.log('Running a job at %s at America/Chihuahua timezone', new Date().toLocaleString('es-MX', { timeZone: 'America/Chihuahua' }));
         teamsDelayedOrdersMsg()
     }, {
         scheduled: true,
         timezone: "America/Chihuahua"
     });
+
 } else {
     // CREATE REQUIRED FOLDERS
     const uploadsFolder = path.join(__dirname, 'uploads')
@@ -1828,6 +1829,27 @@ if (cluster.isMaster) {
 
                 // execute query
                 const query = file('machinesproductivity/machinesproductivity')
+                const parameters = [req.body.fromDate, req.body.toDate]
+                const { rows } = await client.query(query, parameters)
+                res.send(")]}',\n".concat(JSON.stringify(rows)));
+            } catch (e) {
+                console.log(e)
+                return res.status(500).send(JSON.stringify(e.stack, null, 4));
+            } finally {
+                client.release()
+            }
+        })().catch(e => console.error(e.stack))
+    });
+
+    app.post('/api/finishescount', function (req, res, next) {
+        (async () => {
+            // note: we don't try/catch this because if connecting throws an exception
+            // we don't need to dispose of the client (it will be undefined)
+            const client = await pool.connect()
+            try {
+
+                // execute query
+                const query = file('finishescount/finishescount')
                 const parameters = [req.body.fromDate, req.body.toDate]
                 const { rows } = await client.query(query, parameters)
                 res.send(")]}',\n".concat(JSON.stringify(rows)));

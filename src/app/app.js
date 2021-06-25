@@ -41,6 +41,7 @@ module.exports = (function (angular) {
       require("./material-count").name,
       require("./cardinal-art").name,
       require("./machines-productivity").name,
+      require("./finishes-count").name,
       require("./app.constants").name
     ])
 
