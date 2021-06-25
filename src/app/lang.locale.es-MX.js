@@ -247,7 +247,11 @@ module.exports = {
     ****************************************/
     "cardinal-art": require('./cardinal-art/lang.es-MX'),
     /****************************************
-    CARDINAL
+    MACHINES PRODUCTIVITY
     ****************************************/
-    "machines-productivity": require('./machines-productivity/lang.es-MX')
+    "machines-productivity": require('./machines-productivity/lang.es-MX'),
+    /****************************************
+    FINISHES COUNT
+    ****************************************/
+    "finishes-count": require('./finishes-count/lang.es-MX')
 }

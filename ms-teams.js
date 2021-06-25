@@ -3,6 +3,7 @@ const { Pool, types } = require('pg');
 const fs = require('fs');
 const statuses = require('./src/app/workflow/lang.es-MX').fields.wo_statusoptions;
 const { stringify } = require('querystring');
+const isDevelopment = (process.env['NODE_ENV'] !== 'production') ? true : false;
 
 //SETUP POSTGRESQL
 const pool = new Pool({
@@ -88,8 +89,14 @@ const webhookUrls = {
     production: process.env.TEAMS_WEBHOOK_PRODUCTION,
     quality_assurance: process.env.TEAMS_WEBHOOK_QUALITYASSURANCE,
     warehouse: process.env.TEAMS_WEBHOOK_WAREHOUSE,
-    logistics: process.env.TEAMS_WEBHOOK_LOGISTICS,
-    testing: process.env.TEAMS_WEBHOOK_TESTING
+    logistics: process.env.TEAMS_WEBHOOK_LOGISTICS
+}
+
+// Redirect all teams notifications to the development channel
+if (isDevelopment) {
+    Object.keys(webhookUrls).forEach((key) => {
+        webhookUrls[key] = process.env.TEAMS_WEBHOOK_TESTING
+    })
 }
 
 const problemStatuses = [4, 6, 9, 15, 16]
@@ -152,7 +159,7 @@ exports.teamsWOCRUDMsg = async (title, woData) => {
         },
         {
             "type": "TextBlock",
-            "text": `[Ver (localmente)](http://192.168.100.2:3000/wo/view/${cl_id}/${wo_id}) | [Ver (ggapp.dyndns.org)](http://ggapp.dyndns.org/wo/view/${cl_id}/${wo_id})`
+            "text": `[Ver (local)](http://192.168.100.2:3000/wo/view/${cl_id}/${wo_id}) | [Ver (ggapp.dyndns.org)](http://ggapp.dyndns.org/wo/view/${cl_id}/${wo_id})`
         }]
     }
 
@@ -204,7 +211,7 @@ exports.teamsWOStatusChangeMsg = async (woData) => {
                             "text": details
                         }, {
                             "type": "TextBlock",
-                            "text": `[Abrir workflow (localmente)](http://192.168.100.2:3000/workflow) | [Abrir workflow (ggapp.dyndns.org)](http://ggapp.dyndns.org/workflow)`
+                            "text": `[Workflow (local)](http://192.168.100.2:3000/workflow) | [Workflow (ggapp.dyndns.org)](http://ggapp.dyndns.org/workflow)`
                         }
                     ]
                 }
@@ -232,7 +239,6 @@ exports.teamsDelayedOrdersMsg = async () => {
         const rowsByClient = groupByKey(rows, 'cl_corporatename')
         const clients = Object.keys(rowsByClient)
         const details = clients.map((client) => {
-            console.log(rowsByClient[client])
             const clientRows = rowsByClient[client]
             const rowsDetails = clientRows.map((row) => {
                 return [
@@ -265,7 +271,7 @@ exports.teamsDelayedOrdersMsg = async () => {
                                 "text": details.join('\n\n')
                             }, {
                                 "type": "TextBlock",
-                                "text": `[Abrir reporte semaforo (localmente)](http://192.168.100.2:3000/tlr-all/) | [Abrir reporte semaforo (ggapp.dyndns.org)](http://ggapp.dyndns.org/tlr-all/)`
+                                "text": `[Reporte semaforo (local)](http://192.168.100.2:3000/tlr-all/) | [Reporte semaforo (ggapp.dyndns.org)](http://ggapp.dyndns.org/tlr-all/)`
                             }
                         ]
                     }
